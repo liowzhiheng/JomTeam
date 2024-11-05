@@ -1,0 +1,107 @@
+.login-button-wrapper {
+    width: 101px;
+    height: 64px;
+    left: 442px;
+    top: 755px;
+    position: absolute;
+}
+
+.login-button-container {
+    width: 65px;
+    height: 38px;
+    left: 22px;
+    top: 23px;
+    position: absolute;
+    color: white;
+    font-size: 18px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    word-wrap: break-word;
+}
+
+.login-button {
+    width: 200px;
+    height: 60px;
+    font-size: 18px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.form-container {
+    width: 491px;
+    height: 127.8px;
+    left: 442px;
+    top: 569px;
+    position: absolute;
+}
+
+.input-field {
+    height: 54.15px;
+    width: 491px;
+    position: absolute;
+    background: white;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding-left: 10px;
+}
+
+.email-field {
+    top: 10.15px;
+}
+
+.password-field {
+    top: 77.8px;
+}
+
+/* Navbar */
+.navbar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    background: white;
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.10);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-menu, .navbar-user {
+    display: flex;
+    gap: 90px;
+    align-items: center;
+}
+
+.navbar-item {
+    color: black;
+    font-size: 20px;
+    font-family: PT Sans;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.navbar-item.logo {
+    color: #EB1436;
+    font-size: 30px;
+    font-family: Raleway;
+    font-style: italic;
+    font-weight: 700;
+}
+
+.navbar-item.logout {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.navbar-item.logout img {
+    width: 300px;
+    height: 30px;
+    border-radius: 50%;
+}
