@@ -2,39 +2,41 @@
 
 <head>
     <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="main.css">
 </head>
 
 <body>
-
-    <div style="width: 100%; height: 100%; position: relative; background: white">
-
+        <!-- background-->
         <div
             style="width: 100%; height: 100%; left: 0px; top: 0px; position: absolute; background: linear-gradient(63deg, rgba(82, 82, 212, 0.86) 28%, #B7DFFD 100%)">
         </div>
-        <div
-            style="width: 1326px; height: 818px; left: 292px; top: 160px; position: absolute; background: rgba(255, 255, 255, 0.90); box-shadow: 17px 33px 14.399999618530273px 15px rgba(0, 0, 0, 0.25); border-radius: 75px">
+        <!--end background-->
+    <div style="width: 100%; height: 100%; position: relative; background: white">
+<!-- background-->
+<div
+            style="width: 100%; height: 100%; left: 0px; top: 0px; position: absolute; background: linear-gradient(63deg, rgba(82, 82, 212, 0.86) 28%, #B7DFFD 100%)">
         </div>
-        <div
-            style="width: 437px; height: 47px; padding: 10px; left: 442px; top: 697px; position: absolute; justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex">
-            <div><span
-                    style="color: #131313; font-size: 14px; font-family: Poppins; font-weight: 500; word-wrap: break-word">Not
-                    registered yet?</span><span
-                    style="color: #101540; font-size: 14px; font-family: Poppins; font-weight: 500; word-wrap: break-word">
-                </span><span
-                    style="color: #EB1436; font-size: 14px; font-family: Poppins; font-weight: 500; word-wrap: break-word">Create
-                    a new account</span></div>
+        <!--end background-->
+
+        <div class="main-container"></div>
+
+        <div class="register-prompt">
+            <span class="text">Not registered yet?</span>
+            <span class="text highlight">Create a new account</span>
         </div>
-        <div
-            style="width: 496px; height: 124px; left: 439px; top: 420px; position: absolute; color: black; font-size: 20px; font-family: Outfit; font-weight: 400; line-height: 25px; word-wrap: break-word">
-            Find Your Match <br />Discover teammates <br /> <br />Let's turn every game into a winning experience!
-            <br />⚽🏀🏈
+
+        <div class="match-details">
+            Find Your Match <br>
+            Discover teammates <br><br>
+            Let's turn every game into a winning experience!<br>⚽🏀🏈
         </div>
-        <div
-            style="left: 428px; top: 296px; position: absolute; color: #EB1436; font-size: 96px; font-family: Raleway; font-weight: 700; word-wrap: break-word">
-            Welcome</div>
-        <img style="width: 587px; height: 551px; left: 969px; top: 289px; position: absolute"
-            src="https://via.placeholder.com/587x551" />
+
+        <div class="welcome-text">Welcome</div>
+
+        <img class="placeholder-image" src="https://via.placeholder.com/587x551" alt="Placeholder Image">
+
 
         <!-- start fill-->
         <form method="post" action="check_login.php">
@@ -108,7 +110,7 @@
             <div class="navbar-menu">
                 <span class="navbar-item logo">S</span>
                 <span class="navbar-item" style="color: #FF0000;">Home</span>
-                <span class="navbar-item">   Find Match</span>
+                <span class="navbar-item"> Find Match</span>
                 <span class="navbar-item">Create Match</span>
                 <span class="navbar-item">Profile</span>
                 <span class="navbar-item">Premium</span>
