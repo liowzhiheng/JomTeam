@@ -3,28 +3,28 @@ session_start(); // Start up your PHP Session
 
 require('config.php'); // Include the database configuration file
 
-// username and password sent from form
-$myusername = $_POST["username"];
+// email and password sent from form
+$myemail = $_POST["email"];
 $mypassword = $_POST["password"];
 
 // Sanitize user inputs to prevent SQL injection
-$myusername = mysqli_real_escape_string($conn, $myusername);
+$myemail = mysqli_real_escape_string($conn, $myemail);
 $mypassword = mysqli_real_escape_string($conn, $mypassword);
 
-$sql = "SELECT * FROM user WHERE username='$myusername' AND password='$mypassword'";
+$sql = "SELECT * FROM user WHERE email='$myemail' AND password='$mypassword'";
 
 $result = mysqli_query($conn, $sql);
 
 $rows = mysqli_fetch_assoc($result);
 
-$user_name = $rows["username"];
+$user_name = $rows["email"];
 $user_id = $rows["id"];  // Assuming `id` is the unique identifier in the `user` table
 $user_level = $rows["level"];
 
 // mysqli_num_rows is counting table rows
 $count = mysqli_num_rows($result);
 
-// If result matched $myusername and $mypassword, table row must be 1 row
+// If result matched $myemail and $mypassword, table row must be 1 row
 if ($count == 1) {
 
     // Add user information to the session (global session variables)        
@@ -53,16 +53,16 @@ if ($count == 1) {
            
             <div>
                 <a href="main.php" class="button">Enter site</a>
-                <a href="index.php" class="button">Back to login page</a>
+                <a href="login.php" class="button">Back to login page</a>
             </div>
         </div>
     </body>
     </html>';
 
-    // If wrong username and password
+    // If wrong email and password
 } else {
     $_SESSION["Login"] = "NO";
-    header("Location: index.php");
+    header("Location: login.php");
 }
 
 mysqli_close($conn);
