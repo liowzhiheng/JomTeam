@@ -8,12 +8,12 @@ if ($_SESSION["Login"] != "YES")
 if ($_SESSION["LEVEL"] == 1) {
   require("config.php");
 
-  $username = $_POST["username"];
+  $email = $_POST["email"];
   $password = $_POST["password"];
   $level = $_POST["level"];
 
   // Insert the new user into the database
-  $sql = "INSERT INTO user (username, password, level) VALUES ('$username', '$password', '$level')";
+  $sql = "INSERT INTO user (email, password, level) VALUES ('$email', '$password', '$level')";
 
   if (mysqli_query($conn, $sql)) {
     echo
