@@ -9,7 +9,6 @@
 </head>
 
 <body>
-
     <nav class="navbar">
         <a href="#" class="logo">
             <img src="IMAGE/S.png" alt="Logo">
@@ -19,7 +18,7 @@
             <li><a href="#home">Home</a></li>
             <li><a href="#find-match">Find Match</a></li>
             <li><a href="#create-match">Create Match</a></li>
-            <li><a href="#profile">Profile</a></li>
+            <li><a href="view_profile.php">Profile</a></li>
             <li><a href="#premium">Premium</a></li>
         </ul>
         <ul class="menu rightmenu">
@@ -28,7 +27,6 @@
             <li class="logout"><a href="login.php">Log out<img src="IMAGE/LOGOUT.png" alt="Logout"></a></li>
         </ul>
     </nav>
-
 </body>
 
 </html>

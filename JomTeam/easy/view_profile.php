@@ -3,7 +3,7 @@ session_start(); // Start up your PHP Session
 
 // Check if the user is logged in
 if ($_SESSION["Login"] != "YES") {
-    header("Location: index.php");
+    header("Location: login.php");
     exit();
 }
 
@@ -35,60 +35,83 @@ if (mysqli_num_rows($result) > 0) {
     ];
 }
 mysqli_close($conn);
-
-echo "<h2 class = welcome><b>Welcome " . $_SESSION["USER"] . "</b></h2> ";
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Viewing Profile</title>
-    <link rel="stylesheet" href="profile.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="view_profile.css">
 </head>
 
 <body>
-    <br>
-    <div class="wrapper">
-        <div class="container">
-            <h1>Profile Settings</h1>
-            <form method="post" action="update_profile.php">
-                <div class="content">
-                    <div class="personal_info">
-                        <div class="input-box">
-                            <span class="details">Full Name</span>
-                            <input name="name" type="text" id="name" size="30" value="<?php echo ($rows['name']); ?>">
-                        </div>
-                        <div class="input-box">
-                            <span class="details">IC No.</span>
-                            <input name="ic" type="text" id="ic" size="30" value="<?php echo ($rows['ic']); ?>">
-                        </div>
-                        <div class="input-box">
-                            <span class="details">Gender</span>
-                            <input name="gender" type="text" id="gender" size="30" value="<?php echo ($rows['gender']); ?>">
-                        </div>
-                        <div class="input-box">
-                            <span class="details">Matric No.</span>
-                            <input name="matric" type="text" id="matric" size="30" value="<?php echo ($rows['matric']); ?>">
-                        </div>
-                        <div class="input-box">
-                            <span class="details">Phone Number</span>
-                            <input name="phone" type="text" id="phone" size="30" value="<?php echo ($rows['phone']); ?>">
-                        </div>
-                        <div class="input-box">
-                            <span class="details">Email</span>
-                            <input name="email" type="text" id="email" size="30" value="<?php echo htmlspecialchars($rows['email']); ?>">
-                        </div>
-                    </div>
-                    <div>
-                        <input type="submit" class=button value="Update">
-                    </div>
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <img src="IMAGE/S.png" alt="Logo">
+        </a>
+        <ul class="menu leftmenu">
+            <li><a href="main.php">Home</a></li>
+            <li><a href="#find-match">Find Match</a></li>
+            <li><a href="#create-match">Create Match</a></li>
+            <li><a href="view_profile.php">Profile</a></li>
+            <li><a href="#premium">Premium</a></li>
+        </ul>
+        <ul class="menu rightmenu">
+            <li class="notification"><a href="#notification"><img src="IMAGE/NOTIFICATION.png" alt="Notification"></a>
+            </li>
+            <li class="logout"><a href="login.php">Log out<img src="IMAGE/LOGOUT.png" alt="Logout"></a></li>
+        </ul>
+    </nav>
+
+    <div class="profile-content">
+        <h1 class="profile-title">Profile</h1>
+        <p class="profile-description">
+            Let people know more about you! Share your passions, interests, and achievements.
+            Whether it’s your love for sports, your favorite hobbies, or your proudest moments,
+            let your profile tell your unique story. Join our community and start making meaningful
+            connections today!
+        </p>
+        <div class="profile-container">
+            <div class="profile-left">
+                <img src="IMAGE/ZH.png" alt="Profile Picture" class="profile-pic">
+                <p class="profile-name"><b>Liow Zhi Heng</b></p>
+            </div>
+
+            <div class="profile-right">
+                <div class="group">
+                    <label for="gender">Gender:</label>
+                    <input type="text" id="gender" name="gender" placeholder="Enter your gender">
                 </div>
-            </form>
+
+                <div class="group">
+                    <label for="age">Age:</label>
+                    <input type="text" id="age" name="age" placeholder="Enter your age">
+                </div>
+
+                <div class="group">
+                    <label for="status">Status:</label>
+                    <input type="text" id="status" name="status" placeholder="Enter your status">
+                </div>
+
+                <div class="group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="text" id="phone" name="phone" placeholder="Enter your phone number">
+                </div>
+
+                <div class="group">
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" placeholder="Describe yourself..."></textarea>
+                </div>
+
+                <div class="button-container">
+                    <button class="button">O</button>
+                </div>
+            </div>
         </div>
     </div>
-
-    <a href='main.php' class="button">Return Main Page</a>
 </body>
 
 </html>
