@@ -23,10 +23,21 @@ if (isset($_SESSION['message'])) {
 <body>
 
     <h2>Manage Users</h2>
+    <form action="" method="GET" class="search-form">
+        <input type="text" name="search" placeholder="Search by username"
+            value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+        <input type="submit" value="Search">
+    </form>
 
     <?php
+    $search = isset($_GET['search']) ? $_GET['search'] : '';
     // Fetch all users from the database
     $sql = "SELECT * FROM user";
+    if (!empty($search)) {
+        // Escape the search string to prevent SQL injection
+        $search = $conn->real_escape_string($search);
+        $sql .= " WHERE email LIKE '%$search%'";
+    }
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
