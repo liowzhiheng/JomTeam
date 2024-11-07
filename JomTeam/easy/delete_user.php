@@ -1,27 +1,34 @@
 <?php
-session_start(); // Start up your PHP Session
+session_start();
 
-require("config.php"); // Include the database configuration file
+require("config.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = $_POST['id'];
 
-    // Delete user by id
-    $sql = "DELETE FROM user WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $id);
+    $deleteProfileSql = "DELETE FROM profile WHERE user_id = ?";
+    $profileStmt = $conn->prepare($deleteProfileSql);
+    $profileStmt->bind_param("i", $id);
+    if ($profileStmt->execute()) {
+        $deleteUserSql = "DELETE FROM user WHERE id = ?";
+        $userStmt = $conn->prepare($deleteUserSql);
+        $userStmt->bind_param("i", $id);
 
-    if ($stmt->execute()) {
-        $_SESSION['message'] = "User removed successfully!";
+        if ($userStmt->execute()) {
+            $_SESSION['message'] = "User and related profile removed successfully!";
+        } else {
+            $_SESSION['message'] = "Error deleting user: " . $userStmt->error;
+        }
+
+        $userStmt->close();
     } else {
-        $_SESSION['message'] = "Error: " . $stmt->error;
+        $_SESSION['message'] = "Error deleting profile: " . $profileStmt->error;
     }
 
-    $stmt->close();
+    $profileStmt->close();
 }
 
 $conn->close();
 
-// Redirect back to the view users page without any prior output
 header("Location: view_user.php");
 exit();
