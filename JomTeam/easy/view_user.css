@@ -103,3 +103,7 @@ form.search-form input[type="submit"]:hover {
     margin-bottom: 15px;
     display: block;
 }
+
+.p{
+    text-align: center;
+}

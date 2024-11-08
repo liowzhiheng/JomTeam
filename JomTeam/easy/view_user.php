@@ -75,7 +75,7 @@ if (isset($_SESSION['message'])) {
         echo "</table>";
         echo "</div>";
     } else {
-        echo "<p>No users found.</p>";
+        echo "<p class='p'>No users found.</p>";
     }
 
     $conn->close();
