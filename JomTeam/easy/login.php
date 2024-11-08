@@ -27,14 +27,14 @@
                 </div>
                 <div>
                     <p class="register">
-                    Not registered yet? <a href="" class="register">Create a new account</a>
+                    Not registered yet? <a href="register.php" class="register">Create a new account</a>
                     </p>
                 </div>
 				<p><input type="submit" value="Login" class="button"/></p>
             </form>
         </div>
         <div class="picture_box">
-            <img src=https://img.dowebok.com/2922.png class="picture">
+            <img src=badminton.png class="picture">
         </div>
 
     </div>
