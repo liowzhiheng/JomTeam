@@ -12,11 +12,12 @@ $level = "3";
 $myemail = mysqli_real_escape_string($conn, $myemail);
 $mypassword = mysqli_real_escape_string($conn, $mypassword);
 
-$sql = "SELECT * FROM user WHERE email='$myemail' AND password='$mypassword'";
+$sql = "SELECT * FROM user WHERE email='$myemail'";
 
 $result = mysqli_query($conn, $sql);
 
 $rows = mysqli_fetch_assoc($result);
+
 
 // mysqli_num_rows is counting table rows
 $count = mysqli_num_rows($result);
@@ -40,9 +41,12 @@ function check_password($password)
 }
 
 if (check_password($mypassword) && $count != 1) {
-  $sql = "INSERT INTO user (email, password, level) VALUES ('$myemail', '$mypassword', '$level')";
+  $sql2 = "INSERT INTO user (email, password, level) VALUES ('$myemail', '$mypassword', '$level')";
+}
+if (mysqli_query($conn, $sql2)) {
   echo 'Succesful !!!!!!!!!!!!';
-  '<html>
+  echo
+    '<html>
       <head>
         <link rel="stylesheet" href="message.css">
       </head>
@@ -53,8 +57,10 @@ if (check_password($mypassword) && $count != 1) {
       </body>
       </html>';
 
+
 } else {
-  header("Location: register.php");
+  echo
+    header("Location: register.php");
 }
 
 
