@@ -12,7 +12,7 @@
 <body>
     <nav class="navbar">
         <a href="#" class="logo">
-            <img src="IMAGE/S.png" alt="Logo">
+            <img src="IMAGE/jomteam.jpg" alt="Logo">
         </a>
 
         <ul class="menu leftmenu">
@@ -45,13 +45,14 @@
     <!-- Find Match Section -->
     <section class="find-match">
         <h2>Find Match</h2>
-        <p>Finding the perfect match in sports can be a game-changer. It’s all about connecting with individuals who share your passion for the game and have the same dedication and drive.</p>
+        <p>Finding the perfect match in sports can be a game-changer. It’s all about connecting with individuals who
+            share your passion for the game and have the same dedication and drive.</p>
     </section>
 
     <!-- Grid of Images Section -->
     <section class="grid-section">
         <div class="grid-container">
-            <?php for($i = 0; $i < 9; $i++): ?>
+            <?php for ($i = 0; $i < 9; $i++): ?>
                 <div class="grid-item">
                     <img src="IMAGE/court.jpg" alt="Indoor Court">
                 </div>
@@ -62,4 +63,4 @@
 
 </body>
 
-</html> 
+</html>
