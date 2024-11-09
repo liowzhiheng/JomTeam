@@ -17,7 +17,7 @@ if ($_SESSION["LEVEL"] == 1) {
 
   if (mysqli_query($conn, $sql)) {
     echo
-    '<html>
+      '<html>
     <head>
       <link rel="stylesheet" href="message.css">
     </head>
@@ -29,7 +29,7 @@ if ($_SESSION["LEVEL"] == 1) {
     </html>';
   } else {
     echo
-    '<html>
+      '<html>
     <head>
       <link rel="stylesheet" href="styles_message.css">
     </head>

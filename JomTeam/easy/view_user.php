@@ -2,12 +2,6 @@
 session_start(); // Start up your PHP Session
 
 require("config.php"); // Include the database configuration file
-
-// Display session message if it exists
-if (isset($_SESSION['message'])) {
-    echo "<p id='message' class='success-message'>" . $_SESSION['message'] . "</p>";
-    unset($_SESSION['message']); // Clear the message after displaying it
-}
 ?>
 
 <!DOCTYPE html>
@@ -21,6 +15,32 @@ if (isset($_SESSION['message'])) {
 </head>
 
 <body>
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <img src="IMAGE/jomteam.png" alt="Logo">
+        </a>
+
+        <ul class="menu leftmenu">
+            <li><a href="#user">Manage User</a></li>
+            <li><a href="#content">Manage Content</a></li>
+            <li><a href="#event">Manage Event</a></li>
+            <li><a href="#feedback">Feedback & Report</a></li>
+        </ul>
+
+        <ul class="menu rightmenu">
+            <li class="notification"><a href="#notification"><img src="IMAGE/NOTIFICATION.png" alt="Notification"></a>
+            </li>
+            <li class="logout"><a href="login.php">Log out<img src="IMAGE/LOGOUT.png" alt="Logout"></a></li>
+        </ul>
+    </nav>
+    
+    <?php
+    // Display session message if it exists
+    if (isset($_SESSION['message'])) {
+        echo "<p id='message' class='success-message'>" . $_SESSION['message'] . "</p>";
+        unset($_SESSION['message']); // Clear the message after displaying it
+    }
+    ?>
 
     <h2>Manage Users</h2>
     <form action="" method="GET" class="search-form">

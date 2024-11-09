@@ -48,16 +48,20 @@ if ($count == 1) {
     </head>
     <body>
         <div class="container">
-            <h2>You are now logged in as <strong>' . htmlspecialchars($_SESSION["USER"]) . '</strong> <br>
-            <h2>with access level <strong>' . htmlspecialchars($_SESSION["LEVEL"]) . '</strong></h2>
-           
-            <div>
-                <a href="main.php" class="button">Enter site</a>
-                <a href="login.php" class="button">Back to login page</a>
-            </div>
+            <h2>You are now logged in as <strong>' . htmlspecialchars($_SESSION["USER"]) . '</strong></h2>
+            <h2>With access level <strong>' . htmlspecialchars($_SESSION["LEVEL"]) . '</strong></h2>';
+
+    if ($_SESSION["LEVEL"] == 1) {
+        echo '<a href="view_user.php" class="button">Enter site</a>';
+    } else {
+        echo '<a href="main.php" class="button">Enter site</a>';
+    }
+
+    echo '<br><a href="login.php" class="button">Back to login page</a>
         </div>
     </body>
-    </html>';
+</html>';
+
 
     // If wrong email and password
 } else {

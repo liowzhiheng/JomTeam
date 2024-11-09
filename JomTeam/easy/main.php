@@ -1,3 +1,9 @@
+<?php
+session_start();
+
+$user_level = $_SESSION['LEVEL'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
