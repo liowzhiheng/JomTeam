@@ -1,8 +1,10 @@
 body {
     background-color: #5252D4;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
-/*Menu Bar */
 * {
     margin: 0;
     padding: 0;
@@ -14,13 +16,14 @@ body {
     background-color: #ffffff;
     display: flex;
     align-items: center;
-    padding: 20px 50px;
+    padding: 10px 50px;
     color: rgb(0, 0, 0);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .navbar .logo img {
-    height: 20px;
+    margin-top: 10px;
+    height: 40px;
     width: auto;
 }
 
@@ -107,8 +110,45 @@ body {
 }
 
 .profile-name {
+    display: block;
     font-size: 30px;
     color: #ffffff;
+}
+
+#nameInput {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+#nameDisplay {
+    font-weight: bold;
+}
+
+.profile-name input {
+    font-size: 30px;
+    padding: 5px;
+    width: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: none;
+    color: #000;
+    background-color: #fff;
+}
+
+.profile-name .edit img {
+    width: 25px;
+    height: 25px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.profile-name .edit img:hover {
+    transform: scale(1.1);
 }
 
 .profile-right {
@@ -164,4 +204,14 @@ body {
 
 .button:hover {
     background-color: #bababa;
+}
+
+#message {
+    display: none;
+    text-align: center;
+    color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-size: 16px;
 }

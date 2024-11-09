@@ -18,11 +18,12 @@ if (mysqli_query($conn, $sqlUser)) {
 $sqlProfile = "CREATE TABLE profile (
     user_id INT(6) UNSIGNED PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    ic VARCHAR(20) NOT NULL,
-    gender VARCHAR(10) NOT NULL,
-    matric VARCHAR(20) NOT NULL,
-    phone VARCHAR(20) NOT NULL,
-    email VARCHAR(255) NOT NULL,
+    gender VARCHAR(50),
+    age INT,
+    status VARCHAR(255),
+    phone VARCHAR(15),
+    description TEXT,
+    profile_image VARCHAR(255),
     FOREIGN KEY (user_id) REFERENCES user(id)
 )";
 
