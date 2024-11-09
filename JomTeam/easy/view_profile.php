@@ -50,7 +50,7 @@ mysqli_close($conn);
 <body>
     <nav class="navbar">
         <a href="#" class="logo">
-            <img src="IMAGE/jomteam.jpg" alt="Logo">
+            <img src="IMAGE/jomteam.png" alt="Logo">
         </a>
         <ul class="menu leftmenu">
             <li><a href="main.php">Home</a></li>
