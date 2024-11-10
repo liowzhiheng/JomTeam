@@ -33,7 +33,7 @@ require("config.php"); // Include the database configuration file
             <li class="logout"><a href="login.php">Log out<img src="IMAGE/LOGOUT.png" alt="Logout"></a></li>
         </ul>
     </nav>
-    
+
     <?php
     // Display session message if it exists
     if (isset($_SESSION['message'])) {
@@ -64,7 +64,7 @@ require("config.php"); // Include the database configuration file
         echo "<div class='table-container'>";
         echo "<table class='user-table'>";
         echo "<tr>
-            <th>ID</th>
+            <th>No</th>
             <th>Username</th>
             <th>Role</th>
             <th>Phone</th>
@@ -74,21 +74,30 @@ require("config.php"); // Include the database configuration file
             <th>Action</th>
           </tr>";
 
+        // Initialize counter for sequential numbering
+        $counter = 1;
+
         // Output data of each row (dynamic part)
         while ($row = $result->fetch_assoc()) {
             echo "<tr>";
-            echo "<td>" . htmlspecialchars($row["id"]) . "</td>";
+            echo "<td>" . $counter++ . "</td>"; // Sequential numbering
             echo "<td>" . htmlspecialchars($row["email"]) . "</td>";
-            echo "<td>" . htmlspecialchars($row["password"]) . "</td>";
-            echo "<td>" . htmlspecialchars($row["email"]) . "</td>";
-            echo "<td>" . htmlspecialchars($row["password"]) . "</td>";
-            echo "<td>" . htmlspecialchars($row["email"]) . "</td>";
-            echo "<td>" . htmlspecialchars($row["password"]) . "</td>";
+            $role = ($row['level'] == 1) ? 'admin' : 'user';
+            echo "<td>" . htmlspecialchars($role) . "</td>";
+            echo "<td>NULL</td>"; // Phone
+            echo "<td>NULL</td>"; // Email
+            echo "<td>NULL</td>"; // Creation Time
+            echo "<td>NULL</td>"; // Premium
             echo "<td>";
-            echo "<form action='delete_user.php' method='POST' class='remove-form'>";
-            echo "<input type='hidden' name='id' value='" . htmlspecialchars($row["id"]) . "'>";
-            echo "<input type='submit' value='Remove' class='remove-button' onclick='return confirm(\"Are you sure you want to delete this user?\")'>";
-            echo "</form>";
+
+            // Show "Remove" button only if the user's level is not 1
+            if ($row['level'] != 1) {
+                echo "<form action='delete_user.php' method='POST' class='remove-form'>";
+                echo "<input type='hidden' name='id' value='" . htmlspecialchars($row["id"]) . "'>";
+                echo "<input type='submit' value='Remove' class='remove-button' onclick='return confirm(\"Are you sure you want to delete this user?\")'>";
+                echo "</form>";
+            }
+
             echo "</td>";
             echo "</tr>";
         }
