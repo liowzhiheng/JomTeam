@@ -51,28 +51,32 @@ require("config.php"); // Include the database configuration file
 
     <?php
     $search = isset($_GET['search']) ? $_GET['search'] : '';
-    // Fetch all users from the database
-    $sql = "SELECT * FROM user";
+
+    // Fetch all users with phone data from the profile table
+    $sql = "SELECT user.*, profile.phone FROM user 
+        LEFT JOIN profile ON user.id = profile.user_id";
+
     if (!empty($search)) {
         // Escape the search string to prevent SQL injection
         $search = $conn->real_escape_string($search);
-        $sql .= " WHERE email LIKE '%$search%'";
+        $sql .= " WHERE user.email LIKE '%$search%'";
     }
+
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
         echo "<div class='table-container'>";
         echo "<table class='user-table'>";
         echo "<tr>
-            <th>No</th>
-            <th>Username</th>
-            <th>Role</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th>Creation Time</th>
-            <th>Premium</th>
-            <th>Action</th>
-          </tr>";
+        <th>No</th>
+        <th>Username</th>
+        <th>Role</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Creation Time</th>
+        <th>Premium</th>
+        <th>Action</th>
+      </tr>";
 
         // Initialize counter for sequential numbering
         $counter = 1;
@@ -84,8 +88,8 @@ require("config.php"); // Include the database configuration file
             echo "<td>" . htmlspecialchars($row["email"]) . "</td>";
             $role = ($row['level'] == 1) ? 'admin' : 'user';
             echo "<td>" . htmlspecialchars($role) . "</td>";
-            echo "<td>NULL</td>"; // Phone
-            echo "<td>NULL</td>"; // Email
+            echo "<td>" . htmlspecialchars($row["phone"] ?? 'NULL') . "</td>";
+            echo "<td>NULL</td>";
             echo "<td>NULL</td>"; // Creation Time
             echo "<td>NULL</td>"; // Premium
             echo "<td>";
@@ -106,7 +110,6 @@ require("config.php"); // Include the database configuration file
     } else {
         echo "<p class='p'>No users found.</p>";
     }
-
     $conn->close();
     ?>
 
