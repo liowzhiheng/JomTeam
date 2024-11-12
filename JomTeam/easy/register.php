@@ -28,7 +28,7 @@
             </form>
         </div>
         <div class="picture_box">
-            <img src="IMAGE/player.png" class="picture">
+            <img src="IMAGE/player_2.png" class="picture">
         </div>
 
     </div>
