@@ -72,8 +72,11 @@ body {
 }
 
 .profile-title {
+    margin-top:5%;
+    margin-bottom:5%;
     font-size: 50px;
     color: #ffffff;
+
 }
 
 .profile-description {

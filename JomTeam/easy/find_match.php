@@ -21,7 +21,7 @@
         <ul class="menu leftmenu">
             <li><a href="main.php">Home</a></li>
             <li><a href="find_match.php">Find Match</a></li>
-            <li><a href="#create-match">Create Match</a></li>
+            <li><a href="create_match.php">Create Match</a></li>
             <li><a href="view_profile.php">Profile</a></li>
             <li><a href="#premium">Premium</a></li>
         </ul>
