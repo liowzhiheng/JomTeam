@@ -66,23 +66,27 @@ body {
 }
 
 .banner-image {
-    max-width: 100%;
-    /* Makes image responsive */
-    height: auto;
-    /* Maintains aspect ratio */
+    width: 80%;
+    height: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.banner-image img {
+
+    width: 150%;
+    height: 90%;
+    margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.banner-image img {
 
-    max-width: 800px;
-    /* Sets a specific maximum width */
-    object-fit: cover;
-    object-position: center;
-    margin-bottom: 3%;
-}
 
 .banner-content {
     padding: 10px 20px;
@@ -174,4 +178,93 @@ body {
     margin-top: 30px;
     width: 100%;
     clear: both;
+}
+
+/* Create your own match */
+.create_your_own_match {
+    width: 100%;
+    height: 800px;
+    background: linear-gradient(63deg, #5252D4 13%, #5252D4 100%);
+    margin-top: 10%;
+    padding-top: 5%;
+    padding-bottom: 10%;
+
+}
+
+.create_your_own_match_title {
+    text-align: center;
+    color: white;
+    font-size: 500%;
+    font-family: 'Raleway', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-weight: 700;
+    word-wrap: break-word;
+
+}
+
+.create-match-content {
+    margin-top: 3%;
+    text-align: center;
+    color: white;
+    font-size: 150%;
+    font-family: 'Raleway', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-weight: 400;
+    word-wrap: break-word
+}
+
+.picture_box {
+    width: 80%;
+    height: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.picture {
+    width: 45%;
+    height: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.find_match {
+    text-align: center;
+    color: #241D1F;
+    font-size: 500%;
+    font-family: 'Raleway'-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-weight: 700;
+    word-wrap: break-word;
+    margin-top: 10%;
+}
+
+.find_match_content
+{
+    margin-top: 1%;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    font-size: 30%;
+    font-family: 'Raleway', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-weight: 400;
+    word-wrap: break-word
+}
+
+.red_button {
+    width: 80%;
+    height: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.red_button img {
+
+    width: 100%;
+    height: 170%;
+    margin-top: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

@@ -38,27 +38,60 @@
     </div>
 
     <div class="banner-image">
-        <img src="IMAGE/sports.png" alt="Sports">
+        <img src="IMAGE/swimming.png" alt="Sports">
+    </div>
+    
+
+
+
+
+    <div class="find_match">Find Match
+        <div class="find_match_content">Finding the perfect match in sports can be a game-changer. <br>It's all about
+            connecting with individuals <br>who share your passion for the game and have the same dedication and drive.
+        </div>
+
+        <div class="red_button">
+        <a href="find_match.php">
+            <img src="IMAGE/red_button.png">
+        </a>
     </div>
 
-    </section>
-
-    <!-- Find Match and Create Match Section -->
+    </div>
+    <!-- Find Match and Create Match Section
     <section class="match-buttons">
-        <!-- Create Match Button -->
+         Create Match Button 
         <a href="find_match.php">
             <button class="find-match-btn">Find Match</button>
         </a>
 
-        <!-- Find Match Button -->
+        Find Match Button 
         <a href="create_match.php">
             <button class="create-match-btn">Create Match</button>
         </a>
     </section>
 
-    <!-- Description Text (below buttons) -->
+    Description Text (below buttons)
     <div class="match-description">
         <p>Finding the perfect match in sports can be a game-changer.</p>
+    </div>
+    -->
+
+    <!-- create_your_own_match-->
+    <div class="create_your_own_match">
+        <div class="create_your_own_match_title">Create your own match</div>
+        <div class="create-match-content">
+            Not finding the right match? No problem! <br>Create your own game-changing partnership and turn any
+            challenge
+            into a victory. <br>Join our network and start building your dream team today!
+        </div>
+        <div class="picture_box">
+            <a href="find_match.php">
+                <img src="IMAGE/button.png" class="picture">
+            </a>
+        </div>
+
+
+
     </div>
 
 </body>
