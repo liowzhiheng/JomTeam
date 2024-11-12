@@ -18,7 +18,7 @@
         <ul class="menu leftmenu">
             <li><a href="main.php">Home</a></li>
             <li><a href="find_match.php">Find Match</a></li>
-            <li><a href="#create-match">Create Match</a></li>
+            <li><a href="create_match.php">Create Match</a></li>
             <li><a href="view_profile.php">Profile</a></li>
             <li><a href="#premium">Premium</a></li>
         </ul>
@@ -85,7 +85,7 @@
             into a victory. <br>Join our network and start building your dream team today!
         </div>
         <div class="picture_box">
-            <a href="find_match.php">
+            <a href="create_match.php">
                 <img src="IMAGE/button.png" class="picture">
             </a>
         </div>
