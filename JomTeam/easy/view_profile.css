@@ -99,56 +99,69 @@ body {
 .profile-left {
     flex: 1;
     text-align: center;
+    margin-top: 20px;
     margin-right: 20px;
 }
 
-.profile-pic {
+/* Styling for the image upload form */
+.uploaded-images {
+    margin-top: 20px;
+    text-align: center;
+    display: block;
+}
+
+.uploaded-image {
     width: 200px;
     height: 200px;
-    border-radius: 50%;
     margin-bottom: 10px;
+    border-radius: 200px;
+    transition: opacity 0.3s ease;
+    z-index: 1;
 }
 
-.profile-name {
-    display: block;
-    font-size: 30px;
-    color: #ffffff;
-}
-
-#nameInput {
+.image-container {
+    position: relative;
+    display: inline-block;
     width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+    max-width: 300px;
 }
 
-#nameDisplay {
+.overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(0, 0, 0);
+    font-size: 20px;
     font-weight: bold;
-}
-
-.profile-name input {
-    font-size: 30px;
-    padding: 5px;
-    width: auto;
-    border: 1px solid #ccc;
-    border-radius: 5px;
     display: none;
-    color: #000;
-    background-color: #fff;
+    /* Initially hide the text */
+    border-radius: 5px;
+    z-index: 2;
+    pointer-events: none;
 }
 
-.profile-name .edit img {
-    width: 25px;
-    height: 25px;
-    margin-left: 10px;
+.image-container:hover .overlay-text {
+    display: block;
+}
+
+.image-container:hover .uploaded-image {
+    opacity: 0.7;
+}
+
+.submit-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
 }
 
-.profile-name .edit img:hover {
-    transform: scale(1.1);
+.submit-button:hover {
+    background-color: #45a049;
 }
 
 .profile-right {
@@ -206,12 +219,18 @@ body {
     background-color: #bababa;
 }
 
-#message {
-    display: none;
-    text-align: center;
-    color: #fff;
+.message {
     padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
     font-size: 16px;
+    text-align: center
+}
+
+.success {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.fail {
+    background-color: #f44336;
+    color: white;
 }

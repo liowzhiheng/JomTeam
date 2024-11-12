@@ -9,14 +9,15 @@
     background-color: #ffffff;
     display: flex;
     align-items: center;
-    padding: 0px 50px;
+    padding: 10px 50px;
     color: rgb(0, 0, 0);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .navbar .logo img {
-    height: auto;
-    width: 60px;
+    margin-top: 10px;
+    height: 40px;
+    width: auto;
 }
 
 .navbar .menu li {
@@ -60,27 +61,34 @@ body {
 
 
 .banner {
-    align-items: center; /* Vertically center */
+    align-items: center;
+    /* Vertically center */
 }
 
 .banner-image {
-    max-width: 100%; /* Makes image responsive */
-    height: auto; /* Maintains aspect ratio */
+    max-width: 100%;
+    /* Makes image responsive */
+    height: auto;
+    /* Maintains aspect ratio */
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .banner-image img {
-    
-    max-width: 800px; /* Sets a specific maximum width */
+}
+
+.banner-image img {
+
+    max-width: 800px;
+    /* Sets a specific maximum width */
     object-fit: cover;
     object-position: center;
-  }
+    margin-bottom: 3%;
+}
 
 .banner-content {
-    padding: 10px 20px; /* Reduce the padding here */
-    text-align: center; /* Center text within the banner content */
+    padding: 10px 20px;
+    /* Reduce the padding here */
+    text-align: center;
+    /* Center text within the banner content */
 }
 
 .banner h1 {
@@ -92,6 +100,7 @@ body {
     font-weight: 700;
     line-height: normal;
     letter-spacing: -1.4px;
+    margin-top: 5%;
 }
 
 .banner p {
@@ -103,19 +112,23 @@ body {
     font-weight: 400;
     line-height: normal;
     letter-spacing: -0.6px;
+    margin-top: 2%;
 }
 
 /* Match Buttons Section */
 .match-buttons {
     display: flex;
-    justify-content: center; /* Align buttons side by side */
-    gap: 50px; /* Space between the buttons */
+    justify-content: center;
+    /* Align buttons side by side */
+    gap: 50px;
+    /* Space between the buttons */
     padding-top: 30px;
-    
+
 }
 
 /* Style for the buttons */
-.create-match-btn, .find-match-btn {
+.create-match-btn,
+.find-match-btn {
     padding: 15px 30px;
     border: none;
     font-size: 18px;
@@ -128,32 +141,37 @@ body {
 
 /* Create Match Button */
 .create-match-btn {
-    background: linear-gradient(135deg, #1E90FF, #4682B4); /* Blue gradient */
+    background: linear-gradient(135deg, #5252D4, #5146b4);
+    /* Blue gradient */
 }
 
 /* Find Match Button */
 .find-match-btn {
-    background: linear-gradient(135deg, #EB1436, #FF6A00); /* Another gradient for Find Match */
+    background: linear-gradient(135deg, #EB1436, rgba(235, 20, 54, 0.66));
 }
 
 /* Hover effects */
-.create-match-btn:hover, .find-match-btn:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shine effect */
-    transform: scale(1.05); /* Slightly increase size */
+.create-match-btn:hover,
+.find-match-btn:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    /* Shine effect */
+    transform: scale(1.05);
+    /* Slightly increase size */
 }
 
 /* Add bold font on hover */
-.create-match-btn:hover, .find-match-btn:hover {
+.create-match-btn:hover,
+.find-match-btn:hover {
     font-weight: bold;
 }
 
 /* Description Section */
 .match-description {
-    text-align: center; 
+    text-align: center;
     font-size: 16px;
     color: #333;
-    font-weight: bold; 
-    margin-top: 30px; 
-    width: 100%; 
-    clear: both; 
+    font-weight: bold;
+    margin-top: 30px;
+    width: 100%;
+    clear: both;
 }

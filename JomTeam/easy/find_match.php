@@ -15,7 +15,7 @@
 <body>
     <nav class="navbar">
         <a href="#" class="logo">
-            <img src="jomteam.png" alt="Logo">
+            <img src="image/jomteam.png" alt="Logo">
         </a>
 
         <ul class="menu leftmenu">
@@ -27,9 +27,9 @@
         </ul>
 
         <ul class="menu rightmenu">
-            <li class="notification"><a href="#notification"><img src="NOTIFICATION.png" alt="Notification"></a>
+            <li class="notification"><a href="#notification"><img src="image/NOTIFICATION.png" alt="Notification"></a>
             </li>
-            <li class="logout"><a href="login.php">Log out<img src="LOGOUT.png" alt="Logout"></a></li>
+            <li class="logout"><a href="login.php">Log out<img src="image/LOGOUT.png" alt="Logout"></a></li>
         </ul>
     </nav>
 
@@ -56,7 +56,7 @@
         <div class="grid-container">
             <?php for ($i = 1; $i <= 9; $i++): ?>
                 <div class="grid-item">
-                    <img src="court.jpg" alt="Indoor Court">
+                    <img src="image/court.jpg" alt="Indoor Court">
                     <p class="image-label">Indoor Court <?php echo $i; ?></p>
                 </div>
             <?php endfor; ?>

@@ -11,14 +11,12 @@
     <div class="container">
         <div class="text_box">
             <h1 class="welcome_text">Create Account</h1>
-            <form method="post" action="check_register.php" style="margin-left: 10%">
+            <form method="post" action="check_register.php">
                 <div class="key_in">
-                    <input type="text" name="email" placeholder="Email"
-                        style="border: none; margin-left:5%; margin-top:1.5%" />
+                    <input type="text" name="email" placeholder="Email" />
                 </div>
                 <div class="key_in">
-                    <input type="password" name="password" placeholder="Password"
-                        style="border: none; margin-left:5%; margin-top:1.5%" />
+                    <input type="password" name="password" placeholder="Password" />
                 </div>
                 <div>
                     <p class="register">

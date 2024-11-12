@@ -23,7 +23,6 @@ $sqlProfile = "CREATE TABLE profile (
     status VARCHAR(255),
     phone VARCHAR(15),
     description TEXT,
-    profile_image VARCHAR(255),
     FOREIGN KEY (user_id) REFERENCES user(id)
 )";
 
@@ -64,6 +63,20 @@ if (mysqli_query($conn, $sqlStudent)) {
     echo "<h3>Table student created successfully</h3>";
 } else {
     echo "Error creating table student: " . mysqli_error($conn);
+}
+
+$sqlImage = "CREATE TABLE images (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    user_id INT(6) UNSIGNED,
+    file VARCHAR(50) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user(id)
+)";
+
+
+if (mysqli_query($conn, $sqlImage)) {
+    echo "<h3>Table image created successfully</h3>";
+} else {
+    echo "Error creating table image: " . mysqli_error($conn);
 }
 
 mysqli_close($conn);

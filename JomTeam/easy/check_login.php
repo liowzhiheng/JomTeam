@@ -38,10 +38,14 @@ if ($count == 1) {
     $check_profile_result = mysqli_query($conn, $check_profile_sql);
 
     if (mysqli_num_rows($check_profile_result) == 0) {
-        // Insert a new record into the profile table
-        $insert_profile_sql = "INSERT INTO profile (user_id) VALUES ('$user_id')";
-        mysqli_query($conn, $insert_profile_sql);
+        // Insert a new record into the profile and image tables
+        $insert_sql = "
+            INSERT INTO profile (user_id) VALUES ('$user_id');
+            INSERT INTO images (user_id) VALUES ('$user_id');
+        ";
+        mysqli_multi_query($conn, $insert_sql);
     }
+    
     echo '<html>
     <head>
         <link rel="stylesheet" href="check_login.css">

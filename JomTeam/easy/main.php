@@ -12,7 +12,7 @@
 <body>
     <nav class="navbar">
         <a href="#" class="logo">
-            <img src="jomteam.png" alt="Logo">
+            <img src="IMAGE/jomteam.png" alt="Logo">
         </a>
 
         <ul class="menu leftmenu">
@@ -24,42 +24,43 @@
         </ul>
 
         <ul class="menu rightmenu">
-            <li class="notification"><a href="#notification"><img src="NOTIFICATION.png" alt="Notification"></a>
+            <li class="notification"><a href="#notification"><img src="IMAGE/NOTIFICATION.png" alt="Notification"></a>
             </li>
-            <li class="logout"><a href="login.php">Log out<img src="LOGOUT.png" alt="Logout"></a></li>
+            <li class="logout"><a href="login.php">Log out<img src="IMAGE/LOGOUT.png" alt="Logout"></a></li>
         </ul>
     </nav>
 
     <div class="banner">
         <h1>Find Your Best Sport Buddies</h1>
-        <p>Connecting You with Passionate Teammates, Inspiring Workout Partners, and Lifelong Friends! </p>
-        <p>Join Today and Kickstart Your Next Adventure on the Field!</p>
+        <p>Connecting You with Passionate Teammates, Inspiring Workout Partners, and Lifelong Friends! <br>Join Today
+            and Kickstart Your Next Adventure on the Field! </p>
+
     </div>
 
     <div class="banner-image">
-        <img src="mainpage.png" alt="Sports">
+        <img src="IMAGE/sports.png" alt="Sports">
     </div>
 
     </section>
 
-<!-- Find Match and Create Match Section -->
-<section class="match-buttons">
-    <!-- Create Match Button -->
-    <a href="find_match.php">
-        <button class="find-match-btn">Find Match</button>
-    </a>
+    <!-- Find Match and Create Match Section -->
+    <section class="match-buttons">
+        <!-- Create Match Button -->
+        <a href="find_match.php">
+            <button class="find-match-btn">Find Match</button>
+        </a>
 
-    <!-- Find Match Button -->
-    <a href="create_match.php">
-        <button class="create-match-btn">Create Match</button>
-    </a>
-</section>
+        <!-- Find Match Button -->
+        <a href="create_match.php">
+            <button class="create-match-btn">Create Match</button>
+        </a>
+    </section>
 
-<!-- Description Text (below buttons) -->
-<div class="match-description">
-    <p>Finding the perfect match in sports can be a game-changer.</p>
-</div>
+    <!-- Description Text (below buttons) -->
+    <div class="match-description">
+        <p>Finding the perfect match in sports can be a game-changer.</p>
+    </div>
 
 </body>
 
-</html> 
+</html>
