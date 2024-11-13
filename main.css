@@ -298,6 +298,7 @@ body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     font-weight: 400;
     word-wrap: break-word;
+    text-align: left;
 }
 
 .main_page_profile_content_description {
@@ -342,4 +343,27 @@ body {
     margin-top: 5%;
 
 
+}
+
+
+.main_profile_image {
+    margin-top: 5%;
+    text-align: center;
+    display: block;
+}
+
+/* main profile image */
+.main_uploaded-image {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 10px;
+    border-radius: 200px;
+
+}
+
+.main_image-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: 300px;
 }
