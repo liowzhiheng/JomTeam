@@ -1,3 +1,26 @@
+<?php
+session_start(); // Start the PHP session
+
+// Check if the user is logged in
+if ($_SESSION["Login"] != "YES") {
+    header("Location: login.php");
+    exit();
+}
+
+// Check if USER_ID is set
+if (!isset($_SESSION["ID"])) {
+    echo "User ID is not set in the session.";
+    exit();
+}
+
+require("config.php");
+
+// Fetch user data
+$user_id = $_SESSION['ID']; // Assuming user ID is stored in session
+$result = mysqli_query($conn, "SELECT * FROM profile WHERE user_id = '$user_id'");
+$rows = mysqli_fetch_assoc($result);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -93,13 +116,53 @@
 
     <!-- view profile-->
     <div class="view_profile">Profile
-        <div class="view_profile_content"><br>Let Others know more about you!!!<br>
+        <div class="view_profile_content"><br>Let people know more about
+            you!<br>Share your passions, interests, and achievements.<br>Whether it's your love for sports, your
+            favorite hobbies,or your proudest
+            moments,<br> let your profile tell your unique story. <br>Join our community and start making
+            meaningful connections today!<br>
         </div>
-        <div class="profile_pic">
+
+        <div>
+            <!-- Profile detail -->
+
+            <div class="group">
+
+                <span><?php echo '<span class="main_page_profile_content_description">' . htmlspecialchars($rows['description']); ?></span>
+            </div>
+
+            <label class="main_page_profile_content">Name:</label>
+            <?php echo '<span class="main_page_profile_content">' . htmlspecialchars($rows['name']); ?>
+        </div>
+        <div class="group">
+            <label for="gender" class="main_page_profile_content ">Gender:</label>
+            <?php echo '<span class="main_page_profile_content">' . htmlspecialchars($rows['gender']); ?>
+        </div>
+        <div class="group">
+            <label for="age" class="main_page_profile_content ">Age:</label>
+            <?php echo '<span class="main_page_profile_content">' . htmlspecialchars($rows['age']); ?>
+        </div>
+        <div class="group">
+            <label for="status" class="main_page_profile_content ">Status:</label>
+            <?php echo '<span class="main_page_profile_content">' . htmlspecialchars($rows['status']); ?>
+        </div>
+        <div class="group">
+            <label for="phone" class="main_page_profile_content ">Phone Number:</label>
+            <?php echo '<span class="main_page_profile_content">' . htmlspecialchars($rows['phone']); ?>
+        </div>
+
+
+        <div class="edit_your_profile_button">
             <a href="view_profile.php">
-                <img src="IMAGE/ZH.png">
+                <img src="IMAGE/edit_your_profile.png">
             </a>
         </div>
+    </div>
+
+    </div>
+
+
+    </div>
 
 </body>
 
