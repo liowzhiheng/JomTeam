@@ -125,21 +125,17 @@ $rows = mysqli_fetch_assoc($result);
 
         <div>
             <!-- Profile detail -->
-            <div class="main_profile_image">
+            <div class="uploaded-images">
                 <?php
                 $res = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $_SESSION["ID"]);
                 while ($row = mysqli_fetch_assoc($res)) {
                     if (empty($row['file'])) {
-                        // Display default image with overlay text
                         echo '<div class="image-container">
-                <img src="IMAGE/default.png" alt="Default Image" class="uploaded-image" onclick="document.getElementById(\'imageInput\').click();" />
-               
+                <img src="IMAGE/default.png" alt="Default Image" class="uploaded-image"/>
               </div>';
                     } else {
-                        // Display uploaded image with overlay text
-                        echo '<div class="main_image-container">
-                <img src="uploads/' . $row['file'] . '" alt="Uploaded Image" class="main_uploaded-image" onclick="document.getElementById(\'imageInput\').click();" />
-               
+                        echo '<div class="image-container">
+                <img src="uploads/' . $row['file'] . '" alt="Uploaded Image" class="uploaded-image"/>
               </div>';
                     }
                 }
