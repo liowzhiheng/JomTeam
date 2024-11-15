@@ -89,4 +89,6 @@ if (mysqli_query($conn, $sqlAds)) {
     echo "Error creating table ads: " . mysqli_error($conn);
 }
 
+=======
 mysqli_close($conn);
+>>>>>>> 9aa895e057fe1fdee45ca22fbe8c06b86e913970

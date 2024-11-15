@@ -345,23 +345,22 @@ body {
 
 }
 
-
-.main_profile_image {
+.uploaded-images {
     margin-top: 5%;
     text-align: center;
     display: block;
 }
 
-/* main profile image */
-.main_uploaded-image {
-    width: 100%;
-    height: 100%;
+.uploaded-image {
+    width: 200px;
+    height: 200px;
     margin-bottom: 10px;
     border-radius: 200px;
-
+    transition: opacity 0.3s ease;
+    z-index: 1;
 }
 
-.main_image-container {
+.image-container {
     position: relative;
     display: inline-block;
     width: 100%;
