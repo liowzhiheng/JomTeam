@@ -69,4 +69,18 @@ if (mysqli_query($conn, $sqlImage)) {
     echo "Error creating table image: " . mysqli_error($conn);
 }
 
+$sqlAds = "CREATE TABLE ads (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    file VARCHAR(50) NOT NULL,
+    status TINYINT(1) NOT NULL DEFAULT 0
+)";
+
+if (mysqli_query($conn, $sqlAds)) {
+    echo "<h3>Table ads created successfully</h3>";
+} else {
+    echo "Error creating table ads: " . mysqli_error($conn);
+}
+
 mysqli_close($conn);
