@@ -89,8 +89,8 @@ require("config.php"); // Include the database configuration file
             $role = ($row['level'] == 1) ? 'admin' : 'user';
             echo "<td>" . htmlspecialchars($role) . "</td>";
             echo "<td>" . htmlspecialchars($row["phone"] ?? '') . "</td>";
-            echo "<td></td>";
-            echo "<td></td>"; // Creation Time
+            echo "<td>" . htmlspecialchars($row["email"]) . "</td>";
+            echo "<td>" . htmlspecialchars($row["created_at"]) . "</td>";
             echo "<td></td>"; // Premium
             echo "<td>";
 
