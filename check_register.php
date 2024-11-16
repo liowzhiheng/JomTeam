@@ -81,7 +81,6 @@ mysqli_stmt_bind_param($stmt, "ssssssss",
     $myemail, 
     $hashedPassword, 
     $fullPhone,  // Save the full phone number with the country code
-    $level
 );
 
 if (mysqli_stmt_execute($stmt)) {
