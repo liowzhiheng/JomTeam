@@ -15,9 +15,42 @@ if (!isset($_SESSION["ID"])) {
 
 require("config.php");
 
-// Fetch user data
-$user_id = $_SESSION['ID']; // Assuming user ID is stored in session
-$result = mysqli_query($conn, "SELECT * FROM profile WHERE user_id = '$user_id'");
+// Fetch user and profile data
+$user_id = $_SESSION['ID'];
+
+$query = "
+    SELECT 
+        u.first_name, 
+        u.last_name, 
+        u.gender, 
+        u.email, 
+        u.password,
+        u.phone, 
+        p.status, 
+        p.description, 
+        p.location, 
+        p.interests, 
+        p.preferred_game_types, 
+        p.skill_level, 
+        p.availability, 
+        u.birth_date
+    FROM 
+        user u 
+    LEFT JOIN 
+        profile p 
+    ON 
+        u.id = p.user_id 
+    WHERE 
+        u.id = '$user_id'
+";
+
+$result = mysqli_query($conn, $query);
+
+if (!$result || mysqli_num_rows($result) == 0) {
+    echo "No profile data found.";
+    exit();
+}
+
 $rows = mysqli_fetch_assoc($result);
 ?>
 
@@ -144,7 +177,7 @@ $rows = mysqli_fetch_assoc($result);
                 </div>
 
                 <label class="main_page_profile_content">Name:</label>
-                <?php echo '<span class="main_page_profile_content">' . htmlspecialchars($rows['name']); ?>
+                <?php echo '<span class="main_page_profile_content">' . htmlspecialchars($rows['first_name']) . htmlspecialchars($rows['last_name']); ?>
             </div>
             <div class="group">
                 <label for="gender" class="main_page_profile_content ">Gender:</label>
@@ -152,15 +185,26 @@ $rows = mysqli_fetch_assoc($result);
             </div>
             <div class="group">
                 <label for="age" class="main_page_profile_content ">Age:</label>
-                <?php echo '<span class="main_page_profile_content">' . htmlspecialchars($rows['age']); ?>
-            </div>
-            <div class="group">
-                <label for="status" class="main_page_profile_content ">Status:</label>
-                <?php echo '<span class="main_page_profile_content">' . htmlspecialchars($rows['status']); ?>
+                <?php
+            
+                if (isset($rows['birth_date']) && !empty($rows['birth_date'])) {
+                    $dob = new DateTime($rows['birth_date']);
+                    $today = new DateTime();
+                    $age = $dob->diff($today)->y; 
+                    echo '<span class="main_page_profile_content">' . $age . '</span>';
+                } else {
+                    echo '<span class="main_page_profile_content">N/A</span>';
+                }
+                ?>
             </div>
             <div class="group">
                 <label for="phone" class="main_page_profile_content ">Phone Number:</label>
                 <?php echo '<span class="main_page_profile_content">' . htmlspecialchars($rows['phone']); ?>
+            </div>
+
+            <div class="group">
+                <label for="status" class="main_page_profile_content ">Status:</label>
+                <?php echo '<span class="main_page_profile_content">' . htmlspecialchars($rows['status']); ?>
             </div>
 
 

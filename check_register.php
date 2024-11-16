@@ -61,9 +61,6 @@ if (count($errors) > 0) {
     exit();
 }
 
-// Hash password for security
-$hashedPassword = password_hash($mypassword, PASSWORD_DEFAULT);
-
 // Concatenate country code and phone number
 $fullPhone = $countryCode . $phone; // Combine country code and phone number
 
@@ -79,7 +76,7 @@ mysqli_stmt_bind_param($stmt, "ssssssss",
     $gender, 
     $dob, 
     $myemail, 
-    $hashedPassword, 
+    $mypassword, 
     $fullPhone,  // Save the full phone number with the country code
     $level
 );

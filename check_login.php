@@ -16,7 +16,7 @@ if (mysqli_num_rows($result) == 1) {
     $rows = mysqli_fetch_assoc($result);
     
     // Verify the password
-    if (password_verify($_POST["password"], $rows["password"])) {
+    if (!strcmp($_POST["password"],$rows["password"])) {
         // Password is correct
         $_SESSION["Login"] = "YES";
         $_SESSION["USER"] = $rows["email"];

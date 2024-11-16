@@ -3,12 +3,10 @@
 require("config.php");
 
 // Insert records into the database
-$sql = "INSERT INTO user (email, password, level)
-VALUES ('Zhiheng@gmail.com', 'admin1', 1),
-       ('Junxiang@gmail.com', 'admin1', 2),
-       ('Wenchun@gmail.com', 'admin1', 2),
-       ('Zeqing@gmail.com', 'admin1', 3),
-       ('Yewyeong@gmail.com', 'admin1',3)";
+$sql = "INSERT INTO user (first_name, last_name, gender, email, password, phone, birth_date, level, verified, created_at, updated_at)
+VALUES ('liow','zhi heng','male','Zhiheng@gmail.com', 'admin1', '01123456789','2024-11-22', 1,'0','2024-11-17 01:12:03', '2024-11-17 01:12:03'),
+       ('eng','jun xiang','male','Junxiang@gmail.com', 'admin1', '01123456789','2024-11-22', 1,'0','2024-11-17 01:12:03', '2024-11-17 01:12:03'),
+       ('soo', 'wenchun', 'male', 'Wenchun@gmail.com', 'admin1', '01123456789','2024-11-22', 1,'0','2024-11-17 01:12:03', '2024-11-17 01:12:03')";
 
 if (mysqli_multi_query($conn, $sql)) {
     echo "<h3>New records created successfully</h3>";
