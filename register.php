@@ -55,6 +55,12 @@
             </div>
 
             <div class="key_in">
+                    <input type="date" name="dob" id="dob" placeholder="Date of Birth"
+                           value="<?php echo htmlspecialchars($_POST['dob'] ?? ''); ?>" required />
+                    <div class="validation-feedback" id="dobFeedback"></div>
+            </div>
+
+            <div class="key_in">
                 <input type="email" name="email" id="email" placeholder="Email" value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>" required />
                 <span id="emailFeedback" class="validation-feedback">Please enter a valid email address</span>
             </div>
