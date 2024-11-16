@@ -1,12 +1,25 @@
 <html>
-
 <head>
     <title>Login</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="login.css">
-</head>
+    <style>
+        .error-message {
+            color: #dc2626;
+            background-color: #fef2f2;
+            border: 1px solid #dc2626;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            display: none;
+        }
 
+        .error-message.show {
+            display: block;
+        }
+    </style>
+</head>
 <body>
     <div class="container">
         <div class="text_box">
@@ -17,14 +30,31 @@
                 Let's turn every game into a winning experience!<br>
                 ⚽🏀🏈
             </p>
-            <form method="post" action="check_login.php">
+            <!-- Add error message container and display PHP session errors if they exist -->
+            <div id="errorMessage" class="error-message <?php if(isset($_GET['error'])) echo 'show'; ?>">
+                <?php
+                if(isset($_GET['error'])) {
+                    switch($_GET['error']) {
+                        case 'email':
+                            echo 'Email not found. Please check your email or register a new account.';
+                            break;
+                        case 'password':
+                            echo 'Incorrect password. Please try again.';
+                            break;
+                        default:
+                            echo 'An error occurred. Please try again.';
+                    }
+                }
+                ?>
+            </div>
+            
+            <form method="post" action="check_login.php"> <!-- Changed to check_login.php -->
                 <div class="key_in">
-                    <input type="text" name="email" placeholder="Email" />
+                    <input type="text" name="email" placeholder="Email" required />
                 </div>
                 <div class="key_in">
                     <input type="password" name="password" id="password" placeholder="Password" required />
                     <button type="button" id="revealPassword">Show</button>
-
                 </div>
                 <div>
                     <p class="register">
@@ -35,27 +65,51 @@
             </form>
         </div>
         <div class="picture_box">
-            <img src=IMAGE/badminton.png class="picture">
+            <img src=IMAGE/badminton.png class="picture" alt="Badminton">
         </div>
-
     </div>
 
     <script>
+        // Show password toggle functionality
         const revealPasswordButton = document.getElementById('revealPassword');
 
         function togglePasswordVisibility() {
-        const passwordField = document.getElementById('password');
-        const button = document.getElementById('revealPassword');
-        
-        if (passwordField.type === "password") {
-            passwordField.type = "text";
-            button.textContent = "Hide";
-        } else {
-            passwordField.type = "password";
-            button.textContent = "Show";
-        }
+            const passwordField = document.getElementById('password');
+            const button = document.getElementById('revealPassword');
+            
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                button.textContent = "Hide";
+            } else {
+                passwordField.type = "password";
+                button.textContent = "Show";
+            }
         }
 
         revealPasswordButton.addEventListener('click', togglePasswordVisibility);
-    </script> 
+
+        // Show error message immediately if it exists in URL parameters
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get('error');
+            const errorMsg = document.getElementById('errorMessage');
+            
+            if (error) {
+                let message = '';
+                switch(error) {
+                    case 'email':
+                        message = 'Email not found. Please check your email or register a new account.';
+                        break;
+                    case 'password':
+                        message = 'Incorrect password. Please try again.';
+                        break;
+                    default:
+                        message = 'An error occurred. Please try again.';
+                }
+                errorMsg.textContent = message;
+                errorMsg.classList.add('show');
+            }
+        });
+    </script>
 </body>
+</html>
