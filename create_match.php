@@ -1,31 +1,57 @@
 <?php
-session_start(); // Start up your PHP Session
+session_start(); // Start the PHP session
 
-// If the user is not logged in send him/her to the login form
-if ($_SESSION["Login"] != "YES")
+// Check if the user is logged in
+if ($_SESSION["Login"] != "YES") {
     header("Location: login.php");
+    exit();
+}
 
-if ($_SESSION["LEVEL"] == 3) {
+// Check if USER_ID is set
+if (!isset($_SESSION["ID"])) {
+    echo "User ID is not set in the session.";
+    exit();
+}
 
-    require("config.php"); // Include the database configuration file
-    $user_id = $_SESSION["ID"];
-    $sql = "SELECT * FROM profile WHERE user_id = '$user_id'";
-    $result = mysqli_query($conn, $sql);
+require("config.php");
 
-    if (mysqli_num_rows($result) > 0) {
-        $rows = mysqli_fetch_assoc($result);
-    } else {
-        // Initialize $rows with empty values if no profile is found
-        $rows = [
-            'name' => '',
-            'ic' => '',
-            'gender' => '',
-            'matric' => '',
-            'phone' => '',
-            'email' => ''
-        ];
-    }
-    ?>
+// Fetch user and profile data
+$user_id = $_SESSION['ID'];
+
+$query = "
+    SELECT 
+        u.first_name, 
+        u.last_name, 
+        u.gender, 
+        u.email, 
+        u.password,
+        u.phone, 
+        p.status, 
+        p.description, 
+        p.location, 
+        p.interests, 
+        p.preferred_game_types, 
+        p.skill_level, 
+        p.availability 
+    FROM 
+        user u 
+    LEFT JOIN 
+        profile p 
+    ON 
+        u.id = p.user_id 
+    WHERE 
+        u.id = '$user_id'
+";
+
+$result = mysqli_query($conn, $query);
+
+if (!$result || mysqli_num_rows($result) == 0) {
+    echo "No profile data found.";
+    exit();
+}
+
+$rows = mysqli_fetch_assoc($result);
+?>
     <!DOCTYPE html>
     <html lang="en">
 
@@ -69,7 +95,8 @@ if ($_SESSION["LEVEL"] == 3) {
                         <div class="personal_info">
                             <div class="input-box">
                                 <span class="details">Full Name</span>
-                                <input type="text" name="name" value="<?php echo ($rows['name']); ?>" required>
+                                <input type="text" name="name" value="<?php echo htmlspecialchars($rows['first_name'] . ' ' . $rows['last_name']); ?>" required>
+
                             </div>
                             <div class="input-box">
                                 <span class="details">UserID</span>
@@ -113,11 +140,4 @@ if ($_SESSION["LEVEL"] == 3) {
 
     <?php
     // If the user is not correct level
-} else if ($_SESSION["LEVEL"] != 3) {
 
-    echo "<p>Wrong User Level! You are not authorized to view this page</p>";
-
-    echo "<p><a href='main.php'>Go back to main page</a></p>";
-
-    echo "<p><a href='logout.php'>LOGOUT</a></p>";
-}
