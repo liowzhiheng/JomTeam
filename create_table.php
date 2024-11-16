@@ -1,8 +1,32 @@
 <?php
-
 require("config.php");
 
-//user database
+// Function to check if table exists
+function tableExists($conn, $tableName) {
+    $result = mysqli_query($conn, "SHOW TABLES LIKE '$tableName'");
+    return mysqli_num_rows($result) > 0;
+}
+
+// Function to safely create table
+function createTable($conn, $tableName, $sql, $dropIfExists = true) {
+    if (tableExists($conn, $tableName)) {
+        if ($dropIfExists) {
+            mysqli_query($conn, "DROP TABLE IF EXISTS $tableName");
+            echo "<p>Dropped existing table $tableName</p>";
+        } else {
+            echo "<p>Table $tableName already exists - skipping creation</p>";
+            return;
+        }
+    }
+    
+    if (mysqli_query($conn, $sql)) {
+        echo "<h3>Table $tableName created successfully</h3>";
+    } else {
+        echo "Error creating table $tableName: " . mysqli_error($conn);
+    }
+}
+
+// Create user table
 $sqlUser = "CREATE TABLE user (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
@@ -14,80 +38,70 @@ $sqlUser = "CREATE TABLE user (
     birth_date DATE,
     verified TINYINT(1) DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    level INT(3) NOT NULL
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )";
+createTable($conn, "user", $sqlUser);
 
-if (mysqli_query($conn, $sqlUser)) {
-    echo "<h3>Table user created successfully</h3>";
-} else {
-    echo "Error creating table user: " . mysqli_error($conn);
-}
-
-//profile database
+// Create profile table
 $sqlProfile = "CREATE TABLE profile (
     user_id INT(6) UNSIGNED PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    gender VARCHAR(50),
-    age INT,
     status VARCHAR(255),
-    phone VARCHAR(15),
     description TEXT,
-    FOREIGN KEY (user_id) REFERENCES user(id)
+    location VARCHAR(100),
+    interests TEXT,
+    preferred_game_types VARCHAR(255),
+    skill_level VARCHAR(50),
+    availability TEXT,
+    last_active TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 )";
+createTable($conn, "profile", $sqlProfile);
 
-if (mysqli_query($conn, $sqlProfile)) {
-    echo "<h3>Table profile created successfully</h3>";
-} else {
-    echo "Error creating table profile: " . mysqli_error($conn);
-}
-
+// Create gamematch table
 $sqlMatch = "CREATE TABLE gamematch (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     user_id INT(6) UNSIGNED,
-    name VARCHAR(100),
-    phone VARCHAR(15),
-    email VARCHAR(100),
-    gender VARCHAR(10),
+    match_title VARCHAR(100) NOT NULL,
+    game_type VARCHAR(100) NOT NULL,
+    skill_level_required VARCHAR(50),
+    max_players INT,
+    current_players INT DEFAULT 1,
     location VARCHAR(100),
-    startDate DATE,
+    start_date DATETIME,
+    end_date DATETIME,
     duration INT,
-    FOREIGN KEY (user_id) REFERENCES user(id)
+    status VARCHAR(20) DEFAULT 'open',
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 )";
+createTable($conn, "gamematch", $sqlMatch);
 
-if (mysqli_query($conn, $sqlMatch)) {
-    echo "<h3>Table Match created successfully</h3>";
-} else {
-    echo "Error creating table match: " . mysqli_error($conn);
-}
-
-//database for image
+// Create images table
 $sqlImage = "CREATE TABLE images (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     user_id INT(6) UNSIGNED,
-    file VARCHAR(50) NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES user(id)
+    file VARCHAR(255) NOT NULL,
+    type VARCHAR(50) NOT NULL,
+    upload_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_profile_picture TINYINT(1) DEFAULT 0,
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 )";
+createTable($conn, "images", $sqlImage);
 
-
-if (mysqli_query($conn, $sqlImage)) {
-    echo "<h3>Table image created successfully</h3>";
-} else {
-    echo "Error creating table image: " . mysqli_error($conn);
-}
-
-$sqlAds = "CREATE TABLE ads (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    description TEXT NOT NULL,
-    file VARCHAR(50) NOT NULL,
-    status TINYINT(1) NOT NULL DEFAULT 0
+// Create match_participants table
+$sqlMatchParticipants = "CREATE TABLE match_participants (
+    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    match_id INT(6) UNSIGNED,
+    user_id INT(6) UNSIGNED,
+    join_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(20) DEFAULT 'pending',
+    FOREIGN KEY (match_id) REFERENCES gamematch(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_participant (match_id, user_id)
 )";
-
-if (mysqli_query($conn, $sqlAds)) {
-    echo "<h3>Table ads created successfully</h3>";
-} else {
-    echo "Error creating table ads: " . mysqli_error($conn);
-}
+createTable($conn, "match_participants", $sqlMatchParticipants);
 
 mysqli_close($conn);
+?>

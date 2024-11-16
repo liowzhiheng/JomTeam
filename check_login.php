@@ -1,71 +1,75 @@
 <?php
-session_start(); // Start up your PHP Session
+session_start();
+require('config.php');
 
-require('config.php'); // Include the database configuration file
+// Get email and password from form
+$myemail = mysqli_real_escape_string($conn, $_POST["email"]);
 
-// email and password sent from form
-$myemail = $_POST["email"];
-$mypassword = $_POST["password"];
+// First check if email exists
+$sql = "SELECT * FROM user WHERE email = ?";
+$stmt = mysqli_prepare($conn, $sql);
+mysqli_stmt_bind_param($stmt, "s", $myemail);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
 
-// Sanitize user inputs to prevent SQL injection
-$myemail = mysqli_real_escape_string($conn, $myemail);
-$mypassword = mysqli_real_escape_string($conn, $mypassword);
+if (mysqli_num_rows($result) == 1) {
+    $rows = mysqli_fetch_assoc($result);
+    
+    // Verify the password
+    if (password_verify($_POST["password"], $rows["password"])) {
+        // Password is correct
+        $_SESSION["Login"] = "YES";
+        $_SESSION["USER"] = $rows["email"];
+        $_SESSION["ID"] = $rows["id"];
+        $_SESSION["LEVEL"] = $rows["level"];
 
-$sql = "SELECT * FROM user WHERE email='$myemail' AND password='$mypassword'";
+        // Check if profile exists
+        $check_profile_sql = "SELECT * FROM profile WHERE user_id = ?";
+        $stmt_profile = mysqli_prepare($conn, $check_profile_sql);
+        mysqli_stmt_bind_param($stmt_profile, "i", $rows["id"]);
+        mysqli_stmt_execute($stmt_profile);
+        $profile_result = mysqli_stmt_get_result($stmt_profile);
 
-$result = mysqli_query($conn, $sql);
+        if (mysqli_num_rows($profile_result) == 0) {
+            // Create profile and image records using prepared statements
+            $insert_profile_sql = "INSERT INTO profile (user_id) VALUES (?)";
+            $stmt_insert_profile = mysqli_prepare($conn, $insert_profile_sql);
+            mysqli_stmt_bind_param($stmt_insert_profile, "i", $rows["id"]);
+            mysqli_stmt_execute($stmt_insert_profile);
 
-$rows = mysqli_fetch_assoc($result);
+            $insert_image_sql = "INSERT INTO images (user_id) VALUES (?)";
+            $stmt_insert_image = mysqli_prepare($conn, $insert_image_sql);
+            mysqli_stmt_bind_param($stmt_insert_image, "i", $rows["id"]);
+            mysqli_stmt_execute($stmt_insert_image);
+        }
 
-$user_name = $rows["email"];
-$user_id = $rows["id"];  // Assuming `id` is the unique identifier in the `user` table
-$user_level = $rows["level"];
-
-// mysqli_num_rows is counting table rows
-$count = mysqli_num_rows($result);
-
-// If result matched $myemail and $mypassword, table row must be 1 row
-if ($count == 1) {
-
-    // Add user information to the session (global session variables)        
-    $_SESSION["Login"] = "YES";
-    $_SESSION["USER"] = $user_name;
-    $_SESSION["ID"] = $user_id;
-    $_SESSION["LEVEL"] = $user_level;
-
-    // Check if the profile already exists
-    $check_profile_sql = "SELECT * FROM profile WHERE user_id = '$user_id'";
-    $check_profile_result = mysqli_query($conn, $check_profile_sql);
-
-    if (mysqli_num_rows($check_profile_result) == 0) {
-        // Insert a new record into the profile and image tables
-        $insert_sql = "
-            INSERT INTO profile (user_id) VALUES ('$user_id');
-            INSERT INTO images (user_id) VALUES ('$user_id');
-        ";
-        mysqli_multi_query($conn, $insert_sql);
+        // Show success message and redirect options
+        ?>
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <link rel="stylesheet" href="check_login.css">
+            <meta http-equiv="refresh" content="3;url=<?php echo ($_SESSION["LEVEL"] == 1) ? 'view_user.php' : 'main.php'; ?>">
+        </head>
+        <body>
+            <div class="container">
+                <h2>You are now logged in as <strong><?php echo htmlspecialchars($_SESSION["USER"]); ?></strong></h2>
+            </div>
+        </body>
+        </html>
+        <?php
+    } else {
+        // Password is incorrect
+        $_SESSION["Login"] = "NO";
+        header("Location: login.php?error=password");
+        exit();
     }
-
-    echo '<html>
-    <head>
-        <link rel="stylesheet" href="check_login.css">
-    </head>
-    <body>
-        <div class="container">
-            <h2>You are now logged in as <strong>' . htmlspecialchars($_SESSION["USER"]) . '</strong></h2>
-            <h2>With access level <strong>' . htmlspecialchars($_SESSION["LEVEL"]) . '</strong></h2>';
-
-    echo '<a href="main.php" class="button">Enter site</a>';
-    echo '<br><a href="login.php" class="button">Back to login page</a>
-        </div>
-    </body>
-</html>';
-
-
-    // If wrong email and password
 } else {
+    // Email not found
     $_SESSION["Login"] = "NO";
-    header("Location: login.php");
+    header("Location: login.php?error=email");
+    exit();
 }
 
 mysqli_close($conn);
+?>

@@ -11,33 +11,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    // Retrieve form data and sanitize
-    $name = mysqli_real_escape_string($conn, $_POST['name']);
+    // Retrieve and sanitize form data
+    $first_name = mysqli_real_escape_string($conn, $_POST['fname']);
+    $last_name = mysqli_real_escape_string($conn, $_POST['lname']);
     $gender = mysqli_real_escape_string($conn, $_POST['gender']);
-    $age = mysqli_real_escape_string($conn, $_POST['age']);
-    $status = mysqli_real_escape_string($conn, $_POST['status']);
     $phone = mysqli_real_escape_string($conn, $_POST['phone']);
+    $status = mysqli_real_escape_string($conn, $_POST['status']);
     $description = mysqli_real_escape_string($conn, $_POST['description']);
+    $location = mysqli_real_escape_string($conn, $_POST['location']);
+    $interests = mysqli_real_escape_string($conn, $_POST['interests']);
     $user_id = $_SESSION['ID'];
 
-    // Update the database
-    $update_query = "
-        UPDATE profile 
+    // Update the user table
+    $update_user_query = "
+        UPDATE user 
         SET 
-            name = '$name',
+            first_name = '$first_name',
+            last_name = '$last_name',
             gender = '$gender',
-            age = '$age',
+            phone = '$phone'
+        WHERE id = '$user_id'
+    ";
+
+    // Update the profile table
+    $update_profile_query = "
+        UPDATE profile
+        SET 
             status = '$status',
-            phone = '$phone',
-            description = '$description'
+            description = '$description',
+            location = '$location',
+            interests = '$interests'
         WHERE user_id = '$user_id'
     ";
 
-    if (mysqli_query($conn, $update_query)) {
+    // Execute queries and check for success
+    if (mysqli_query($conn, $update_user_query) && mysqli_query($conn, $update_profile_query)) {
         // Redirect to profile page with a success message
         header("Location: view_profile.php?status=success");
         exit();
     } else {
+        // Log error for debugging (optional)
+        error_log("Error updating profile: " . mysqli_error($conn));
+
+        // Redirect to profile page with a failure message
         header("Location: view_profile.php?status=fail");
         exit();
     }
