@@ -22,7 +22,9 @@
                     <input type="text" name="email" placeholder="Email" />
                 </div>
                 <div class="key_in">
-                    <input type="password" name="password" placeholder="Password" />
+                    <input type="password" name="password" id="password" placeholder="Password" required />
+                    <button type="button" id="revealPassword">Show</button>
+
                 </div>
                 <div>
                     <p class="register">
@@ -37,4 +39,23 @@
         </div>
 
     </div>
+
+    <script>
+        const revealPasswordButton = document.getElementById('revealPassword');
+
+        function togglePasswordVisibility() {
+        const passwordField = document.getElementById('password');
+        const button = document.getElementById('revealPassword');
+        
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            button.textContent = "Hide";
+        } else {
+            passwordField.type = "password";
+            button.textContent = "Show";
+        }
+        }
+
+        revealPasswordButton.addEventListener('click', togglePasswordVisibility);
+    </script> 
 </body>
