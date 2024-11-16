@@ -36,6 +36,7 @@ $sqlUser = "CREATE TABLE user (
     password VARCHAR(255) NOT NULL,
     phone VARCHAR(20),
     birth_date DATE,
+    level INT DEFAULT 3,
     verified TINYINT(1) DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
