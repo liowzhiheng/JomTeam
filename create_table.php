@@ -2,13 +2,15 @@
 require("config.php");
 
 // Function to check if table exists
-function tableExists($conn, $tableName) {
+function tableExists($conn, $tableName)
+{
     $result = mysqli_query($conn, "SHOW TABLES LIKE '$tableName'");
     return mysqli_num_rows($result) > 0;
 }
 
 // Function to safely create table
-function createTable($conn, $tableName, $sql, $dropIfExists = true) {
+function createTable($conn, $tableName, $sql, $dropIfExists = true)
+{
     if (tableExists($conn, $tableName)) {
         if ($dropIfExists) {
             mysqli_query($conn, "DROP TABLE IF EXISTS $tableName");
@@ -18,7 +20,7 @@ function createTable($conn, $tableName, $sql, $dropIfExists = true) {
             return;
         }
     }
-    
+
     if (mysqli_query($conn, $sql)) {
         echo "<h3>Table $tableName created successfully</h3>";
     } else {
@@ -103,6 +105,21 @@ $sqlMatchParticipants = "CREATE TABLE match_participants (
     UNIQUE KEY unique_participant (match_id, user_id)
 )";
 createTable($conn, "match_participants", $sqlMatchParticipants);
+
+
+$sqlAds = "CREATE TABLE ads (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    file VARCHAR(50) NOT NULL,
+    status TINYINT(1) NOT NULL DEFAULT 0
+)";
+
+if (mysqli_query($conn, $sqlAds)) {
+    echo "<h3>Table ads created successfully</h3>";
+} else {
+    echo "Error creating table ads: " . mysqli_error($conn);
+}
 
 mysqli_close($conn);
 ?>

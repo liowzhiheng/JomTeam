@@ -52,16 +52,18 @@ require("config.php"); // Include the database configuration file
     <?php
     $search = isset($_GET['search']) ? $_GET['search'] : '';
 
-    // Fetch all users with phone data from the profile table
-    $sql = "SELECT user.*, profile.phone FROM user 
-        LEFT JOIN profile ON user.id = profile.user_id";
+    // Fetch all users from the user table
+    $sql = "SELECT * FROM user";
 
+    // Check if a search term is provided
     if (!empty($search)) {
         // Escape the search string to prevent SQL injection
         $search = $conn->real_escape_string($search);
-        $sql .= " WHERE user.email LIKE '%$search%'";
+        // Append the search condition to the query
+        $sql .= " WHERE email LIKE '%$search%'";
     }
 
+    // Execute the query
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
