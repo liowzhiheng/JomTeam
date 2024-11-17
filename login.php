@@ -112,15 +112,15 @@
 
 
 <script>
-    document.getElementById('togglePassword').addEventListener('click', function () {
-        const passwordField = document.getElementById('password');
-        const passwordImage = document.getElementById('passwordImage');
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            const passwordField = document.getElementById('password');
+            const passwordImage = document.getElementById('passwordImage');
 
-        // Toggle password visibility
-        const isPasswordHidden = passwordField.type === 'password';
-        passwordField.type = isPasswordHidden ? 'text' : 'password';
+            // Toggle password visibility
+            const isPasswordHidden = passwordField.type === 'password';
+            passwordField.type = isPasswordHidden ? 'text' : 'password';
 
-        // Change image source
-        passwordImage.src = isPasswordHidden ? 'IMAGE/open_eye.png' : 'IMAGE/close_eye.png';
-    });
-</script>
+            // Change image source
+            passwordImage.src = isPasswordHidden ? 'IMAGE/open_eye.png' : 'IMAGE/close_eye.png';
+        });
+    </script>

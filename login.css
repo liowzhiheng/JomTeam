@@ -119,16 +119,20 @@ img.picture {
 
 
 
+
 #togglePassword {
-    background: none;
+    position: absolute; /* Position the button absolutely inside the container */
+    top: 59.5%; /* Center vertically */
+    right: 1%; /* Adjust distance from the right edge */
+    transform: translateY(-100%); /* Correct vertical alignment */
+    transform: translateX(-3695%); /* Correct vertical alignment */
+    background: none; /* Remove default styles */
     border: none;
     cursor: pointer;
-    padding: 0 8px;
-    margin-left: 4px;
+    padding: 0;
 }
 
 .picture_password {
-    width: 35%;
-    height: 5%;
-    margin-right: 20px;
+    width: 20px;
+    height: 20px;
 }
