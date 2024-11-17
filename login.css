@@ -9,12 +9,12 @@ body {
     align-items: center;
     background-size: cover;
     border-radius: 75px;
-    height: 80%;
+    height: 95%;
     width: 70%;
-    margin: 5% auto;
+    margin: 1.5% auto;
     box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
     background-color: rgba(255, 255, 255, 0.90);
-    padding: 20px;
+    padding: 1%;
     box-sizing: border-box;
 }
 
@@ -25,16 +25,16 @@ body {
 
 h1.welcome_text {
     color: #EB1436;
-    font-size: 80px;
+    font-size: 360%;
     font-weight: 700;
     margin-bottom: 10px;
 }
 
 p.match_detail {
     color: #333;
-    font-size: 16px;
+    font-size: 65%;
     line-height: 1.6;
-    margin-bottom: 30px;
+    margin-bottom: 6%;
 }
 
 .key_in input {
@@ -43,7 +43,7 @@ p.match_detail {
     margin-top: 10px;
     border-radius: 10px;
     border: 1px solid #ccc;
-    font-size: 16px;
+    font-size: 65%;
     box-sizing: border-box;
     transition: all 0.3s ease;
 }
@@ -57,15 +57,15 @@ p.match_detail {
 .register {
     text-decoration: none;
     color: #333;
-    font-size: 12px;
+    font-size: 65%;
     font-weight: 500;
-    margin-top: 20px;
+    margin-top: 5%;
 }
 
 .register1 {
     color: #EB1436;
     text-decoration: none;
-    font-size: 12px;
+    font-size: 90%;
     font-weight: 500;
 }
 
@@ -85,9 +85,9 @@ img.picture {
 }
 
 .button {
-    width: 100%;
-    height: 50px;
-    font-size: 18px;
+    width: 85%;
+    height: 13%;
+    font-size: 100%;
     font-weight: 700;
     color: white;
     background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%);
@@ -95,9 +95,40 @@ img.picture {
     border-radius: 50px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-top: 20px;
+    margin-top: 5%;
 }
 
 .button:hover {
     background-color: #e50c28;
+}
+
+.error-message {
+    color: #dc2626;
+    background-color: #fef2f2;
+    border: 1px solid #dc2626;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 2%;
+    display: none;
+    font-size: 65%;
+}
+
+.error-message.show {
+    display: block;
+}
+
+
+
+#togglePassword {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0 8px;
+    margin-left: 4px;
+}
+
+.picture_password {
+    width: 35%;
+    height: 5%;
+    margin-right: 20px;
 }

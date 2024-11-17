@@ -1,25 +1,15 @@
 <html>
+
 <head>
     <title>Login</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="login.css">
-    <style>
-        .error-message {
-            color: #dc2626;
-            background-color: #fef2f2;
-            border: 1px solid #dc2626;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 15px;
-            display: none;
-        }
-
-        .error-message.show {
-            display: block;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        integrity="sha512-Fo3rlrZj/k7ujTnHg4fSU4bMcfB35jRg+iO1fF7zqJgpEfae7xIRyYObEXKstbELqAd9Q3VM4RCFfRJjdmhLg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body>
     <div class="container">
         <div class="text_box">
@@ -31,10 +21,11 @@
                 ⚽🏀🏈
             </p>
             <!-- Add error message container and display PHP session errors if they exist -->
-            <div id="errorMessage" class="error-message <?php if(isset($_GET['error'])) echo 'show'; ?>">
+            <div id="errorMessage" class="error-message <?php if (isset($_GET['error']))
+                echo 'show'; ?>">
                 <?php
-                if(isset($_GET['error'])) {
-                    switch($_GET['error']) {
+                if (isset($_GET['error'])) {
+                    switch ($_GET['error']) {
                         case 'email':
                             echo 'Email not found. Please check your email or register a new account.';
                             break;
@@ -47,14 +38,18 @@
                 }
                 ?>
             </div>
-            
+
             <form method="post" action="check_login.php"> <!-- Changed to check_login.php -->
                 <div class="key_in">
                     <input type="text" name="email" placeholder="Email" required />
                 </div>
                 <div class="key_in">
+                    
+
                     <input type="password" name="password" id="password" placeholder="Password" required />
-                    <button type="button" id="revealPassword">Show</button>
+                    <button type="button" id="togglePassword">
+                        <img src="IMAGE/close_eye.png" class="picture_password" alt="Toggle Visibility" id="passwordImage" />
+                    </button>
                 </div>
                 <div>
                     <p class="register">
@@ -76,7 +71,7 @@
         function togglePasswordVisibility() {
             const passwordField = document.getElementById('password');
             const button = document.getElementById('revealPassword');
-            
+
             if (passwordField.type === "password") {
                 passwordField.type = "text";
                 button.textContent = "Hide";
@@ -89,14 +84,14 @@
         revealPasswordButton.addEventListener('click', togglePasswordVisibility);
 
         // Show error message immediately if it exists in URL parameters
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const urlParams = new URLSearchParams(window.location.search);
             const error = urlParams.get('error');
             const errorMsg = document.getElementById('errorMessage');
-            
+
             if (error) {
                 let message = '';
-                switch(error) {
+                switch (error) {
                     case 'email':
                         message = 'Email not found. Please check your email or register a new account.';
                         break;
@@ -112,4 +107,20 @@
         });
     </script>
 </body>
+
 </html>
+
+
+<script>
+    document.getElementById('togglePassword').addEventListener('click', function () {
+        const passwordField = document.getElementById('password');
+        const passwordImage = document.getElementById('passwordImage');
+
+        // Toggle password visibility
+        const isPasswordHidden = passwordField.type === 'password';
+        passwordField.type = isPasswordHidden ? 'text' : 'password';
+
+        // Change image source
+        passwordImage.src = isPasswordHidden ? 'IMAGE/open_eye.png' : 'IMAGE/close_eye.png';
+    });
+</script>
