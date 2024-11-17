@@ -87,7 +87,7 @@ require("config.php"); // Include the database configuration file
         while ($row = $result->fetch_assoc()) {
             echo "<tr>";
             echo "<td>" . $counter++ . "</td>"; // Sequential numbering
-            echo "<td>" . htmlspecialchars($row["email"]) . "</td>";
+            echo "<td>" . htmlspecialchars($row["first_name"]) . ' ' . htmlspecialchars($row["last_name"]) . "</td>";
             $role = ($row['level'] == 1) ? 'admin' : 'user';
             echo "<td>" . htmlspecialchars($role) . "</td>";
             echo "<td>" . htmlspecialchars($row["phone"] ?? '') . "</td>";
