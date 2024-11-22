@@ -16,6 +16,13 @@ body {
     background-color: rgba(255, 255, 255, 0.90);
     padding: 1%;
     box-sizing: border-box;
+
+
+    
+  
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .text_box {
@@ -37,6 +44,23 @@ p.match_detail {
     margin-bottom: 6%;
 }
 
+.key_in_birthday input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 85%;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.key_in input:focus {
+    outline: none;
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
 .key_in input {
     width: 100%;
     padding: 12px;
@@ -49,6 +73,24 @@ p.match_detail {
 }
 
 .key_in input:focus {
+    outline: none;
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.key_in select {
+    width: 70%;
+    padding: 5%;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 65%;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+
+}
+
+.key_in select:focus {
     outline: none;
     border-color: #007BFF;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
@@ -85,8 +127,8 @@ img.picture {
 }
 
 .button {
-    width: 85%;
-    height: 13%;
+    width: 75%;
+    height: 10%;
     font-size: 100%;
     font-weight: 700;
     color: white;
@@ -99,6 +141,24 @@ img.picture {
 }
 
 .button:hover {
+    background-color: #e50c28;
+}
+
+.create_button {
+    width: 75%;
+    height: 70px;
+    font-size: 100%;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10%;
+}
+
+.create_button:hover {
     background-color: #e50c28;
 }
 
@@ -121,18 +181,93 @@ img.picture {
 
 
 #togglePassword {
-    position: absolute; /* Position the button absolutely inside the container */
-    top: 59.5%; /* Center vertically */
-    right: 1%; /* Adjust distance from the right edge */
-    transform: translateY(-100%); /* Correct vertical alignment */
-    transform: translateX(-3695%); /* Correct vertical alignment */
-    background: none; /* Remove default styles */
+    position: relative;
+    /* Position the button absolutely inside the container */
+
+
+
+    transform: translateX(1100%);
+    /* Correct vertical alignment */
+    background: none;
+    /* Remove default styles */
     border: none;
     cursor: pointer;
     padding: 0;
+
+}
+
+#toggleConfirmPassword {
+    position: relative;
+    /* Position the button absolutely inside the container */
+    transform: translateX(1100%);
+    /* Correct vertical alignment */
+    background: none;
+    /* Remove default styles */
+    border: none;
+    cursor: pointer;
+    padding: 0;
+
 }
 
 .picture_password {
+    position: relative;
+    /* Position the button absolutely inside the container */
     width: 20px;
     height: 20px;
+    transform: translateY(-145%);
+}
+
+.validation-feedback {
+    color: #EB1436;
+    font-size: 70%;
+    margin-top: 2%;
+    margin-left: 1%;
+    display: none;
+    margin-bottom: 5%;
+}
+
+.error-message {
+    color: #EB1436;
+    background-color: rgba(235, 20, 54, 0.1);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.password_size {
+    margin-bottom: -10%;
+}
+
+
+
+#backButtonForm {
+    position: absolute;
+    top: 70%;
+    /* Vertical center */
+    left: 7%;
+    /* Align to the left */
+    transform: translateY(-50%);
+    /* Adjust for proper vertical centering */
+}
+
+.arrow {
+    width: 0;
+    height: 0;
+    border-top: 50px solid transparent;
+    border-bottom: 50px solid transparent;
+    border-right: 50px solid rgba(255, 255, 255, 0.8);
+    /* Arrow color with 80% transparency */
+    cursor: pointer;
+    display: inline-block;
+
+}
+
+.arrow:hover {
+    border-left-color: rgba(255, 255, 255, 0.6);
+    /* Slightly reduce transparency on hover */
+    transform: scale(1.2);
+    /* Enlarge slightly */
+    transition: transform 0.2s, border-left-color 0.2s;
+    /* Smooth animation */
 }

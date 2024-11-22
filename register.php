@@ -6,31 +6,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="login.css">
-    <style>
-        .error-message {
-            color: #EB1436;
-            background-color: rgba(235, 20, 54, 0.1);
-            padding: 10px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            text-align: center;
-        }
 
-        .validation-feedback {
-            color: #EB1436;
-            font-size: 12px;
-            margin-top: 5px;
-            display: none;
-        }
-    </style>
 </head>
 
 <body>
+    <form action="login.php" id="backButtonForm">
+        <button type="submit" style="background: none; border: none; cursor: pointer;">
+            <div class="arrow"></div>
+        </button>
+    </form>
     <div class="container">
         <div class="text_box">
-            <form action="login.php">
-                <input type="submit" value="Back">
-            </form>
+
+
+
             <h1 class="welcome_text">Create Account</h1>
             <?php
             if (isset($_SESSION['error_message'])) {
@@ -62,7 +51,7 @@
                     <span id="genderFeedback" class="validation-feedback">Please select a gender</span>
                 </div>
 
-                <div class="key_in">
+                <div class="key_in_birthday">
                     <input type="date" name="dob" id="dob" placeholder="Date of Birth"
                         value="<?php echo htmlspecialchars($_POST['dob'] ?? ''); ?>" required />
                     <div class="validation-feedback" id="dobFeedback"></div>
@@ -78,15 +67,25 @@
                     <input type="password" name="password" id="password" placeholder="Password" required />
                     <span id="passwordFeedback" class="validation-feedback">Password must be at least 8 characters and
                         contain at least 2 of the following: uppercase, lowercase, number, symbol</span>
-                    <button type="button" id="revealPassword" onclick="togglePasswordVisibility()">Show</button>
+                    <div id="revealPassword" onclick="togglePasswordVisibility()" class="password_size"><button
+                            type="button" id="togglePassword">
+                            <img src="IMAGE/close_eye.png" class="picture_password" alt="Toggle Visibility"
+                                id="passwordImage" />
+                        </button>
+                    </div>
                 </div>
 
                 <div class="key_in">
                     <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password"
                         required />
                     <span id="confirmPasswordFeedback" class="validation-feedback">Passwords do not match</span>
-                    <button type="button" id="revealConfirmPassword"
-                        onclick="toggleConfirmPasswordVisibility()">Show</button>
+                    <div type="button" id="revealConfirmPassword" onclick="toggleConfirmPasswordVisibility()"
+                        class="password_size">
+                        <button type="button" id="toggleConfirmPassword">
+                            <img src="IMAGE/close_eye.png" class="picture_password" alt="Toggle Visibility"
+                                id="confirmPasswordImage" />
+                        </button>
+                    </div>
                 </div>
 
                 <div class="key_in">
@@ -101,7 +100,7 @@
                     <input type="tel" name="phone" id="phone" placeholder="Phone Number" required />
                     <span id="phoneFeedback" class="validation-feedback">Please enter a valid phone number</span>
                 </div>
-                <p><input type="submit" value="Create" class="button" /></p>
+                <p><input type="submit" value="Create" class="create_button" /></p>
             </form>
 
         </div>
@@ -155,24 +154,14 @@
 
             function togglePasswordVisibility() {
                 const passwordField = document.getElementById('password');
-                if (passwordField.type === "password") {
-                    passwordField.type = "text";
-                    this.textContent = "Hide";
-                } else {
-                    passwordField.type = "password";
-                    this.textContent = "Show";
-                }
+
             }
 
             function toggleConfirmPasswordVisibility() {
                 const confirmPasswordField = document.getElementById('confirm_password');
-                if (confirmPasswordField.type === "password") {
-                    confirmPasswordField.type = "text";
-                    this.textContent = "Hide";
-                } else {
-                    confirmPasswordField.type = "password";
-                    this.textContent = "Show";
-                }
+                const passwordImage = document.getElementById('passwordImage');
+
+
             }
 
             firstName.addEventListener('blur', function () {
@@ -249,6 +238,38 @@
                 }
             });
         });
+    </script>
+
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            const passwordField = document.getElementById('password');
+            const passwordImage = document.getElementById('passwordImage');
+
+            // Toggle password visibility
+            const isPasswordHidden = passwordField.type === 'password';
+            passwordField.type = isPasswordHidden ? 'text' : 'password';
+
+            // Change image source
+            passwordImage.src = isPasswordHidden ? 'IMAGE/open_eye.png' : 'IMAGE/close_eye.png';
+            passwordImage.alt = isPasswordHidden ? 'Hide Password' : 'Show Password'; // Update alt for accessibility
+        });
+
+    </script>
+
+    <script>
+        document.getElementById('toggleConfirmPassword').addEventListener('click', function () {
+            const confirmPasswordField = document.getElementById('confirm_password');
+            const confirmPasswordImage = document.getElementById('confirmPasswordImage');
+
+            // Toggle confirm password visibility
+            const isConfirmPasswordHidden = confirmPasswordField.type === 'password';
+            confirmPasswordField.type = isConfirmPasswordHidden ? 'text' : 'password';
+
+            // Change image source
+            confirmPasswordImage.src = isConfirmPasswordHidden ? 'IMAGE/open_eye.png' : 'IMAGE/close_eye.png';
+            confirmPasswordImage.alt = isConfirmPasswordHidden ? 'Hide Password' : 'Show Password'; // Update alt for accessibility
+        });
+
     </script>
 </body>
 

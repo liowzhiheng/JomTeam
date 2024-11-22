@@ -86,12 +86,12 @@ if (mysqli_stmt_execute($stmt)) {
     echo '
     <html>
     <head>
-        <link rel="stylesheet" href="login.css">
+        <link rel="stylesheet" href="check_register.css">
+        <meta http-equiv="refresh" content="3;url=login.php">
     </head>
     <body>
         <h1>Registration Successful!</h1>
-        <p>Your account has been created successfully. Please log in.</p>
-        <p class="button"><a href="login.php">Go to login page</a></p>
+        <img id="randomImage" src="image/login_done_1.jpg" alt="Login Successful" class="login-image" />
     </body>
     </html>';
 } else {
@@ -101,3 +101,25 @@ if (mysqli_stmt_execute($stmt)) {
 
 mysqli_close($conn);
 ?>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const imageFolder = 'image/'; // Set the path to your folder containing images
+    const images = ['login_done_1.jpg', 'login_done_2.jpg', 'login_done_3.jpg', 'login_done_4.jpg']; // List of images in the folder
+    const randomImageElement = document.getElementById('randomImage');
+    
+    // Function to pick a random image
+    function setRandomImage() {
+        const randomIndex = Math.floor(Math.random() * images.length); // Get a random index
+        const randomImage = images[randomIndex]; // Get the image name at the random index
+        randomImageElement.src = imageFolder + randomImage; // Set the src of the image element
+    }
+
+    setRandomImage(); // Call the function to set a random image on page load
+
+    // Optionally, set the image to change every few seconds:
+    // setInterval(setRandomImage, 5000); // Uncomment this to change the image every 5 seconds
+});
+
+</script>
