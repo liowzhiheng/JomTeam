@@ -49,6 +49,7 @@ h1.welcome_text {
     font-size: 85%;
     box-sizing: border-box;
     transition: all 0.3s ease;
+    color:  rgba(0, 0, 0, 0.609);
 }
 
 .key_in_birthday input:focus {
@@ -57,15 +58,38 @@ h1.welcome_text {
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-.key_in_gender select {
-    width: 50%;
+.key_in_country select {
+    width: 80%;
     padding: 12px;
     margin-top: 10px;
     border-radius: 10px;
     border: 1px solid #ccc;
-    font-size: 85%;
+    font-size: 65%;
     box-sizing: border-box;
     transition: all 0.3s ease;
+    padding-left: 8px;
+    color:  rgba(0, 0, 0, 0.609);
+}
+
+.key_in_country select:focus {
+    outline: none;
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.key_in_gender select {
+    width: 50%;
+    padding: 12px;
+    padding-left: 8px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 65%;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    color:  rgba(0, 0, 0, 0.609);
+    
+    
     
 }
 
@@ -90,6 +114,7 @@ h1.welcome_text {
     font-size: 65%;
     box-sizing: border-box;
     transition: all 0.3s ease;
+    
 }
 
 .key_in input:focus {

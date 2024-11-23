@@ -96,7 +96,7 @@
               
 
 
-                <div class="key_in">
+                <div class="key_in_country">
                     <select name="country_code" id="country_code" required>
                         <option value="">Select Country Code</option>
                         <option value="+60">+60 Malaysia</option>
@@ -105,8 +105,12 @@
                         <option value="+1">+1 United States</option>
                         <!-- Add more country codes here -->
                     </select>
-                    <input type="tel" name="phone" id="phone" placeholder="Phone Number" required />
+                    </div>
+
+                <div class="key_in">
+                <input type="tel" name="phone" id="phone" placeholder="Phone Number" required />
                     <span id="phoneFeedback" class="validation-feedback">Please enter a valid phone number</span>
+                
                 </div>
                 <p><input type="submit" value="Create" class="create_button" /></p>
             </form>
