@@ -5,7 +5,7 @@
     <title>Create Account</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="register.css">
 
 </head>
 
@@ -65,28 +65,36 @@
 
                 <div class="key_in">
                     <input type="password" name="password" id="password" placeholder="Password" required />
-                    <span id="passwordFeedback" class="validation-feedback">Password must be at least 8 characters and
-                        contain at least 2 of the following: uppercase, lowercase, number, symbol</span>
-                    <div id="revealPassword" onclick="togglePasswordVisibility()" class="password_size"><button
+                    <button
                             type="button" id="togglePassword">
                             <img src="IMAGE/close_eye.png" class="picture_password" alt="Toggle Visibility"
                                 id="passwordImage" />
                         </button>
+                    <span id="passwordFeedback" class="validation-feedback">Password must be at least 8 characters and
+                        contain at least 2 of the following: uppercase, lowercase, number, symbol</span>
+                    <div id="revealPassword" onclick="togglePasswordVisibility()" >
                     </div>
+
+                    
                 </div>
+
+            
 
                 <div class="key_in">
                     <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password"
                         required />
-                    <span id="confirmPasswordFeedback" class="validation-feedback">Passwords do not match</span>
-                    <div type="button" id="revealConfirmPassword" onclick="toggleConfirmPasswordVisibility()"
-                        class="password_size">
-                        <button type="button" id="toggleConfirmPassword">
+                        <button  id="toggleConfirmPassword">
                             <img src="IMAGE/close_eye.png" class="picture_password" alt="Toggle Visibility"
                                 id="confirmPasswordImage" />
                         </button>
+                    <span id="confirmPasswordFeedback" class="validation-feedback">Passwords do not match</span>
+                    <div id="revealConfirmPassword" onclick="toggleConfirmPasswordVisibility()" >
+                        
                     </div>
                 </div>
+
+              
+
 
                 <div class="key_in">
                     <select name="country_code" id="country_code" required>

@@ -43,14 +43,18 @@
                 <div class="key_in">
                     <input type="text" name="email" placeholder="Email" required />
                 </div>
-                <div class="key_in">
-                    
 
+                <div class="key_in ">
                     <input type="password" name="password" id="password" placeholder="Password" required />
                     <button type="button" id="togglePassword">
-                        <img src="IMAGE/close_eye.png" class="picture_password" alt="Toggle Visibility" id="passwordImage" />
+                        <img src="IMAGE/close_eye.png" class="picture_password" alt="Toggle Visibility"
+                            id="passwordImage" />
                     </button>
                 </div>
+
+
+
+
                 <div>
                     <p class="register">
                         Not registered yet? <a href="register.php" class="register1">Create a new account</a>
@@ -112,15 +116,15 @@
 
 
 <script>
-        document.getElementById('togglePassword').addEventListener('click', function () {
-            const passwordField = document.getElementById('password');
-            const passwordImage = document.getElementById('passwordImage');
+    document.getElementById('togglePassword').addEventListener('click', function () {
+        const passwordField = document.getElementById('password');
+        const passwordImage = document.getElementById('passwordImage');
 
-            // Toggle password visibility
-            const isPasswordHidden = passwordField.type === 'password';
-            passwordField.type = isPasswordHidden ? 'text' : 'password';
+        // Toggle password visibility
+        const isPasswordHidden = passwordField.type === 'password';
+        passwordField.type = isPasswordHidden ? 'text' : 'password';
 
-            // Change image source
-            passwordImage.src = isPasswordHidden ? 'IMAGE/open_eye.png' : 'IMAGE/close_eye.png';
-        });
-    </script>
+        // Change image source
+        passwordImage.src = isPasswordHidden ? 'IMAGE/open_eye.png' : 'IMAGE/close_eye.png';
+    });
+</script>

@@ -44,6 +44,11 @@ p.match_detail {
     margin-bottom: 6%;
 }
 
+.key_in
+{
+    display: flex; 
+}
+
 .key_in_birthday input {
     width: 100%;
     padding: 12px;
@@ -178,28 +183,10 @@ img.picture {
 }
 
 
-
-
-#togglePassword {
-    position: relative;
-    /* Position the button absolutely inside the container */
-
-
-
-    transform: translateX(1100%);
-    /* Correct vertical alignment */
-    background: none;
-    /* Remove default styles */
-    border: none;
-    cursor: pointer;
-    padding: 0;
-
-}
-
 #toggleConfirmPassword {
     position: relative;
     /* Position the button absolutely inside the container */
-    transform: translateX(1100%);
+    transform: translateY(1100%);
     /* Correct vertical alignment */
     background: none;
     /* Remove default styles */
@@ -214,7 +201,11 @@ img.picture {
     /* Position the button absolutely inside the container */
     width: 20px;
     height: 20px;
-    transform: translateY(-145%);
+    
+    
+    transform: translateX(1900%);
+    
+    
 }
 
 .validation-feedback {
@@ -235,8 +226,8 @@ img.picture {
     text-align: center;
 }
 
-.password_size {
-    margin-bottom: -10%;
+.password_sizee {
+    margin-bottom: -5%;
 }
 
 
@@ -271,3 +262,34 @@ img.picture {
     transition: transform 0.2s, border-left-color 0.2s;
     /* Smooth animation */
 }
+
+
+/* Style the parent container */
+.key_in {
+    position: relative;
+    width: 100%;
+}
+#revealConfirmPassword {
+    position: absolute;
+}
+
+#revealPassword {
+    position: absolute;
+}
+
+
+
+
+
+#togglePassword {
+    position: absolute;
+    top: 50%;
+    right: 390px; /* Adjust spacing from the right */
+    transform: translateY(-30%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+
