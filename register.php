@@ -41,7 +41,7 @@
                     <span id="lastNameFeedback" class="validation-feedback">Last name can only contain letters</span>
                 </div>
 
-                <div class="key_in">
+                <div class="key_in_gender">
                     <select name="gender" id="gender" required>
                         <option value="">Select Gender</option>
                         <option value="male">Male</option>
