@@ -8,9 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
         integrity="sha512-Fo3rlrZj/k7ujTnHg4fSU4bMcfB35jRg+iO1fF7zqJgpEfae7xIRyYObEXKstbELqAd9Q3VM4RCFfRJjdmhLg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="animation.css">
 </head>
 
-<body>
+<body class="transition-container">
     <div class="container">
         <div class="text_box">
             <h1 class="welcome_text">Welcome</h1>
@@ -40,6 +41,7 @@
             </div>
 
             <form method="post" action="check_login.php"> <!-- Changed to check_login.php -->
+                
                 <div class="key_in">
                     <input type="text" name="email" placeholder="Email" required />
                 </div>
@@ -110,6 +112,8 @@
             }
         });
     </script>
+
+
 </body>
 
 </html>
@@ -128,3 +132,5 @@
         passwordImage.src = isPasswordHidden ? 'IMAGE/open_eye.png' : 'IMAGE/close_eye.png';
     });
 </script>
+
+<script src="transition.js" defer></script>

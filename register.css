@@ -1,6 +1,7 @@
 body {
     background: linear-gradient(74deg, rgba(82, 82, 212, 0.86) 29.59%, #B7DFFD 110.57%);
     font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    overflow: auto;  /* Allow scrolling */
 }
 
 .container {
@@ -247,12 +248,9 @@ img.picture {
     
 }
 
-
-
-
 #backButtonForm {
     position: absolute;
-    top: 70%;
+    top: 50%;
     /* Vertical center */
     left: 7%;
     /* Align to the left */

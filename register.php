@@ -6,10 +6,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="register.css">
+    <link rel="stylesheet" href="animation.css">
 
 </head>
 
-<body>
+<body class="transition-container">
     <form action="login.php" id="backButtonForm">
         <button type="submit" style="background: none; border: none; cursor: pointer;">
             <div class="arrow"></div>
@@ -65,35 +66,34 @@
 
                 <div class="key_in">
                     <input type="password" name="password" id="password" placeholder="Password" required />
-                    <button
-                            type="button" id="togglePassword">
-                            <img src="IMAGE/close_eye.png" class="picture_password" alt="Toggle Visibility"
-                                id="passwordImage" />
-                        </button>
+                    <button type="button" id="togglePassword">
+                        <img src="IMAGE/close_eye.png" class="picture_password" alt="Toggle Visibility"
+                            id="passwordImage" />
+                    </button>
                     <span id="passwordFeedback" class="validation-feedback">Password must be at least 8 characters and
                         contain at least 2 of the following: uppercase, lowercase, number, symbol</span>
-                    <div id="revealPassword" onclick="togglePasswordVisibility()" >
+                    <div id="revealPassword" onclick="togglePasswordVisibility()">
                     </div>
 
-                    
+
                 </div>
 
-            
+
 
                 <div class="key_in">
                     <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password"
                         required />
-                        <button  id="toggleConfirmPassword">
-                            <img src="IMAGE/close_eye.png" class="picture_password" alt="Toggle Visibility"
-                                id="confirmPasswordImage" />
-                        </button>
+                    <button id="toggleConfirmPassword">
+                        <img src="IMAGE/close_eye.png" class="picture_password" alt="Toggle Visibility"
+                            id="confirmPasswordImage" />
+                    </button>
                     <span id="confirmPasswordFeedback" class="validation-feedback">Passwords do not match</span>
-                    <div id="revealConfirmPassword" onclick="toggleConfirmPasswordVisibility()" >
-                        
+                    <div id="revealConfirmPassword" onclick="toggleConfirmPasswordVisibility()">
+
                     </div>
                 </div>
 
-              
+
 
 
                 <div class="key_in_country">
@@ -105,12 +105,12 @@
                         <option value="+1">+1 United States</option>
                         <!-- Add more country codes here -->
                     </select>
-                    </div>
+                </div>
 
                 <div class="key_in">
-                <input type="tel" name="phone" id="phone" placeholder="Phone Number" required />
+                    <input type="tel" name="phone" id="phone" placeholder="Phone Number" required />
                     <span id="phoneFeedback" class="validation-feedback">Please enter a valid phone number</span>
-                
+
                 </div>
                 <p><input type="submit" value="Create" class="create_button" /></p>
             </form>
@@ -283,6 +283,10 @@
         });
 
     </script>
+
+
 </body>
 
 </html>
+
+<script src="transition.js" defer></script>
