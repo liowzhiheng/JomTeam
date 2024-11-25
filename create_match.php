@@ -58,7 +58,7 @@ $rows = mysqli_fetch_assoc($result);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Your Own Match</title>
-    <link rel="stylesheet" href="create_match.css">
+    <link rel="stylesheet" href="create_match_2.css">
 </head>
 
 <body>
@@ -80,92 +80,129 @@ $rows = mysqli_fetch_assoc($result);
         </ul>
     </nav>
 
-    <div class="header">
-        <h1>Create Your Own Match</h1>
-        <br>
+
+    <div class="profile-content">
+        <h1 class="profile-title">Create your own match</h1>
+        <p class="profile-description">
+            Not finding the right match? <br>No problem! Create your own game-changing partnership and turn any
+            challenge
+            into a victory. <br>Join our network and start building your dream team ?
+        </p>
     </div>
+    
+    <div class="profile-content">
+        <!-- start detail -->
+        <div class="profile-container">
+            <!-- left -->
+            <div class="profile-left">
+                <div class="uploaded-images">
+                    <?php
+                    $res = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $_SESSION["ID"]);
+                    while ($row = mysqli_fetch_assoc($res)) {
+                        if (empty($row['file'])) {
+                            // Display default image with overlay text
+                            echo '<div class="image-container">
+                <img src="IMAGE/default.png" alt="Default Image" class="uploaded-image" onclick="document.getElementById(\'imageInput\').click();" />
+                <div class="overlay-text">Upload Image</div>
+              </div>';
+                        } else {
+                            // Display uploaded image with overlay text
+                            echo '<div class="image-container">
+                <img src="uploads/' . $row['file'] . '" alt="Uploaded Image" class="uploaded-image" onclick="document.getElementById(\'imageInput\').click();" />
+                <div class="overlay-text">Click to Change</div>
+              </div>';
+                        }
+                    }
+                    ?>
 
-    <div class="wrapper">
-        <div class="container">
-            <form method="post" action="match_information.php">
-                <div class="title">
-                    Not finding the right match? No problem! Create your own game-changing partnership and turn any
-                    challenge into a victory. Join our network and start building your dream team today!
+                    <form action="update_image.php" method="POST" enctype="multipart/form-data"
+                        class="image-upload-form">
+                        <input type="file" name="image" id="imageInput" style="display: none;"
+                            onchange="enableSubmitButton()" />
+                        <button type="submit" name="submit" class="submit-button" id="uploadButton"
+                            disabled>Upload</button>
+                    </form>
                 </div>
-                <div class="content">
-                    <div class="personal_info">
-                        <div class="input-box">
-                            <span class="details">Full Name</span>
-                            <input type="text" name="name"
-                                value="<?php echo htmlspecialchars($rows['first_name'] . ' ' . $rows['last_name']); ?>"
-                                required>
-                        </div>
-                        <div class="input-box">
-                            <span class="details">UserID</span>
-                            <input type="text" name="userID" value="<?php echo $_SESSION['ID']; ?>" readonly>
-                        </div>
-                        <div class="input-box">
-                            <span class="details">Phone Number</span>
-                            <input type="text" name="phone" value="<?php echo htmlspecialchars($rows['phone']); ?>"
-                                required>
-                        </div>
-                        <div class="input-box">
-                            <span class="details">Gender</span>
-                            <input type="text" name="gender" value="<?php echo htmlspecialchars($rows['gender']); ?>"
-                                required>
-                        </div>
+            </div>
+            <!-- right -->
+            <div class="profile-right">
+                <form method="post" action="match_information.php">
+
+                    <div class="group">
+                        <label>Full Name</label>
+                        <input type="text" name="name"
+                            value="<?php echo htmlspecialchars($rows['first_name'] . ' ' . $rows['last_name']); ?>"
+                            required>
                     </div>
-                </div>
-
-                <div class="title">Game Party Information</div>
-                <div class="content">
-                    <div class="personal_info">
-                        <div class="input-box">
-                            <span class="details">Match Title</span>
-                            <input type="text" name="match_title" required>
-                        </div>
-                        <div class="input-box">
-                            <span class="details">Game Type</span>
-                            <input type="text" name="game_type" required>
-                        </div>
-                        <div class="input-box">
-                            <span class="details">Location</span>
-                            <input type="text" name="location" required>
-                        </div>
-                        <div class="input-box">
-                            <span class="details">Start Date</span>
-                            <input type="date" name="startDate" required>
-                        </div>
-                        <div class="input-box">
-                            <span class="details">Duration of Game Match</span>
-                            <input type="text" name="duration" required>
-                        </div>
-                        <!-- New Fields -->
-                        <div class="input-box">
-                            <span class="details">Skill Level Required</span>
-                            <input type="text" name="skill_level" required>
-                        </div>
-                        <div class="input-box">
-                            <span class="details">Maximum Players</span>
-                            <input type="number" name="max_players" required>
-                        </div>
-                        <div class="input-box">
-                            <span class="details">Current Players</span>
-                            <input type="number" name="current_players" required>
-                        </div>
-                        <div class="input-box">
-                            <span class="details">Description</span>
-                            <textarea name="description" rows="4" required></textarea>
-                        </div>
+                    <div class="group">
+                        <label>UserID</label>
+                        <input type="text" name="userID" value="<?php echo $_SESSION['ID']; ?>" readonly>
                     </div>
-                </div>
+                    <div class="group">
+                        <label>Phone Number</label>
+                        <input type="text" name="phone" value="<?php echo htmlspecialchars($rows['phone']); ?>"
+                            required>
+                    </div>
+                    <div class="group">
+                        <label>Gender</label>
+                        <input type="text" name="gender" value="<?php echo htmlspecialchars($rows['gender']); ?>"
+                            required>
+                    </div>
 
-                <input type="submit" class="button" value="Submit">
-            </form>
+                    <div class="group">
+                        <label class="details">Match Title</label>
+                        <input type="text" name="match_title" required>
+                    </div>
+                    <div class="group">
+                        <label class="details">Game Type</label>
+                        <input type="text" name="game_type" required>
+                    </div>
+                    <div class="group">
+                        <label class="details">Location</label>
+                        <input type="text" name="location" required>
+                    </div>
+                    <div class="group">
+                        <label class="details">Start Date</label>
+                        <input type="date" name="startDate" required>
+                    </div>
+                    <div class="group">
+                        <label class="details">Duration of Game Match</label>
+                        <input type="text" name="duration" required>
+                    </div>
+
+                    <div class="group">
+                        <label class="details">Skill Level Required</label>
+                        <input type="text" name="skill_level" required>
+                    </div>
+                    <div class="group">
+                        <label class="details">Maximum Players</label>
+                        <input type="number" name="max_players" required>
+                    </div>
+                    <div class="group">
+                        <label class="details">Current Players</label>
+                        <input type="number" name="current_players" required>
+                    </div>
+                    <div class="group">
+                        <label class="details">Description</label>
+                        <textarea name="description" rows="4" required></textarea>
+                    </div>
 
 
+                    <div class="button-container">
+                        <button type="submit" class="button" value="Submit">
+                            <img src="IMAGE/red_button.png" alt="Submit Button">
+                        </button>
+                    </div>
+
+                </form>
+            </div>
         </div>
+
     </div>
+
+
+
+
 </body>
 
 </html>

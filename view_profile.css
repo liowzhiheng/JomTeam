@@ -157,14 +157,16 @@ body {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    background-color: #4CAF50;
+    background-color: #ffffff;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
+    color: #5252D4;
+    font-family: Arial, sans-serif;
 }
 
 .submit-button:hover {
-    background-color: #45a049;
+    background-color: #ffffff;
 }
 
 .profile-right {
@@ -199,29 +201,6 @@ body {
     height: 100px;
 }
 
-.button-container {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
-}
-
-.button {
-    width: 70px;
-    height: 45px;
-    border-radius: 50px;
-    background-color: #ffffff;
-    color: rgb(255, 0, 0);
-    font-size: 30px;
-    border: none;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.button:hover {
-    background-color: #bababa;
-}
-
 .message {
     padding: 10px;
     font-size: 16px;
@@ -236,4 +215,24 @@ body {
 .fail {
     background-color: #f44336;
     color: white;
+}
+
+.button-container {
+    display: inline-block;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 40px;
+    margin-right: -55px;
+}
+
+.button {
+    background: none;  /* Remove background */
+    border: none;      /* Remove border */
+    padding: 0;        /* Remove padding */
+    cursor: pointer;   /* Make the image behave like a clickable button */
+}
+
+.button img {
+    width: 50%;        /* Adjust the image size as per your needs */
+    height: auto;       /* Maintain the aspect ratio */
 }

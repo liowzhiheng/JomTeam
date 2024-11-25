@@ -76,7 +76,8 @@ $rows = mysqli_fetch_assoc($result);
             <li><a href="#premium">Premium</a></li>
         </ul>
         <ul class="menu rightmenu">
-            <li class="notification"><a href="#notification"><img src="IMAGE/NOTIFICATION.png" alt="Notification"></a></li>
+            <li class="notification"><a href="#notification"><img src="IMAGE/NOTIFICATION.png" alt="Notification"></a>
+            </li>
             <li class="logout"><a href="login.php">Log out<img src="IMAGE/LOGOUT.png" alt="Logout"></a></li>
         </ul>
     </nav>
@@ -91,7 +92,7 @@ $rows = mysqli_fetch_assoc($result);
         </p>
         <div class="profile-container">
             <div class="profile-left">
-            <div class="uploaded-images">
+                <div class="uploaded-images">
                     <?php
                     $res = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $_SESSION["ID"]);
                     while ($row = mysqli_fetch_assoc($res)) {
@@ -126,53 +127,68 @@ $rows = mysqli_fetch_assoc($result);
                 <form id="profileForm" action="update_profile.php" method="post">
                     <div class="group">
                         <label for="name">First Name:</label>
-                        <input type="text" id="fname" name="fname" value="<?php echo htmlspecialchars($rows['first_name']); ?>" placeholder="Enter your name">
+                        <input type="text" id="fname" name="fname"
+                            value="<?php echo htmlspecialchars($rows['first_name']); ?>" placeholder="Enter your name">
                     </div>
 
                     <div class="group">
                         <label for="name">Last Name:</label>
-                        <input type="text" id="lname" name="lname" value="<?php echo htmlspecialchars($rows['last_name']); ?>" placeholder="Enter your name">
+                        <input type="text" id="lname" name="lname"
+                            value="<?php echo htmlspecialchars($rows['last_name']); ?>" placeholder="Enter your name">
                     </div>
 
                     <div class="group">
                         <label for="gender">Gender:</label>
-                        <input type="text" id="gender" name="gender" value="<?php echo htmlspecialchars($rows['gender']); ?>" placeholder="Enter your gender">
+                        <input type="text" id="gender" name="gender"
+                            value="<?php echo htmlspecialchars($rows['gender']); ?>" placeholder="Enter your gender">
                     </div>
-                    
+
                     <div class="group">
                         <label for="email">Email:</label>
-                        <input type="text" id="email" name="email" value="<?php echo htmlspecialchars($rows['email']); ?>" placeholder="Enter your email">
+                        <input type="text" id="email" name="email"
+                            value="<?php echo htmlspecialchars($rows['email']); ?>" placeholder="Enter your email">
                     </div>
 
                     <div class="group">
                         <label for="password">Password:</label>
-                        <input type="text" id="password" name="password" value="<?php echo htmlspecialchars($rows['password']); ?>" placeholder="Enter your email">
+                        <input type="text" id="password" name="password"
+                            value="<?php echo htmlspecialchars($rows['password']); ?>" placeholder="Enter your email">
                     </div>
 
                     <div class="group">
                         <label for="phone">Phone Number:</label>
-                        <input type="text" id="phone" name="phone" value="<?php echo htmlspecialchars($rows['phone']); ?>" placeholder="Enter your email">
+                        <input type="text" id="phone" name="phone"
+                            value="<?php echo htmlspecialchars($rows['phone']); ?>" placeholder="Enter your email">
                     </div>
 
                     <div class="group">
                         <label for="status">Status:</label>
-                        <input type="text" id="status" name="status" value="<?php echo htmlspecialchars($rows['status']); ?>" placeholder="Enter your status">
+                        <input type="text" id="status" name="status"
+                            value="<?php echo htmlspecialchars($rows['status']); ?>" placeholder="Enter your status">
                     </div>
                     <div class="group">
                         <label for="description">Description:</label>
-                        <textarea id="description" name="description" placeholder="Describe yourself..."><?php echo htmlspecialchars($rows['description']); ?></textarea>
+                        <textarea id="description" name="description"
+                            placeholder="Describe yourself..."><?php echo htmlspecialchars($rows['description']); ?></textarea>
                     </div>
                     <div class="group">
                         <label for="location">Location:</label>
-                        <input type="text" id="location" name="location" value="<?php echo htmlspecialchars($rows['location']); ?>" placeholder="Enter your location">
+                        <input type="text" id="location" name="location"
+                            value="<?php echo htmlspecialchars($rows['location']); ?>"
+                            placeholder="Enter your location">
                     </div>
                     <div class="group">
                         <label for="interests">Interests:</label>
-                        <textarea id="interests" name="interests" placeholder="List your interests..."><?php echo htmlspecialchars($rows['interests']); ?></textarea>
+                        <textarea id="interests" name="interests"
+                            placeholder="List your interests..."><?php echo htmlspecialchars($rows['interests']); ?></textarea>
                     </div>
                     <div class="button-container">
-                        <button type="submit" class="button">Update Profile</button>
+                        <button type="submit" class="button">
+                            <img src="IMAGE/button_2.png" alt="Submit Button">
+                        </button>
                     </div>
+
+
                 </form>
             </div>
         </div>
