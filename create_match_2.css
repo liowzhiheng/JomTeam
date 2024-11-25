@@ -191,7 +191,7 @@ body {
     display: flex;
     justify-content: flex-end;
     margin-top: 40px;
-    margin-right: -55px;
+    margin-right: -275px;
 }
 
 .button {
@@ -206,7 +206,7 @@ body {
 }
 
 .button img {
-    width: 50%;
+    width: 20%;
     /* Adjust the image size as per your needs */
     height: auto;
     /* Maintain the aspect ratio */
