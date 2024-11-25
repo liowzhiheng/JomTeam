@@ -89,7 +89,7 @@ $rows = mysqli_fetch_assoc($result);
             into a victory. <br>Join our network and start building your dream team ?
         </p>
     </div>
-    
+
     <div class="profile-content">
         <!-- start detail -->
         <div class="profile-container">
@@ -198,8 +198,44 @@ $rows = mysqli_fetch_assoc($result);
             </div>
         </div>
 
+
+        <div class="players_title">
+            Member 👥</div>
     </div>
 
+    <?php
+    // Default maximum and current players if none are set
+    $max_players = isset($rows['max_players']) ? $rows['max_players'] : 8; // Example fallback value
+    $current_players = isset($rows['current_players']) ? $rows['current_players'] : 2; // Example fallback value
+    ?>
+
+    <div class="circle_container">
+        <?php for ($i = 0; $i < $max_players; $i++): ?>
+            <div class="circle" style="background: <?php echo $i < $current_players ? '#EB1436' : '#AFB7C1'; ?>;"></div>
+        <?php endfor; ?>
+    </div>
+
+    <div class="players_list">
+        <ul>
+            <?php
+            for ($i = 0; $i < $max_players; $i++):
+                if ($i < $current_players):
+                    echo "<li>Player " . ($i + 1) . ": X</li>";
+                else:
+                    echo "<li>Player " . ($i + 1) . ": ?</li>";
+                endif;
+            endfor;
+            ?>
+        </ul>
+    </div>
+
+
+
+
+
+
+    <script src="view_profile.js"></script>
+    <?php mysqli_close($conn); ?>
 
 
 
