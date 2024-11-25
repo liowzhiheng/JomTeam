@@ -1,5 +1,19 @@
 <?php
 // matches.php
+
+// Include your database connection
+require("config.php");
+
+// Query to fetch matches from the database
+$query = "SELECT * FROM gamematch ORDER BY created_at DESC";
+$result = mysqli_query($conn, $query);
+
+// Check if any matches are found
+if (mysqli_num_rows($result) > 0) {
+    $matches = mysqli_fetch_all($result, MYSQLI_ASSOC);
+} else {
+    $matches = [];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -140,6 +154,31 @@
         <button class="view-all-btn">VIEW ALL</button>
     </section>
     <script src="searchbar.js"></script>
+
+
+
+
+     <!-- Display the created matches -->
+     <section class="match-list-section">
+        <h2>Created Matches</h2>
+        <div class="match-container">
+            <?php if (!empty($matches)): ?>
+                <?php foreach ($matches as $match): ?>
+                    <div class="match-item">
+                        <h3><?php echo htmlspecialchars($match['match_title']); ?> - <?php echo htmlspecialchars($match['game_type']); ?></h3>
+                        <p>Location: <?php echo htmlspecialchars($match['location']); ?></p>
+                        <p>Skill Level: <?php echo htmlspecialchars($match['skill_level_required']); ?></p>
+                        <p>Max Players: <?php echo htmlspecialchars($match['max_players']); ?> | Current Players: <?php echo htmlspecialchars($match['current_players']); ?></p>
+                        <p>Date: <?php echo date("F j, Y", strtotime($match['start_date'])); ?> - <?php echo date("g:i A", strtotime($match['start_date'])); ?></p>
+                        <p>Status: <?php echo htmlspecialchars($match['status']); ?></p>
+                        <a href="match_details.php?id=<?php echo $match['id']; ?>" class="view-details-btn">View Details</a>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>No matches created yet.</p>
+            <?php endif; ?>
+        </div>
+    </section>
 </body>
 
 
@@ -226,3 +265,4 @@
 <script src="footer.js"></script>
 
 </html>
+

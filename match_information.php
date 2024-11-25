@@ -28,8 +28,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($query->execute()) {
         echo "Match created successfully.";
+        header("Location: create_successful.php");  // Redirect to a confirmation page
     } else {
         echo "Error: " . $query->error;
     }
 }
+
+
 ?>
+
