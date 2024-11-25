@@ -244,11 +244,7 @@ $rows = mysqli_fetch_assoc($result);
 <footer>
     <div class="footer-container">
         <div class="footer-links">
-<<<<<<< HEAD
             <a href="#" onclick="openModal('terms')">Terms of Service</a> |
-=======
-            <a href="#" onclick="openModal('terms')">Terms of Service</a> | 
->>>>>>> c35eebe92183841dd1db7b9a8935d6b888470280
             <a href="#" onclick="openModal('privacy')">Privacy Policy</a>
         </div>
         <div class="footer-info">
@@ -272,7 +268,6 @@ $rows = mysqli_fetch_assoc($result);
         <p>Your privacy is important to us. We are committed to protecting your personal information.</p>
         <h3>3. Acceptable Use</h3>
         <p>You agree not to use the platform for illegal, harmful, or disruptive purposes.
-<<<<<<< HEAD
             Harassment, hate speech, or inappropriate content is strictly prohibited.</p>
         <h3>4. Match Creation and Participation</h3>
         <p>Users creating matches must ensure the information provided (e.g., location, time) is accurate.
@@ -280,15 +275,6 @@ $rows = mysqli_fetch_assoc($result);
         <h3>5. Payment and Premium Services</h3>
         <p>Premium features may be offered with a subscription. Fees are non-refundable unless specified otherwise.</p>
 
-=======
-        Harassment, hate speech, or inappropriate content is strictly prohibited.</p>
-        <h3>4. Match Creation and Participation</h3>
-        <p>Users creating matches must ensure the information provided (e.g., location, time) is accurate.
-        Users participating in matches must adhere to the agreed-upon rules and schedules.</p>
-        <h3>5. Payment and Premium Services</h3>
-        <p>Premium features may be offered with a subscription. Fees are non-refundable unless specified otherwise.</p>
-   
->>>>>>> c35eebe92183841dd1db7b9a8935d6b888470280
     </div>
 </div>
 
@@ -297,12 +283,8 @@ $rows = mysqli_fetch_assoc($result);
     <div class="modal-content">
         <span class="close" onclick="closeModal('privacy')">&times;</span>
         <h2>Privacy Policy</h2>
-<<<<<<< HEAD
         <p>At JomTeam, we respect your privacy. This policy outlines how we handle your personal data when you use our
             platform.</p>
-=======
-        <p>At JomTeam, we respect your privacy. This policy outlines how we handle your personal data when you use our platform.</p>
->>>>>>> c35eebe92183841dd1db7b9a8935d6b888470280
 
         <h3>1. Information Collection</h3>
         <p>We collect information you provide when you register, interact with our platform, and use our services.</p>
@@ -320,7 +302,6 @@ $rows = mysqli_fetch_assoc($result);
         <h3>4. Data Sharing</h3>
         <ul>
             <li>We do not sell your personal information.</li>
-<<<<<<< HEAD
             <li>Data may be shared with third-party providers (e.g., payment processors) necessary to deliver our
                 services.</li>
         </ul>
@@ -328,13 +309,6 @@ $rows = mysqli_fetch_assoc($result);
         <h3>5. Security</h3>
         <p>We use advanced encryption and security measures to protect your data. However, no system is completely
             secure.</p>
-=======
-            <li>Data may be shared with third-party providers (e.g., payment processors) necessary to deliver our services.</li>
-        </ul>
-
-        <h3>5. Security</h3>
-        <p>We use advanced encryption and security measures to protect your data. However, no system is completely secure.</p>
->>>>>>> c35eebe92183841dd1db7b9a8935d6b888470280
 
         <h3>6. Your Rights</h3>
         <ul>
@@ -343,19 +317,12 @@ $rows = mysqli_fetch_assoc($result);
         </ul>
 
         <h3>7. Cookies</h3>
-<<<<<<< HEAD
         <p>Our platform uses cookies to enhance your browsing experience. You can manage cookie preferences in your
             browser settings.</p>
 
         <h3>8. Changes to Privacy Policy</h3>
         <p>We may update this Privacy Policy periodically. Changes will be posted on this page with the revised date.
         </p>
-=======
-        <p>Our platform uses cookies to enhance your browsing experience. You can manage cookie preferences in your browser settings.</p>
-
-        <h3>8. Changes to Privacy Policy</h3>
-        <p>We may update this Privacy Policy periodically. Changes will be posted on this page with the revised date.</p>
->>>>>>> c35eebe92183841dd1db7b9a8935d6b888470280
     </div>
 </div>
 
