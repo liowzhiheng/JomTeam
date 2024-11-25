@@ -64,6 +64,8 @@ $rows = mysqli_fetch_assoc($result);
 </head>
 
 <body>
+    <audio id="popSound" src="sound/pop-sound.mp3" preload="auto"></audio>
+
     <nav class="navbar">
         <a href="#" class="logo">
             <img src="IMAGE/jomteam.png" alt="Logo">
@@ -340,7 +342,6 @@ $rows = mysqli_fetch_assoc($result);
 
 
 <script src="footer.js"></script>
-<<<<<<< HEAD
 
 </html>
 
@@ -351,6 +352,9 @@ $rows = mysqli_fetch_assoc($result);
         const currentPlayers = parseInt(document.getElementById('current_players').value);
         const circleContainer = document.getElementById('circle_container');
         circleContainer.innerHTML = ''; // Clear existing circles
+
+        // Get the pop sound element
+        const popSound = document.getElementById('popSound');
 
         // Generate circles based on the number of max players
         for (let i = 0; i < maxPlayers; i++) {
@@ -363,6 +367,9 @@ $rows = mysqli_fetch_assoc($result);
                 circle.style.backgroundColor = '#AFB7C1'; // Empty circle (vacant spot)
             }
             circleContainer.appendChild(circle);
+            // Play the sound for each circle added
+            popSound.play();
+
         }
     }
 
@@ -378,6 +385,8 @@ $rows = mysqli_fetch_assoc($result);
         const maxPlayers = parseInt(document.getElementById('max_players').value);
         const currentPlayers = parseInt(document.getElementById('current_players').value);
         const playersList = document.getElementById('playersList');
+
+
 
         // Clear the current list
         playersList.innerHTML = '';
@@ -407,7 +416,6 @@ $rows = mysqli_fetch_assoc($result);
     document.addEventListener('DOMContentLoaded', updatePlayersList);
 
 </script>
-=======
+
 
 </html>
->>>>>>> 3654b8bf6969e1a7091d0981b0fabc8b149495a6
