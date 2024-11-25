@@ -340,6 +340,7 @@ $rows = mysqli_fetch_assoc($result);
 
 
 <script src="footer.js"></script>
+<<<<<<< HEAD
 
 </html>
 
@@ -406,3 +407,7 @@ $rows = mysqli_fetch_assoc($result);
     document.addEventListener('DOMContentLoaded', updatePlayersList);
 
 </script>
+=======
+
+</html>
+>>>>>>> 3654b8bf6969e1a7091d0981b0fabc8b149495a6

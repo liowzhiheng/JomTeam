@@ -366,3 +366,24 @@ body {
     width: 100%;
     max-width: 300px;
 }
+
+.feedback-btn {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    border-radius: 50%;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.feedback-img {
+    width: 60px;
+    height: auto;
+    border: 5px solid black;
+    border-radius: 50%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feedback-img:hover {
+    transform: scale(1.1);
+}

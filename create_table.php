@@ -121,5 +121,21 @@ if (mysqli_query($conn, $sqlAds)) {
     echo "Error creating table ads: " . mysqli_error($conn);
 }
 
+$sqlFeedback = "CREATE TABLE feedback (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT(6) UNSIGNED,
+    title VARCHAR(50) DEFAULT NULL,
+    description TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('Pending', 'Resolved', 'Dismissed') DEFAULT 'Pending',
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+)";
+
+if (mysqli_query($conn, $sqlFeedback)) {
+    echo "<h3>Table feedback created successfully</h3>";
+} else {
+    echo "Error creating table feedback: " . mysqli_error($conn);
+}
+
 mysqli_close($conn);
 ?>

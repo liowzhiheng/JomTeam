@@ -51,96 +51,92 @@ if (mysqli_num_rows($result) > 0) {
 
     <!-- Search bar -->
     <section class="search-section">
-    <div class="search-container">
-        <form action="search_match.php" method="GET" class="search-form">
-            <!-- Main search bar -->
-            <div class="main-search">
-                <input 
-                    type="text" 
-                    name="match_code" 
-                    class="search-input" 
-                    placeholder="🔍 Search by match code or location..."
-                >
-                <button type="button" class="filter-toggle-btn" onclick="toggleFilters()">
-                    Filters
-                </button>
-                <button type="submit" class="search-button">
-                    Search
-                </button>
-            </div>
-
-            <!-- Filter section (hidden by default) -->
-            <div class="filter-section" id="filterSection">
-                <div class="filter-row">
-                    <div class="filter-group">
-                        <label for="sport">Sport:</label>
-                        <select name="sport" id="sport">
-                            <option value="">All Sports</option>
-                            <option value="basketball">Basketball</option>
-                            <option value="football">Football</option>
-                            <option value="badminton">Badminton</option>
-                            <option value="volleyball">Volleyball</option>
-                        </select>
-                    </div>
-
-                    <div class="filter-group">
-                        <label for="area">Area:</label>
-                        <select name="area" id="area">
-                            <option value="">All Areas</option>
-                            <option value="north">North</option>
-                            <option value="south">South</option>
-                            <option value="east">East</option>
-                            <option value="west">West</option>
-                            <option value="central">Central</option>
-                        </select>
-                    </div>
-
-                    <div class="filter-group">
-                        <label for="date">Date:</label>
-                        <input type="date" name="date" id="date">
-                    </div>
+        <div class="search-container">
+            <form action="search_match.php" method="GET" class="search-form">
+                <!-- Main search bar -->
+                <div class="main-search">
+                    <input type="text" name="match_code" class="search-input"
+                        placeholder="🔍 Search by match code or location...">
+                    <button type="button" class="filter-toggle-btn" onclick="toggleFilters()">
+                        Filters
+                    </button>
+                    <button type="submit" class="search-button">
+                        Search
+                    </button>
                 </div>
 
-                <div class="filter-row">
-                    <div class="filter-group">
-                        <label for="time">Time:</label>
-                        <select name="time" id="time">
-                            <option value="">Any Time</option>
-                            <option value="morning">Morning (6AM-12PM)</option>
-                            <option value="afternoon">Afternoon (12PM-6PM)</option>
-                            <option value="evening">Evening (6PM-10PM)</option>
-                        </select>
+                <!-- Filter section (hidden by default) -->
+                <div class="filter-section" id="filterSection">
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label for="sport">Sport:</label>
+                            <select name="sport" id="sport">
+                                <option value="">All Sports</option>
+                                <option value="basketball">Basketball</option>
+                                <option value="football">Football</option>
+                                <option value="badminton">Badminton</option>
+                                <option value="volleyball">Volleyball</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="area">Area:</label>
+                            <select name="area" id="area">
+                                <option value="">All Areas</option>
+                                <option value="north">North</option>
+                                <option value="south">South</option>
+                                <option value="east">East</option>
+                                <option value="west">West</option>
+                                <option value="central">Central</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="date">Date:</label>
+                            <input type="date" name="date" id="date">
+                        </div>
                     </div>
 
-                    <div class="filter-group">
-                        <label for="gender">Player Gender:</label>
-                        <select name="gender" id="gender">
-                            <option value="">Any Gender</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                            <option value="mixed">Mixed</option>
-                        </select>
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label for="time">Time:</label>
+                            <select name="time" id="time">
+                                <option value="">Any Time</option>
+                                <option value="morning">Morning (6AM-12PM)</option>
+                                <option value="afternoon">Afternoon (12PM-6PM)</option>
+                                <option value="evening">Evening (6PM-10PM)</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="gender">Player Gender:</label>
+                            <select name="gender" id="gender">
+                                <option value="">Any Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="mixed">Mixed</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="skill_level">Skill Level:</label>
+                            <select name="skill_level" id="skill_level">
+                                <option value="">Any Level</option>
+                                <option value="beginner">Beginner</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="advanced">Advanced</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <div class="filter-group">
-                        <label for="skill_level">Skill Level:</label>
-                        <select name="skill_level" id="skill_level">
-                            <option value="">Any Level</option>
-                            <option value="beginner">Beginner</option>
-                            <option value="intermediate">Intermediate</option>
-                            <option value="advanced">Advanced</option>
-                        </select>
+                    <div class="filter-actions">
+                        <button type="button" onclick="clearFilters()" class="clear-btn">Clear Filters</button>
+                        <button type="button" onclick="applyFilters()" class="apply-btn">Apply Filters</button>
                     </div>
                 </div>
-
-                <div class="filter-actions">
-                    <button type="button" onclick="clearFilters()" class="clear-btn">Clear Filters</button>
-                    <button type="button" onclick="applyFilters()" class="apply-btn">Apply Filters</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</section>
+            </form>
+        </div>
+    </section>
     <!-- Grid of Images Section -->
     <section class="grid-section">
         <div class="grid-container">
@@ -185,7 +181,7 @@ if (mysqli_num_rows($result) > 0) {
 <footer>
     <div class="footer-container">
         <div class="footer-links">
-            <a href="#" onclick="openModal('terms')">Terms of Service</a> | 
+            <a href="#" onclick="openModal('terms')">Terms of Service</a> |
             <a href="#" onclick="openModal('privacy')">Privacy Policy</a>
         </div>
         <div class="footer-info">
@@ -209,13 +205,13 @@ if (mysqli_num_rows($result) > 0) {
         <p>Your privacy is important to us. We are committed to protecting your personal information.</p>
         <h3>3. Acceptable Use</h3>
         <p>You agree not to use the platform for illegal, harmful, or disruptive purposes.
-        Harassment, hate speech, or inappropriate content is strictly prohibited.</p>
+            Harassment, hate speech, or inappropriate content is strictly prohibited.</p>
         <h3>4. Match Creation and Participation</h3>
         <p>Users creating matches must ensure the information provided (e.g., location, time) is accurate.
-        Users participating in matches must adhere to the agreed-upon rules and schedules.</p>
+            Users participating in matches must adhere to the agreed-upon rules and schedules.</p>
         <h3>5. Payment and Premium Services</h3>
         <p>Premium features may be offered with a subscription. Fees are non-refundable unless specified otherwise.</p>
-   
+
     </div>
 </div>
 
@@ -224,7 +220,8 @@ if (mysqli_num_rows($result) > 0) {
     <div class="modal-content">
         <span class="close" onclick="closeModal('privacy')">&times;</span>
         <h2>Privacy Policy</h2>
-        <p>At JomTeam, we respect your privacy. This policy outlines how we handle your personal data when you use our platform.</p>
+        <p>At JomTeam, we respect your privacy. This policy outlines how we handle your personal data when you use our
+            platform.</p>
 
         <h3>1. Information Collection</h3>
         <p>We collect information you provide when you register, interact with our platform, and use our services.</p>
@@ -242,11 +239,13 @@ if (mysqli_num_rows($result) > 0) {
         <h3>4. Data Sharing</h3>
         <ul>
             <li>We do not sell your personal information.</li>
-            <li>Data may be shared with third-party providers (e.g., payment processors) necessary to deliver our services.</li>
+            <li>Data may be shared with third-party providers (e.g., payment processors) necessary to deliver our
+                services.</li>
         </ul>
 
         <h3>5. Security</h3>
-        <p>We use advanced encryption and security measures to protect your data. However, no system is completely secure.</p>
+        <p>We use advanced encryption and security measures to protect your data. However, no system is completely
+            secure.</p>
 
         <h3>6. Your Rights</h3>
         <ul>
@@ -255,10 +254,12 @@ if (mysqli_num_rows($result) > 0) {
         </ul>
 
         <h3>7. Cookies</h3>
-        <p>Our platform uses cookies to enhance your browsing experience. You can manage cookie preferences in your browser settings.</p>
+        <p>Our platform uses cookies to enhance your browsing experience. You can manage cookie preferences in your
+            browser settings.</p>
 
         <h3>8. Changes to Privacy Policy</h3>
-        <p>We may update this Privacy Policy periodically. Changes will be posted on this page with the revised date.</p>
+        <p>We may update this Privacy Policy periodically. Changes will be posted on this page with the revised date.
+        </p>
     </div>
 </div>
 

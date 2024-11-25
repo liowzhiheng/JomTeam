@@ -6,7 +6,7 @@ require("config.php");
 $sql = "INSERT INTO user (first_name, last_name, gender, email, password, phone, birth_date, level, verified, created_at, updated_at)
 VALUES ('liow','zhi heng','male','Zhiheng@gmail.com', 'admin1', '01123456789','2024-11-22', 1,'0','2024-11-17 01:12:03', '2024-11-17 01:12:03'),
        ('eng','jun xiang','male','Junxiang@gmail.com', 'admin1', '01123456789','2024-11-22', 1,'0','2024-11-17 01:12:03', '2024-11-17 01:12:03'),
-       ('soo', 'wenchun', 'male', 'Wenchun@gmail.com', 'admin1', '01123456789','2024-11-22', 1,'0','2024-11-17 01:12:03', '2024-11-17 01:12:03')";
+       ('soo', 'wenchun', 'male', 'Wenchun@gmail.com', 'admin1', '01123456789','2024-11-22', 3,'0','2024-11-17 01:12:03', '2024-11-17 01:12:03')";
 
 if (mysqli_multi_query($conn, $sql)) {
     echo "<h3>New records created successfully</h3>";
