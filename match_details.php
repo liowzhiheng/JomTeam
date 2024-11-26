@@ -54,13 +54,16 @@ $max_players = $match['max_players'];
     <section class="match-details-section">
         <h2>Match Details: <?php echo htmlspecialchars($match['match_title']); ?></h2>
         <div class="match-details-container">
+            <img src="gamematch/<?php echo $match['file']; ?>" alt="Match Image" style="width: 200px; height: auto;">
             <p><strong>Game Type:</strong> <?php echo htmlspecialchars($match['game_type']); ?></p>
             <p><strong>Location:</strong> <?php echo htmlspecialchars($match['location']); ?></p>
-            <p><strong>Skill Level Required:</strong> <?php echo htmlspecialchars($match['skill_level_required']); ?></p>
+            <p><strong>Skill Level Required:</strong> <?php echo htmlspecialchars($match['skill_level_required']); ?>
+            </p>
             <p><strong>Start Date:</strong> <?php echo date("F j, Y, g:i A", strtotime($match['start_date'])); ?></p>
             <p><strong>End Date:</strong> <?php echo date("F j, Y, g:i A", strtotime($match['end_date'])); ?></p>
-            <p><strong>Max Players:</strong> <?php echo htmlspecialchars($match['max_players']); ?> | 
-               <strong>Current Players:</strong> <?php echo htmlspecialchars($match['current_players']); ?></p>
+            <p><strong>Max Players:</strong> <?php echo htmlspecialchars($match['max_players']); ?> |
+                <strong>Current Players:</strong> <?php echo htmlspecialchars($match['current_players']); ?>
+            </p>
             <p><strong>Status:</strong> <?php echo htmlspecialchars($match['status']); ?></p>
             <p><strong>Description:</strong> <?php echo nl2br(htmlspecialchars($match['description'])); ?></p>
         </div>

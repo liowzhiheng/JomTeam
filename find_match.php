@@ -154,20 +154,29 @@ if (mysqli_num_rows($result) > 0) {
 
 
 
-     <!-- Display the created matches -->
-     <section class="match-list-section">
+    <!-- Display the created matches -->
+    <section class="match-list-section">
         <h2>Created Matches</h2>
         <div class="match-container">
             <?php if (!empty($matches)): ?>
                 <?php foreach ($matches as $match): ?>
                     <div class="match-item">
-                        <h3><?php echo htmlspecialchars($match['match_title']); ?> - <?php echo htmlspecialchars($match['game_type']); ?></h3>
+                        <img src="gamematch/<?php echo $match['file']; ?>" alt="Match Image"
+                            style="width: 200px; height: auto;">
+                        <p><?php echo htmlspecialchars($match['match_title']); ?> -
+                            <?php echo htmlspecialchars($match['game_type']); ?>
+                        </p>
                         <p>Location: <?php echo htmlspecialchars($match['location']); ?></p>
                         <p>Skill Level: <?php echo htmlspecialchars($match['skill_level_required']); ?></p>
-                        <p>Max Players: <?php echo htmlspecialchars($match['max_players']); ?> | Current Players: <?php echo htmlspecialchars($match['current_players']); ?></p>
-                        <p>Date: <?php echo date("F j, Y", strtotime($match['start_date'])); ?> - <?php echo date("g:i A", strtotime($match['start_date'])); ?></p>
+                        <p>Max Players: <?php echo htmlspecialchars($match['max_players']); ?> | Current Players:
+                            <?php echo htmlspecialchars($match['current_players']); ?>
+                        </p>
+                        <p>Date: <?php echo date("F j, Y", strtotime($match['start_date'])); ?> -
+                            <?php echo date("g:i A", strtotime($match['start_date'])); ?>
+                        </p>
                         <p>Status: <?php echo htmlspecialchars($match['status']); ?></p>
                         <a href="match_details.php?id=<?php echo $match['id']; ?>" class="view-details-btn">View Details</a>
+                        <br><br><br>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
@@ -266,4 +275,3 @@ if (mysqli_num_rows($result) > 0) {
 <script src="footer.js"></script>
 
 </html>
-

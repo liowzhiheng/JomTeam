@@ -12,43 +12,23 @@ if (!isset($_SESSION["ID"])) {
     echo "User ID is not set in the session.";
     exit();
 }
+$user_id = $_SESSION["ID"];
 
 require("config.php");
-
-// Fetch user and profile data
-$user_id = $_SESSION['ID'];
 
 $query = "
     SELECT 
         u.first_name, 
         u.last_name, 
         u.gender, 
-        u.email, 
-        u.phone, 
-        p.status, 
-        p.description, 
-        p.location, 
-        p.interests, 
-        p.preferred_game_types, 
-        p.skill_level, 
-        p.availability 
+        u.phone
     FROM 
         user u 
-    LEFT JOIN 
-        profile p 
-    ON 
-        u.id = p.user_id 
     WHERE 
         u.id = '$user_id'
 ";
 
 $result = mysqli_query($conn, $query);
-
-if (!$result || mysqli_num_rows($result) == 0) {
-    echo "No profile data found.";
-    exit();
-}
-
 $rows = mysqli_fetch_assoc($result);
 ?>
 <!DOCTYPE html>
@@ -97,41 +77,16 @@ $rows = mysqli_fetch_assoc($result);
     <div class="profile-content">
         <!-- start detail -->
         <div class="profile-container">
-            <!-- left -->
-            <div class="profile-left">
-                <div class="uploaded-images">
-                    <?php
-                    $res = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $_SESSION["ID"]);
-                    while ($row = mysqli_fetch_assoc($res)) {
-                        if (empty($row['file'])) {
-                            // Display default image with overlay text
-                            echo '<div class="image-container">
-                <img src="IMAGE/default.png" alt="Default Image" class="uploaded-image" onclick="document.getElementById(\'imageInput\').click();" />
-                <div class="overlay-text">Upload Image</div>
-              </div>';
-                        } else {
-                            // Display uploaded image with overlay text
-                            echo '<div class="image-container">
-                <img src="uploads/' . $row['file'] . '" alt="Uploaded Image" class="uploaded-image" onclick="document.getElementById(\'imageInput\').click();" />
-                <div class="overlay-text">Click to Change</div>
-              </div>';
-                        }
-                    }
-                    ?>
-
-                    <form action="update_image.php" method="POST" enctype="multipart/form-data"
-                        class="image-upload-form">
-                        <input type="file" name="image" id="imageInput" style="display: none;"
-                            onchange="enableSubmitButton()" />
-                        <button type="submit" name="submit" class="submit-button" id="uploadButton"
-                            disabled>Upload</button>
-                    </form>
+            <form method="post" action="match_information.php" enctype="multipart/form-data">
+                <!-- left -->
+                <div class=" profile-left">
+                    <div class="uploaded-images">
+                        <label for="image">Upload Game Image:</label>
+                        <input type="file" name="image" required>
+                    </div>
                 </div>
-            </div>
-            <!-- right -->
-            <div class="profile-right">
-                <form method="post" action="match_information.php">
-
+                <!-- right -->
+                <div class="profile-right">
                     <div class="group">
                         <label>Full Name</label>
                         <input type="text" name="name"
@@ -199,13 +154,13 @@ $rows = mysqli_fetch_assoc($result);
 
 
                     <div class="button-container">
-                        <button type="submit" class="button" value="Submit">
+                        <button type="submit" class="button" name="create" value="Submit">
                             <img src="IMAGE/button_3.png" alt="Submit Button">
                         </button>
                     </div>
 
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
 
 
@@ -241,18 +196,8 @@ $rows = mysqli_fetch_assoc($result);
         </ul>
     </div>
 
-
-
-
-
-
-
-
     <script src="view_profile.js"></script>
     <?php mysqli_close($conn); ?>
-
-
-
 </body>
 
 <footer>

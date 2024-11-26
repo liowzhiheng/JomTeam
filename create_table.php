@@ -77,9 +77,18 @@ $sqlMatch = "CREATE TABLE gamematch (
     description TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    file VARCHAR(255) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 )";
 createTable($conn, "gamematch", $sqlMatch);
+
+$sqlMatchImage = "CREATE TABLE match_images (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    gamematch_id INT(6) UNSIGNED,
+    file VARCHAR(255) NOT NULL,
+    FOREIGN KEY (gamematch_id) REFERENCES gamematch(id) ON DELETE CASCADE
+)";
+createTable($conn, "match_images", $sqlMatchImage);
 
 // Create images table
 $sqlImage = "CREATE TABLE images (
