@@ -79,12 +79,27 @@ $rows = mysqli_fetch_assoc($result);
         <div class="profile-container">
             <form method="post" action="match_information.php" enctype="multipart/form-data">
                 <!-- left -->
-                <div class=" profile-left">
-                    <div class="uploaded-images">
-                        <label for="image">Upload Game Image:</label>
-                        <input type="file" name="image" required>
+
+                <div class="profile-left">
+
+                    <div class="upload-area" id="uploadArea">
+                        <img src="IMAGE/login_done_1.jpg" alt="Upload Icon" class="upload-icon">
+                        <p>Click me to upload photo.</p>
+                        <p class="file-name" id="fileName">No file chosen</p>
+                    </div>
+                    <input type="file" name="image" id="image" accept="image/*" required hidden>
+                    <div class="image-preview" id="imagePreview" style="display: none;">
+                        <img id="previewImg" src="" alt="Preview" />
                     </div>
                 </div>
+
+
+
+
+
+
+
+
                 <!-- right -->
                 <div class="profile-right">
                     <div class="group">
@@ -362,5 +377,41 @@ $rows = mysqli_fetch_assoc($result);
 
 </script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const imageInput = document.getElementById("image");
+        const uploadArea = document.getElementById("uploadArea");
+        const imagePreview = document.getElementById("imagePreview");
+        const previewImg = document.getElementById("previewImg");
+
+        imageInput.addEventListener("change", () => {
+            const file = imageInput.files[0]; // Get the uploaded file
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = (e) => {
+                    previewImg.src = e.target.result; // Set the preview image source
+                    imagePreview.style.display = "flex"; // Show the preview
+                    uploadArea.style.display = "none"; // Hide the upload prompt
+                };
+
+                reader.readAsDataURL(file); // Convert the file to a data URL
+            }
+        });
+
+        // Allow re-uploading the same file by resetting the input
+        uploadArea.addEventListener("click", () => {
+            imageInput.click(); // Trigger the file input
+        });
+
+        imageInput.addEventListener("click", () => {
+            imageInput.value = null; // Reset file input to allow re-upload
+        });
+    });
+
+
+
+
+</script>
 
 </html>

@@ -49,6 +49,15 @@ if (mysqli_num_rows($result) > 0) {
         </ul>
     </nav>
 
+    <div class="profile-content">
+        <h1 class="profile-title">Find Match</h1>
+        <p class="profile-description">
+            Findin the perfect match in sports can be a game-changer.
+            <br>It's all about connecting with individuals who share you passion for the game and have the same
+            dedication and drive.
+        </p>
+    </div>
+
     <!-- Search bar -->
     <section class="search-section">
         <div class="search-container">
@@ -137,53 +146,42 @@ if (mysqli_num_rows($result) > 0) {
             </form>
         </div>
     </section>
-    <!-- Grid of Images Section -->
-    <section class="grid-section">
-        <div class="grid-container">
-            <?php for ($i = 1; $i <= 9; $i++): ?>
-                <div class="grid-item">
-                    <img src="image/court.jpg" alt="Indoor Court">
-                    <p class="image-label">Indoor Court <?php echo $i; ?></p>
-                </div>
-            <?php endfor; ?>
-        </div>
-        <button class="view-all-btn">VIEW ALL</button>
-    </section>
-    <script src="searchbar.js"></script>
+
 
 
 
 
     <!-- Display the created matches -->
-    <section class="match-list-section">
-        <h2>Created Matches</h2>
-        <div class="match-container">
+    <section class="grid-section">
+
+        <div class="grid-container">
             <?php if (!empty($matches)): ?>
                 <?php foreach ($matches as $match): ?>
-                    <div class="match-item">
+                    <div class="grid-item">
                         <img src="gamematch/<?php echo $match['file']; ?>" alt="Match Image"
-                            style="width: 200px; height: auto;">
-                        <p><?php echo htmlspecialchars($match['match_title']); ?> -
+                            style="width: 200px; height: 200px;">
+                        <p class="info_title"><?php echo htmlspecialchars($match['match_title']); ?>
+                        </p>
+                        <p class="info">
                             <?php echo htmlspecialchars($match['game_type']); ?>
                         </p>
-                        <p>Location: <?php echo htmlspecialchars($match['location']); ?></p>
-                        <p>Skill Level: <?php echo htmlspecialchars($match['skill_level_required']); ?></p>
-                        <p>Max Players: <?php echo htmlspecialchars($match['max_players']); ?> | Current Players:
-                            <?php echo htmlspecialchars($match['current_players']); ?>
+                        <p class="info">
+                            Location: <?php echo htmlspecialchars($match['location']); ?>
                         </p>
-                        <p>Date: <?php echo date("F j, Y", strtotime($match['start_date'])); ?> -
+                        <p class="info">
+                            Date: <?php echo date("F j, Y", strtotime($match['start_date'])); ?> -
                             <?php echo date("g:i A", strtotime($match['start_date'])); ?>
                         </p>
-                        <p>Status: <?php echo htmlspecialchars($match['status']); ?></p>
-                        <a href="match_details.php?id=<?php echo $match['id']; ?>" class="view-details-btn">View Details</a>
-                        <br><br><br>
+                        <a href="match_details.php?id=<?php echo $match['id']; ?>" class="view-all-btn">View Details</a>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
                 <p>No matches created yet.</p>
             <?php endif; ?>
         </div>
+      
     </section>
+    <script src="searchbar.js"></script>
 </body>
 
 

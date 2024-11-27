@@ -60,6 +60,14 @@ body {
     color: #ff0000;
 }
 
+.profile-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    max-width: 900px;
+    width: 100%;
+}
+
 .profile-content {
     display: flex;
     flex-direction: column;
@@ -100,58 +108,12 @@ body {
 }
 
 .profile-left {
-    flex: 0;
-    text-align: left;
-    margin-right: 100px;
-
-
-}
-
-/* Styling for the image upload form */
-.uploaded-images {
-    margin-top: 20px;
+    flex: 1;
     text-align: center;
-    display: block;
+    margin-top: 20px;
+    margin-right: 200px;
 }
 
-.uploaded-image {
-    width: 350px;
-    height: 320px;
-    margin-bottom: 10px;
-    border-radius: 30px;
-    transition: opacity 0.3s ease;
-    z-index: 1;
-}
-
-.image-container {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    max-width: 300px;
-}
-
-.overlay-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: rgb(0, 0, 0);
-    font-size: 20px;
-    font-weight: bold;
-    display: none;
-    /* Initially hide the text */
-    border-radius: 5px;
-    z-index: 2;
-    pointer-events: none;
-}
-
-.image-container:hover .overlay-text {
-    display: block;
-}
-
-.image-container:hover .uploaded-image {
-    opacity: 0.7;
-}
 
 
 .profile-right {
@@ -186,13 +148,7 @@ body {
     height: 100px;
 }
 
-.button-container {
-    display: inline-block;
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 40px;
-    margin-right: -275px;
-}
+
 
 .button {
     background: none;
@@ -203,6 +159,7 @@ body {
     /* Remove padding */
     cursor: pointer;
     /* Make the image behave like a clickable button */
+    align-items: end;
 }
 
 .button img {
@@ -285,4 +242,95 @@ body {
 .players_list li {
     margin: 5px 0;
     /* Add some spacing between list items */
+}
+
+
+
+.upload-label {
+    display: block;
+    cursor: pointer;
+}
+
+.upload-area {
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.upload-area:hover {
+    background-color: #f0f8ff;
+    border-color:#5252D4;
+}
+
+.upload-icon {
+    width: 50px;
+    margin-bottom: 10px;
+}
+
+.upload-area p {
+    font-size: 16px;
+    color: #666;
+
+}
+
+.upload-area .browse {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.file-name {
+    font-size: 14px;
+    color: #999;
+}
+
+.image-preview {
+    display: none;
+    margin-top: 20px;
+    position: relative;
+    text-align: center;
+}
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.remove-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #eb1436;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.remove-btn:hover {
+    background-color: #c3122d;
+}
+
+
+#imagePreview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 500px;
+    max-height: 500px;
+    margin: 20px auto;
+    overflow: hidden;
+    border: 2px dashed #ccc;
+    /* Optional for better visualization */
+}
+
+#previewImg {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    /* Ensures aspect ratio is preserved */
 }
