@@ -89,52 +89,52 @@ $max_players = $match['max_players'];
             <div class="profile-right">
                 <div class="group">
                     <label>Title:</label>
-                    <input type="text" value="<?php echo htmlspecialchars($match['match_title']); ?>">
+                    <input type="text" value="<?php echo htmlspecialchars($match['match_title']); ?>"readonly>
 
                 </div>
                 <div class="group">
                     <label>Game Type:</label>
-                    <input type="text" value="<?php echo htmlspecialchars($match['game_type']); ?>">
+                    <input type="text" value="<?php echo htmlspecialchars($match['game_type']); ?>"readonly>
 
                 </div>
                 <div class="group">
                     <label>Location:</label>
-                    <input type="text" value="<?php echo htmlspecialchars($match['location']); ?>">
+                    <input type="text" value="<?php echo htmlspecialchars($match['location']); ?>"readonly>
 
                 </div>
                 <div class="group">
                     <label>Skill Level Required:</label>
-                    <textarea><?php echo htmlspecialchars($match['skill_level_required']); ?></textarea>
+                    <textarea readonly><?php echo htmlspecialchars($match['skill_level_required']); ?></textarea>
                 </div>
                 <div class="group">
                     <label>Start Date:</label>
-                    <input type="text" value="<?php echo date($match['start_date']); ?>">
+                    <input type="text" value="<?php echo date($match['start_date']); ?>"readonly>
 
                 </div>
 
                 <div class="group">
                     <label>Start Time:</label>
-                    <input type="text" value="<?php echo $match['start_time']?>">
+                    <input type="text" value="<?php echo $match['start_time']?>"readonly>
                 </div>
 
                 <div class="group">
                     <label>Max Players:</label>
-                    <input type="text" id="max_players" value="<?php echo htmlspecialchars($match['max_players']); ?>">
+                    <input type="text" id="max_players" value="<?php echo htmlspecialchars($match['max_players']); ?>"readonly>
                 </div>
                 <div class="group">
                     <label>Current Players:</label>
                     <input type="text" id="current_players"
-                        value="<?php echo htmlspecialchars($match['current_players']); ?>">
+                        value="<?php echo htmlspecialchars($match['current_players']); ?>"readonly>
                 </div>
 
                 <div class="group">
                     <label>Status:</label>
-                    <input type="text" value="<?php echo htmlspecialchars($match['status']); ?>">
+                    <input type="text" value="<?php echo htmlspecialchars($match['status']); ?>"readonly>
 
                 </div>
                 <div class="group">
                     <label>Description:</label>
-                    <textarea><?php echo nl2br(htmlspecialchars($match['description'])); ?></textarea>
+                    <textarea readonly><?php echo nl2br(htmlspecialchars($match['description'])); ?></textarea>
                 </div>
             </div>
 
