@@ -168,21 +168,20 @@ $max_players = $match['max_players'];
     </div>
 
     <div> <!-- Join Match Section -->
-        <?php if ($current_players < $max_players): ?>
+    <?php if ($current_players < $max_players): ?>
             <div class="button">
-                <a href="find_match.php">
-                    <img src="IMAGE/join_match_button.png">
+                <a href="join_match.php?id=<?php echo $match_id; ?>">
+                    <img src="IMAGE/join_match_button.png" alt="Join Match">
                 </a>
             </div>
         <?php else: ?>
             <div class="button">
-                <a href="find_match.php">
-                    <img src="IMAGE/match_full_button.png">
+                <a href="#">
+                    <img src="IMAGE/match_full_button.png" alt="Match Full">
                 </a>
             </div>
         <?php endif; ?>
     </div>
-
 
     </div>
 
