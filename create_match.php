@@ -153,7 +153,7 @@ $rows = mysqli_fetch_assoc($result);
                     </div>
                     <div class="group">
                         <label class="details">Maximum Players</label>
-                        <input type="number" name="max_players" id="max_players" min="0" value="0" required 
+                        <input type="number" name="max_players" id="max_players" value="0" min="1" required
                             oninput="validatePlayerInput(this)" 
                             onchange="updatePlayers()">
                     </div>
