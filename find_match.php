@@ -107,18 +107,6 @@ if (mysqli_num_rows($result) > 0) {
                         </div>
 
                         <div class="filter-group">
-                            <label for="area">Area:</label>
-                            <select name="area" id="area">
-                                <option value="">All Areas</option>
-                                <option value="north">North</option>
-                                <option value="south">South</option>
-                                <option value="east">East</option>
-                                <option value="west">West</option>
-                                <option value="central">Central</option>
-                            </select>
-                        </div>
-
-                        <div class="filter-group">
                             <label for="date">Date:</label>
                             <input type="date" name="date" id="date">
                         </div>
