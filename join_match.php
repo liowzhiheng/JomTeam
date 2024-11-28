@@ -35,8 +35,10 @@ if (isset($_GET['id'])) {
             <p>You have already joined this match. </p>
              <form action='cancel_match.php' method='GET'>
                     <button type='submit' name='id' value='$match_id' class='btn-cancel'>Cancel Participation</button>
-                  </form>
-                  </div>";
+            </form>
+            <p><a href="main.php">Go back to your dashboard</a></p> 
+            <p><a href="match_details.php?id=<?php echo $match_id; ?>">View Match Details</a></p> 
+            </div>";
         } else {
             if ($current_players < $max_players) {
                 // Update gamematch table
@@ -59,12 +61,20 @@ if (isset($_GET['id'])) {
                 <?php
             } else {
                 // If the match is full, show an error message
-                echo "<div class='message error'>The match is already full.</div>";
+                echo "<div class='message error'>
+                <p>The match is already full.</p>
+                <p><a href="main.php">Go back to your dashboard</a></p> 
+                <p><a href="match_details.php?id=<?php echo $match_id; ?>">View Match Details</a></p> 
+                </div>";
             }
         }
     } else {
         // If match not found, show an error message
-        echo "<div class='message error'>Match not found.</div>";
+        echo "<div class='message error'>
+            <p>Match not found.</p>
+            <p><a href="main.php">Go back to your dashboard</a></p> 
+            <p><a href="match_details.php?id=<?php echo $match_id; ?>">View Match Details</a></p> 
+            </div>";
     }
 } else {
     // If no match ID is passed in the URL, show an error message
