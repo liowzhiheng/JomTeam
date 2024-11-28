@@ -71,7 +71,7 @@ $sqlMatch = "CREATE TABLE gamematch (
     current_players INT DEFAULT 1,
     location VARCHAR(100),
     start_date DATE,
-    end_date DATETIME,
+    start_time TIME,
     duration INT,
     status VARCHAR(20) DEFAULT 'open',
     description TEXT,
