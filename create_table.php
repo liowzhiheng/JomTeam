@@ -70,7 +70,7 @@ $sqlMatch = "CREATE TABLE gamematch (
     max_players INT,
     current_players INT DEFAULT 1,
     location VARCHAR(100),
-    start_date DATETIME,
+    start_date DATE ,
     end_date DATETIME,
     duration INT,
     status VARCHAR(20) DEFAULT 'open',
@@ -135,7 +135,6 @@ $sqlFeedback = "CREATE TABLE feedback (
     user_id INT(6) UNSIGNED,
     title VARCHAR(50) DEFAULT NULL,
     description TEXT NOT NULL,
-    rating TINYINT NOT NULL CHECK (rating BETWEEN 1 AND 5),
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     status ENUM('Pending', 'Resolved', 'Dismissed') DEFAULT 'Pending',
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
