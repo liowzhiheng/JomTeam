@@ -171,9 +171,12 @@ if (mysqli_num_rows($result) > 0) {
                             Location: <?php echo htmlspecialchars($match['location']); ?>
                         </p>
                         <p class="info">
-                            Date: <?php echo date("F j, Y", strtotime($match['start_date'])); ?> -
-                            <?php echo date("g:i A", strtotime($match['start_date'])); ?>
+                            Date: <?php echo date("F j, Y", strtotime($match['start_date'])); ?>
                         </p>
+                        <p class="info">
+                            Time: <?php echo $match['start_time'];?>
+                        </p>
+                        
                         <a href="match_details.php?id=<?php echo $match['id']; ?>" class="view-all-btn">View Details</a>
                     </div>
                 <?php endforeach; ?>
