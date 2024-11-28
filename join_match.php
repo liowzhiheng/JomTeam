@@ -6,7 +6,7 @@ require("config.php");
 // Check if 'id' is passed in the URL
 if (isset($_GET['id'])) {
     $match_id = $_GET['id'];
-    $user_id = $POST['user_ID'];
+    $user_id = $POST['user_id'];
 
     // Check if the match exists
     $query = "SELECT * FROM gamematch WHERE id = ?";
