@@ -54,7 +54,115 @@
 }
 
 body {
+    background-color: #5252D4;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+}
+
+form {
+    width: 50%;
+    margin: 20px auto;
+    background-color: #ffffff;
+    /* White background for contrast */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Subtle shadow for elevation */
+}
+
+h1 {
+    font-size: 50px;
+    text-align: center;
+    color: #ffffff;
+    margin: 40px auto;
+}
+
+label {
+    font-size: 1rem;
+    color: #004080;
+    font-weight: bold;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccccff;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #f9f9ff;
+    color: #333;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+    outline: none;
+    border-color: #6a6aff;
+    box-shadow: 0 0 5px rgba(106, 106, 255, 0.5);
+}
+
+.rating-faces {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.rating-faces label {
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.rating-faces input[type="radio"] {
+    display: none;
+}
+
+.rating-faces .face {
+    font-size: 2rem;
+    display: inline-block;
+}
+
+.rating-faces input[type="radio"]:checked+.face {
+    transform: scale(1.2);
+    color: #004080;
+}
+
+.rating-faces label:hover .face {
+    transform: scale(1.1);
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #004080;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #6a6aff;
+}
+
+.message.success {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.message.fail {
+    background-color: orange;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 15px;
+    display: block;
 }

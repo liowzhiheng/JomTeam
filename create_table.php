@@ -135,6 +135,7 @@ $sqlFeedback = "CREATE TABLE feedback (
     user_id INT(6) UNSIGNED,
     title VARCHAR(50) DEFAULT NULL,
     description TEXT NOT NULL,
+    rating TINYINT NOT NULL CHECK (rating BETWEEN 1 AND 5),
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     status ENUM('Pending', 'Resolved', 'Dismissed') DEFAULT 'Pending',
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE

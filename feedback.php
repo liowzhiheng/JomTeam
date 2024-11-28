@@ -16,18 +16,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get form data and escape to prevent SQL injection
     $title = mysqli_real_escape_string($conn, $_POST['title']);
     $description = mysqli_real_escape_string($conn, $_POST['description']);
+    $rating = mysqli_real_escape_string($conn, $_POST['rating']);
 
-    // Insert query
-    $insert_sql = "INSERT INTO feedback (user_id, title, description) VALUES ('$user_id', '$title', '$description')";
+    $insert_sql = "INSERT INTO feedback (user_id, title, description, rating) 
+                   VALUES ('$user_id', '$title', '$description', '$rating')";
 
-    // Execute the query
     if (mysqli_query($conn, $insert_sql)) {
         // Redirect to feedback page with success status
         header("Location: feedback.php?status=success");
         exit();
     } else {
         // Redirect to profile page with failure status
-        header("Location: view_profile.php?status=fail");
+        header("Location: feedback.php?status=fail");
         exit();
     }
 }
@@ -68,7 +68,19 @@ mysqli_close($conn);
         </ul>
     </nav>
 
-    <h2>Submit Your Feedback</h2>
+    <?php
+    if (isset($_GET['status'])) {
+        $status = $_GET['status'];
+
+        if ($status === 'success') {
+            echo '<p id="message" class="message success">Thank you for your feedback!</p>';
+        } elseif ($status === 'fail') {
+            echo '<p id="message" class="message fail">Sorry, something went wrong. Please try again.</p>';
+        }
+    }
+    ?>
+
+    <h1>Submit Your Feedback</h1>
 
     <form method="POST" action="feedback.php">
         <label for="title">Title:</label><br>
@@ -76,9 +88,41 @@ mysqli_close($conn);
         <br>
         <label for="description">Feedback Description:</label><br>
         <textarea name="description" id="description" rows="4" cols="50" required></textarea>
+        <label for="rating">Rate Your Experience:</label><br>
+        <div class="rating-faces">
+            <label>
+                <input type="radio" name="rating" value="1" required>
+                <span class="face">😡</span>
+            </label>
+            <label>
+                <input type="radio" name="rating" value="2">
+                <span class="face">😟</span>
+            </label>
+            <label>
+                <input type="radio" name="rating" value="3">
+                <span class="face">😐</span>
+            </label>
+            <label>
+                <input type="radio" name="rating" value="4">
+                <span class="face">🙂</span>
+            </label>
+            <label>
+                <input type="radio" name="rating" value="5">
+                <span class="face">😃</span>
+            </label>
+        </div>
         <br>
         <button type="submit">Submit</button>
     </form>
+
+    <script>
+        const message = document.getElementById('message');
+        if (message) {
+            setTimeout(() => {
+                message.style.display = 'none';
+            }, 2000);
+        }
+    </script>
 </body>
 
 </html>

@@ -5,7 +5,8 @@ require("config.php");
 $sql = "SELECT feedback.id AS id, 
            CONCAT(user.first_name, ' ', user.last_name) AS name, 
            feedback.title, 
-           feedback.description, 
+           feedback.description,
+           feedback.rating,
            DATE_FORMAT(feedback.created_at, '%y-%m-%d') AS created_at, 
            feedback.status,
            images.file
@@ -51,9 +52,10 @@ $result = mysqli_query($conn, $sql);
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>User ID</th>
+                    <th>Username</th>
                     <th>Title</th>
                     <th>Description</th>
+                    <th>Rating</th>
                     <th>Created At</th>
                     <th>Status</th>
                 </tr>
@@ -64,11 +66,12 @@ $result = mysqli_query($conn, $sql);
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         $image = isset($row['file']) && !empty($row['file']) ? 'uploads/' . $row['file'] : 'image/default.png';
-                        echo "<tr onclick='openModal({$row['id']}, \"{$row['name']}\", \"{$row['created_at']}\", \"{$row['title']}\", \"{$row['description']}\", \"{$image}\")'>";
+                        echo "<tr onclick='openModal({$row['id']}, \"{$row['name']}\", \"{$row['created_at']}\", \"{$row['title']}\", \"{$row['description']}\", \"{$row['rating']}\",\"{$image}\")'>";
                         echo "<td>" . $counter++ . "</td>";
                         echo "<td>" . htmlspecialchars($row['name']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['title']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['description']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['rating']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['created_at']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['status']) . "</td>";
                         echo "</tr>";
