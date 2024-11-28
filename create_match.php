@@ -140,7 +140,7 @@ $rows = mysqli_fetch_assoc($result);
                     </div>
                     <div class="group">
                         <label class="details">Start Date</label>
-                        <input type="datetime-local" name="startDate" required>
+                        <input type="date" name="startDate" required>
                     </div>
                     <div class="group">
                         <label class="details">Duration of Game Match</label>
