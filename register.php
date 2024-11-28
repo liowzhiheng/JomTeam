@@ -11,7 +11,7 @@
 </head>
 
 <body class="transition-container">
-    <form action="login.php" id="backButtonForm">
+    <form action="index.php" id="backButtonForm">
         <button type="submit" style="background: none; border: none; cursor: pointer;">
             <div class="arrow"></div>
         </button>
