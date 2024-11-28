@@ -152,18 +152,34 @@ $max_players = $match['max_players'];
     <div class="players_list">
         <ul id="playersList">
             <?php
-            $max_players = isset($match['max_players']) ? $match['max_players'] : 0;
-            $current_players = isset($match['current_players']) ? $match['current_players'] : 0;
+            // Query to get players who joined the match
+            $playersQuery = "
+                SELECT user.first_name, user.last_name 
+                FROM match_participants
+                INNER JOIN user ON match_participants.user_id = user.id
+                WHERE match_participants.match_id = ?
+                ORDER BY match_participants.join_date ASC";
+            
+            $stmt = $conn->prepare($playersQuery);
+            $stmt->bind_param('i', $match_id);
+            $stmt->execute();
+            $playersResult = $stmt->get_result();
 
+            $players = [];
+            while ($row = $playersResult->fetch_assoc()) {
+                $players[] = $row;
+            }
+
+            // Display player names or placeholders
             for ($i = 0; $i < $max_players; $i++):
-                if ($i < $current_players):
-                    echo "<li id='player" . ($i + 1) . "'>Player " . ($i + 1) . ": X</li>";
+                if ($i < count($players)):
+                    $playerName = htmlspecialchars($players[$i]['first_name'] . " " . $players[$i]['last_name']);
+                    echo "<li id='player" . ($i + 1) . "'>Player " . ($i + 1) . ": $playerName</li>";
                 else:
                     echo "<li id='player" . ($i + 1) . "'>Player " . ($i + 1) . ": ?</li>";
                 endif;
             endfor;
             ?>
-
         </ul>
     </div>
 
