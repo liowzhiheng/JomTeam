@@ -5,6 +5,7 @@
 require("config.php");
 
 // Check if 'id' is passed in the URL
+
 if (isset($_GET['id'])) {
     $match_id = $_GET['id'];
 
@@ -186,8 +187,8 @@ $max_players = $match['max_players'];
     <div> <!-- Join Match Section -->
     <?php if ($current_players < $max_players): ?>
             <div class="button">
-                <a href="join_match.php?id=<?php echo $match_id; ?>?user_id=<?php echo $_SESSION['ID'];?>">
-                    <img src="IMAGE/join_match_button.png" alt="Join Match">
+                <a href="join_match.php?id=<?php echo $match_id; ?>">
+                    <img src="image/join_match_button.png" alt="Join Match">
                 </a>
             </div>
         <?php else: ?>
