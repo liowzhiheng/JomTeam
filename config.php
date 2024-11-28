@@ -1,9 +1,9 @@
 	<?php
 
-	$db_host = 'localhost';
-	$db_user = 'root';
-	$db_pass = '';
-	$db_name = 'jomteam';
+	$db_host = '127.0.0.1:3306';
+	$db_user = 'u442919130_jomteam';
+	$db_pass = 'Jom5201314.';
+	$db_name = 'u442919130_jomteam';
 
 	// login to MySQL Server from PHP
 	$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
