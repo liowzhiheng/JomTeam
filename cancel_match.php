@@ -1,12 +1,13 @@
 <?php
 // cancel_match.php
-
+session_start();
 require("config.php");
+
 
 // Check if 'id' is passed in the URL
 if (isset($_GET['id'])) {
     $match_id = $_GET['id'];
-    $user_id = 1; // Replace this with the logged-in user's ID from session
+    $user_id = $_SESSION["ID"]; // Replace this with the logged-in user's ID from session
 
     // Check if the user is part of the match
     $checkQuery = "SELECT * FROM match_participants WHERE match_id = ? AND user_id = ?";
