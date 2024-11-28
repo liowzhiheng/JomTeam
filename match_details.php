@@ -193,7 +193,7 @@ $max_players = $match['max_players'];
             </div>
         <?php else: ?>
             <div class="button">
-                <a href="#">
+                <a href="join_match.php?id=<?php echo $match_id; ?>">
                     <img src="IMAGE/match_full_button.png" alt="Match Full">
                 </a>
             </div>
