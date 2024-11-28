@@ -67,7 +67,7 @@ if (mysqli_num_rows($result) > 0) {
         <ul class="menu rightmenu">
             <li class="notification"><a href="#notification"><img src="image/NOTIFICATION.png" alt="Notification"></a>
             </li>
-            <li class="logout"><a href="login.php">Log out<img src="image/LOGOUT.png" alt="Logout"></a></li>
+            <li class="logout"><a href="index.php">Log out<img src="image/LOGOUT.png" alt="Logout"></a></li>
         </ul>
     </nav>
 
