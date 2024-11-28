@@ -81,7 +81,7 @@ mysqli_close($conn);
 <script>
     document.addEventListener('DOMContentLoaded', function () {
     const imageFolder = 'image/'; // Set the path to your folder containing images
-    const images = ['login_done_1.jpg', 'login_done_2.jpg', 'login_done_3.jpg', 'login_done_4.jpg']; // List of images in the folder
+    const images = ['login_done_1.jpg', 'login_done_2.jpg', 'login_done_3.jpg', 'login_done_4.jpg', 'login_done_5.jpg']; // List of images in the folder
     const randomImageElement = document.getElementById('randomImage');
     
     // Function to pick a random image
