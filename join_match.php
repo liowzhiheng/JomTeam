@@ -37,7 +37,7 @@ if (isset($_GET['id'])) {
                     <button type='submit' name='id' value='$match_id' class='btn-cancel'>Cancel Participation</button>
             </form>
             <p><a href='main.php'>Go back to your dashboard</a></p> 
-            <p><a href='match_details.php?id=<?php echo $match_id; ?>'>View Match Details</a></p> 
+            <p><a href='match_details.php?id=" . $match_id . "'>View Match Details</a></p> 
             </div>";
         } else {
             if ($current_players < $max_players) {
@@ -65,7 +65,7 @@ if (isset($_GET['id'])) {
                 <p>The match is already full.</p>
                 
                 <p><a href='main.php'>Go back to your dashboard</a></p> 
-                <p><a href='match_details.php?id=<?php echo $match_id; ?>'>View Match Details</a></p> 
+                <p><a href='match_details.php?id=" . $match_id . "'>View Match Details</a></p> 
                 </div>";
             }
         }
@@ -75,7 +75,7 @@ if (isset($_GET['id'])) {
             <p>Match not found.</p>
             
             <p><a href='main.php'>Go back to your dashboard</a></p> 
-            <p><a href='match_details.php?id=<?php echo $match_id; ?>'>View Match Details</a></p> 
+            <p><a href='match_details.php?id=" . $match_id . "'>View Match Details</a></p> 
             </div>";
     }
 } else {
@@ -84,7 +84,7 @@ if (isset($_GET['id'])) {
     <p>No match selected.</p>
     
     <p><a href='main.php'>Go back to your dashboard</a></p> 
-    <p><a href='match_details.php?id=<?php echo $match_id; ?>'>View Match Details</a></p> 
+    <p><a href='match_details.php?id=" . $match_id . "'>View Match Details</a></p> 
     </div>";
 }
 ?>
