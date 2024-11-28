@@ -66,7 +66,7 @@ $result = mysqli_query($conn, $sql);
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         $image = isset($row['file']) && !empty($row['file']) ? 'uploads/' . $row['file'] : 'image/default.png';
-                        echo "<tr onclick='openModal({$row['id']}, \"{$row['name']}\", \"{$row['created_at']}\", \"{$row['title']}\", \"{$row['description']}\", \"{$row['rating']}\",\"{$image}\")'>";
+                        echo "<tr onclick='openModal({$row['id']}, \"{$row['name']}\", \"{$row['created_at']}\", \"{$row['title']}\", \"{$row['description']}\", \"{$row['rating']}\", \"{$image}\")'>";
                         echo "<td>" . $counter++ . "</td>";
                         echo "<td>" . htmlspecialchars($row['name']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['title']) . "</td>";
@@ -98,6 +98,9 @@ $result = mysqli_query($conn, $sql);
             </div>
             <p><span id="modalTitle" class="modal-title"></span></p>
             <p><span id="modalDescription" class="modal-description"></span></p>
+            <div class="modal-rating">
+                <p><strong>Rating:</strong> <span id="modalRating"></span></p>
+            </div>
         </div>
         <button class="close-btn" onclick="closeModal()">Close</button>
     </div>

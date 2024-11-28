@@ -113,82 +113,107 @@ tr:hover {
     background-color: #5252D4;
 }
 
-/* Modal Styles */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 999;
+}
+
 .modal {
     display: none;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 30px;
+    width: 70%;
+    max-width: 800px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    background-color: rgb(222, 224, 227);
-    padding: 40px;
-    width: 100%;
-    max-width: 1000px;
-    min-width: 1000px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    overflow-y: auto;
 }
 
 .modal-header {
-    font-size: 40px;
+    font-size: 24px;
     font-weight: bold;
-    margin-bottom: 15px;
-    color: #000000;
+    color: #333;
+    margin-bottom: 20px;
     text-align: center;
 }
 
-.modal-content p {
-    margin: 10px 0;
+.modal-content {
+    font-family: Arial, sans-serif;
 }
 
 .container {
     display: flex;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .modal-image {
-    width: 120px;
-    height: 120px;
-    margin-right: 20px;
-    vertical-align: middle;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 15px;
 }
 
 .modal-name {
-    font-size: 25px;
-    font-weight: bold;
-    color: #000000;
-}
-
-.modal-date {
-    font-size: 25px;
-    font-style: italic;
+    font-size: 18px;
     font-weight: bold;
     color: #5252D4;
 }
 
+.modal-date {
+    font-size: 14px;
+    color: #777;
+}
+
 .modal-title {
+    font-size: 20px;
     font-weight: bold;
-    font-size: 30px;
-    color: #000000;
+    color: #333;
+    margin-top: 15px;
 }
 
 .modal-description {
-    font-size: 20px;
-    color: #000000;
+    font-size: 16px;
+    color: #555;
     margin-top: 10px;
+    line-height: 1.6;
+    white-space: pre-line;
+}
+
+.modal-rating {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #555;
+}
+
+.modal-rating span {
+    font-size: 24px;
 }
 
 .close-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background: #f44336;
+    background-color: #5252D4;
     color: white;
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 18px;
+    padding: 10px 20px;
     margin-top: 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.close-btn:hover {
+    background-color: #4040b1;
 }

@@ -74,67 +74,65 @@ $max_players = $match['max_players'];
     <div class="profile-content">
         <section class="profile-container">
 
-    
 
-           
-                <!-- left -->
-                <div class=" profile-left">
-                    <div>
-                        <img src="gamematch/<?php echo $match['file']; ?>" alt="Match Image"
-                            style="width: 200px; height: auto;">
-                    </div>
+
+
+            <!-- left -->
+            <div class=" profile-left">
+                <div>
+                    <img src="gamematch/<?php echo $match['file']; ?>" alt="Match Image"
+                        style="width: 200px; height: auto;">
                 </div>
-                <!-- right -->
-                <div class="profile-right">
-                    <div class="group">
-                        <label>Title:</label>
-                        <input type="text" value="<?php echo htmlspecialchars($match['match_title']); ?>">
+            </div>
+            <!-- right -->
+            <div class="profile-right">
+                <div class="group">
+                    <label>Title:</label>
+                    <input type="text" value="<?php echo htmlspecialchars($match['match_title']); ?>">
 
-                    </div>
-                    <div class="group">
-                        <label>Game Type:</label>
-                        <input type="text" value="<?php echo htmlspecialchars($match['game_type']); ?>">
+                </div>
+                <div class="group">
+                    <label>Game Type:</label>
+                    <input type="text" value="<?php echo htmlspecialchars($match['game_type']); ?>">
 
-                    </div>
-                    <div class="group">
-                        <label>Location:</label>
-                        <input type="text" value="<?php echo htmlspecialchars($match['location']); ?>">
+                </div>
+                <div class="group">
+                    <label>Location:</label>
+                    <input type="text" value="<?php echo htmlspecialchars($match['location']); ?>">
 
-                    </div>
-                    <div class="group">
-                        <label>Skill Level Required:</label>
-                        <textarea><?php echo htmlspecialchars($match['skill_level_required']); ?></textarea>
-                    </div>
-                    <div class="group">
-                        <label>Start Date:</label>
-                        <input type="text"
-                            value="<?php echo date($match['start_date']); ?>">
+                </div>
+                <div class="group">
+                    <label>Skill Level Required:</label>
+                    <textarea><?php echo htmlspecialchars($match['skill_level_required']); ?></textarea>
+                </div>
+                <div class="group">
+                    <label>Start Date:</label>
+                    <input type="text" value="<?php echo date($match['start_date']); ?>">
 
-                    </div>
-           
-                    <div class="group">
-                        <label>Max Players:</label>
-                        <input type="text" id="max_players"
-                            value="<?php echo htmlspecialchars($match['max_players']); ?>">
-                    </div>
-                    <div class="group">
-                        <label>Current Players:</label>
-                        <input type="text" id="current_players"
-                            value="<?php echo htmlspecialchars($match['current_players']); ?>">
-                    </div>
-
-                    <div class="group">
-                        <label>Status:</label>
-                        <input type="text" value="<?php echo htmlspecialchars($match['status']); ?>">
-
-                    </div>
-                    <div class="group">
-                        <label>Description:</label>
-                        <textarea><?php echo nl2br(htmlspecialchars($match['description'])); ?></textarea>
-                    </div>
                 </div>
 
-                
+                <div class="group">
+                    <label>Max Players:</label>
+                    <input type="text" id="max_players" value="<?php echo htmlspecialchars($match['max_players']); ?>">
+                </div>
+                <div class="group">
+                    <label>Current Players:</label>
+                    <input type="text" id="current_players"
+                        value="<?php echo htmlspecialchars($match['current_players']); ?>">
+                </div>
+
+                <div class="group">
+                    <label>Status:</label>
+                    <input type="text" value="<?php echo htmlspecialchars($match['status']); ?>">
+
+                </div>
+                <div class="group">
+                    <label>Description:</label>
+                    <textarea><?php echo nl2br(htmlspecialchars($match['description'])); ?></textarea>
+                </div>
+            </div>
+
+
 
 
         </section>
