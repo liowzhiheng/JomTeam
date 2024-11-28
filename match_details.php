@@ -108,7 +108,7 @@ $max_players = $match['max_players'];
                     <div class="group">
                         <label>Start Date:</label>
                         <input type="text"
-                            value="<?php echo date("F j, Y, g:i A", strtotime($match['start_date'])); ?>">
+                            value="<?php echo date($match['start_date']); ?>">
 
                     </div>
            
