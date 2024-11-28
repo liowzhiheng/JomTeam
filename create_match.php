@@ -140,7 +140,11 @@ $rows = mysqli_fetch_assoc($result);
                     </div>
                     <div class="group">
                         <label class="details">Start Date</label>
-                        <input type="date" name="startDate" required>
+                        <input type="date" name="startDate" id="startDate" required oninput="validDate()">
+                    </div>
+                    <div class="group">
+                        <label class="details">Start Time</label>
+                        <input type="time" name="startTime" id="startTime" required oninput="validTime()">
                     </div>
                     <div class="group">
                         <label class="details">Duration of Game Match</label>
@@ -154,16 +158,14 @@ $rows = mysqli_fetch_assoc($result);
                     <div class="group">
                         <label class="details">Maximum Players</label>
                         <input type="number" name="max_players" id="max_players" value="0" min="1" required
-                            oninput="validatePlayerInput(this)" 
-                            onchange="updatePlayers()">
+                            oninput="validatePlayerInput(this)" onchange="updatePlayers()">
                     </div>
 
 
                     <div class="group">
                         <label class="details">Current Players</label>
-                        <input type="number" name="current_players" id="current_players" min="0" value="0" required 
-                            oninput="validatePlayerInput(this)" 
-                            onchange="updatePlayers()">
+                        <input type="number" name="current_players" id="current_players" min="0" value="0" required
+                            oninput="validatePlayerInput(this)" onchange="updatePlayers()">
                     </div>
 
 
@@ -338,6 +340,42 @@ $rows = mysqli_fetch_assoc($result);
         }
     }
 
+    function validatePlayerInput() {
+        const maxPlayers = parseInt(document.getElementById('max_players').value) || 0;
+        const currentPlayers = parseInt(document.getElementById('current_players').value) || 0;
+
+        if (currentPlayers > maxPlayers) {
+            alert("Current players cannot exceed maximum players!");
+            document.getElementById('current_players').value = 1;
+        }
+    }
+
+    function validDate() {
+        const inputDate = new Date(document.getElementById('startDate').value);
+        const today = new Date();
+
+        inputDate.setHours(0, 0, 0, 0);
+        today.setHours(0, 0, 0, 0);
+
+        if (inputDate.getTime() !== today.getTime()) {
+            alert("The date must be today!");
+            document.getElementById('startDate').value = ""; // Clear the invalid date
+        }
+    }
+
+    function validTime() {
+        const inputTime = document.getElementById('startTime').value;
+        const now = new Date();
+
+        // Get the current time in "HH:MM" format
+        const currentTime = now.toTimeString().substring(0, 5);
+
+        // Compare the input time with the current time
+        if (inputTime < currentTime) {
+            alert("The time must be later than the current time!");
+            document.getElementById('startTime').value = ""; // Clear the invalid input
+        }
+    }
     // Initialize the circles on page load
     document.addEventListener('DOMContentLoaded', function () {
         updatePlayers();
