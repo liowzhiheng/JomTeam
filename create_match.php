@@ -93,13 +93,6 @@ $rows = mysqli_fetch_assoc($result);
                     </div>
                 </div>
 
-
-
-
-
-
-
-
                 <!-- right -->
                 <div class="profile-right">
                     <div class="group">
@@ -127,10 +120,20 @@ $rows = mysqli_fetch_assoc($result);
                         <label class="details">Match Title</label>
                         <input type="text" name="match_title" required>
                     </div>
+
                     <div class="group">
                         <label class="details">Game Type</label>
-                        <input type="text" name="game_type" required>
+                        <select name="game_type" required>
+                            <option value="">Select Game Type</option>
+                            <option value="basketball">Basketball</option>
+                            <option value="football">Football</option>
+                            <option value="badminton">Badminton</option>
+                            <option value="volleyball">Volleyball</option>
+                            <option value="tennis">Tennis</option>
+                            <option value="futsal">Futsal</option>
+                        </select>
                     </div>
+
                     <div class="group">
                         <label class="details">Location</label>
                         <input type="text" name="location" required>
@@ -150,15 +153,17 @@ $rows = mysqli_fetch_assoc($result);
                     </div>
                     <div class="group">
                         <label class="details">Maximum Players</label>
-                        <input type="number" name="max_players" id="max_players" value="0" required
-                            oninput="updatePlayers()">
+                        <input type="number" name="max_players" id="max_players" min="0" value="0" required 
+                            oninput="validatePlayerInput(this)" 
+                            onchange="updatePlayers()">
                     </div>
 
 
                     <div class="group">
                         <label class="details">Current Players</label>
-                        <input type="number" name="current_players" id="current_players" value="0" required
-                            oninput="updatePlayers()">
+                        <input type="number" name="current_players" id="current_players" min="0" value="0" required 
+                            oninput="validatePlayerInput(this)" 
+                            onchange="updatePlayers()">
                     </div>
 
 
