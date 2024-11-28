@@ -10,6 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $game_type = $_POST['game_type'];
     $skill_level = $_POST['skill_level'];
     $max_players = $_POST['max_players'];
+    $current_players = $_POST['current_players'];
     $location = $_POST['location'];
     $start_date = $_POST['start_date'];
     $duration = $_POST['duration'];
@@ -28,8 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (isset($_POST['create'])) {
-        $sql = "INSERT INTO gamematch (user_id, match_title, game_type, skill_level_required, max_players, location, start_date, duration, status, description, file)
-            VALUES ('$user_id', '$match_title', '$game_type', '$skill_level', '$max_players', '$location', '$start_date', '$duration', 'open', '$description', '$file_name')";
+        $sql = "INSERT INTO gamematch (user_id, match_title, game_type, skill_level_required, max_players, current_players, location, start_date, duration, status, description, file)
+            VALUES ('$user_id', '$match_title', '$game_type', '$skill_level', '$max_players','$current_players', '$location', '$start_date', '$duration', 'open', '$description', '$file_name')";
         if (mysqli_query($conn, $sql)) {
             header("Location: create_successful.php");
             exit();
