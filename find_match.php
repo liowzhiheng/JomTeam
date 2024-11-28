@@ -1,14 +1,37 @@
 <?php
-// matches.php
-
 // Include your database connection
 require("config.php");
 
-// Query to fetch matches from the database
-$query = "SELECT * FROM gamematch ORDER BY created_at DESC";
+// Initialize query for fetching matches
+$query = "SELECT * FROM gamematch WHERE 1=1";
+
+// Collect search inputs from the form submission
+$searchGameType = isset($_GET['game_type']) ? mysqli_real_escape_string($conn, $_GET['game_type']) : '';
+$searchLocation = isset($_GET['area']) ? mysqli_real_escape_string($conn, $_GET['area']) : '';
+$searchDate = isset($_GET['date']) ? mysqli_real_escape_string($conn, $_GET['date']) : '';
+$searchMatchCode = isset($_GET['match_code']) ? mysqli_real_escape_string($conn, $_GET['match_code']) : '';
+
+// Add conditions dynamically to the query
+if (!empty($searchGameType)) {
+    $query .= " AND game_type = '$searchGameType'";
+}
+if (!empty($searchLocation)) {
+    $query .= " AND location LIKE '%$searchLocation%'";
+}
+if (!empty($searchDate)) {
+    $query .= " AND start_date = '$searchDate'";
+}
+if (!empty($searchMatchCode)) {
+    $query .= " AND (match_code LIKE '%$searchMatchCode%' OR location LIKE '%$searchMatchCode%')";
+}
+
+// Order by created date
+$query .= " ORDER BY created_at DESC";
+
+// Execute the query
 $result = mysqli_query($conn, $query);
 
-// Check if any matches are found
+// Fetch results
 if (mysqli_num_rows($result) > 0) {
     $matches = mysqli_fetch_all($result, MYSQLI_ASSOC);
 } else {
@@ -17,11 +40,10 @@ if (mysqli_num_rows($result) > 0) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matches</title>
+    <title>Find Match</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="find_match.css">
     <link rel="stylesheet" href="searchbar.css">
@@ -59,36 +81,30 @@ if (mysqli_num_rows($result) > 0) {
     </div>
 
     <!-- Search bar -->
-    <section class="search-section">
+ <!-- Search Section -->
+ <section class="search-section">
         <div class="search-container">
-            <form action="search_match.php" method="GET" class="search-form">
-                <!-- Main search bar -->
+            <form action="find_match.php" method="GET" class="search-form">
                 <div class="main-search">
                     <input type="text" name="match_code" class="search-input"
                         placeholder="🔍 Search by match code or location...">
-                    <button type="button" class="filter-toggle-btn" onclick="toggleFilters()">
-                        Filters
-                    </button>
-                    <button type="submit" class="search-button">
-                        Search
-                    </button>
+                    <button type="button" class="filter-toggle-btn" onclick="toggleFilters()">Filters</button>
+                    <button type="submit" class="search-button">Search</button>
                 </div>
-
-                <!-- Filter section (hidden by default) -->
                 <div class="filter-section" id="filterSection">
                     <div class="filter-row">
-                    <div class="filter-group">
-                    <label for="game_type">Game Type:</label>
-                        <select name="game_type" id="game_type">
-                            <option value="">All Game Types</option>
-                            <option value="basketball">Basketball</option>
-                            <option value="football">Football</option>
-                            <option value="badminton">Badminton</option>
-                            <option value="volleyball">Volleyball</option>
-                            <option value="tennis">Tennis</option>
-                            <option value="futsal">Futsal</option>
-                        </select>
-                    </div>
+                        <div class="filter-group">
+                            <label for="game_type">Game Type:</label>
+                            <select name="game_type" id="game_type">
+                                <option value="">All Game Types</option>
+                                <option value="basketball">Basketball</option>
+                                <option value="football">Football</option>
+                                <option value="badminton">Badminton</option>
+                                <option value="volleyball">Volleyball</option>
+                                <option value="tennis">Tennis</option>
+                                <option value="futsal">Futsal</option>
+                            </select>
+                        </div>
 
                         <div class="filter-group">
                             <label for="area">Area:</label>
@@ -106,9 +122,8 @@ if (mysqli_num_rows($result) > 0) {
                             <label for="date">Date:</label>
                             <input type="date" name="date" id="date">
                         </div>
-                    </div>
 
-                    <div class="filter-row">
+                        <div class="filter-row">
                         <div class="filter-group">
                             <label for="time">Time:</label>
                             <select name="time" id="time">
@@ -118,70 +133,29 @@ if (mysqli_num_rows($result) > 0) {
                                 <option value="evening">Evening (6PM-10PM)</option>
                             </select>
                         </div>
-
-                        <div class="filter-group">
-                            <label for="gender">Player Gender:</label>
-                            <select name="gender" id="gender">
-                                <option value="">Any Gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="mixed">Mixed</option>
-                            </select>
-                        </div>
-
-                        <div class="filter-group">
-                            <label for="skill_level">Skill Level:</label>
-                            <select name="skill_level" id="skill_level">
-                                <option value="">Any Level</option>
-                                <option value="beginner">Beginner</option>
-                                <option value="intermediate">Intermediate</option>
-                                <option value="advanced">Advanced</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="filter-actions">
-                        <button type="button" onclick="clearFilters()" class="clear-btn">Clear Filters</button>
-                        <button type="button" onclick="applyFilters()" class="apply-btn">Apply Filters</button>
                     </div>
                 </div>
             </form>
         </div>
     </section>
 
-
-
-
-
     <!-- Display the created matches -->
     <section class="grid-section">
-
         <div class="grid-container">
             <?php if (!empty($matches)): ?>
                 <?php foreach ($matches as $match): ?>
                     <div class="grid-item">
-                        <img src="gamematch/<?php echo $match['file']; ?>" alt="Match Image"
-                            style="width: 200px; height: 200px;">
-                        <p class="info_title"><?php echo htmlspecialchars($match['match_title']); ?>
-                        </p>
-                        <p class="info">
-                            <?php echo htmlspecialchars($match['game_type']); ?>
-                        </p>
-                        <p class="info">
-                            Location: <?php echo htmlspecialchars($match['location']); ?>
-                        </p>
-                        <p class="info">
-                            Date: <?php echo date("F j, Y", strtotime($match['start_date'])); ?>
-                        </p>
-                        <p class="info">
-                            Time: <?php echo $match['start_time'];?>
-                        </p>
-                        
+                        <img src="gamematch/<?php echo htmlspecialchars($match['file']); ?>" alt="Match Image" style="width: 200px; height: 200px;">
+                        <p class="info_title"><?php echo htmlspecialchars($match['match_title']); ?></p>
+                        <p class="info"><?php echo htmlspecialchars($match['game_type']); ?></p>
+                        <p class="info">Location: <?php echo htmlspecialchars($match['location']); ?></p>
+                        <p class="info">Date: <?php echo htmlspecialchars($match['start_date']); ?></p>
+                        <p class="info">Time: <?php echo htmlspecialchars($match['start_time']); ?></p>
                         <a href="match_details.php?id=<?php echo $match['id']; ?>" class="view-all-btn">View Details</a>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
-                <p>No matches created yet.</p>
+                <p>No matches found for your search criteria.</p>
             <?php endif; ?>
         </div>
       
