@@ -83,7 +83,7 @@
                 <div class="key_in">
                     <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password"
                         required />
-                    <button id="toggleConfirmPassword">
+                    <button type="button" id="toggleConfirmPassword">
                         <img src="IMAGE/close_eye.png" class="picture_password" alt="Toggle Visibility"
                             id="confirmPasswordImage" />
                     </button>
