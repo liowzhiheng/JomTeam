@@ -87,7 +87,7 @@ if (mysqli_stmt_execute($stmt)) {
     <html>
     <head>
         <link rel="stylesheet" href="check_register.css">
-        <meta http-equiv="refresh" content="3;url=login.php">
+        <meta http-equiv="refresh" content="3;url=index.php">
     </head>
     <body>
         <h1>Registration Successful!</h1>
