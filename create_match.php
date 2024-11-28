@@ -140,7 +140,7 @@ $rows = mysqli_fetch_assoc($result);
                     </div>
                     <div class="group">
                         <label class="details">Start Date</label>
-                        <input type="date" name="startDate" required>
+                        <input type="datetime-local" name="startDate" required>
                     </div>
                     <div class="group">
                         <label class="details">Duration of Game Match</label>
@@ -154,14 +154,16 @@ $rows = mysqli_fetch_assoc($result);
                     <div class="group">
                         <label class="details">Maximum Players</label>
                         <input type="number" name="max_players" id="max_players" value="0" min="1" required
-                            oninput="validatePlayerInput(this)" onchange="updatePlayers()">
+                            oninput="validatePlayerInput(this)" 
+                            onchange="updatePlayers()">
                     </div>
 
 
                     <div class="group">
                         <label class="details">Current Players</label>
-                        <input type="number" name="current_players" id="current_players" min="0" value="0" required
-                            oninput="validatePlayerInput(this)" onchange="updatePlayers()">
+                        <input type="number" name="current_players" id="current_players" min="0" value="0" required 
+                            oninput="validatePlayerInput(this)" 
+                            onchange="updatePlayers()">
                     </div>
 
 
