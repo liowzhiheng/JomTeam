@@ -112,6 +112,11 @@ $max_players = $match['max_players'];
                 </div>
 
                 <div class="group">
+                    <label>Start Time:</label>
+                    <input type="text" value="<?php echo $match['start_time']?>">
+                </div>
+
+                <div class="group">
                     <label>Max Players:</label>
                     <input type="text" id="max_players" value="<?php echo htmlspecialchars($match['max_players']); ?>">
                 </div>
