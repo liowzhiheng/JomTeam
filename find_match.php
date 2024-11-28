@@ -77,16 +77,18 @@ if (mysqli_num_rows($result) > 0) {
                 <!-- Filter section (hidden by default) -->
                 <div class="filter-section" id="filterSection">
                     <div class="filter-row">
-                        <div class="filter-group">
-                            <label for="sport">Sport:</label>
-                            <select name="sport" id="sport">
-                                <option value="">All Sports</option>
-                                <option value="basketball">Basketball</option>
-                                <option value="football">Football</option>
-                                <option value="badminton">Badminton</option>
-                                <option value="volleyball">Volleyball</option>
-                            </select>
-                        </div>
+                    <div class="filter-group">
+                    <label for="game_type">Game Type:</label>
+                        <select name="game_type" id="game_type">
+                            <option value="">All Game Types</option>
+                            <option value="basketball">Basketball</option>
+                            <option value="football">Football</option>
+                            <option value="badminton">Badminton</option>
+                            <option value="volleyball">Volleyball</option>
+                            <option value="tennis">Tennis</option>
+                            <option value="futsal">Futsal</option>
+                        </select>
+                    </div>
 
                         <div class="filter-group">
                             <label for="area">Area:</label>
