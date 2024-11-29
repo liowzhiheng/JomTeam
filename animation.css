@@ -1,31 +1,53 @@
 body {
     background: rgba(82, 82, 212, 0.86);
-    transition: background-color 0.6s ease-in-out;
-   
-    
+    overflow: hidden; /* Prevent shapes from creating scrollbars */
+    margin: 0;
 }
 
-.transition-container {
-    position: relative;
-    background: rgba(82, 82, 212, 0.86);
-    
+.shape {
+    position: absolute;
+    animation: float 6s infinite ease-in-out, spin 6s infinite linear;
+    mix-blend-mode: screen; /* For fun overlapping effects */
+    border-radius: 10%; /* Default for square with rounded edges */
 }
 
-.page-transition-enter,
-.page-transition-leave {
-    position: relative;
-    opacity: 0;
-    transform: translateX(100%);
-    transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1), opacity 0.6s ease-out;
+/* Random colors */
+.shape:nth-child(odd) {
+    background: rgba(76, 76, 171, 0.86);
+}
+.shape:nth-child(even) {
+    background: rgb(35, 35, 82);
 }
 
-.page-transition-enter-active {
-    opacity: 1;
-    transform: translateX(0);
+/* Circle */
+.circle {
+    border-radius: 50%; /* Makes the shape a circle */
+    animation: float 8s infinite ease-in-out, spin 10s infinite linear;
 }
 
-.page-transition-leave-active {
-    opacity: 0;
-    transform: translateX(-100%);
-    transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1), opacity 0.6s ease-out;
+/* Square */
+.square {
+    animation: float 4s infinite ease-in-out, spin 5s infinite linear;
+}
+
+/* Animations */
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
