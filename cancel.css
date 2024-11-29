@@ -11,19 +11,9 @@ body, html {
 
 .container {
     text-align: center; /* Center the text */
-}
-
-/* Style the links */
-.container p a {
-    color: #add8e6; /* Light blue color for links */
-    text-decoration: none; /* Remove underline */
-    font-weight: bold; /* Bold text */
-}
-
-/* Add hover effect for links */
-.container p a:hover {
-    text-decoration: underline; /* Underline on hover */
-    color: #ffffff; /* Change color to white on hover */
+    font-size: 18px; /* Adjust font size */
+    margin: 10px 0; /* Space between paragraphs */
+    line-height: 1.5; /* Improve readability */
 }
 
 .login-image {
