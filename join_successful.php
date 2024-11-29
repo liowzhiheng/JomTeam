@@ -25,7 +25,7 @@ if (isset($_GET['id'])) {
 <body>
     <div class="container">
         <h1>Congratulations!</h1>
-        <p>You have successfully joined the match!</p>
+        <h1>You have successfully joined the match!</h1>
 
         <img id="randomImage"alt="Login Successful" class="login-image" />
     </div>
