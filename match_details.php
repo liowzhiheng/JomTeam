@@ -198,8 +198,8 @@ $has_joined = $checkResult->num_rows > 0;
                 <form action="cancel_match.php" method="GET" style="text-align: center;">
                 <input type="hidden" name="id" value="<?php echo $match_id; ?>">
                     <button 
-                        style="width: 10%; 
-                        height: 70px; 
+                        style="width: 15%; 
+                        height: 100px; 
                         font-size: 30px; 
                         font-weight: 700; 
                         color: white; 
@@ -208,9 +208,7 @@ $has_joined = $checkResult->num_rows > 0;
                         border-radius: 50px; 
                         cursor: pointer; 
                         transition: background-color 0.3s ease; 
-                        margin-top:1%;"
-                        onmouseover="this.style.backgroundColor='#e50c28'" 
-                        onmouseout="this.style.background='linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%)'">
+                        margin-top:1%;margin-left:2%">
                         Cancel
                     </button>
             </div>
@@ -222,8 +220,8 @@ $has_joined = $checkResult->num_rows > 0;
                 <form action="join_match.php" method="GET" style="text-align: center;">
                 <input type="hidden" name="id" value="<?php echo $match_id; ?>">
                     <button 
-                        style="width: 10%; 
-                        height: 70px; 
+                        style="width: 15%; 
+                        height: 100px; 
                         font-size: 30px; 
                         font-weight: 700; 
                         color: white; 
@@ -232,10 +230,8 @@ $has_joined = $checkResult->num_rows > 0;
                         border-radius: 50px; 
                         cursor: pointer; 
                         transition: background-color 0.3s ease; 
-                        margin-top:1%;"
-                        onmouseover="this.style.backgroundColor='#e50c28'" 
-                        onmouseout="this.style.background='linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%)'">
-                        Join
+                        margin-top:1%; margin-left:2%">
+                        Join Match
                     </button>
             </div>
         <?php else: ?>
@@ -402,3 +398,4 @@ $has_joined = $checkResult->num_rows > 0;
     document.addEventListener('DOMContentLoaded', updatePlayers);
 
 </script>
+
