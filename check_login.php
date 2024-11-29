@@ -56,7 +56,7 @@ if (mysqli_num_rows($result) == 1) {
         <body>
             <div class="container">
                 <h2>Hi! <strong><?php echo htmlspecialchars($_SESSION["USER"]); ?></strong></h2>
-                <img id="randomImage" src="image/login_done_1.jpg" alt="Login Successful" class="login-image" />
+                <img id="randomImage"alt="Login Successful" class="login-image" />
             </div>
         </body>
 
