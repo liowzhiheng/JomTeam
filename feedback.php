@@ -64,7 +64,7 @@ mysqli_close($conn);
         <ul class="menu rightmenu">
             <li class="notification"><a href="#notification"><img src="IMAGE/NOTIFICATION.png" alt="Notification"></a>
             </li>
-            <li class="logout"><a href="index.php.php">Log out<img src="IMAGE/LOGOUT.png" alt="Logout"></a></li>
+            <li class="logout"><a href="index.php">Log out<img src="IMAGE/LOGOUT.png" alt="Logout"></a></li>
         </ul>
     </nav>
 
