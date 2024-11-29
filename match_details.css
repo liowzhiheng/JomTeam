@@ -175,18 +175,19 @@
 }
 
 /* Center text */
-.button p {
+div p {
     margin: 0;
-    padding: 5px;
-    font-size: 1.2rem; /* Adjust font size as needed */
-    color: white; /* Ensure text color matches your theme */
+    padding: 10px;
+    font-size: 1.2rem;
+    color: white;
+    text-align: center; /* Ensure text is centered */
 }
 
 /* Style the joined button */
 .joined_button {
     width: 75%;
     height: 70px;
-    font-size: 100%;
+    font-size: 16px; /* Adjust font size */
     font-weight: 700;
     color: white;
     background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%);
@@ -194,6 +195,7 @@
     border-radius: 50px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    display: inline-block; /* Fix button display */
     margin-top: 10%;
 }
 
