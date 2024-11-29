@@ -42,26 +42,25 @@ echo '<body>
     } else {
 echo '
     <body>
-    <div class="container">
-    <p>You are not part of this match.</p>
-    <p><a href="main.php">Go back to your dashboard</a></p>
-    <p><a href="match_details.php?id=' . $match_id . '">View Match Details</a></p>
-    <img id="randomImage" alt="Login Successful" class="login-image" />
-    </div>
+        <div class="container">
+            <p>You are not part of this match.</p>
+            <p><a href="main.php">Go back to your dashboard</a></p>
+            <p><a href="match_details.php?id=' . $match_id . '">View Match Details</a></p>
+            <img id="randomImage" alt="Login Successful" class="login-image" />
+        </div>
     <body>';
 
 
     }
 } else {
-echo '
-    <body>
-    <div class="container">
-    <p>You are not part of this match.</p>
-    <p><a href="main.php">Go back to your dashboard</a></p>
-    <p><a href="match_details.php?id=' . $match_id . '">View Match Details</a></p>
-    <img id="randomImage" alt="Login Successful" class="login-image" />
-    </div>
-    <body>';
+echo '<body>
+        <div class="container">
+                <p>You are not part of this match.</p>
+                <p><a href="main.php">Go back to your dashboard</a></p>
+                <p><a href="match_details.php?id=' . $match_id . '">View Match Details</a></p>
+                <img id="randomImage" alt="Login Successful" class="login-image" />
+        </div>
+</body>';
 
 
 }
