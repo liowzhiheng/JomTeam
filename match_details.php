@@ -208,7 +208,9 @@ $has_joined = $checkResult->num_rows > 0;
                         border-radius: 50px; 
                         cursor: pointer; 
                         transition: background-color 0.3s ease; 
-                        margin-top:1%;">
+                        margin-top:1%;"
+                        onmouseover="this.style.backgroundColor='#e50c28'" 
+                        onmouseout="this.style.background='linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%)'">
                         Cancel
                     </button>
             </div>
@@ -230,7 +232,9 @@ $has_joined = $checkResult->num_rows > 0;
                         border-radius: 50px; 
                         cursor: pointer; 
                         transition: background-color 0.3s ease; 
-                        margin-top:1%;">
+                        margin-top:1%;"
+                        onmouseover="this.style.backgroundColor='#e50c28'" 
+                        onmouseout="this.style.background='linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%)'">
                         Join
                     </button>
             </div>
