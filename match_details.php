@@ -215,8 +215,8 @@ $has_joined = $checkResult->num_rows > 0;
         <?php elseif ($current_players < $max_players): ?>
             <!-- If match is not full and user has not joined -->
             <div>
-                <p>You have joined the match.</p>
-                <p>Do you wish to cancel?</p>
+                <p>Are you interested to the match?</p>
+                <p>Join now and have fun!</p>
                 <form action="cancel_match.php" method="GET" style="text-align: center;">
                 <input type="hidden" name="id" value="<?php echo $match_id; ?>">
                     <button 
