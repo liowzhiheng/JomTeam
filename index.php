@@ -12,6 +12,10 @@
 </head>
 
 <body class="transition-container">
+    <!-- Floating shapes container -->
+    <div class="background"></div>
+
+  
     <div class="container">
         <div class="text_box">
             <h1 class="welcome_text">Welcome</h1>
@@ -21,7 +25,6 @@
                 Let's turn every game into a winning experience!<br>
                 ⚽🏀🏈
             </p>
-            <!-- Add error message container and display PHP session errors if they exist -->
             <div id="errorMessage" class="error-message <?php if (isset($_GET['error']))
                 echo 'show'; ?>">
                 <?php
@@ -40,23 +43,17 @@
                 ?>
             </div>
 
-            <form method="post" action="check_login.php"> <!-- Changed to check_login.php -->
-                
+            <form method="post" action="check_login.php">
                 <div class="key_in">
                     <input type="text" name="email" placeholder="Email" required />
                 </div>
-
-                <div class="key_in ">
+                <div class="key_in">
                     <input type="password" name="password" id="password" placeholder="Password" required />
                     <button type="button" id="togglePassword">
                         <img src="IMAGE/close_eye.png" class="picture_password" alt="Toggle Visibility"
                             id="passwordImage" />
                     </button>
                 </div>
-
-
-
-
                 <div>
                     <p class="register">
                         Not registered yet? <a href="register.php" class="register1">Create a new account</a>
@@ -66,10 +63,9 @@
             </form>
         </div>
         <div class="picture_box">
-            <img src=IMAGE/badminton.png class="picture" alt="Badminton">
+            <img src="IMAGE/badminton.png" class="picture" alt="Badminton">
         </div>
     </div>
-
     <script>
         // Show password toggle functionality
         const revealPasswordButton = document.getElementById('revealPassword');
@@ -131,6 +127,38 @@
         // Change image source
         passwordImage.src = isPasswordHidden ? 'IMAGE/open_eye.png' : 'IMAGE/close_eye.png';
     });
+
+    document.addEventListener("DOMContentLoaded", () => {
+    const body = document.body;
+
+    function createShape() {
+        const shape = document.createElement("div");
+        const shapeType = Math.random() > 0.5 ? "circle" : "square";
+
+        shape.classList.add("shape", shapeType);
+
+        // Random size
+        const size = Math.random() * 150 + 80; // Size between 20px and 80px
+        shape.style.width = size + "px";
+        shape.style.height = size + "px";
+
+        // Random position
+        shape.style.top = Math.random() * window.innerHeight + "px";
+        shape.style.left = Math.random() * window.innerWidth + "px";
+
+        // Append shape to the body
+        body.appendChild(shape);
+
+        // Remove the shape after its animation ends
+        setTimeout(() => shape.remove(), 5000);
+    }
+
+    // Add a new shape every 500ms
+    setInterval(createShape, 500);
+});
+
 </script>
 
+
 <script src="transition.js" defer></script>
+
