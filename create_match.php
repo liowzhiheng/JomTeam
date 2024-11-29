@@ -70,8 +70,7 @@ $rows = mysqli_fetch_assoc($result);
         <h1 class="profile-title">Create your own match</h1>
         <p class="profile-description">
             Not finding the right match? <br>No problem! Create your own game-changing partnership and turn any
-            challenge
-            into a victory. <br>Join our network and start building your dream team ?
+            challenge into a victory.
         </p>
     </div>
 
