@@ -390,8 +390,6 @@ $rows = mysqli_fetch_assoc($result);
         const currentPlayers = parseInt(document.getElementById('current_players').value);
         const playersList = document.getElementById('playersList');
 
-
-
         // Clear the current list
         playersList.innerHTML = '';
 
@@ -401,7 +399,12 @@ $rows = mysqli_fetch_assoc($result);
             playerItem.id = 'player' + (i + 1);
 
             // Set text based on current players
-            if (i < currentPlayers) {
+            if (i === 0) {
+                // The first player is always the host
+                const hostName = document.querySelector('input[name="name"]').value; // Fetch the host's name
+                playerItem.textContent = 'Player ' + (i + 1) + ': ' + hostName + ' (Host)';
+            }
+            else if (i < currentPlayers) {
                 playerItem.textContent = 'Player ' + (i + 1) + ': X';
             } else {
                 playerItem.textContent = 'Player ' + (i + 1) + ': ?';
