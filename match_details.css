@@ -175,22 +175,21 @@
 }
 
 .button {
-    background: none;
-    /* Remove background */
+    width: 75%;
+    height: 70px;
+    font-size: 100%;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%);
     border: none;
-    /* Remove border */
-    padding: 0;
-    /* Remove padding */
+    border-radius: 50px;
     cursor: pointer;
-    /* Make the image behave like a clickable button */
-    align-items: center;
+    transition: background-color 0.3s ease;
+    margin-top: 10%;
 }
 
-.button img {
-    width: 20%;
-    /* Adjust the image size as per your needs */
-    height: auto;
-    /* Maintain the aspect ratio */
-    margin-top:5% ;
-    margin-left:40%;
+.button:hover {
+    background-color: #e50c28;
 }
+
+
