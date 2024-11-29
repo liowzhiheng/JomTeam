@@ -13,6 +13,19 @@ body, html {
     text-align: center; /* Center the text */
 }
 
+/* Style the links */
+.container a {
+    color: #add8e6; /* Light blue color for links */
+    text-decoration: none; /* Remove underline */
+    font-weight: bold; /* Bold text */
+}
+
+/* Add hover effect for links */
+.container a:hover {
+    text-decoration: underline; /* Underline on hover */
+    color: #ffffff; /* Change color to white on hover */
+}
+
 .login-image {
     width: 80%; /* Makes the image responsive */
     max-width: 400px; /* Limits the maximum width */
