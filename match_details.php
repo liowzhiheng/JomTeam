@@ -185,8 +185,10 @@ $has_joined = $checkResult->num_rows > 0;
         </ul>
     </div>
 
-    <div> <!-- Join Match Section -->
-        div class="button">
+    <div style="text-align: center;"> <!-- Join Match Section -->
+    <?php if ($has_joined): ?>
+        <!-- If user has already joined, show "Joined" button -->
+        <div class="button">
             <p>You have joined the match.</p>
             <p>Do you wish to cancel?</p>
             <a href="join_match.php?id=<?php echo $match_id; ?>">
