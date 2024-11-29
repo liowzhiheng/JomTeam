@@ -190,7 +190,7 @@ $has_joined = $checkResult->num_rows > 0;
             <!-- If user has already joined, show "Joined" button -->
             <div class="button">
                 <a href="join_match.php?id=<?php echo $match_id; ?>">
-                    <img src="IMAGE/joined_match_button.png" alt="You have joined this match">
+                    <p><input type="submit" value="Joined" class="create_button" /></p>
                 </a>
             </div>
         <?php elseif ($current_players < $max_players): ?>
