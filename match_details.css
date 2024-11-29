@@ -174,7 +174,7 @@
     color: #ff0000;
 }
 
-.button {
+.joined_button {
     width: 75%;
     height: 70px;
     font-size: 100%;
@@ -188,7 +188,7 @@
     margin-top: 10%;
 }
 
-.button:hover {
+.joined_button:hover {
     background-color: #e50c28;
 }
 
