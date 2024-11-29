@@ -74,9 +74,8 @@ if (mysqli_num_rows($result) > 0) {
     <div class="profile-content">
         <h1 class="profile-title">Find Match</h1>
         <p class="profile-description">
-            Findin the perfect match in sports can be a game-changer.
-            <br>It's all about connecting with individuals who share you passion for the game and have the same
-            dedication and drive.
+            Finding the perfect match in sports can be a game-changer.
+            <br>It's all about connecting with individuals who share you passion for the game.
         </p>
     </div>
 
