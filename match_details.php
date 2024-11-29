@@ -211,13 +211,28 @@ $has_joined = $checkResult->num_rows > 0;
                         margin-top:1%;">
                         Cancel
                     </button>
-    </div>
+            </div>
         <?php elseif ($current_players < $max_players): ?>
             <!-- If match is not full and user has not joined -->
-            <div class="button">
-                <a href="join_match.php?id=<?php echo $match_id; ?>">
-                    <img src="IMAGE/join_match_button.png" alt="Join Match">
-                </a>
+            <div>
+                <p>You have joined the match.</p>
+                <p>Do you wish to cancel?</p>
+                <form action="cancel_match.php" method="GET" style="text-align: center;">
+                <input type="hidden" name="id" value="<?php echo $match_id; ?>">
+                    <button 
+                        style="width: 20%; 
+                        height: 70px; 
+                        font-size: 30px; 
+                        font-weight: 700; 
+                        color: white; 
+                        background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%); 
+                        border: none; 
+                        border-radius: 50px; 
+                        cursor: pointer; 
+                        transition: background-color 0.3s ease; 
+                        margin-top:1%;">
+                        Join
+                    </button>
             </div>
         <?php else: ?>
             <!-- If match is full -->
