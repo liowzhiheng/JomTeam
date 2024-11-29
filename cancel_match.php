@@ -60,5 +60,5 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join Match</title>
-    <link rel="stylesheet" href="check_login.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="cancel.css"> <!-- Link to your CSS file -->
 </head>
