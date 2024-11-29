@@ -31,13 +31,12 @@ if (isset($_GET['id'])) {
 
         if ($checkResult->num_rows > 0) {
             // If already joined, show a message with a link to cancel participation
-            echo "<div class='message error'>
-            <p>You have already joined this match. </p>
-             <form action='cancel_match.php' method='GET'>
+            echo "<div class='message success'>
+                <form action='cancel_match.php' method='GET'>
                     <button type='submit' name='id' value='$match_id' class='btn-cancel'>Cancel Participation</button>
-            </form>
-            <p><a href='main.php'>Go back to your dashboard</a></p> 
-            <p><a href='match_details.php?id=" . $match_id . "'>View Match Details</a></p> 
+                </form>
+                <p><a href='main.php'>Go back to your dashboard</a></p> 
+                <p><a href='match_details.php?id=" . $match_id . "'>View Match Details</a></p> 
             </div>";
         } else {
             if ($current_players < $max_players) {
@@ -53,39 +52,36 @@ if (isset($_GET['id'])) {
                 $insertStmt = $conn->prepare($insertQuery);
                 $insertStmt->bind_param('ii', $match_id, $user_id);
                 $insertStmt->execute();
-                ?>
-
-                <head>
-                    <meta http-equiv="refresh" content="1;url=join_successful.php?id=   <?php echo $match_id; ?>">
-                </head>
-                <?php
+                
+                // Show success message and redirect after a short delay
+                echo "<div class='message success'>
+                        
+                        <meta http-equiv='refresh' content='1;url=join_successful.php?id=$match_id'>
+                      </div>";
             } else {
                 // If the match is full, show an error message
                 echo "<div class='message error'>
-                <p>The match is already full.</p>
-                
-                <p><a href='main.php'>Go back to your dashboard</a></p> 
-                <p><a href='match_details.php?id=" . $match_id . "'>View Match Details</a></p> 
-                </div>";
+                        <p>The match is already full.</p>
+                        <p><a href='main.php'>Go back to your dashboard</a></p> 
+                        <p><a href='match_details.php?id=" . $match_id . "'>View Match Details</a></p> 
+                      </div>";
             }
         }
     } else {
         // If match not found, show an error message
         echo "<div class='message error'>
-            <p>Match not found.</p>
-            
-            <p><a href='main.php'>Go back to your dashboard</a></p> 
-            <p><a href='match_details.php?id=" . $match_id . "'>View Match Details</a></p> 
-            </div>";
+                <p>Match not found.</p>
+                <p><a href='main.php'>Go back to your dashboard</a></p> 
+                <p><a href='match_details.php?id=" . $match_id . "'>View Match Details</a></p> 
+              </div>";
     }
 } else {
     // If no match ID is passed in the URL, show an error message
     echo "<div class='message error'>
-    <p>No match selected.</p>
-    
-    <p><a href='main.php'>Go back to your dashboard</a></p> 
-    <p><a href='match_details.php?id=" . $match_id . "'>View Match Details</a></p> 
-    </div>";
+            <p>No match selected.</p>
+            <p><a href='main.php'>Go back to your dashboard</a></p> 
+            <p><a href='match_details.php?id=" . $match_id . "'>View Match Details</a></p> 
+          </div>";
 }
 ?>
 

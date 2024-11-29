@@ -4,8 +4,10 @@
 // Include database connection
 require("config.php");
 
-// Check if 'id' is passed in the URL
+// Start session to access user session data
+session_start();
 
+// Check if 'id' is passed in the URL
 if (isset($_GET['id'])) {
     $match_id = $_GET['id'];
 
@@ -33,6 +35,15 @@ if (isset($_GET['id'])) {
 // Fetch current number of players and max players
 $current_players = $match['current_players'];
 $max_players = $match['max_players'];
+$user_id = $_SESSION['ID']; // Get user ID from session
+
+// Check if the user has already joined the match
+$checkQuery = "SELECT * FROM match_participants WHERE match_id = ? AND user_id = ?";
+$checkStmt = $conn->prepare($checkQuery);
+$checkStmt->bind_param('ii', $match_id, $user_id);
+$checkStmt->execute();
+$checkResult = $checkStmt->get_result();
+$has_joined = $checkResult->num_rows > 0;
 ?>
 
 <!DOCTYPE html>
@@ -75,9 +86,6 @@ $max_players = $match['max_players'];
     <div class="profile-content">
         <section class="profile-container">
 
-
-
-
             <!-- left -->
             <div class=" profile-left">
                 <div>
@@ -89,18 +97,15 @@ $max_players = $match['max_players'];
             <div class="profile-right">
                 <div class="group">
                     <label>Title:</label>
-                    <input type="text" value="<?php echo htmlspecialchars($match['match_title']); ?>"readonly>
-
+                    <input type="text" value="<?php echo htmlspecialchars($match['match_title']); ?>" readonly>
                 </div>
                 <div class="group">
                     <label>Game Type:</label>
-                    <input type="text" value="<?php echo htmlspecialchars($match['game_type']); ?>"readonly>
-
+                    <input type="text" value="<?php echo htmlspecialchars($match['game_type']); ?>" readonly>
                 </div>
                 <div class="group">
                     <label>Location:</label>
-                    <input type="text" value="<?php echo htmlspecialchars($match['location']); ?>"readonly>
-
+                    <input type="text" value="<?php echo htmlspecialchars($match['location']); ?>" readonly>
                 </div>
                 <div class="group">
                     <label>Skill Level Required:</label>
@@ -108,38 +113,34 @@ $max_players = $match['max_players'];
                 </div>
                 <div class="group">
                     <label>Start Date:</label>
-                    <input type="text" value="<?php echo date($match['start_date']); ?>"readonly>
-
+                    <input type="text" value="<?php echo date($match['start_date']); ?>" readonly>
                 </div>
 
                 <div class="group">
                     <label>Start Time:</label>
-                    <input type="text" value="<?php echo $match['start_time']?>"readonly>
+                    <input type="text" value="<?php echo $match['start_time'] ?>" readonly>
                 </div>
 
                 <div class="group">
                     <label>Max Players:</label>
-                    <input type="text" id="max_players" value="<?php echo htmlspecialchars($match['max_players']); ?>"readonly>
+                    <input type="text" id="max_players" value="<?php echo htmlspecialchars($match['max_players']); ?>"
+                        readonly>
                 </div>
                 <div class="group">
                     <label>Current Players:</label>
                     <input type="text" id="current_players"
-                        value="<?php echo htmlspecialchars($match['current_players']); ?>"readonly>
+                        value="<?php echo htmlspecialchars($match['current_players']); ?>" readonly>
                 </div>
 
                 <div class="group">
                     <label>Status:</label>
-                    <input type="text" value="<?php echo htmlspecialchars($match['status']); ?>"readonly>
-
+                    <input type="text" value="<?php echo htmlspecialchars($match['status']); ?>" readonly>
                 </div>
                 <div class="group">
                     <label>Description:</label>
                     <textarea readonly><?php echo nl2br(htmlspecialchars($match['description'])); ?></textarea>
                 </div>
             </div>
-
-
-
 
         </section>
         <div class="players_title">
@@ -158,9 +159,9 @@ $max_players = $match['max_players'];
                 SELECT user.first_name, user.last_name 
                 FROM match_participants
                 INNER JOIN user ON match_participants.user_id = user.id
-                WHERE match_participants.match_id = ?
+                WHERE match_participants.match_id = ? 
                 ORDER BY match_participants.join_date ASC";
-            
+
             $stmt = $conn->prepare($playersQuery);
             $stmt->bind_param('i', $match_id);
             $stmt->execute();
@@ -185,24 +186,28 @@ $max_players = $match['max_players'];
     </div>
 
     <div> <!-- Join Match Section -->
-    <?php if ($current_players < $max_players): ?>
+        <?php if ($has_joined): ?>
+            <!-- If user has already joined, show "Joined" button -->
             <div class="button">
                 <a href="join_match.php?id=<?php echo $match_id; ?>">
-                    <img src="image/join_match_button.png" alt="Join Match">
+                    <img src="IMAGE/joined_match_button.png" alt="You have joined this match">
+                </a>
+            </div>
+        <?php elseif ($current_players < $max_players): ?>
+            <!-- If match is not full and user has not joined -->
+            <div class="button">
+                <a href="join_match.php?id=<?php echo $match_id; ?>">
+                    <img src="IMAGE/join_match_button.png" alt="Join Match">
                 </a>
             </div>
         <?php else: ?>
+            <!-- If match is full -->
             <div class="button">
-               
-                    <img src="IMAGE/match_full_button.png" alt="Match Full">
-                </a>
+                <img src="IMAGE/match_full_button.png" alt="Match Full">
             </div>
         <?php endif; ?>
     </div>
 
-    </div>
-
-    </div>
     <script src="footer.js"></script>
 </body>
 
