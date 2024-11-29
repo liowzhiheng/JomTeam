@@ -7,7 +7,7 @@ if (isset($_GET['id'])) {
     $match_id = $_GET['id'];
 }
 
-// This page will be displayed after a user successfully joins a match
+// This page will be displayed after a user successfully cancels a match
 ?>
 
 <!DOCTYPE html>
