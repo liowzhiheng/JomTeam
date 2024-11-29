@@ -70,6 +70,7 @@ echo '<body>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join Match</title>
+    <link rel="stylesheet" href="cancel.css">
 </head>
 <body>
     <script src="random_pic.js"></script>
