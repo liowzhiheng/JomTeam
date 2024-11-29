@@ -3,7 +3,7 @@ session_start(); // Start the PHP session
 
 // Check if the user is logged in
 if ($_SESSION["Login"] != "YES") {
-    header("Location: index.php");
+    header("Location: login.php");
     exit();
 }
 
@@ -50,9 +50,36 @@ if (!$result || mysqli_num_rows($result) == 0) {
     echo "No profile data found.";
     exit();
 }
-
 $rows = mysqli_fetch_assoc($result);
+
+//created match list
+$query2 = "SELECT * FROM gamematch WHERE user_id = '$user_id'";
+$result2 = mysqli_query($conn, $query2);
+if (mysqli_num_rows($result2) > 0) {
+    $matches = mysqli_fetch_all($result2, MYSQLI_ASSOC);
+} else {
+    $matches = [];
+}
+
+//joined match list
+$query3 = "SELECT match_id FROM match_participants WHERE user_id = '$user_id'";
+$result3 = mysqli_query($conn, $query3);
+if (mysqli_num_rows($result3) > 0) {
+    $match_ids = [];
+    while ($row = mysqli_fetch_assoc($result3)) {
+        $match_ids[] = $row['match_id'];
+    }
+    $match_ids_string = implode(',', $match_ids);
+    $query4 = "SELECT * FROM gamematch WHERE id IN ($match_ids_string) ";
+    $result4 = mysqli_query($conn, $query4);
+    $joined_match = mysqli_fetch_all($result4, MYSQLI_ASSOC);
+} else {
+    $matches_id = [];
+}
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -84,7 +111,7 @@ $rows = mysqli_fetch_assoc($result);
             <ul class="menu rightmenu">
                 <li class="notification"><a href="#notification"><img src="IMAGE/NOTIFICATION.png" alt="Notification"></a>
                 </li>
-                <li class="logout"><a href="index.php">Log out<img src="IMAGE/LOGOUT.png" alt="Logout"></a></li>
+                <li class="logout"><a href="login.php">Log out<img src="IMAGE/LOGOUT.png" alt="Logout"></a></li>
             </ul>
         </nav>
 
@@ -215,6 +242,51 @@ $rows = mysqli_fetch_assoc($result);
                 </a>
             </div>
         </div>
+        <div class="view_match">
+            <div>
+                <h1>Created Match</h1>
+                <div class="container">
+                    <?php if (!empty($matches)): ?>
+                        <?php foreach ($matches as $match): ?>
+                            <div class="match_container">
+                                <img src="gamematch/<?php echo htmlspecialchars($match['file']); ?>" alt="Match Image"
+                                    style="width: 200px; height: 200px;">
+                                <p class="info_title"><?php echo htmlspecialchars($match['match_title']); ?></p>
+                                <p class="info"><?php echo htmlspecialchars($match['game_type']); ?></p>
+                                <p class="info">Location: <?php echo htmlspecialchars($match['location']); ?></p>
+                                <p class="info">Date: <?php echo htmlspecialchars($match['start_date']); ?></p>
+                                <p class="info">Time: <?php echo htmlspecialchars($match['start_time']); ?></p>
+                                <a href="match_details.php?id=<?php echo $match['id']; ?>" class="view-all-btn">View Details</a>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>No match created.</p>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <div>
+                <h1>Joined Match</h1>
+                <div class="container">
+                    <?php if (!empty($joined_match)): ?>
+                        <?php foreach ($joined_match as $match): ?>
+                            <div class="match_container">
+                                <img src="gamematch/<?php echo htmlspecialchars($match['file']); ?>" alt="Match Image"
+                                    style="width: 200px; height: 200px;">
+                                <p class="info_title"><?php echo htmlspecialchars($match['match_title']); ?></p>
+                                <p class="info"><?php echo htmlspecialchars($match['game_type']); ?></p>
+                                <p class="info">Location: <?php echo htmlspecialchars($match['location']); ?></p>
+                                <p class="info">Date: <?php echo htmlspecialchars($match['start_date']); ?></p>
+                                <p class="info">Time: <?php echo htmlspecialchars($match['start_time']); ?></p>
+                                <a href="match_details.php?id=<?php echo $match['id']; ?>" class="view-all-btn">View Details</a>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>No match joined.</p>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+        </div>
     <?php } else { ?>
         <nav class="navbar">
             <a href="#" class="logo">
@@ -231,7 +303,7 @@ $rows = mysqli_fetch_assoc($result);
             <ul class="menu rightmenu">
                 <li class="notification"><a href="#notification"><img src="IMAGE/NOTIFICATION.png" alt="Notification"></a>
                 </li>
-                <li class="logout"><a href="index.php">Log out<img src="IMAGE/LOGOUT.png" alt="Logout"></a></li>
+                <li class="logout"><a href="login.php">Log out<img src="IMAGE/LOGOUT.png" alt="Logout"></a></li>
             </ul>
         </nav>
     <?php } ?>
