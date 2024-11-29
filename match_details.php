@@ -194,8 +194,6 @@ $has_joined = $checkResult->num_rows > 0;
                 <a href="join_match.php?id=<?php echo $match_id; ?>">
                     <button class="joined_button">Joined</button>
                 </a>
-            </div>
-        <?php endif; ?>
     </div>
         <?php elseif ($current_players < $max_players): ?>
             <!-- If match is not full and user has not joined -->
