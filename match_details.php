@@ -186,15 +186,13 @@ $has_joined = $checkResult->num_rows > 0;
     </div>
 
     <div> <!-- Join Match Section -->
-        <?php if ($has_joined): ?>
-            <!-- If user has already joined, show "Joined" button -->
-            <div class="button">
-                <a href="join_match.php?id=<?php echo $match_id; ?>">
-                    <p>You have joined the match.<p>
-                    <p>Do you wish to cancel?</p>
-                    <p><input type="submit" value="Joined" class="joined_button" /></p>
-                </a>
-            </div>
+        div class="button">
+            <p>You have joined the match.</p>
+            <p>Do you wish to cancel?</p>
+            <a href="join_match.php?id=<?php echo $match_id; ?>">
+                <button class="joined_button">Joined</button>
+            </a>
+        </div>
         <?php elseif ($current_players < $max_players): ?>
             <!-- If match is not full and user has not joined -->
             <div class="button">
