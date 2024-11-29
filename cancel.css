@@ -8,7 +8,7 @@ body, html {
     background: rgba(82, 82, 212);
     font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     text-align: center; /* Center the text */
-    font-size: 18px; /* Adjust font size */
+    font-size: 100px; /* Adjust font size */
     margin: 10px 0; /* Space between paragraphs */
     line-height: 1.5; /* Improve readability */
 }
