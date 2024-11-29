@@ -29,30 +29,30 @@ if (isset($_GET['id'])) {
         $updateStmt->bind_param('i', $match_id);
         $updateStmt->execute();
 
-        echo "<div>
-        <p>You have successfully canceled your participation.</p>
-        <p><a href='main.php'>Go back to your dashboard</a></p>
-        <p><a href='match_details.php?id=" . $match_id . "'>View Match Details</a></p> 
-
-        <img id=\"randomImage\" alt=\"Login Successful\" class=\"login-image\" />
-        </div>";
-    } else {
-        echo "<div>
+        echo "<div class=\"container\">
         <p>You are not part of this match.</p>
         <p><a href='main.php'>Go back to your dashboard</a></p>
-        <p><a href='match_details.php?id=" . $match_id . "'>View Match Details</a></p> 
-
+        <p><a href='match_details.php?id=" . $match_id . "'>View Match Details</a></p>
         <img id=\"randomImage\" alt=\"Login Successful\" class=\"login-image\" />
         </div>";
+
+    } else {
+        echo "<div class=\"container\">
+        <p>You are not part of this match.</p>
+        <p><a href='main.php'>Go back to your dashboard</a></p>
+        <p><a href='match_details.php?id=" . $match_id . "'>View Match Details</a></p>
+        <img id=\"randomImage\" alt=\"Login Successful\" class=\"login-image\" />
+        </div>";
+
     }
 } else {
-    echo "<div>
-    <p>No match selected.</p>
-    <p><a href='main.php'>Go back to your dashboard</a></p>
-    <p><a href='match_details.php?id=" . $match_id . "'>View Match Details</a></p> 
+    echo "<div class=\"container\">
+        <p>You are not part of this match.</p>
+        <p><a href='main.php'>Go back to your dashboard</a></p>
+        <p><a href='match_details.php?id=" . $match_id . "'>View Match Details</a></p>
+        <img id=\"randomImage\" alt=\"Login Successful\" class=\"login-image\" />
+        </div>";
 
-    <img id=\"randomImage\" alt=\"Login Successful\" class=\"login-image\" />
-    </div>";
 }
 ?>
 
