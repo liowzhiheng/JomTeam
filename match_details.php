@@ -185,13 +185,25 @@ $has_joined = $checkResult->num_rows > 0;
         </ul>
     </div>
 
-    <div style="text-align: center;"> <!-- Join Match Section -->
+    <!-- Join Match Section -->
+        <div style="text-align: center;
+        margin-top:10%;"> 
         <?php if ($has_joined): ?>
             <!-- If user has already joined, show "Joined" button -->
             <div>
                 <p>You have joined the match.</p>
                 <p>Do you wish to cancel?</p>
-                <button style="width: 20%; height: 70px; font-size: 16px; font-weight: 700; color: white; background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%); border: none; border-radius: 50px; cursor: pointer; transition: background-color 0.3s ease; ">
+                <button 
+                    style="width: 20%; 
+                    height: 70px; 
+                    font-size: 16px; 
+                    font-weight: 700; 
+                    color: white; 
+                    background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%); 
+                    border: none; 
+                    border-radius: 50px; 
+                    cursor: pointer; 
+                    transition: background-color 0.3s ease; ">
                     Cancel
                 </button>
     </div>
