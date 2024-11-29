@@ -1,4 +1,5 @@
-body, html {
+.container p{
+    text-align: center; /* Center the text */
     height: 100%; /* Ensure the body takes up full height of the screen */
     margin: 0; /* Remove default margins */
     display: flex;
@@ -9,16 +10,10 @@ body, html {
     font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
-.container {
-    text-align: center; /* Center the text */
-    height: 100%; /* Ensure the body takes up full height of the screen */
-    margin: 0; /* Remove default margins */
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    color: white;
-    background: rgba(82, 82, 212);
-    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+.container p a {
+    color: #add8e6; /* Light blue color for links */
+    text-decoration: none; /* Remove underline */
+    font-weight: bold; /* Make the text bold */
 }
 
 .login-image {
