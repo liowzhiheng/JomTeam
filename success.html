@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success</title>
+    <link rel="stylesheet" href="cancel.css"> <!-- Use external CSS for styling -->
+</head>
+<body>
+    <div class="container">
+        <p>You have successfully left the match.</p>
+        <p><a href="main.php">Go back to your dashboard</a></p>
+        <p><a href="match_details.php?id=<?= htmlspecialchars($_GET['id']) ?>">View Match Details</a></p>
+        <img id="randomImage" alt="Success Image" class="login-image" />
+    </div>
+    <script src="random_pic.js"></script>
+</body>
+</html>
