@@ -38,6 +38,7 @@ $rows = mysqli_fetch_assoc($result);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Your Own Match</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="create_match_2.css">
     <link rel="stylesheet" href="footer.css">
 
@@ -76,7 +77,7 @@ $rows = mysqli_fetch_assoc($result);
 
     <div class="profile-content">
         <!-- start detail -->
-        <div class="profile-container">
+        <section class="profile-container">
             <form method="post" action="match_information.php" enctype="multipart/form-data">
                 <!-- left -->
 
@@ -175,7 +176,7 @@ $rows = mysqli_fetch_assoc($result);
                     </div>
 
 
-                    <div class="button-container">
+                    <div>
                         <button type="submit" class="button" name="create" value="Submit">
                             <img src="IMAGE/button_3.png" alt="Submit Button">
                         </button>
@@ -183,7 +184,7 @@ $rows = mysqli_fetch_assoc($result);
 
                 </div>
             </form>
-        </div>
+        </section>
 
 
         <div class="players_title">
@@ -222,6 +223,7 @@ $rows = mysqli_fetch_assoc($result);
     <?php mysqli_close($conn); ?>
 </body>
 
+<!-- footer-->
 <footer>
     <div class="footer-container">
         <div class="footer-links">
