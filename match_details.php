@@ -198,7 +198,7 @@ $has_joined = $checkResult->num_rows > 0;
                 <form action="cancel_match.php" method="GET" style="text-align: center;">
                 <input type="hidden" name="id" value="<?php echo $match_id; ?>">
                     <button 
-                        style="width: 20%; 
+                        style="width: 10%; 
                         height: 70px; 
                         font-size: 30px; 
                         font-weight: 700; 
@@ -222,7 +222,7 @@ $has_joined = $checkResult->num_rows > 0;
                 <form action="join_match.php" method="GET" style="text-align: center;">
                 <input type="hidden" name="id" value="<?php echo $match_id; ?>">
                     <button 
-                        style="width: 20%; 
+                        style="width: 10%; 
                         height: 70px; 
                         font-size: 30px; 
                         font-weight: 700; 
