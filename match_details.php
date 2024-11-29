@@ -192,7 +192,9 @@ $has_joined = $checkResult->num_rows > 0;
             <p>You have joined the match.</p>
             <p>Do you wish to cancel?</p>
             <a href="join_match.php?id=<?php echo $match_id; ?>">
-                <button class="joined_button">Cancel</button>
+                <button style="width: 75%; height: 70px; font-size: 16px; font-weight: 700; color: white; background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%); border: none; border-radius: 50px; cursor: pointer; transition: background-color 0.3s ease; margin-top: 10%;">
+                    Cancel
+                </button>
             </a>
         </div>
         <?php elseif ($current_players < $max_players): ?>
