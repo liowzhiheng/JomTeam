@@ -42,13 +42,13 @@ echo '<body>
     } else {
 echo '
     <body>
-        <div class="container">
-            <p>You are not part of this match.</p>
-            <p><a href="main.php">Go back to your dashboard</a></p>
-            <p><a href="match_details.php?id=' . $match_id . '">View Match Details</a></p>
-            <img id="randomImage" alt="Login Successful" class="login-image" />
-        </div>
-    <body>';
+    <div class="container" style="text-align: center; color: #ffffff; background: #5252d4; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
+        <p style="font-size: 18px; margin: 10px 0; line-height: 1.5;">You are not part of this match.</p>
+        <p><a href="main.php" style="color: #add8e6; text-decoration: none; font-weight: bold;">Go back to your dashboard</a></p>
+        <p><a href="match_details.php?id=' . $match_id . '" style="color: #add8e6; text-decoration: none; font-weight: bold;">View Match Details</a></p>
+        <img id="randomImage" alt="Login Successful" class="login-image" />
+    </div>
+</body>
 
 
     }
@@ -70,7 +70,6 @@ echo '<body>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join Match</title>
-    <link rel="stylesheet" href="cancel.css?v=1">
 </head>
 <body>
     <script src="random_pic.js"></script>
