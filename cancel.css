@@ -16,6 +16,11 @@
     font-weight: bold; /* Make the text bold */
 }
 
+.container p a:hover {
+    text-decoration: underline; /* Underline on hover */
+    color: #ffffff; /* White text on hover */
+}
+
 .login-image {
     width: 80%; /* Makes the image responsive */
     max-width: 400px; /* Limits the maximum width */
