@@ -87,12 +87,16 @@ if (mysqli_stmt_execute($stmt)) {
     <html>
     <head>
         <link rel="stylesheet" href="check_register.css">
+        <link rel="stylesheet" href="animation.css">
         <meta http-equiv="refresh" content="3;url=index.php">
     </head>
     <body>
+    <div class="background"></div>
+    <div class="container">
         <h1>Registration Successful!</h1>
         <img id="randomImage" src="image/login_done_1.jpg" alt="Login Successful" class="login-image" />
-    </body>
+    <div></body>
+    <script src="background_effect.js" defer></script>
     </html>';
 } else {
     $_SESSION['errors'] = ["An error occurred during registration. Please try again."];
