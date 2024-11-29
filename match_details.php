@@ -187,7 +187,9 @@ $has_joined = $checkResult->num_rows > 0;
 
     <!-- Join Match Section -->
         <div style="text-align: center;
-        margin-top:3%;"> 
+            font-family:'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: 25px;
+            margin-top:3%;"> 
         <?php if ($has_joined): ?>
             <!-- If user has already joined, show "Joined" button -->
             <div>
