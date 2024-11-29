@@ -3,9 +3,11 @@
 
 <head>
     <link rel="stylesheet" href="check_login.css">
+    <link rel="stylesheet" href="animation.css">
 </head>
 
 <body>
+<div class="background"></div>
     <div class="container">
         <h2>You created a match successfully!</h2>
         <img id="randomImage" src="image/login_done_1.jpg" alt="Login Successful" class="login-image" />
@@ -32,6 +34,7 @@
             }, 3000); // 3000 milliseconds = 3 seconds
         });
     </script>
+    <script src="background_effect.js" defer></script>
 </body>
 
 </html>
