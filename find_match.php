@@ -87,8 +87,9 @@ if (mysqli_num_rows($result) > 0) {
                 <div class="main-search">
                     <input type="text" name="match_code" class="search-input"
                         placeholder="🔍 Search by match code or location...">
+                        <button type="submit" class="search-button">Search</button>
                     <button type="button" class="filter-toggle-btn" onclick="toggleFilters()">Filters</button>
-                    <button type="submit" class="search-button">Search</button>
+                   
                 </div>
                 <div class="filter-section" id="filterSection">
                     <div class="filter-row">
