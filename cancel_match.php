@@ -65,3 +65,6 @@ echo '<div class="container">
     <title>Join Match</title>
     <link rel="stylesheet" href="cancel.css"> <!-- Link to your CSS file -->
 </head>
+<body>
+    <script src="random_pic.js"></script>
+</body>
