@@ -24,7 +24,7 @@ if (isset($_GET['id'])) {
 
 <body>
     <div class="container">
-        <h1>You have successfully canceled the match!</h1>
+        <h1>You have successfully canceled the match.</h1>
         <h1>Let's look forward for another match!</h1>
 
         <img id="randomImage"alt="Login Successful" class="login-image" />
