@@ -37,6 +37,7 @@ echo
     } else {
 echo '
     <body>
+      <div class="background"></div>
         <div class="container">
             <p>You are not part of this match.</p>
             <p><a href="main.php">Go back to your dashboard</a></p>
@@ -49,6 +50,7 @@ echo '
     }
 } else {
 echo '<body>
+  <div class="background"></div>
         <div class="container">
                 <p>Error: Invalid request.</p>
                 <p><a href="main.php">Go back to your dashboard</a></p>
@@ -66,7 +68,9 @@ echo '<body>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join Match</title>
     <link rel="stylesheet" href="cancel.css">
+    <link rel="stylesheet" href="animation.css">
 </head>
 <body>
     <script src="random_pic.js"></script>
+    <script src="background_effect.js" defer></script>
 </body>
