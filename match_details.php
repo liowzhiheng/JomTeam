@@ -196,7 +196,7 @@ $has_joined = $checkResult->num_rows > 0;
                 <button 
                     style="width: 20%; 
                     height: 70px; 
-                    font-size: 16px; 
+                    font-size: 25px; 
                     font-weight: 700; 
                     color: white; 
                     background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%); 
