@@ -14,14 +14,14 @@ body, html {
 }
 
 /* Style the links */
-.container a {
+.container p a {
     color: #add8e6; /* Light blue color for links */
     text-decoration: none; /* Remove underline */
     font-weight: bold; /* Bold text */
 }
 
 /* Add hover effect for links */
-.container a:hover {
+.container p a:hover {
     text-decoration: underline; /* Underline on hover */
     color: #ffffff; /* Change color to white on hover */
 }
