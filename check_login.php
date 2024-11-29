@@ -59,7 +59,7 @@ if (mysqli_num_rows($result) == 1) {
                 <img id="randomImage"alt="Login Successful" class="login-image" />
             </div>
         </body>
-
+<script src="random_pic.js"></script>
         </html>
         <?php
     } else {
@@ -74,7 +74,7 @@ if (mysqli_num_rows($result) == 1) {
     header("Location: login.php?error=email");
     exit();
 }
-<script src="random_pic.js"></script>
+
 mysqli_close($conn);
 ?>
 
