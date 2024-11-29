@@ -29,15 +29,10 @@ if (isset($_GET['id'])) {
         $updateStmt->bind_param('i', $match_id);
         $updateStmt->execute();
 
-echo '<body>
-        <div class="container">
-            <p>You have successfully canceled the match.</p>
-            <p><a href="main.php">Go back to your dashboard</a></p>
-            <p><a href="match_details.php?id=' . $match_id . '">View Match Details</a></p>
-            <img id="randomImage" alt="Login Successful" class="login-image" />
-        </div>
-    <body>';
-
+echo 
+    "<div class='message success'>    
+        <meta http-equiv='refresh' content='1;url=cancel_successful.php?id=$match_id'>
+      </div>";
 
     } else {
 echo '
