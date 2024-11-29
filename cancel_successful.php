@@ -17,12 +17,14 @@ if (isset($_GET['id'])) {
 
     <link rel="stylesheet" href="join_succesful.css"> <!-- Link to your CSS file if you have one -->
     <meta http-equiv="refresh" content="3;url=find_match.php"> <!-- Redirect after 3 seconds -->
+    <link rel="stylesheet" href="animation.css">
 
    
        
 </head>
 
 <body>
+<div class="background"></div>
     <div class="container">
         <h1>You have successfully canceled the match.</h1>
         <h1>Let's look forward for another match!</h1>
@@ -34,3 +36,4 @@ if (isset($_GET['id'])) {
 </html>
 
 <script src="random_pic.js"></script>
+<script src="background_effect.js" defer></script>
