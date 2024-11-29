@@ -1,5 +1,4 @@
-.container p{
-    text-align: center; /* Center the text */
+body, html {
     height: 100%; /* Ensure the body takes up full height of the screen */
     margin: 0; /* Remove default margins */
     display: flex;
@@ -10,15 +9,8 @@
     font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
-.container p a {
-    color: #add8e6; /* Light blue color for links */
-    text-decoration: none; /* Remove underline */
-    font-weight: bold; /* Make the text bold */
-}
-
-.container p a:hover {
-    text-decoration: underline; /* Underline on hover */
-    color: #ffffff; /* White text on hover */
+.container {
+    text-align: center; /* Center the text */
 }
 
 .login-image {
