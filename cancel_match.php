@@ -29,20 +29,41 @@ if (isset($_GET['id'])) {
         $updateStmt->bind_param('i', $match_id);
         $updateStmt->execute();
 
-// Redirect to a success HTML file
-        header("Location: success.html");
-        exit();
-        } else {
-            // Redirect to an error HTML file
-            header("Location: not_in_match.html");
-            exit();
-        }
+echo '<body>
+        <div class="container">
+            <p>You have successfully canceled the match.</p>
+            <p><a href="main.php">Go back to your dashboard</a></p>
+            <p><a href="match_details.php?id=' . $match_id . '">View Match Details</a></p>
+            <img id="randomImage" alt="Login Successful" class="login-image" />
+        </div>
+    <body>';
+
+
     } else {
-        // Redirect to an error page if 'id' is not provided
-        header("Location: error.html");
-        exit();
+echo '
+    <body>
+        <div class="container">
+            <p>You are not part of this match.</p>
+            <p><a href="main.php">Go back to your dashboard</a></p>
+            <p><a href="match_details.php?id=' . $match_id . '">View Match Details</a></p>
+            <img id="randomImage" alt="Login Successful" class="login-image" />
+        </div>
+    <body>';
+
+
     }
-    }
+} else {
+echo '<body>
+        <div class="container">
+                <p>Error: Invalid request.</p>
+                <p><a href="main.php">Go back to your dashboard</a></p>
+                <p><a href="match_details.php?id=' . $match_id . '">View Match Details</a></p>
+                <img id="randomImage" alt="Login Successful" class="login-image" />
+        </div>
+</body>';
+
+
+}
 ?>
 
 <head>
