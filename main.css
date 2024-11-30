@@ -242,6 +242,15 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+   
+}
+
+/* Hover effects */
+.picture:hover {
+    /* Shine effect */
+    transform: scale(1.05);
+    /* Slightly increase size */
+    font-weight: bold;
 }
 
 
@@ -252,6 +261,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: background 0.3s ease;
 }
 
 /* View your own profile */
@@ -329,6 +339,14 @@ body {
 
 
 }
+
+.edit_your_profile_button img:hover {
+    /* Shine effect */
+    transform: scale(1.05);
+    /* Slightly increase size */
+    font-weight: bold;
+}
+
 
 .uploaded-images {
     margin-top: 5%;
@@ -528,3 +546,4 @@ body {
     color: #636363ed;
     text-align: left;
 }
+
