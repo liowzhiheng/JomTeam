@@ -243,7 +243,9 @@ if (mysqli_num_rows($result3) > 0) {
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <p>No match created.</p>
+                        <div class="grid-section">
+                        <p class="info_title">No match created.</p>
+                        </div>
                     <?php endif; ?>
                 </div>
             </div>
@@ -265,7 +267,10 @@ if (mysqli_num_rows($result3) > 0) {
                                 </div>
                             <?php endforeach; ?>
                         <?php else: ?>
-                            <p>No match joined.</p>
+                            <div class="grid-section">
+                                <p class="info_title">No match joined.</p>
+                            </div>
+
                         <?php endif; ?>
                     </div>
                 </div>
