@@ -280,8 +280,8 @@ img.picture {
 }
 
 .arrow {
-    position: fixed;
-
+    width: 0;
+    height: 0;
     border-top: 50px solid transparent;
     border-bottom: 50px solid transparent;
     border-right: 50px solid rgba(255, 255, 255, 0.8);
@@ -344,3 +344,4 @@ img.picture {
     z-index: 1;
     /* Ensures the error message stays above other content */
 }
+
