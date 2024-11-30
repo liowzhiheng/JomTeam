@@ -2,6 +2,14 @@ body {
     background: rgba(82, 82, 212, 0.86);
     overflow: hidden; /* Prevent shapes from creating scrollbars */
     margin: 0;
+
+}
+
+.body_2{
+    background: rgba(82, 82, 212, 0.86);
+    margin: 0;
+    overflow-y: auto; /* Allows vertical scrolling */
+    overflow-x: hidden; /* Prevents horizontal scrolling if unnecessary */
 }
 
 .shape {

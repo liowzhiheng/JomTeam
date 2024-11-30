@@ -150,11 +150,7 @@ $rows = mysqli_fetch_assoc($result);
                             value="<?php echo htmlspecialchars($rows['email']); ?>" placeholder="Enter your email">
                     </div>
 
-                    <div class="group">
-                        <label for="password">Password:</label>
-                        <input type="text" id="password" name="password"
-                            value="<?php echo htmlspecialchars($rows['password']); ?>" placeholder="Enter your email">
-                    </div>
+     
 
                     <div class="group">
                         <label for="phone">Phone Number:</label>

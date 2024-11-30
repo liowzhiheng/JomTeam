@@ -10,7 +10,7 @@
 
 </head>
 
-<body class="transition-container">
+<body class="transition-container body_2">
 <div class="background"></div>
     <form action="index.php" id="backButtonForm">
         <button type="submit" style="background: none; border: none; cursor: pointer;">
