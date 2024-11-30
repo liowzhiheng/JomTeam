@@ -275,7 +275,7 @@ img.picture {
     /* Vertical center */
     left: 7%;
     /* Align to the left */
-    transform: translateY(-50%);
+    transform: none;
     /* Adjust for proper vertical centering */
 }
 
