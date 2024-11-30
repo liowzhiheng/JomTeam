@@ -407,7 +407,7 @@ $rows = mysqli_fetch_assoc($result);
             if (i === 0) {
                 // The first player is always the host
                 const hostName = document.querySelector('input[name="name"]').value; // Fetch the host's name
-                playerItem.textContent = 'Player ' + (i + 1) + ': ' + hostName + ' (Host)';
+                playerItem.textContent = 'Player ' + (i + 1) + ': ' + hostName;
             }
             else if (i < currentPlayers) {
                 playerItem.textContent = 'Player ' + (i + 1) + ': X';
