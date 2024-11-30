@@ -391,3 +391,120 @@ body {
     background: white;
     width:15%;
 }
+
+
+.created_match_title {
+    margin-top:100px;
+    text-align: center;
+    color:  #5252D4;
+    font-size: 500%;
+    font-family: 'Raleway', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-weight: 700;
+    word-wrap: break-word;
+    margin-bottom: 20px;
+
+}
+
+/* Optional: Add this if you want a smoother background transition */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 20px;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.grid-section {
+    text-align: center;
+    padding: 60px;
+}
+
+.grid-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 30px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background: white;
+    border-radius: 15px;
+}
+
+.grid-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.grid-item img {
+    width: 100%;
+    height: auto;
+
+    transition: all 0.3s ease;
+}
+
+.grid-item:hover img {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.image-label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    margin: 0;
+    padding: 15px 15px;
+    text-align: center;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.grid-item:hover .image-label {
+    color: #1E90FF;
+    transform: scale(1.05);
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.view-all-btn {
+    padding: 15px 25px;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background 0.3s ease;
+    margin-top: 2%;
+    text-decoration: none; /* Prevent underline */
+}
+
+.view-all-btn {
+    background: linear-gradient(135deg, #5252D4, #5146b4);
+    /* Blue gradient */
+}
+
+/* Hover effects */
+.view-all-btn:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    /* Shine effect */
+    transform: scale(1.05);
+    /* Slightly increase size */
+    font-weight: bold;
+}
+
+.info_title {
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 30px;
+    color: #5252D4;
+}
+
+.info {
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    color: #636363ed;
+    text-align: left;
+}

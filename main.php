@@ -138,7 +138,7 @@ if (mysqli_num_rows($result3) > 0) {
             </div>
 
         </div>
- 
+
 
         <!-- create_your_own_match-->
         <div class="create_your_own_match">
@@ -225,13 +225,13 @@ if (mysqli_num_rows($result3) > 0) {
                 </a>
             </div>
         </div>
-        <div class="view_match">
-            <div>
-                <h1>Created Match</h1>
-                <div class="container">
+        <div>
+            <div class="grid-section">
+                <h1 class="created_match_title">Created Match</h1>
+                <div class="grid-container">
                     <?php if (!empty($matches)): ?>
                         <?php foreach ($matches as $match): ?>
-                            <div class="match_container">
+                            <div class="grid-item">
                                 <img src="gamematch/<?php echo htmlspecialchars($match['file']); ?>" alt="Match Image"
                                     style="width: 200px; height: 200px;">
                                 <p class="info_title"><?php echo htmlspecialchars($match['match_title']); ?></p>
@@ -248,24 +248,26 @@ if (mysqli_num_rows($result3) > 0) {
                 </div>
             </div>
             <div>
-                <h1>Joined Match</h1>
-                <div class="container">
-                    <?php if (!empty($joined_match)): ?>
-                        <?php foreach ($joined_match as $match): ?>
-                            <div class="match_container">
-                                <img src="gamematch/<?php echo htmlspecialchars($match['file']); ?>" alt="Match Image"
-                                    style="width: 200px; height: 200px;">
-                                <p class="info_title"><?php echo htmlspecialchars($match['match_title']); ?></p>
-                                <p class="info"><?php echo htmlspecialchars($match['game_type']); ?></p>
-                                <p class="info">Location: <?php echo htmlspecialchars($match['location']); ?></p>
-                                <p class="info">Date: <?php echo htmlspecialchars($match['start_date']); ?></p>
-                                <p class="info">Time: <?php echo htmlspecialchars($match['start_time']); ?></p>
-                                <a href="match_details.php?id=<?php echo $match['id']; ?>" class="view-all-btn">View Details</a>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <p>No match joined.</p>
-                    <?php endif; ?>
+                <h1 class="created_match_title">Joined Match</h1>
+                <div class=".grid-section">
+                    <div class="grid-container">
+                        <?php if (!empty($joined_match)): ?>
+                            <?php foreach ($joined_match as $match): ?>
+                                <div class="grid-item">
+                                    <img src="gamematch/<?php echo htmlspecialchars($match['file']); ?>" alt="Match Image"
+                                        style="width: 200px; height: 200px;">
+                                    <p class="info_title"><?php echo htmlspecialchars($match['match_title']); ?></p>
+                                    <p class="info"><?php echo htmlspecialchars($match['game_type']); ?></p>
+                                    <p class="info">Location: <?php echo htmlspecialchars($match['location']); ?></p>
+                                    <p class="info">Date: <?php echo htmlspecialchars($match['start_date']); ?></p>
+                                    <p class="info">Time: <?php echo htmlspecialchars($match['start_time']); ?></p>
+                                    <a href="match_details.php?id=<?php echo $match['id']; ?>" class="view-all-btn">View Details</a>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p>No match joined.</p>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
 
