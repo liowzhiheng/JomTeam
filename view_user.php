@@ -60,7 +60,7 @@ require("config.php"); // Include the database configuration file
         // Escape the search string to prevent SQL injection
         $search = $conn->real_escape_string($search);
         // Append the search condition to the query
-        $sql .= " WHERE email LIKE '%$search%'";
+        $sql .= " WHERE CONCAT(first_name, ' ', last_name) LIKE '%$search%'";
     }
 
     // Execute the query
@@ -87,7 +87,7 @@ require("config.php"); // Include the database configuration file
         while ($row = $result->fetch_assoc()) {
             echo "<tr>";
             echo "<td>" . $counter++ . "</td>"; // Sequential numbering
-            echo "<td>" . htmlspecialchars($row["first_name"]) . ' ' . htmlspecialchars($row["last_name"]) . "</td>";
+            echo "<td>" . strtoupper(htmlspecialchars($row["first_name"] . ' ' . $row["last_name"])) . "</td>";
             $role = ($row['level'] == 1) ? 'admin' : 'user';
             echo "<td>" . htmlspecialchars($role) . "</td>";
             echo "<td>" . htmlspecialchars($row["phone"] ?? '') . "</td>";
