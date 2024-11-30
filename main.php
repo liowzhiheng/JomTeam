@@ -138,7 +138,7 @@ if (mysqli_num_rows($result3) > 0) {
             </div>
 
         </div>
- 
+
 
         <!-- create_your_own_match-->
         <div class="create_your_own_match">
@@ -293,6 +293,7 @@ if (mysqli_num_rows($result3) > 0) {
 
     <a href="feedback.php" class="feedback-btn">
         <img src="image/FEEDBACK.png" alt="Feedback" class="feedback-img">
+        <span class="info">Click to give feedback!</span>
     </a>
 </body>
 

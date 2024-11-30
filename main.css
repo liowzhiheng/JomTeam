@@ -188,7 +188,7 @@ body {
     font-weight: 700;
     word-wrap: break-word;
     margin-top: 4%;
-   
+
 }
 
 .find_match_content {
@@ -200,7 +200,7 @@ body {
     font-weight: 400;
     word-wrap: break-word;
     padding-bottom: 3%;
-    
+
 }
 
 
@@ -233,7 +233,6 @@ body {
     font-family: 'Raleway', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     font-weight: 400;
     word-wrap: break-word
-    
 }
 
 .picture_box {
@@ -360,18 +359,38 @@ body {
     border-radius: 50%;
     z-index: 1000;
     cursor: pointer;
+    text-align: center;
 }
 
 .feedback-img {
-    width: 60px;
+    width: 50px;
     height: auto;
-    border: 5px solid black;
-    border-radius: 50%;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .feedback-img:hover {
     transform: scale(1.1);
+}
+
+.info {
+    position: absolute;
+    bottom: 65px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+}
+
+.feedback-btn:hover .info {
+    visibility: visible;
+    opacity: 1;
 }
 
 .view_match {
@@ -380,14 +399,14 @@ body {
     background: linear-gradient(63deg, #5252D4 13%, #5252D4 100%);
 }
 
-.container{
-    width:100%;
-    display:flex;
+.container {
+    width: 100%;
+    display: flex;
     flex-direction: row;
 }
 
-.match_container{
-    margin:5%;
+.match_container {
+    margin: 5%;
     background: white;
-    width:15%;
+    width: 15%;
 }
