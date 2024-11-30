@@ -359,18 +359,38 @@ body {
     border-radius: 50%;
     z-index: 1000;
     cursor: pointer;
+    text-align: center;
 }
 
 .feedback-img {
-    width: 60px;
+    width: 50px;
     height: auto;
-    border: 5px solid black;
-    border-radius: 50%;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .feedback-img:hover {
     transform: scale(1.1);
+}
+
+.info {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+}
+
+.feedback-btn:hover .info {
+    visibility: visible;
+    opacity: 1;
 }
 
 .view_match {
