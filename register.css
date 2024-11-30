@@ -277,6 +277,7 @@ img.picture {
     /* Align to the left */
     transform: translateY(-50%);
     /* Adjust for proper vertical centering */
+    z-index: 10; /* Ensure the button is above other content */
 }
 
 .arrow {
