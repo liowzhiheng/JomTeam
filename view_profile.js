@@ -1,21 +1,25 @@
-// Function to enable the upload button when a file is selected
-function enableSubmitButton() {
-    var fileInput = document.getElementById('imageInput');
-    var submitButton = document.getElementById('uploadButton');
+// Preview image on file selection
+function previewImage() {
+    const file = document.getElementById('imageInput').files[0];
+    const reader = new FileReader();
 
-    // Check if a file is selected
-    if (fileInput.files.length > 0) {
-        submitButton.disabled = false;  // Enable the button
-    } else {
-        submitButton.disabled = true;  // Disable the button if no file is selected
+    reader.onloadend = function () {
+        // Display the preview image
+        document.getElementById('imagePreview').src = reader.result;
+
+        // Submit the form automatically
+        document.getElementById('profileForm').submit();
+    }
+
+    if (file) {
+        reader.readAsDataURL(file);
     }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    // Check if there's a message container
-    const message = document.querySelector('.message');
+document.addEventListener('DOMContentLoaded', function () {
+    const message = document.getElementById('message');
     if (message) {
-        setTimeout(function () {
+        setTimeout(() => {
             message.style.display = 'none';
         }, 2000);
     }
