@@ -9,7 +9,7 @@ $query = "SELECT * FROM gamematch WHERE 1=1";
 $searchGameType = isset($_GET['game_type']) ? mysqli_real_escape_string($conn, $_GET['game_type']) : '';
 $searchLocation = isset($_GET['area']) ? mysqli_real_escape_string($conn, $_GET['area']) : '';
 $searchDate = isset($_GET['date']) ? mysqli_real_escape_string($conn, $_GET['date']) : '';
-$searchMatchCode = isset($_GET['match_code']) ? mysqli_real_escape_string($conn, $_GET['match_code']) : '';
+$searchMatchTitle = isset($_GET['match_title']) ? mysqli_real_escape_string($conn, $_GET['match_title']) : '';
 
 // Add conditions dynamically to the query
 if (!empty($searchGameType)) {
@@ -21,8 +21,8 @@ if (!empty($searchLocation)) {
 if (!empty($searchDate)) {
     $query .= " AND start_date = '$searchDate'";
 }
-if (!empty($searchMatchCode)) {
-    $query .= " AND (match_code LIKE '%$searchMatchCode%' OR location LIKE '%$searchMatchCode%')";
+if (!empty($searchMatchTitle)) {
+    $query .= " AND match_title LIKE '%$searchMatchTitle%'";
 }
 
 // Order by created date
@@ -84,13 +84,12 @@ if (mysqli_num_rows($result) > 0) {
  <section class="search-section">
         <div class="search-container">
             <form action="find_match.php" method="GET" class="search-form">
-                <div class="main-search">
-                    <input type="text" name="match_code" class="search-input"
-                        placeholder="🔍 Search by match code or location...">
-                        <button type="submit" class="search-button">Search</button>
-                    <button type="button" class="filter-toggle-btn" onclick="toggleFilters()">Filters</button>
-                   
-                </div>
+            <div class="main-search">
+                <input type="text" name="match_title" class="search-input"
+                    placeholder="🔍 Search by match title...">
+                <button type="submit" class="search-button">Search</button>
+                <button type="button" class="filter-toggle-btn" onclick="toggleFilters()">Filters</button>
+            </div>
                 <div class="filter-section" id="filterSection">
                     <div class="filter-row">
                         <div class="filter-group">
