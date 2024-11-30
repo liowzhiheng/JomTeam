@@ -147,14 +147,14 @@ $rows = mysqli_fetch_assoc($result);
 
                     <div class="group">
                         <label for="gender">Gender:</label>
-                        <input type="text" id="gender" name="gender"
-                            value="<?php echo htmlspecialchars($rows['gender']); ?>" placeholder="Enter your gender">
+                        <input type="text" name="gender" value="<?php echo htmlspecialchars($rows['gender']); ?>"
+                            readonly>
                     </div>
 
                     <div class="group">
                         <label for="email">Email:</label>
-                        <input type="text" id="email" name="email"
-                            value="<?php echo htmlspecialchars($rows['email']); ?>" placeholder="Enter your email">
+                        <input type="text" name="email" value="<?php echo htmlspecialchars($rows['email']); ?>"
+                            readonly>
                     </div>
 
                     <div class="group">
@@ -170,12 +170,20 @@ $rows = mysqli_fetch_assoc($result);
                             value="<?php echo htmlspecialchars($rows['location']); ?>"
                             placeholder="Enter your location">
                     </div>
-                    
+
                     <div class="group">
                         <label for="status">Status:</label>
-                        <input type="text" id="status" name="status"
-                            value="<?php echo htmlspecialchars($rows['status']); ?>"
-                            placeholder="Enter your current status (e.g.,not single, single, married)...">
+                        <div class = "status_display">
+                            <input type="text" name="status" value="<?php echo htmlspecialchars($rows['status']); ?>"
+                                readonly>
+                        </div>
+                        <div class = "status_selection">
+                            <select name="status" required>
+                                <option value="">Your status</option>
+                                <option value="single">Single</option>
+                                <option value="not single">Not Single</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="group">
