@@ -165,28 +165,31 @@ $rows = mysqli_fetch_assoc($result);
                     </div>
 
                     <div class="group">
-                        <label for="status">Status:</label>
-                        <input type="text" id="status" name="status"
-                            value="<?php echo htmlspecialchars($rows['status']); ?>" placeholder="Enter your status">
-                    </div>
-
-                    <div class="group">
-                        <label for="description">Description:</label>
-                        <textarea id="description" name="description"
-                            placeholder="Describe yourself..."><?php echo htmlspecialchars($rows['description']); ?></textarea>
-                    </div>
-
-                    <div class="group">
                         <label for="location">Location:</label>
                         <input type="text" id="location" name="location"
                             value="<?php echo htmlspecialchars($rows['location']); ?>"
                             placeholder="Enter your location">
                     </div>
+                    
+                    <div class="group">
+                        <label for="status">Status:</label>
+                        <input type="text" id="status" name="status"
+                            value="<?php echo htmlspecialchars($rows['status']); ?>"
+                            placeholder="Enter your current status (e.g.,not single, single, married)...">
+                    </div>
+
+                    <div class="group">
+                        <label for="description">Description:</label>
+                        <textarea id="description" name="description"
+                            placeholder="Tell us about yourself..."><?php echo htmlspecialchars($rows['description']); ?></textarea>
+                    </div>
+
+
 
                     <div class="group">
                         <label for="interests">Interests:</label>
                         <textarea id="interests" name="interests"
-                            placeholder="List your interests..."><?php echo htmlspecialchars($rows['interests']); ?></textarea>
+                            placeholder="List your interests (e.g., traveling, cooking, reading, playing basketball)..."><?php echo htmlspecialchars($rows['interests']); ?></textarea>
                     </div>
 
                     <div class="button">
