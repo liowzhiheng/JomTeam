@@ -112,7 +112,10 @@ mysqli_close($conn);
             </label>
         </div>
         <br>
-        <button type="submit">Submit</button>
+        <div class="button-container">
+            <button type="button" class="back-button" onclick="window.location.href='main.php'">Back</button>
+            <button type="submit">Submit</button>
+        </div>
     </form>
 
     <script>

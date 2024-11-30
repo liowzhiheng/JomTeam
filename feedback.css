@@ -64,11 +64,9 @@ form {
     width: 50%;
     margin: 20px auto;
     background-color: #ffffff;
-    /* White background for contrast */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    /* Subtle shadow for elevation */
 }
 
 h1 {
@@ -133,10 +131,33 @@ textarea:focus {
     transform: scale(1.1);
 }
 
-button {
-    width: 100%;
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.back-button {
+    width: 20%;
     padding: 10px;
-    font-size: 1rem;
+    font-size: 15px;
+    color: #fff;
+    background-color: #808080;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #a9a9a9;
+}
+
+button[type="submit"] {
+    width: 20%;
+    padding: 10px;
+    font-size: 15px;
     color: #fff;
     background-color: #004080;
     border: none;
@@ -145,7 +166,7 @@ button {
     transition: background-color 0.3s ease;
 }
 
-button:hover {
+button[type="submit"]:hover {
     background-color: #6a6aff;
 }
 
