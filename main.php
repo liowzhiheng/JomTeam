@@ -131,31 +131,14 @@ if (mysqli_num_rows($result3) > 0) {
                 connecting with individuals <br>who share your passion for the game and have the same dedication and drive.
             </div>
 
-            <div class="red_button">
+            <div class="picture_box">
                 <a href="find_match.php">
-                    <img src="IMAGE/red_button.png">
+                    <img src="IMAGE/find_button.png" class="picture">
                 </a>
             </div>
 
         </div>
-        <!-- Find Match and Create Match Section
-    <section class="match-buttons">
-         Create Match Button 
-        <a href="find_match.php">
-            <button class="find-match-btn">Find Match</button>
-        </a>
-
-        Find Match Button 
-        <a href="create_match.php">
-            <button class="create-match-btn">Create Match</button>
-        </a>
-    </section>
-
-    Description Text (below buttons)
-    <div class="match-description">
-        <p>Finding the perfect match in sports can be a game-changer.</p>
-    </div>
-    -->
+ 
 
         <!-- create_your_own_match-->
         <div class="create_your_own_match">

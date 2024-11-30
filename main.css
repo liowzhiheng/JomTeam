@@ -187,44 +187,29 @@ body {
     font-family: 'Raleway' -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     font-weight: 700;
     word-wrap: break-word;
-    margin-top: 10%;
+    margin-top: 4%;
+   
 }
 
 .find_match_content {
-    margin-top: 1%;
+    margin-top: 2%;
     text-align: center;
     color: rgb(0, 0, 0);
     font-size: 30%;
     font-family: 'Raleway', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     font-weight: 400;
-    word-wrap: break-word
+    word-wrap: break-word;
+    padding-bottom: 3%;
+    
 }
 
-.red_button {
-    width: 80%;
-    height: 80%;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.red_button img {
-
-    width: 100%;
-    height: 170%;
-    margin-top: 30%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 /* Create your own match */
 .create_your_own_match {
     width: 100%;
     height: 800px;
     background: linear-gradient(63deg, #5252D4 13%, #5252D4 100%);
-    margin-top: 10%;
+    margin-top: 7%;
     padding-top: 5%;
     padding-bottom: 10%;
 
@@ -248,6 +233,7 @@ body {
     font-family: 'Raleway', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     font-weight: 400;
     word-wrap: break-word
+    
 }
 
 .picture_box {
@@ -258,6 +244,7 @@ body {
     justify-content: center;
     align-items: center;
 }
+
 
 .picture {
     width: 45%;
