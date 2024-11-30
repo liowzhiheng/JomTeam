@@ -289,7 +289,7 @@ img.picture {
     /* Arrow color with 80% transparency */
     cursor: pointer;
     display: inline-block;
-
+    position:fixed;
 }
 
 .arrow:hover {
