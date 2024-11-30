@@ -10,7 +10,7 @@
 <div class="background"></div>
     <div class="container">
         <h2>You created a match successfully!</h2>
-        <img id="randomImage" src="image/login_done_1.jpg" alt="Login Successful" class="login-image" />
+        <img id="randomImage" src="image/login_done_1.jpg" alt="Create Successful" class="login-image" />
     </div>
 
     <script>
