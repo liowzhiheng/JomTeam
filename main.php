@@ -188,7 +188,8 @@ if (mysqli_num_rows($result3) > 0) {
                 </div>
 
                 <label class="main_page_profile_content">Name:</label>
-                <?php echo '<span class="main_page_profile_content">' . htmlspecialchars($rows['first_name']) . htmlspecialchars($rows['last_name']); ?>
+                <?php echo '<span class="main_page_profile_content">' . htmlspecialchars($rows['first_name']) . ' ' . htmlspecialchars($rows['last_name']) . '</span>'; ?>
+
             </div>
             <div class="group">
                 <label for="gender" class="main_page_profile_content ">Gender:</label>
