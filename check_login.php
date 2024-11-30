@@ -19,7 +19,7 @@ if (mysqli_num_rows($result) == 1) {
     if (!strcmp($_POST["password"], $rows["password"])) {
         // Password is correct
         $_SESSION["Login"] = "YES";
-        $_SESSION["USER"] = $rows["email"];
+        $_SESSION["USER"] = $rows["first_name"] . " " . $rows["last_name"];
         $_SESSION["ID"] = $rows["id"];
         $_SESSION["LEVEL"] = $rows["level"];
 
