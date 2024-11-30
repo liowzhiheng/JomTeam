@@ -270,12 +270,12 @@ img.picture {
 }
 
 #backButtonForm {
-    position: absolute;
+    position: fixed;
     top: 50%;
     /* Vertical center */
     left: 7%;
     /* Align to the left */
-    transform: none;
+    transform: translateY(-50%);
     /* Adjust for proper vertical centering */
 }
 
@@ -344,3 +344,4 @@ img.picture {
     z-index: 1;
     /* Ensures the error message stays above other content */
 }
+
