@@ -2,10 +2,9 @@
 session_start();
 require("config.php");
 
-$user_id = $_SESSION['id'];
+$user_id = $_SESSION['ID'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $user_id = $_POST['userID'];
     $match_title = $_POST['match_title'];
     $game_type = $_POST['game_type'];
     $skill_level = $_POST['skill_level'];
@@ -29,12 +28,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         move_uploaded_file($tempname, $folder);
     }
 
+
     if (isset($_POST['create'])) {
         $sql = "INSERT INTO gamematch (user_id, match_title, game_type, skill_level_required, max_players, current_players, location, start_date, start_time, duration, status, description, file)
             VALUES ('$user_id', '$match_title', '$game_type', '$skill_level', '$max_players','$current_players', '$location', '$start_date', '$start_time', '$duration', 'open', '$description', '$file_name')";
         if (mysqli_query($conn, $sql)) {
-            header("Location: create_successful.php");
-            exit();
+            $sql2 = "SELECT * FROM gamematch WHERE match_title = '$match_title' AND game_type = '$game_type' AND user_id = '$user_id' AND created_at = NOW()";
+            $result = mysqli_query($conn, $sql2);
+            $rows = mysqli_fetch_assoc($result);
+            $id = $rows['id'];
+            $sql3 = "INSERT INTO match_participants (match_id, user_id) VALUES ('$id', '$user_id')";
+            if (mysqli_query($conn, $sql3)) {
+                header("Location: create_successful.php");
+                exit();
+            }
+
         } else {
             header("Location: create_match.php?status=fail");
             exit();
