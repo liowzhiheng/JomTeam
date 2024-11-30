@@ -127,6 +127,44 @@ textarea:focus {
     box-shadow: 0px 0px 5px rgba(82, 82, 212, 0.5);
 }
 
+.upload-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 300px;
+    height: 150px;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.upload-area img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.upload-area p {
+    z-index: 2;
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+    position: relative;
+}
+
+.file-name {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #999;
+}
+
 .checkbox-label {
     display: flex;
     align-items: center;

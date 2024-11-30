@@ -91,9 +91,7 @@ th,
 td {
     padding: 12px 15px;
     text-align: center;
-    /* Prevent long content from wrapping */
     white-space: nowrap;
-    /* Display truncated content */
     text-overflow: ellipsis;
     overflow: hidden;
     max-width: 200px;

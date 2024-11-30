@@ -23,7 +23,7 @@ $result = $conn->query($sql);
         </a>
 
         <ul class="menu leftmenu">
-        <li><a href="view_user.php">Manage User</a></li>
+            <li><a href="view_user.php">Manage User</a></li>
             <li><a href=view_ads.php>Manage Ads</a></li>
             <li><a href="view_event.php">Manage Event</a></li>
             <li><a href="view_feedback.php">Feedback & Report</a></li>
@@ -67,7 +67,15 @@ $result = $conn->query($sql);
                 <h2>Add New Ad</h2>
                 <input type="text" name="title" placeholder="Ad Title" required>
                 <textarea name="description" placeholder="Ad Description" required></textarea>
-                <input type="file" name="image" />
+                <div class="upload-area" id="uploadArea" onclick="document.getElementById('image').click();">
+                    <img id="previewImg" src="" alt="Preview" style="display: none;" />
+                    <p id="uploadText">Click to upload photo.</p>
+                </div>
+                <input type="file" name="image" id="image" accept="image/*" required hidden>
+                <div class="image-preview" id="imagePreview" style="display: none;">
+                    <img id="previewImg" src="" alt="Preview" />
+                </div>
+                <br>
                 <label class="checkbox-label">
                     <input type="checkbox" name="status"> Active
                 </label>
@@ -133,6 +141,26 @@ $result = $conn->query($sql);
     </div>
 
     <script>
+        document.getElementById('image').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            const previewImg = document.getElementById('previewImg');
+            const uploadText = document.getElementById('uploadText');
+
+            if (file) {
+                // No need to display the file name
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    previewImg.src = e.target.result;
+                    previewImg.style.display = 'block';
+                    uploadText.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                previewImg.style.display = 'none';
+                uploadText.style.display = 'block';
+            }
+        });
+
         const message = document.getElementById('message');
         if (message) {
             setTimeout(() => {

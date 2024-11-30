@@ -51,7 +51,7 @@ $result = mysqli_query($conn, $sql);
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>No</th>
                     <th>Username</th>
                     <th>Title</th>
                     <th>Description</th>
@@ -68,7 +68,7 @@ $result = mysqli_query($conn, $sql);
                         $image = isset($row['file']) && !empty($row['file']) ? 'uploads/' . $row['file'] : 'image/default.png';
                         echo "<tr onclick='openModal({$row['id']}, \"{$row['name']}\", \"{$row['created_at']}\", \"{$row['title']}\", \"{$row['description']}\", \"{$row['rating']}\", \"{$image}\")'>";
                         echo "<td>" . $counter++ . "</td>";
-                        echo "<td>" . htmlspecialchars($row['name']) . "</td>";
+                        echo "<td>" . strtoupper(htmlspecialchars($row['name'])) . "</td>";
                         echo "<td>" . htmlspecialchars($row['title']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['description']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['rating']) . "</td>";
