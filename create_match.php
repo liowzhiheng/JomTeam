@@ -101,10 +101,7 @@ $rows = mysqli_fetch_assoc($result);
                             value="<?php echo htmlspecialchars($rows['first_name'] . ' ' . $rows['last_name']); ?>"
                             required>
                     </div>
-                    <div class="group">
-                        <label>UserID</label>
-                        <input type="text" name="userID" value="<?php echo $_SESSION['ID']; ?>" readonly>
-                    </div>
+
                     <div class="group">
                         <label>Phone Number</label>
                         <input type="text" name="phone" value="<?php echo htmlspecialchars($rows['phone']); ?>"
