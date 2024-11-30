@@ -99,18 +99,18 @@ $rows = mysqli_fetch_assoc($result);
                         <label>Full Name</label>
                         <input type="text" name="name"
                             value="<?php echo htmlspecialchars($rows['first_name'] . ' ' . $rows['last_name']); ?>"
-                            required>
+                            readonly>
                     </div>
 
                     <div class="group">
                         <label>Phone Number</label>
                         <input type="text" name="phone" value="<?php echo htmlspecialchars($rows['phone']); ?>"
-                            required>
+                        readonly>
                     </div>
                     <div class="group">
                         <label>Gender</label>
                         <input type="text" name="gender" value="<?php echo htmlspecialchars($rows['gender']); ?>"
-                            required>
+                        readonly>
                     </div>
 
                     <div class="group">
@@ -133,7 +133,15 @@ $rows = mysqli_fetch_assoc($result);
 
                     <div class="group">
                         <label class="details">Location</label>
-                        <input type="text" name="location" required>
+                        <select name="location" required>
+                            <option value="">Select Location</option>
+                            <option value="Skudai">Skudai</option>
+                            <option value="Kulai">Kulai</option>
+                            <option value="Impian Emas">Impian Emas</option>
+                            <option value="Sutera">Sutera</option>
+                            <option value="Tun Aminah">Tun Aminah</option>
+                            <option value="Nusa Bestari">Nusa Bestari</option>
+                        </select>
                     </div>
                     <div class="group">
                         <label class="details">Start Date</label>
