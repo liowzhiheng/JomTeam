@@ -270,14 +270,13 @@ img.picture {
 }
 
 #backButtonForm {
-    position: fixed;
+    position: absolute;
     top: 50%;
     /* Vertical center */
     left: 7%;
     /* Align to the left */
     transform: translateY(-50%);
     /* Adjust for proper vertical centering */
-    z-index: 10; /* Ensure the button is above other content */
 }
 
 .arrow {
@@ -289,7 +288,7 @@ img.picture {
     /* Arrow color with 80% transparency */
     cursor: pointer;
     display: inline-block;
-    position:fixed;
+
 }
 
 .arrow:hover {

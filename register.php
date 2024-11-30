@@ -7,16 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="register.css">
     <link rel="stylesheet" href="animation.css">
+
+</head>
+
+<body class="transition-container body_2">
+<div class="background"></div>
     <form action="index.php" id="backButtonForm">
         <button type="submit" style="background: none; border: none; cursor: pointer;">
             <div class="arrow"></div>
         </button>
     </form>
-
-</head>
-
-<body class="transition-container body_2">
-    <div class="background"></div>
     <div class="container">
         <div class="text_box">
 
