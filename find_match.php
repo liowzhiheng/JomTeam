@@ -53,7 +53,7 @@ if (mysqli_num_rows($result) > 0) {
 <body>
     <nav class="navbar">
         <a href="#" class="logo">
-            <img src="image/jomteam.png" alt="Logo">
+            <img src="IMAGE/jomteam.png" alt="Logo">
         </a>
 
         <ul class="menu leftmenu">
@@ -65,9 +65,9 @@ if (mysqli_num_rows($result) > 0) {
         </ul>
 
         <ul class="menu rightmenu">
-            <li class="notification"><a href="#notification"><img src="image/NOTIFICATION.png" alt="Notification"></a>
+            <li class="notification"><a href="#notification"><img src="IMAGE/NOTIFICATION.png" alt="Notification"></a>
             </li>
-            <li class="logout"><a href="index.php">Log out<img src="image/LOGOUT.png" alt="Logout"></a></li>
+            <li class="logout"><a href="index.php">Log out<img src="IMAGE/LOGOUT.png" alt="Logout"></a></li>
         </ul>
     </nav>
 
