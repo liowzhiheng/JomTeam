@@ -193,8 +193,8 @@ $has_joined = $checkResult->num_rows > 0;
         <?php if ($has_joined): ?>
             <!-- If user has already joined, show "Joined" button -->
             <div>
-                <p>You have joined the match.</p>
-                <p>Do you wish to cancel?</p>
+                <p style="color: black;">You have joined the match.</p> 
+                <p style="color: black;">Do you wish to cancel?</p>
                 <form action="cancel_match.php" method="GET" style="text-align: center;">
                 <input type="hidden" name="id" value="<?php echo $match_id; ?>">
                     <button 
@@ -208,15 +208,19 @@ $has_joined = $checkResult->num_rows > 0;
                         border-radius: 50px; 
                         cursor: pointer; 
                         transition: background-color 0.3s ease; 
-                        margin-top:1%;margin-left:2%">
+                        margin-top:1%;margin-left:2%"
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
+                        onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.3)'; this.style.background='linear-gradient(202deg, #FF4B5C 0%, rgba(255, 75, 92, 0.66) 71%)'" 
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)'; this.style.background='linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%)'"
+                        onclick="this.style.transform='translateY(2px)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)';">
                         Cancel
                     </button>
             </div>
         <?php elseif ($current_players < $max_players): ?>
             <!-- If match is not full and user has not joined -->
             <div>
-                <p>Are you interested to the match?</p>
-                <p>Join now and have fun!</p>
+                <p style="color: black;">Are you interested to the match?</p>
+                <p style="color: black;">Join now and have fun!</p>
                 <form action="join_match.php" method="GET" style="text-align: center;">
                 <input type="hidden" name="id" value="<?php echo $match_id; ?>">
                     <button 
@@ -230,14 +234,34 @@ $has_joined = $checkResult->num_rows > 0;
                         border-radius: 50px; 
                         cursor: pointer; 
                         transition: background-color 0.3s ease; 
-                        margin-top:1%; margin-left:2%">
+                        margin-top:1%; margin-left:2%"
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
+                        onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.3)'; this.style.background='linear-gradient(202deg, #FF4B5C 0%, rgba(255, 75, 92, 0.66) 71%)'" 
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)'; this.style.background='linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%)'"
+                        onclick="this.style.transform='translateY(2px)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)';">
                         Join Match
                     </button>
             </div>
         <?php else: ?>
             <!-- If match is full -->
-            <div class="button">
-                <img src="IMAGE/match_full_button.png" alt="Match Full">
+            <div>
+                <p style="color: black;">It seems the match is full.</p>
+                <p style="color: black;">Try to look for another one!</p>
+                <button 
+                        style="width: 15%; 
+                        height: 100px; 
+                        font-size: 30px; 
+                        font-weight: 700; 
+                        color: white; 
+                        background: black;
+                        border: none; 
+                        border-radius: 50px; 
+                        cursor: pointer; 
+                        transition: background-color 0.3s ease; 
+                        margin-top:1%; margin-left:2%"
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+                        Match Full
+                </button>
             </div>
         <?php endif; ?>
     </div>
