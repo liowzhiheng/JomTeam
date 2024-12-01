@@ -111,16 +111,29 @@ if (mysqli_num_rows($result) > 0) {
                         </div>
 
                         <div class="filter-row">
+                            <div class="filter-group">
+                                <label for="time">Time:</label>
+                                <select name="time" id="time">
+                                    <option value="">Any Time</option>
+                                    <option value="morning">Morning (6AM-12PM)</option>
+                                    <option value="afternoon">Afternoon (12PM-6PM)</option>
+                                    <option value="evening">Evening (6PM-10PM)</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="filter-group">
-                            <label for="time">Time:</label>
-                            <select name="time" id="time">
-                                <option value="">Any Time</option>
-                                <option value="morning">Morning (6AM-12PM)</option>
-                                <option value="afternoon">Afternoon (12PM-6PM)</option>
-                                <option value="evening">Evening (6PM-10PM)</option>
+                            <label for="area">Location:</label>
+                            <select name="area" id="area">
+                                <option value="">Select Location</option>
+                                <option value="Skudai">Skudai</option>
+                                <option value="Kulai">Kulai</option>
+                                <option value="Impian Emas">Impian Emas</option>
+                                <option value="Sutera">Sutera</option>
+                                <option value="Tun Aminah">Tun Aminah</option>
+                                <option value="Nusa Bestari">Nusa Bestari</option>
                             </select>
                         </div>
-                    </div>
                 </div>
             </form>
         </div>
