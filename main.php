@@ -300,7 +300,7 @@ if (mysqli_num_rows($result3) > 0) {
     <?php } ?>
 
     <a href="feedback.php" class="feedback-btn">
-        <img src="image/FEEDBACK.png" alt="Feedback" class="feedback-img">
+        <img src="IMAGE/FEEDBACK.png" alt="Feedback" class="feedback-img">
         <span class="info">Click to give feedback!</span>
     </a>
 </body>
