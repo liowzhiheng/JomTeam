@@ -12,7 +12,7 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Event</title>
+    <title>Manage Match</title>
     <link rel="stylesheet" href="view_event.css">
 </head>
 
@@ -25,7 +25,7 @@ $result = $conn->query($sql);
         <ul class="menu leftmenu">
             <li><a href="view_user.php">Manage User</a></li>
             <li><a href="view_ads.php">Manage Ads</a></li>
-            <li><a href="view_event.php">Manage Event</a></li>
+            <li><a href="view_event.php">Manage Match</a></li>
             <li><a href="view_feedback.php">Feedback & Report</a></li>
         </ul>
 

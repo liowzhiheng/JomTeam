@@ -21,9 +21,9 @@ require("config.php"); // Include the database configuration file
         </a>
 
         <ul class="menu leftmenu">
-            <li><a href="view_user.php">Manage User</a></li>
-            <li><a href=view_ads.php>Manage Ads</a></li>
-            <li><a href="view_event.php">Manage Event</a></li>
+        <li><a href="view_user.php">Manage User</a></li>
+            <li><a href="view_ads.php">Manage Ads</a></li>
+            <li><a href="view_event.php">Manage Match</a></li>
             <li><a href="view_feedback.php">Feedback & Report</a></li>
         </ul>
 
