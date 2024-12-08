@@ -105,12 +105,12 @@ $rows = mysqli_fetch_assoc($result);
                     <div class="group">
                         <label>Phone Number</label>
                         <input type="text" name="phone" value="<?php echo htmlspecialchars($rows['phone']); ?>"
-                        readonly>
+                            readonly>
                     </div>
                     <div class="group">
                         <label>Gender</label>
                         <input type="text" name="gender" value="<?php echo htmlspecialchars($rows['gender']); ?>"
-                        readonly>
+                            readonly>
                     </div>
 
                     <div class="group">
@@ -208,20 +208,25 @@ $rows = mysqli_fetch_assoc($result);
     <div class="players_list">
         <ul id="playersList">
             <?php
+            // Display the creator as the Host
+            echo "<li id='host'>Host: " . htmlspecialchars($rows['first_name'] . ' ' . $rows['last_name']) . "</li>";
+
             // Ensure max_players and current_players are properly set
             $max_players = isset($rows['max_players']) ? $rows['max_players'] : 0;
             $current_players = isset($rows['current_players']) ? $rows['current_players'] : 0;
 
-            for ($i = 0; $i < $max_players; $i++):
-                if ($i < $current_players):
+            // Generate players list
+            for ($i = 0; $i < $max_players; $i++) {
+                if ($i < $current_players) {
                     echo "<li id='player" . ($i + 1) . "'>Player " . ($i + 1) . ": X</li>";
-                else:
+                } else {
                     echo "<li id='player" . ($i + 1) . "'>Player " . ($i + 1) . ": ?</li>";
-                endif;
-            endfor;
+                }
+            }
             ?>
         </ul>
     </div>
+
 
     <script src="view_profile.js"></script>
     <?php mysqli_close($conn); ?>
@@ -391,33 +396,47 @@ $rows = mysqli_fetch_assoc($result);
 <script>
     // Update the player list in real-time
     function updatePlayersList() {
-        const maxPlayers = parseInt(document.getElementById('max_players').value);
-        const currentPlayers = parseInt(document.getElementById('current_players').value);
-        const playersList = document.getElementById('playersList');
+        // Function to update the player list
+        function updatePlayers() {
+            const hostName = document.querySelector('input[name="name"]').value; // Get the creator's name
+            const maxPlayers = parseInt(document.getElementById('max_players').value) || 0;
+            const currentPlayers = parseInt(document.getElementById('current_players').value) || 0;
 
-        // Clear the current list
-        playersList.innerHTML = '';
+            // Select the players list container
+            const playersList = document.getElementById('playersList');
+            playersList.innerHTML = ''; // Clear existing list
 
-        // Generate the updated player list
-        for (let i = 0; i < maxPlayers; i++) {
-            const playerItem = document.createElement('li');
-            playerItem.id = 'player' + (i + 1);
+            // Add host
+            const hostElement = document.createElement('li');
+            hostElement.id = 'host';
+            hostElement.textContent = `Host: ${hostName}`;
+            playersList.appendChild(hostElement);
 
-            // Set text based on current players
-            if (i === 0) {
-                // The first player is always the host
-                const hostName = document.querySelector('input[name="name"]').value; // Fetch the host's name
-                playerItem.textContent = 'Player ' + (i + 1) + ': ' + hostName;
+            // Add players
+            for (let i = 0; i < maxPlayers; i++) {
+                const playerElement = document.createElement('li');
+                playerElement.id = `player${i + 1}`;
+
+                if (i < currentPlayers) {
+                    playerElement.textContent = `Player ${i + 1}: X`;
+                } else {
+                    playerElement.textContent = `Player ${i + 1}: ?`;
+                }
+
+                playersList.appendChild(playerElement);
             }
-            else if (i < currentPlayers) {
-                playerItem.textContent = 'Player ' + (i + 1) + ': X';
-            } else {
-                playerItem.textContent = 'Player ' + (i + 1) + ': ?';
-            }
-
-            // Append to the list
-            playersList.appendChild(playerItem);
         }
+
+        // Function to validate player input (optional, as in your original script)
+        function validatePlayerInput(input) {
+            const value = parseInt(input.value) || 0;
+            if (value < 0) input.value = 0;
+        }
+
+        // Add event listeners for input changes
+        document.getElementById('max_players').addEventListener('change', updatePlayers);
+        document.getElementById('current_players').addEventListener('change', updatePlayers);
+
     }
 
     // Attach event listeners for changes in max_players and current_players inputs
