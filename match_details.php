@@ -152,53 +152,73 @@ $has_joined = $checkResult->num_rows > 0;
     </div>
 
     <div class="players_list">
-        <ul id="playersList">
-            <?php
-            // Query to get players who joined the match
-            $playersQuery = "
-                SELECT user.first_name, user.last_name 
-                FROM match_participants
-                INNER JOIN user ON match_participants.user_id = user.id
-                WHERE match_participants.match_id = ? 
-                ORDER BY match_participants.join_date ASC";
+    <ul id="playersList">
+        <?php
+        // Query to get players who joined the match
+        $playersQuery = "
+        SELECT user.first_name, user.last_name 
+        FROM match_participants
+        INNER JOIN user ON match_participants.user_id = user.id
+        WHERE match_participants.match_id = ? 
+        ORDER BY match_participants.join_date ASC";
 
-            $stmt = $conn->prepare($playersQuery);
-            $stmt->bind_param('i', $match_id);
-            $stmt->execute();
-            $playersResult = $stmt->get_result();
+        // Prepare and execute the query
+        $stmt = $conn->prepare($playersQuery);
+        $stmt->bind_param('i', $match_id);
+        $stmt->execute();
+        $playersResult = $stmt->get_result();
 
-            $players = [];
-            while ($row = $playersResult->fetch_assoc()) {
-                $players[] = $row;
+        $players = [];
+        while ($row = $playersResult->fetch_assoc()) {
+            $players[] = $row;
+        }
+
+        $currentPlayerIndex = 0; // To track the index of players joining
+        $maxPlayers = $max_players; // Max players allowed in the game
+        $currentPlayersCount = count($players); // Get the count of current players in the match
+        $displayedCurrentPlayers = $current_players; // Track how many current players are there
+
+        // Calculate how many "X" to display (the difference between current_players and actual players in DB)
+        $X = $displayedCurrentPlayers - $currentPlayersCount;
+
+        // Loop to display all player slots
+        for ($i = 1; $i <= $maxPlayers; $i++) {
+            if ($X > 0) {
+                // Show "X" for the remaining current players
+                echo "<li id='player{$i}'>Player {$i}: X</li>";
+                $X--; // Decrease the count of "X" shown
+            } elseif ($currentPlayerIndex < $currentPlayersCount) {
+                // After "X", show the names of joined players
+                $playerName = htmlspecialchars($players[$currentPlayerIndex]['first_name'] . " " . $players[$currentPlayerIndex]['last_name']);
+                echo "<li id='player{$i}'>Player {$i}: $playerName</li>";
+                $currentPlayerIndex++; // Move to the next participant
+            } else {
+                // Show "?" for any remaining empty slots
+                echo "<li id='player{$i}'>Player {$i}: ?</li>";
             }
+        }
+        ?>
+    </ul>
+</div>
 
-            // Display player names or placeholders
-            for ($i = 0; $i < $max_players; $i++):
-                if ($i < count($players)):
-                    $playerName = htmlspecialchars($players[$i]['first_name'] . " " . $players[$i]['last_name']);
-                    echo "<li id='player" . ($i + 1) . "'>Player " . ($i + 1) . ": $playerName</li>";
-                else:
-                    echo "<li id='player" . ($i + 1) . "'>Player " . ($i + 1) . ": ?</li>";
-                endif;
-            endfor;
-            ?>
-        </ul>
-    </div>
+
+
+
+
 
     <!-- Join Match Section -->
-        <div style="text-align: center;
+    <div style="text-align: center;
             font-family:'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             font-size: 25px;
-            margin-top:3%;"> 
+            margin-top:3%;">
         <?php if ($has_joined): ?>
             <!-- If user has already joined, show "Joined" button -->
             <div>
-                <p style="color: black;">You have joined the match.</p> 
+                <p style="color: black;">You have joined the match.</p>
                 <p style="color: black;">Do you wish to cancel?</p>
                 <form action="cancel_match.php" method="GET" style="text-align: center;">
-                <input type="hidden" name="id" value="<?php echo $match_id; ?>">
-                    <button 
-                        style="width: 15%; 
+                    <input type="hidden" name="id" value="<?php echo $match_id; ?>">
+                    <button style="width: 15%; 
                         height: 100px; 
                         font-size: 30px; 
                         font-weight: 700; 
@@ -208,9 +228,8 @@ $has_joined = $checkResult->num_rows > 0;
                         border-radius: 50px; 
                         cursor: pointer; 
                         transition: background-color 0.3s ease; 
-                        margin-top:1%;margin-left:2%"
-                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
-                        onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.3)'; this.style.background='linear-gradient(202deg, #FF4B5C 0%, rgba(255, 75, 92, 0.66) 71%)'" 
+                        margin-top:1%;margin-left:2%" box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
+                        onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.3)'; this.style.background='linear-gradient(202deg, #FF4B5C 0%, rgba(255, 75, 92, 0.66) 71%)'"
                         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)'; this.style.background='linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%)'"
                         onclick="this.style.transform='translateY(2px)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)';">
                         Cancel
@@ -222,9 +241,8 @@ $has_joined = $checkResult->num_rows > 0;
                 <p style="color: black;">Are you interested to the match?</p>
                 <p style="color: black;">Join now and have fun!</p>
                 <form action="join_match.php" method="GET" style="text-align: center;">
-                <input type="hidden" name="id" value="<?php echo $match_id; ?>">
-                    <button 
-                        style="width: 15%; 
+                    <input type="hidden" name="id" value="<?php echo $match_id; ?>">
+                    <button style="width: 15%; 
                         height: 100px; 
                         font-size: 30px; 
                         font-weight: 700; 
@@ -234,9 +252,8 @@ $has_joined = $checkResult->num_rows > 0;
                         border-radius: 50px; 
                         cursor: pointer; 
                         transition: background-color 0.3s ease; 
-                        margin-top:1%; margin-left:2%"
-                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
-                        onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.3)'; this.style.background='linear-gradient(202deg, #FF4B5C 0%, rgba(255, 75, 92, 0.66) 71%)'" 
+                        margin-top:1%; margin-left:2%" box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
+                        onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.3)'; this.style.background='linear-gradient(202deg, #FF4B5C 0%, rgba(255, 75, 92, 0.66) 71%)'"
                         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)'; this.style.background='linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%)'"
                         onclick="this.style.transform='translateY(2px)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)';">
                         Join Match
@@ -247,8 +264,7 @@ $has_joined = $checkResult->num_rows > 0;
             <div>
                 <p style="color: black;">It seems the match is full.</p>
                 <p style="color: black;">Try to look for another one!</p>
-                <button 
-                        style="width: 15%; 
+                <button style="width: 15%; 
                         height: 100px; 
                         font-size: 30px; 
                         font-weight: 700; 
@@ -258,9 +274,8 @@ $has_joined = $checkResult->num_rows > 0;
                         border-radius: 50px; 
                         cursor: pointer; 
                         transition: background-color 0.3s ease; 
-                        margin-top:1%; margin-left:2%"
-                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
-                        Match Full
+                        margin-top:1%; margin-left:2%" box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+                    Match Full
                 </button>
             </div>
         <?php endif; ?>
@@ -360,41 +375,6 @@ $has_joined = $checkResult->num_rows > 0;
 
 </html>
 
-
-<script>
-    // Update the circles based on max and current players
-    function updatePlayers() {
-        const maxPlayers = parseInt(document.getElementById('max_players').value);
-        const currentPlayers = parseInt(document.getElementById('current_players').value);
-        const circleContainer = document.getElementById('circle_container');
-        circleContainer.innerHTML = ''; // Clear existing circles
-
-        // Get the pop sound element
-        const popSound = document.getElementById('popSound');
-
-        // Generate circles based on the number of max players
-        for (let i = 0; i < maxPlayers; i++) {
-            const circle = document.createElement('div');
-            circle.classList.add('circle');
-            // Set circle color based on whether it's filled or not
-            if (i < currentPlayers) {
-                circle.style.backgroundColor = '#EB1436'; // Filled circle (player added)
-            } else {
-                circle.style.backgroundColor = '#AFB7C1'; // Empty circle (vacant spot)
-            }
-            circleContainer.appendChild(circle);
-            // Play the sound for each circle added
-            popSound.play();
-
-        }
-    }
-
-    // Initialize the circles on page load
-    document.addEventListener('DOMContentLoaded', function () {
-        updatePlayers();
-    });
-</script>
-
 <script>
     function updatePlayers() {
         const maxPlayers = parseInt(document.getElementById('max_players').value) || 0;
@@ -422,4 +402,3 @@ $has_joined = $checkResult->num_rows > 0;
     document.addEventListener('DOMContentLoaded', updatePlayers);
 
 </script>
-
