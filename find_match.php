@@ -149,8 +149,10 @@ if (mysqli_num_rows($result) > 0) {
                         <p class="info_title"><?php echo htmlspecialchars($match['match_title']); ?></p>
                         <p class="info"><?php echo htmlspecialchars($match['game_type']); ?></p>
                         <p class="info">Location: <?php echo htmlspecialchars($match['location']); ?></p>
-                        <p class="info">Date: <?php echo htmlspecialchars($match['start_date']); ?></p>
-                        <p class="info">Time: <?php echo htmlspecialchars($match['start_time']); ?></p>
+                        <?php $new = date("d/m/Y", strtotime($match['start_date']));?>
+                        <p class="info">Date: <?php echo htmlspecialchars($new); ?></p>
+                        <?php $time = new DateTime($match['start_time']);?>
+                        <?php echo htmlspecialchars($time->format('h:i  A'));?>
                         <a href="match_details.php?id=<?php echo $match['id']; ?>" class="view-all-btn">View Details</a>
                     </div>
                 <?php endforeach; ?>
