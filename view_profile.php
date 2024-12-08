@@ -61,27 +61,12 @@ $rows = mysqli_fetch_assoc($result);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
     <link rel="stylesheet" href="view_profile.css">
+    <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="footer.css">
 </head>
 
 <body>
-    <nav class="navbar">
-        <a href="#" class="logo">
-            <img src="IMAGE/jomteam.png" alt="Logo">
-        </a>
-        <ul class="menu leftmenu">
-            <li><a href="main.php">Home</a></li>
-            <li><a href="find_match.php">Find Match</a></li>
-            <li><a href="create_match.php">Create Match</a></li>
-            <li><a href="view_profile.php">Profile</a></li>
-            <li><a href="#premium">Premium</a></li>
-        </ul>
-        <ul class="menu rightmenu">
-            <li class="notification"><a href="#notification"><img src="IMAGE/NOTIFICATION.png" alt="Notification"></a>
-            </li>
-            <li class="logout"><a href="index.php">Log out<img src="IMAGE/LOGOUT.png" alt="Logout"></a></li>
-        </ul>
-    </nav>
+    <?php include('navbar.php'); ?>
 
     <?php
     if (isset($_GET['status'])) {
@@ -173,11 +158,11 @@ $rows = mysqli_fetch_assoc($result);
 
                     <div class="group">
                         <label for="status">Status:</label>
-                        <div class = "status_display">
+                        <div class="status_display">
                             <input type="text" name="status" value="<?php echo htmlspecialchars($rows['status']); ?>"
                                 readonly>
                         </div>
-                        <div class = "status_selection">
+                        <div class="status_selection">
                             <select name="status" required>
                                 <option value="">Your status</option>
                                 <option value="single">Single</option>

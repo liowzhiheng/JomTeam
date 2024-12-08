@@ -40,6 +40,7 @@ $rows = mysqli_fetch_assoc($result);
     <title>Create Your Own Match</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="create_match_2.css">
+    <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="footer.css">
 
 </head>
@@ -47,24 +48,7 @@ $rows = mysqli_fetch_assoc($result);
 <body>
     <audio id="popSound" src="sound/pop-sound.mp3" preload="auto"></audio>
 
-    <nav class="navbar">
-        <a href="#" class="logo">
-            <img src="IMAGE/jomteam.png" alt="Logo">
-        </a>
-        <ul class="menu leftmenu">
-            <li><a href="main.php">Home</a></li>
-            <li><a href="find_match.php">Find Match</a></li>
-            <li><a href="create_match.php">Create Match</a></li>
-            <li><a href="view_profile.php">Profile</a></li>
-            <li><a href="#premium">Premium</a></li>
-        </ul>
-        <ul class="menu rightmenu">
-            <li class="notification"><a href="#notification"><img src="IMAGE/NOTIFICATION.png" alt="Notification"></a>
-            </li>
-            <li class="logout"><a href="index.php">Log out<img src="IMAGE/LOGOUT.png" alt="Logout"></a></li>
-        </ul>
-    </nav>
-
+    <?php include('navbar.php'); ?>
 
     <div class="profile-content">
         <h1 class="profile-title">Create your own match</h1>

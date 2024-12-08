@@ -90,30 +90,13 @@ if (mysqli_num_rows($result3) > 0) {
     <title>Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="footer.css">
 </head>
 
 <body>
     <?php if ($_SESSION["LEVEL"] != 1) { ?>
-        <nav class="navbar">
-            <a href="#" class="logo">
-                <img src="IMAGE/jomteam.png" alt="Logo">
-            </a>
-
-            <ul class="menu leftmenu">
-                <li><a href="main.php">Home</a></li>
-                <li><a href="find_match.php">Find Match</a></li>
-                <li><a href="create_match.php">Create Match</a></li>
-                <li><a href="view_profile.php">Profile</a></li>
-                <li><a href="#premium">Premium</a></li>
-            </ul>
-
-            <ul class="menu rightmenu">
-                <li class="notification"><a href="#notification"><img src="IMAGE/NOTIFICATION.png" alt="Notification"></a>
-                </li>
-                <li class="logout"><a href="index.php">Log out<img src="IMAGE/LOGOUT.png" alt="Logout"></a></li>
-            </ul>
-        </nav>
+        <?php include('navbar.php'); ?>
 
         <div class="banner">
             <h1>Find Your Best Sport Buddies</h1>
