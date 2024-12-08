@@ -35,7 +35,7 @@ $result = mysqli_query($conn, $sql);
         <ul class="menu leftmenu">
         <li><a href="view_user.php">Manage User</a></li>
             <li><a href="view_ads.php">Manage Ads</a></li>
-            <li><a href="view_event.php">Manage Match</a></li>
+            <li><a href="view_match.php">Manage Match</a></li>
             <li><a href="view_feedback.php">Feedback & Report</a></li>
         </ul>
 
@@ -77,7 +77,7 @@ $result = mysqli_query($conn, $sql);
                         echo "</tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='6'>No feedback & report available</td></tr>";
+                    echo "<tr><td colspan='7'>No feedback & report available</td></tr>";
                 }
                 ?>
             </tbody>

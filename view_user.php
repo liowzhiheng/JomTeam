@@ -21,9 +21,9 @@ require("config.php"); // Include the database configuration file
         </a>
 
         <ul class="menu leftmenu">
-        <li><a href="view_user.php">Manage User</a></li>
+            <li><a href="view_user.php">Manage User</a></li>
             <li><a href="view_ads.php">Manage Ads</a></li>
-            <li><a href="view_event.php">Manage Match</a></li>
+            <li><a href="view_match.php">Manage Match</a></li>
             <li><a href="view_feedback.php">Feedback & Report</a></li>
         </ul>
 
@@ -92,7 +92,7 @@ require("config.php"); // Include the database configuration file
             echo "<td>" . htmlspecialchars($role) . "</td>";
             echo "<td>" . htmlspecialchars($row["phone"] ?? '') . "</td>";
             echo "<td>" . htmlspecialchars($row["email"]) . "</td>";
-            echo "<td>" . htmlspecialchars($row["created_at"]) . "</td>";
+            echo "<td>" . date('y/m/d', strtotime($row["created_at"])) . "</td>";
             echo "<td></td>"; // Premium
             echo "<td>";
 
