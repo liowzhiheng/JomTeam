@@ -28,22 +28,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         move_uploaded_file($tempname, $folder);
     }
 
-
     if (isset($_POST['create'])) {
+        // Insert match details into the gamematch table
         $sql = "INSERT INTO gamematch (user_id, match_title, game_type, skill_level_required, max_players, current_players, location, start_date, start_time, duration, status, description, file)
             VALUES ('$user_id', '$match_title', '$game_type', '$skill_level', '$max_players','$current_players', '$location', '$start_date', '$start_time', '$duration', 'open', '$description', '$file_name')";
-        if (mysqli_query($conn, $sql)) {
-            $sql2 = "SELECT * FROM gamematch WHERE match_title = '$match_title' AND game_type = '$game_type' AND user_id = '$user_id' AND created_at = NOW()";
-            $result = mysqli_query($conn, $sql2);
-            $rows = mysqli_fetch_assoc($result);
-            $id = $rows['id'];
-            $sql3 = "INSERT INTO match_participants (match_id, user_id) VALUES ('$id', '$user_id')";
-            if (mysqli_query($conn, $sql3)) {
-                header("Location: create_successful.php");
-                exit();
-            }
 
+        if (mysqli_query($conn, $sql)) {
+            // Redirect to the successful creation page
+            header("Location: create_successful.php");
+            exit();
         } else {
+            // Redirect to the failure page if something goes wrong
             header("Location: create_match.php?status=fail");
             exit();
         }
