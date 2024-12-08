@@ -44,6 +44,21 @@ $checkStmt->bind_param('ii', $match_id, $user_id);
 $checkStmt->execute();
 $checkResult = $checkStmt->get_result();
 $has_joined = $checkResult->num_rows > 0;
+
+// host
+$hostQuery = "SELECT first_name, last_name, email FROM user WHERE id = ?";
+$hostStmt = $conn->prepare($hostQuery);
+$hostStmt->bind_param('i', $match['user_id']);
+$hostStmt->execute();
+$hostResult = $hostStmt->get_result();
+
+if ($hostResult->num_rows > 0) {
+    $host = $hostResult->fetch_assoc();
+} else {
+    // If the host is not found, show a message
+    echo "Host not found.";
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -115,12 +130,10 @@ $has_joined = $checkResult->num_rows > 0;
                     <label>Start Date:</label>
                     <input type="text" value="<?php echo date($match['start_date']); ?>" readonly>
                 </div>
-
                 <div class="group">
                     <label>Start Time:</label>
                     <input type="text" value="<?php echo $match['start_time'] ?>" readonly>
                 </div>
-
                 <div class="group">
                     <label>Max Players:</label>
                     <input type="text" id="max_players" value="<?php echo htmlspecialchars($match['max_players']); ?>"
@@ -131,7 +144,6 @@ $has_joined = $checkResult->num_rows > 0;
                     <input type="text" id="current_players"
                         value="<?php echo htmlspecialchars($match['current_players']); ?>" readonly>
                 </div>
-
                 <div class="group">
                     <label>Status:</label>
                     <input type="text" value="<?php echo htmlspecialchars($match['status']); ?>" readonly>
@@ -139,6 +151,11 @@ $has_joined = $checkResult->num_rows > 0;
                 <div class="group">
                     <label>Description:</label>
                     <textarea readonly><?php echo nl2br(htmlspecialchars($match['description'])); ?></textarea>
+                </div>
+
+                <div class="group">
+                    <label>Email:</label>
+                    <input type="text" value="<?php echo htmlspecialchars($host['email']); ?>" readonly>
                 </div>
             </div>
 
@@ -152,54 +169,61 @@ $has_joined = $checkResult->num_rows > 0;
     </div>
 
     <div class="players_list">
-    <ul id="playersList">
-        <?php
-        // Query to get players who joined the match
-        $playersQuery = "
+        <!-- Host Info -->
+        <div>
+            <label>Host:</label>
+            <?php echo htmlspecialchars($host['first_name'] . ' ' . $host['last_name']); ?>
+
+        </div>
+ 
+        <ul id="playersList">
+            <?php
+            // Query to get players who joined the match
+            $playersQuery = "
         SELECT user.first_name, user.last_name 
         FROM match_participants
         INNER JOIN user ON match_participants.user_id = user.id
         WHERE match_participants.match_id = ? 
         ORDER BY match_participants.join_date ASC";
 
-        // Prepare and execute the query
-        $stmt = $conn->prepare($playersQuery);
-        $stmt->bind_param('i', $match_id);
-        $stmt->execute();
-        $playersResult = $stmt->get_result();
+            // Prepare and execute the query
+            $stmt = $conn->prepare($playersQuery);
+            $stmt->bind_param('i', $match_id);
+            $stmt->execute();
+            $playersResult = $stmt->get_result();
 
-        $players = [];
-        while ($row = $playersResult->fetch_assoc()) {
-            $players[] = $row;
-        }
-
-        $currentPlayerIndex = 0; // To track the index of players joining
-        $maxPlayers = $max_players; // Max players allowed in the game
-        $currentPlayersCount = count($players); // Get the count of current players in the match
-        $displayedCurrentPlayers = $current_players; // Track how many current players are there
-
-        // Calculate how many "X" to display (the difference between current_players and actual players in DB)
-        $X = $displayedCurrentPlayers - $currentPlayersCount;
-
-        // Loop to display all player slots
-        for ($i = 1; $i <= $maxPlayers; $i++) {
-            if ($X > 0) {
-                // Show "X" for the remaining current players
-                echo "<li id='player{$i}'>Player {$i}: X</li>";
-                $X--; // Decrease the count of "X" shown
-            } elseif ($currentPlayerIndex < $currentPlayersCount) {
-                // After "X", show the names of joined players
-                $playerName = htmlspecialchars($players[$currentPlayerIndex]['first_name'] . " " . $players[$currentPlayerIndex]['last_name']);
-                echo "<li id='player{$i}'>Player {$i}: $playerName</li>";
-                $currentPlayerIndex++; // Move to the next participant
-            } else {
-                // Show "?" for any remaining empty slots
-                echo "<li id='player{$i}'>Player {$i}: ?</li>";
+            $players = [];
+            while ($row = $playersResult->fetch_assoc()) {
+                $players[] = $row;
             }
-        }
-        ?>
-    </ul>
-</div>
+
+            $currentPlayerIndex = 0; // To track the index of players joining
+            $maxPlayers = $max_players; // Max players allowed in the game
+            $currentPlayersCount = count($players); // Get the count of current players in the match
+            $displayedCurrentPlayers = $current_players; // Track how many current players are there
+            
+            // Calculate how many "X" to display (the difference between current_players and actual players in DB)
+            $X = $displayedCurrentPlayers - $currentPlayersCount;
+
+            // Loop to display all player slots
+            for ($i = 1; $i <= $maxPlayers; $i++) {
+                if ($X > 0) {
+                    // Show "X" for the remaining current players
+                    echo "<li id='player{$i}'>Player {$i}: X</li>";
+                    $X--; // Decrease the count of "X" shown
+                } elseif ($currentPlayerIndex < $currentPlayersCount) {
+                    // After "X", show the names of joined players
+                    $playerName = htmlspecialchars($players[$currentPlayerIndex]['first_name'] . " " . $players[$currentPlayerIndex]['last_name']);
+                    echo "<li id='player{$i}'>Player {$i}: $playerName</li>";
+                    $currentPlayerIndex++; // Move to the next participant
+                } else {
+                    // Show "?" for any remaining empty slots
+                    echo "<li id='player{$i}'>Player {$i}: ?</li>";
+                }
+            }
+            ?>
+        </ul>
+    </div>
 
 
 
