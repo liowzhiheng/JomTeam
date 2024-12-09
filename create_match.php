@@ -112,6 +112,7 @@ $rows = mysqli_fetch_assoc($result);
                             <option value="volleyball">Volleyball</option>
                             <option value="tennis">Tennis</option>
                             <option value="futsal">Futsal</option>
+                            <option value="others">Others</option>
                         </select>
                     </div>
 
