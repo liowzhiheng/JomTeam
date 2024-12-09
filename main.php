@@ -138,7 +138,7 @@ if (mysqli_num_rows($result3) > 0) {
             </div>
         </div>
 
-        <!-- view profile-->
+        <!--
         <div class="view_profile">Profile
             <div class="view_profile_content"><br>Let people know more about
                 you!<br>Share your passions, interests, and achievements.<br>Whether it's your love for sports, your
@@ -148,7 +148,7 @@ if (mysqli_num_rows($result3) > 0) {
             </div>
 
             <div>
-                <!-- Profile detail -->
+               
                 <div class="uploaded-images">
                     <?php
                     $res = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $_SESSION["ID"]);
@@ -208,7 +208,7 @@ if (mysqli_num_rows($result3) > 0) {
                     <img src="IMAGE/edit_your_profile.png">
                 </a>
             </div>
-        </div>
+        </div>-->
         <div>
             <div class="grid-section">
                 <h1 class="created_match_title">Created Match</h1>
