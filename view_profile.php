@@ -163,7 +163,7 @@ $rows = mysqli_fetch_assoc($result);
                                 readonly>
                         </div>
                         <div class="status_selection">
-                            <select name="status" required>
+                            <select name="status">
                                 <option value="">Your status</option>
                                 <option value="single">Single</option>
                                 <option value="not single">Not Single</option>

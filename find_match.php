@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 // Include your database connection
 require("config.php");
 
