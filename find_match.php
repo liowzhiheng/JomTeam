@@ -88,6 +88,7 @@ if (mysqli_num_rows($result) > 0) {
                                 <option value="volleyball">Volleyball</option>
                                 <option value="tennis">Tennis</option>
                                 <option value="futsal">Futsal</option>
+                                <option value="others">Others</option>
                             </select>
                         </div>
 
