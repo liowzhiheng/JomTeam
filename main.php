@@ -209,58 +209,7 @@ if (mysqli_num_rows($result3) > 0) {
                 </a>
             </div>
         </div>-->
-        <div>
-            <div class="grid-section">
-                <h1 class="created_match_title">Created Match</h1>
-                <div class="grid-container">
-                    <?php if (!empty($matches)): ?>
-                        <?php foreach ($matches as $match): ?>
-                            <div class="grid-item">
-                                <img src="gamematch/<?php echo htmlspecialchars($match['file']); ?>" alt="Match Image"
-                                    style="width: 200px; height: 200px;">
-                                <p class="info_title"><?php echo htmlspecialchars($match['match_title']); ?></p>
-                                <p class="info"><?php echo htmlspecialchars($match['game_type']); ?></p>
-                                <p class="info">Location: <?php echo htmlspecialchars($match['location']); ?></p>
-                                <p class="info">Date: <?php echo htmlspecialchars($match['start_date']); ?></p>
-                                <p class="info">Time: <?php echo htmlspecialchars($match['start_time']); ?></p>
-                                <a href="match_details.php?id=<?php echo $match['id']; ?>" class="view-all-btn">View Details</a>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <div class="grid-section">
-                        <p class="info_title">No match created.</p>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            </div>
-            <div>
-                <h1 class="created_match_title">Joined Match</h1>
-                <div class=".grid-section">
-                    <div class="grid-container">
-                        <?php if (!empty($joined_match)): ?>
-                            <?php foreach ($joined_match as $match): ?>
-                                <div class="grid-item">
-                                    <img src="gamematch/<?php echo htmlspecialchars($match['file']); ?>" alt="Match Image"
-                                        style="width: 200px; height: 200px;">
-                                    <p class="info_title"><?php echo htmlspecialchars($match['match_title']); ?></p>
-                                    <p class="info"><?php echo htmlspecialchars($match['game_type']); ?></p>
-                                    <p class="info">Location: <?php echo htmlspecialchars($match['location']); ?></p>
-                                    <p class="info">Date: <?php echo htmlspecialchars($match['start_date']); ?></p>
-                                    <p class="info">Time: <?php echo htmlspecialchars($match['start_time']); ?></p>
-                                    <a href="match_details.php?id=<?php echo $match['id']; ?>" class="view-all-btn">View Details</a>
-                                </div>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <div class="grid-section">
-                                <p class="info_title">No match joined.</p>
-                            </div>
-
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+       
     <?php } else { ?>
         <nav class="navbar">
             <a href="#" class="logo">
