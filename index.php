@@ -9,6 +9,8 @@
         integrity="sha512-Fo3rlrZj/k7ujTnHg4fSU4bMcfB35jRg+iO1fF7zqJgpEfae7xIRyYObEXKstbELqAd9Q3VM4RCFfRJjdmhLg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="animation.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5781241814075767"
+     crossorigin="anonymous"></script>
 </head>
 
 <body class="transition-container">
