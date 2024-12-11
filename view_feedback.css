@@ -103,6 +103,15 @@ th {
     font-weight: bold;
 }
 
+th a {
+    text-decoration: none;
+    color: #5252D4;
+}
+
+th a span {
+    margin-left: 5px;
+}
+
 tr:nth-child(even) {
     background-color: #f9f9f9;
 }

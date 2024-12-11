@@ -2,17 +2,36 @@
 session_start(); // Start up your PHP Session
 require("config.php");
 
+// Handle sorting parameters
+$sort = isset($_GET['sort']) ? $_GET['sort'] : 'id';
+$order = isset($_GET['order']) && $_GET['order'] === 'desc' ? 'DESC' : 'ASC';
+$nextOrder = $order === 'ASC' ? 'desc' : 'asc';
+$validColumns = ['rating', 'created_at', 'status'];
+if (!in_array($sort, $validColumns)) {
+    $sort = 'id';
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_id'])) {
+    $feedback_id = $_POST['feedback_id'];
+
+    $feedback_id = intval($feedback_id);
+    $update_sql = "UPDATE feedback SET status = 'read' WHERE id = $feedback_id";
+    mysqli_query($conn, $update_sql);
+
+}
+
 $sql = "SELECT feedback.id AS id, 
            CONCAT(user.first_name, ' ', user.last_name) AS name, 
            feedback.title, 
            feedback.description,
            feedback.rating,
-           DATE_FORMAT(feedback.created_at, '%y-%m-%d') AS created_at, 
+           DATE_FORMAT(feedback.created_at, '%Y-%m-%d') AS created_at, 
            feedback.status,
            images.file
     FROM feedback
     JOIN user ON feedback.user_id = user.id
-    LEFT JOIN images ON user.id = images.user_id";
+    LEFT JOIN images ON user.id = images.user_id
+    ORDER BY $sort $order";
 $result = mysqli_query($conn, $sql);
 ?>
 
@@ -33,7 +52,7 @@ $result = mysqli_query($conn, $sql);
         </a>
 
         <ul class="menu leftmenu">
-        <li><a href="view_user.php">Manage User</a></li>
+            <li><a href="view_user.php">Manage User</a></li>
             <li><a href="view_ads.php">Manage Ads</a></li>
             <li><a href="view_match.php">Manage Match</a></li>
             <li><a href="view_feedback.php">Feedback & Report</a></li>
@@ -55,9 +74,21 @@ $result = mysqli_query($conn, $sql);
                     <th>Username</th>
                     <th>Title</th>
                     <th>Description</th>
-                    <th>Rating</th>
-                    <th>Created At</th>
-                    <th>Status</th>
+                    <th>
+                        <a href="?sort=rating&order=<?= $nextOrder ?>">Rating
+                            <?= $sort === 'rating' ? ($order === 'ASC' ? '▲' : '▼') : '' ?>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="?sort=created_at&order=<?= $nextOrder ?>">Created At
+                            <?= $sort === 'created_at' ? ($order === 'ASC' ? '▲' : '▼') : '' ?>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="?sort=status&order=<?= $nextOrder ?>">Status
+                            <?= $sort === 'status' ? ($order === 'ASC' ? '▲' : '▼') : '' ?>
+                        </a>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -66,7 +97,7 @@ $result = mysqli_query($conn, $sql);
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         $image = isset($row['file']) && !empty($row['file']) ? 'uploads/' . $row['file'] : 'image/default.png';
-                        echo "<tr onclick='openModal({$row['id']}, \"{$row['name']}\", \"{$row['created_at']}\", \"{$row['title']}\", \"{$row['description']}\", \"{$row['rating']}\", \"{$image}\")'>";
+                        echo "<tr onclick='openModal({$row['id']}, \"{$row['name']}\", \"{$row['created_at']}\", \"{$row['title']}\", \"{$row['description']}\", \"{$row['rating']}\", \"{$image}\", event)'>";
                         echo "<td>" . $counter++ . "</td>";
                         echo "<td>" . strtoupper(htmlspecialchars($row['name'])) . "</td>";
                         echo "<td>" . htmlspecialchars($row['title']) . "</td>";
@@ -83,6 +114,10 @@ $result = mysqli_query($conn, $sql);
             </tbody>
         </table>
     </div>
+
+    <form id="updateStatus" method="POST" style="display: none;">
+        <input type="hidden" id="feedbackIdInput" name="feedback_id" value="">
+    </form>
 
     <!-- Modal -->
     <div class="modal-overlay" id="modalOverlay"></div>
@@ -102,7 +137,7 @@ $result = mysqli_query($conn, $sql);
                 <p><strong>Rating:</strong> <span id="modalRating"></span></p>
             </div>
         </div>
-        <button class="close-btn" onclick="closeModal()">Close</button>
+        <button class="close-btn" onclick="closeModal(event)">Close</button>
     </div>
 
     <script src="view_feedback.js"></script>

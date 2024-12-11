@@ -47,7 +47,7 @@ $result = $conn->query($sql);
     }
     ?>
 
-    <h2>Manage Event</h2>
+    <h2>Manage Match</h2>
     <div class="table-container">
         <table>
             <thead>

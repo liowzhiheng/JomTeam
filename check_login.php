@@ -68,13 +68,13 @@ if (mysqli_num_rows($result) == 1) {
     } else {
         // Password is incorrect
         $_SESSION["Login"] = "NO";
-        header("Location: login.php?error=password");
+        header("Location: index.php?error=password");
         exit();
     }
 } else {
     // Email not found
     $_SESSION["Login"] = "NO";
-    header("Location: login.php?error=email");
+    header("Location: index.php?error=email");
     exit();
 }
 

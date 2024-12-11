@@ -43,24 +43,76 @@ require("config.php"); // Include the database configuration file
     ?>
 
     <h2>Manage Users</h2>
-    <form action="" method="GET" class="search-form">
-        <input type="text" name="search" placeholder="Search by username"
-            value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
-        <input type="submit" value="Search">
-    </form>
+    <div class="function-box">
+        <form action="" method="GET" class="search-form">
+            <input type="text" name="search" placeholder="Search by username"
+                value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+            <input type="submit" value="Search">
+        </form>
+
+        <button class="filter-btn" onclick="toggleFilterBox()">Filter</button>
+        <div id="filter-box" class="filter-box">
+            <form action="" method="GET">
+                <label for="level">Role:</label>
+                <select name="level">
+                    <option value="">All Roles</option>
+                    <option value="1" <?php echo (isset($_GET['level']) && $_GET['level'] == '1') ? 'selected' : ''; ?>>
+                        Admin</option>
+                    <option value="3" <?php echo (isset($_GET['level']) && $_GET['level'] == '3') ? 'selected' : ''; ?>>
+                        User</option>
+                </select>
+                <br>
+                <label for="verified">Email Verified:</label>
+                <select name="verified">
+                    <option value="">Any</option>
+                    <option value="1" <?php echo (isset($_GET['verified']) && $_GET['verified'] == '1') ? 'selected' : ''; ?>>Yes</option>
+                    <option value="0" <?php echo (isset($_GET['verified']) && $_GET['verified'] == '0') ? 'selected' : ''; ?>>No</option>
+                </select>
+                <br>
+                <label for="verified">Premium:</label>
+                <select name="premium">
+                    <option value="">Any</option>
+                    <option value="1" <?php echo (isset($_GET['premium']) && $_GET['premium'] == '1') ? 'selected' : ''; ?>>Yes</option>
+                    <option value="0" <?php echo (isset($_GET['premium']) && $_GET['premium'] == '0') ? 'selected' : ''; ?>>No</option>
+                </select>
+                <br>
+                <div class="button-container">
+                    <input type="submit" value="Apply">
+                </div>
+            </form>
+        </div>
+    </div>
 
     <?php
     $search = isset($_GET['search']) ? $_GET['search'] : '';
+    $level = isset($_GET['level']) ? $_GET['level'] : '';
+    $verified = isset($_GET['verified']) ? $_GET['verified'] : '';
+    $premium = isset($_GET['premium']) ? $_GET['premium'] : '';
 
     // Fetch all users from the user table
-    $sql = "SELECT * FROM user";
+    $sql = "SELECT * FROM user WHERE 1=1";
 
     // Check if a search term is provided
-    if (!empty($search)) {
+    if (!empty($_GET['search'])) {
         // Escape the search string to prevent SQL injection
-        $search = $conn->real_escape_string($search);
+        $search = $conn->real_escape_string($_GET['search']);
         // Append the search condition to the query
-        $sql .= " WHERE CONCAT(first_name, ' ', last_name) LIKE '%$search%'";
+        $sql .= " AND CONCAT(first_name, ' ', last_name) LIKE '%$search%'";
+    }
+
+    if (!empty($_GET['level'])) {
+        $level = $conn->real_escape_string($_GET['level']);
+        $sql .= " AND level = '$level'";
+    }
+
+    if (!empty($_GET['verified'])) {
+        $verified = $conn->real_escape_string($_GET['verified']);
+        $sql .= " AND verified = '$verified'";
+    }
+
+    if (!empty($_GET['premium'])) {
+        $premium = $conn->real_escape_string($_GET['premium']);
+        $sql .= " AND premium = '$premium'";
     }
 
     // Execute the query
@@ -75,6 +127,7 @@ require("config.php"); // Include the database configuration file
         <th>Role</th>
         <th>Phone</th>
         <th>Email</th>
+        <th>Verification</th>
         <th>Creation Time</th>
         <th>Premium</th>
         <th>Action</th>
@@ -92,8 +145,11 @@ require("config.php"); // Include the database configuration file
             echo "<td>" . htmlspecialchars($role) . "</td>";
             echo "<td>" . htmlspecialchars($row["phone"] ?? '') . "</td>";
             echo "<td>" . htmlspecialchars($row["email"]) . "</td>";
-            echo "<td>" . date('y/m/d', strtotime($row["created_at"])) . "</td>";
-            echo "<td></td>"; // Premium
+            $verify = ($row['verified'] == 1) ? 'Yes' : 'No';
+            echo "<td>" . htmlspecialchars($verify) . "</td>";
+            echo "<td>" . date('Y/m/d', strtotime($row["created_at"])) . "</td>";
+            $premium = ($row['premium'] == 1) ? 'Yes' : 'No';
+            echo "<td>" . htmlspecialchars($premium) . "</td>";
             echo "<td>";
 
             // Show "Remove" button only if the user's level is not 1
@@ -103,7 +159,6 @@ require("config.php"); // Include the database configuration file
                 echo "<input type='submit' value='Remove' class='remove-button' onclick='return confirm(\"Are you sure you want to delete this user?\")'>";
                 echo "</form>";
             }
-
             echo "</td>";
             echo "</tr>";
         }
@@ -116,6 +171,11 @@ require("config.php"); // Include the database configuration file
     ?>
 
     <script>
+        function toggleFilterBox() {
+            const filterBox = document.getElementById('filter-box');
+            filterBox.classList.toggle('show');
+        }
+
         // Check if the message element exists and hide it after 2 seconds
         const messageElement = document.getElementById('message');
         if (messageElement) {

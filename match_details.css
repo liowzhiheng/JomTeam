@@ -61,7 +61,7 @@
 }
 
 .profile-right textarea {
-    resize: vertical;
+    resize: none;
     height: 100px;
 }
 

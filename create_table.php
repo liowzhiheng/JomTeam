@@ -40,6 +40,7 @@ $sqlUser = "CREATE TABLE user (
     birth_date DATE,
     level INT DEFAULT 3,
     verified TINYINT(1) DEFAULT 0,
+    premium TINYINT(1) DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )";
@@ -137,7 +138,7 @@ $sqlFeedback = "CREATE TABLE feedback (
     description TEXT NOT NULL,
     rating TINYINT NOT NULL CHECK (rating BETWEEN 1 AND 5),
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    status ENUM('Pending', 'Resolved', 'Dismissed') DEFAULT 'Pending',
+    status ENUM('Unread', 'Read') DEFAULT 'Unread',
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 )";
 

@@ -23,7 +23,7 @@ $result = $conn->query($sql);
         </a>
 
         <ul class="menu leftmenu">
-        <li><a href="view_user.php">Manage User</a></li>
+            <li><a href="view_user.php">Manage User</a></li>
             <li><a href="view_ads.php">Manage Ads</a></li>
             <li><a href="view_match.php">Manage Match</a></li>
             <li><a href="view_feedback.php">Feedback & Report</a></li>
@@ -118,6 +118,7 @@ $result = $conn->query($sql);
                                         <?php else: ?>
                                             <p>No image</p>
                                         <?php endif; ?>
+                                        <br>
                                         <input type="file" name="image" />
                                     </td>
                                     <td><input type="checkbox" name="status" <?php echo $row['status'] == 1 ? 'checked' : ''; ?>>
