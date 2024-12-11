@@ -4,8 +4,10 @@ session_start();
 // Include your database connection
 require("config.php");
 
+$user_id = $_SESSION['ID'];
+
 // Initialize query for fetching matches
-$query = "SELECT * FROM gamematch WHERE 1=1";
+$query = "SELECT * FROM gamematch WHERE id NOT IN (SELECT match_id FROM match_participants WHERE user_id = ?)";
 
 // Collect search inputs from the form submission
 $searchGameType = isset($_GET['game_type']) ? mysqli_real_escape_string($conn, $_GET['game_type']) : '';
