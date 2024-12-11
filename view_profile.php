@@ -69,14 +69,30 @@ $rows = mysqli_fetch_assoc($result);
     <?php include('navbar.php'); ?>
 
     <?php
-    if (isset($_GET['status'])) {
-        $status = $_GET['status'];
 
-        if ($status === 'success') {
-            echo '<p id="message" class="message success">Profile update successfully!</p>';
-        } elseif ($status === 'fail') {
-            echo '<p id="message" class="message fail">Sorry, something went wrong. Please try again.</p>';
-        }
+
+if (isset($_GET['status'])) {
+    $status = $_GET['status'];
+    
+    if ($status === 'success') {
+        echo '<p id="message" class="message success">Profile update successfully!</p>';
+    } elseif ($status === 'fail') {
+        echo '<p id="message" class="message fail">Sorry, something went wrong. Please try again.</p>';
+    }
+}
+
+
+$location = isset($rows['location']) && !empty($rows['location']) ? htmlspecialchars($rows['location']) : '';
+// Check if location is empty and set default from database
+if (empty($location)) {
+    
+    $location = "Default Location from DB";
+}
+
+$status = isset($rows['status']) && !empty($rows['status']) ? htmlspecialchars($rows['status']) : '';
+// If the status is empty, set a default value or fetch from the database
+    if (empty($status)) {
+        $status = "single";
     }
     ?>
 
@@ -151,22 +167,54 @@ $rows = mysqli_fetch_assoc($result);
 
                     <div class="group">
                         <label for="location">Location:</label>
-                        <input type="text" id="location" name="location"
-                            value="<?php echo htmlspecialchars($rows['location']); ?>"
-                            placeholder="Enter your location">
+                        <div class="location_selection">
+                            <select name="location">
+                                <!-- Show current location as the default selected option -->
+                                <option value="" <?php echo empty($location) ? 'selected' : ''; ?>>Please select your
+                                    location
+
+                                </option>
+                                <option value="Perlis" <?php echo $location === 'Perlis' ? 'selected' : ''; ?>>Perlis
+                                </option>
+                                <option value="Kedah" <?php echo $location === 'Kedah' ? 'selected' : ''; ?>>Kedah
+                                </option>
+                                <option value="Johor" <?php echo $location === 'Johor' ? 'selected' : ''; ?>>Johor
+                                </option>
+                                <option value="Sabah" <?php echo $location === 'Sabah' ? 'selected' : ''; ?>>Sabah
+                                </option>
+                                <option value="Kelantan" <?php echo $location === 'Kelantan' ? 'selected' : ''; ?>>
+                                    Kelantan</option>
+                                <option value="Penang" <?php echo $location === 'Penang' ? 'selected' : ''; ?>>Penang
+                                </option>
+                                <option value="Sarawak" <?php echo $location === 'Sarawak' ? 'selected' : ''; ?>>Sarawak
+                                </option>
+                                <option value="Malacca" <?php echo $location === 'Malacca' ? 'selected' : ''; ?>>Malacca
+                                </option>
+                                <option value="Perak" <?php echo $location === 'Perak' ? 'selected' : ''; ?>>Perak
+                                </option>
+                                <option value="Selangor" <?php echo $location === 'Selangor' ? 'selected' : ''; ?>>
+                                    Selangor</option>
+                                <option value="Negeri Sembilan" <?php echo $location === 'Negeri Sembilan' ? 'selected' : ''; ?>>Negeri Sembilan</option>
+                                <option value="Pahang" <?php echo $location === 'Pahang' ? 'selected' : ''; ?>>Pahang
+                                </option>
+                                <option value="Terengganu" <?php echo $location === 'Terengganu' ? 'selected' : ''; ?>>
+                                    Terengganu</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="group">
                         <label for="status">Status:</label>
-                        <div class="status_display">
-                            <input type="text" name="status" value="<?php echo htmlspecialchars($rows['status']); ?>"
-                                readonly>
-                        </div>
                         <div class="status_selection">
                             <select name="status">
-                                <option value="">Your status</option>
-                                <option value="single">Single</option>
-                                <option value="not single">Not Single</option>
+                                <!-- Display current status if it's set, otherwise display a placeholder -->
+                                <option value="" <?php echo empty($status) ? 'selected' : ''; ?>>Please select your
+                                    Status
+                                </option>
+                                <option value="single" <?php echo $status === 'single' ? 'selected' : ''; ?>>Single
+                                </option>
+                                <option value="not single" <?php echo $status === 'not single' ? 'selected' : ''; ?>>Not
+                                    Single</option>
                             </select>
                         </div>
                     </div>

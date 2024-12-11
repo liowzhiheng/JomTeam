@@ -123,6 +123,16 @@ form {
     margin-right: 10px;
 }
 
+.location_display, .location_selection {
+    width: 150px;
+    font-size: 20px;
+    color: #ffffff;
+    margin-right: 41px;
+    margin-left: -31px; /* Moves to the left */
+    text-align: left; /* Ensures text aligns to the left */
+    display: inline-block; /* Makes them align properly with labels */
+}
+
 .status_display, .status_selection {
     width: 150px;
     font-size: 20px;
