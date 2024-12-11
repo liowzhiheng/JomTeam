@@ -142,7 +142,7 @@ $rows = mysqli_fetch_assoc($result);
                     </div>
 
                     <div class="group">
-                        <label class="details">Skill Level Required</label>
+                        <label class="details">Skill Level</label>
                         <select name="skill_level" required>
                             <option value="">Select Level</option>
                             <option value="Beginner">Beginner</option>
