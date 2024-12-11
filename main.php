@@ -92,6 +92,8 @@ if (mysqli_num_rows($result3) > 0) {
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="footer.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5781241814075767"
+     crossorigin="anonymous"></script>
 </head>
 
 <body>
