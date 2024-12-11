@@ -143,7 +143,13 @@ $rows = mysqli_fetch_assoc($result);
 
                     <div class="group">
                         <label class="details">Skill Level Required</label>
-                        <input type="text" name="skill_level" required>
+                        <select name="skill_level" required>
+                            <option value="">Select Level</option>
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Advanced">Advanced</option>
+                            <option value="Professional">Professional</option>
+                        </select>
                     </div>
                     <div class="group">
                         <label class="details">Maximum Players</label>
