@@ -67,23 +67,16 @@ $rows = mysqli_fetch_assoc($result);
         </div>
     </div>
 
-    
+
     <div class="profile-content">
-    <img class="get_premium" src="IMAGE/get_premium.png" />
-    <h1 class="ads-profile-title">Just RM 2.00 / month!<br>No commitments, no worries<br>cancel anytime!</h1>
-    
+        <a href="payment.php">
+            <img class="get_premium" src="IMAGE/get_premium.png" alt="Get Premium" />
+        </a>
+
+        <h1 class="ads-profile-title">Just RM 2.00 / month!<br>No commitments, no worries<br>cancel anytime!</h1>
+
 
     </div>
-
-
-
-
-
-
-
-
-
-
 
     <?php mysqli_close($conn); ?>
 </body>
