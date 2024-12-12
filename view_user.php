@@ -62,11 +62,11 @@ require("config.php"); // Include the database configuration file
                         User</option>
                 </select>
                 <br>
-                <label for="verified">Email Verified:</label>
-                <select name="verified">
+                <label for="email_verified">Email Verified:</label>
+                <select name="email_verified">
                     <option value="">Any</option>
-                    <option value="1" <?php echo (isset($_GET['verified']) && $_GET['verified'] == '1') ? 'selected' : ''; ?>>Yes</option>
-                    <option value="0" <?php echo (isset($_GET['verified']) && $_GET['verified'] == '0') ? 'selected' : ''; ?>>No</option>
+                    <option value="1" <?php echo (isset($_GET['email_verified']) && $_GET['email_verified'] == '1') ? 'selected' : ''; ?>>Yes</option>
+                    <option value="0" <?php echo (isset($_GET['email_verified']) && $_GET['email_verified'] == '0') ? 'selected' : ''; ?>>No</option>
                 </select>
                 <br>
                 <label for="verified">Premium:</label>
@@ -86,7 +86,7 @@ require("config.php"); // Include the database configuration file
     <?php
     $search = isset($_GET['search']) ? $_GET['search'] : '';
     $level = isset($_GET['level']) ? $_GET['level'] : '';
-    $verified = isset($_GET['verified']) ? $_GET['verified'] : '';
+    $verified = isset($_GET['email_verified']) ? $_GET['email_verified'] : '';
     $premium = isset($_GET['premium']) ? $_GET['premium'] : '';
 
     // Fetch all users from the user table
@@ -105,9 +105,9 @@ require("config.php"); // Include the database configuration file
         $sql .= " AND level = '$level'";
     }
 
-    if (!empty($_GET['verified'])) {
-        $verified = $conn->real_escape_string($_GET['verified']);
-        $sql .= " AND verified = '$verified'";
+    if (!empty($_GET['email_verified'])) {
+        $verified = $conn->real_escape_string($_GET['email_verified']);
+        $sql .= " AND email_verified = '$verified'";
     }
 
     if (!empty($_GET['premium'])) {
@@ -145,7 +145,7 @@ require("config.php"); // Include the database configuration file
             echo "<td>" . htmlspecialchars($role) . "</td>";
             echo "<td>" . htmlspecialchars($row["phone"] ?? '') . "</td>";
             echo "<td>" . htmlspecialchars($row["email"]) . "</td>";
-            $verify = ($row['verified'] == 1) ? 'Yes' : 'No';
+            $verify = ($row['email_verified'] == 1) ? 'Yes' : 'No';
             echo "<td>" . htmlspecialchars($verify) . "</td>";
             echo "<td>" . date('Y/m/d', strtotime($row["created_at"])) . "</td>";
             $premium = ($row['premium'] == 1) ? 'Yes' : 'No';
