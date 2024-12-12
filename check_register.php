@@ -61,43 +61,61 @@ if (count($errors) > 0) {
     exit();
 }
 
+// Generate a unique verification token
+$verification_token = bin2hex(random_bytes(16));
+
 // Concatenate country code and phone number
 $fullPhone = $countryCode . $phone; // Combine country code and phone number
 
 // Insert user into the database
-$sql2 = "INSERT INTO user (first_name, last_name, gender, birth_date, email, password, phone, level) 
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-         
+$sql2 = "INSERT INTO user (first_name, last_name, gender, birth_date, email, password, phone, level, verification_token, email_verified) 
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
 $stmt = mysqli_prepare($conn, $sql2);
 
-mysqli_stmt_bind_param($stmt, "ssssssss", 
+// Set email_verified to 0 (not verified yet)
+$email_verified = 0;
+
+mysqli_stmt_bind_param($stmt, "sssssssssi", 
     $firstName, 
     $lastName, 
     $gender, 
     $dob, 
     $myemail, 
     $mypassword, 
-    $fullPhone,  // Save the full phone number with the country code
-    $level
+    $fullPhone, 
+    $level, 
+    $verification_token,  // Store the verification token
+    $email_verified       // Email not verified initially
 );
 
 if (mysqli_stmt_execute($stmt)) {
-    // Registration success
-    echo '
-    <html>
-    <head>
-        <link rel="stylesheet" href="check_register.css">
-        <link rel="stylesheet" href="animation.css">
-        <meta http-equiv="refresh" content="3;url=index.php">
-    </head>
-    <body>
-    <div class="background"></div>
-    <div class="container">
-        <h1>Registration Successful!</h1>
-        <img id="randomImage" src="IMAGE/login_done_1.jpg" alt="Login Successful" class="login-image" />
-    <div></body>
-    <script src="background_effect.js" defer></script>
-    </html>';
+    // Send verification email
+    $verification_link = "http://jomteam.com/verify_email.php?token=$verification_token";
+    
+    $subject = "Email Verification";
+    $message = "Please click the link below to verify your email address:\n\n$verification_link";
+    $headers = "From: no-reply@jomteam.com";
+    
+    // Send the email
+    if (mail($myemail, $subject, $message, $headers)) {
+        // Registration successful, redirect to a page notifying the user
+        echo '
+        <html>
+        <head>
+            <link rel="stylesheet" href="check_register.css">
+            <meta http-equiv="refresh" content="3;url=index.php">
+        </head>
+        <body>
+        <div class="background"></div>
+        <div class="container">
+            <h1>Registration Successful! Please check your email to verify your account.</h1>
+        <div></body>
+        </html>';
+    } else {
+        $_SESSION['errors'] = ["An error occurred while sending the verification email."];
+        header("Location: register.php");
+    }
 } else {
     $_SESSION['errors'] = ["An error occurred during registration. Please try again."];
     header("Location: register.php");
