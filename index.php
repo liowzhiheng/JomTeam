@@ -39,7 +39,7 @@
                             echo 'Incorrect password. Please try again.';
                             break;
                         default:
-                            echo 'An error occurred. Please try again.';
+                            echo 'Your email address is not verified. Please check your email.';
                     }
                 }
                 ?>
