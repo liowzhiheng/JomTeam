@@ -15,6 +15,15 @@ $result = mysqli_stmt_get_result($stmt);
 if (mysqli_num_rows($result) == 1) {
     $rows = mysqli_fetch_assoc($result);
 
+    // Check if email is verified
+    if ($rows["email_verified"] == 0) {
+        // Email is not verified
+        $_SESSION["Login"] = "NO";
+        $_SESSION["LoginError"] = "Your email address is not verified. Please check your email.";
+        header("Location: index.php?error=email_not_verified");
+        exit();
+    }
+
     // Verify the password
     if (!strcmp($_POST["password"], $rows["password"])) {
         // Password is correct
@@ -58,11 +67,11 @@ if (mysqli_num_rows($result) == 1) {
         <div class="background"></div>
             <div class="container">
                 <h2>Hi! <strong><?php echo htmlspecialchars($_SESSION["USER"]); ?></strong></h2>
-                <img id="randomImage"alt="Login Successful" class="login-image" />
+                <img id="randomImage" alt="Login Successful" class="login-image" />
             </div>
         </body>
-<script src="random_pic.js"></script>
-<script src="background_effect.js" defer></script>
+        <script src="random_pic.js"></script>
+        <script src="background_effect.js" defer></script>
         </html>
         <?php
     } else {
@@ -80,5 +89,3 @@ if (mysqli_num_rows($result) == 1) {
 
 mysqli_close($conn);
 ?>
-
-
