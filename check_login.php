@@ -15,9 +15,9 @@ $result = mysqli_stmt_get_result($stmt);
 if (mysqli_num_rows($result) == 1) {
     $rows = mysqli_fetch_assoc($result);
 
-    // Check if email is verified
-    if ($rows["email_verified"] == 0) {
-        // Email is not verified
+    // Check if email is verified (skip for admin users)
+    if ($rows["email_verified"] == 0 && $rows["level"] != 1) {
+        // Email is not verified and user is not admin
         $_SESSION["Login"] = "NO";
         $_SESSION["LoginError"] = "Your email address is not verified. Please check your email.";
         header("Location: index.php?error=email_not_verified");
