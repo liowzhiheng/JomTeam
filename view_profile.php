@@ -66,31 +66,30 @@ $rows = mysqli_fetch_assoc($result);
 </head>
 
 <body>
-    <?php include('navbar.php'); ?>
-
     <?php
+    include('navbar.php');
+    include('ads.php');
 
+    if (isset($_GET['status'])) {
+        $status = $_GET['status'];
 
-if (isset($_GET['status'])) {
-    $status = $_GET['status'];
-    
-    if ($status === 'success') {
-        echo '<p id="message" class="message success">Profile update successfully!</p>';
-    } elseif ($status === 'fail') {
-        echo '<p id="message" class="message fail">Sorry, something went wrong. Please try again.</p>';
+        if ($status === 'success') {
+            echo '<p id="message" class="message success">Profile update successfully!</p>';
+        } elseif ($status === 'fail') {
+            echo '<p id="message" class="message fail">Sorry, something went wrong. Please try again.</p>';
+        }
     }
-}
 
 
-$location = isset($rows['location']) && !empty($rows['location']) ? htmlspecialchars($rows['location']) : '';
-// Check if location is empty and set default from database
-if (empty($location)) {
-    
-    $location = "Default Location from DB";
-}
+    $location = isset($rows['location']) && !empty($rows['location']) ? htmlspecialchars($rows['location']) : '';
+    // Check if location is empty and set default from database
+    if (empty($location)) {
 
-$status = isset($rows['status']) && !empty($rows['status']) ? htmlspecialchars($rows['status']) : '';
-// If the status is empty, set a default value or fetch from the database
+        $location = "Default Location from DB";
+    }
+
+    $status = isset($rows['status']) && !empty($rows['status']) ? htmlspecialchars($rows['status']) : '';
+    // If the status is empty, set a default value or fetch from the database
     if (empty($status)) {
         $status = "Default Status from DB";
     }

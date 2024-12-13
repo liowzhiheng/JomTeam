@@ -48,7 +48,10 @@ $rows = mysqli_fetch_assoc($result);
 <body>
     <audio id="popSound" src="sound/pop-sound.mp3" preload="auto"></audio>
 
-    <?php include('navbar.php'); ?>
+    <?php
+    include('navbar.php');
+    include('ads.php');
+    ?>
 
     <div class="profile-content">
         <h1 class="profile-title">Create your own match</h1>
