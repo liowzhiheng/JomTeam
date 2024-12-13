@@ -336,6 +336,30 @@ if ($host['id'] == $user_id) {
                     </button>
                     </form>
             </div>
+        <div>
+                    <br>
+                    <p style="color: black;">Do you want to Edit this match?</p>
+                    <form action="edit_match.php" method="POST" style="text-align: center;"
+                        onSubmit="return confirm('Do you want to edit?') ">
+                        <input type="hidden" name="id" value="<?php echo $match_id; ?>">
+                        <button style="width: 15%; 
+                    height: 100px; 
+                    font-size: 30px; 
+                    font-weight: 700; 
+                    color: white; 
+                    background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%); 
+                    border: none; 
+                    border-radius: 50px; 
+                    cursor: pointer; 
+                    transition: background-color 0.3s ease; 
+                    margin-top:1%;margin-left:2%" box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
+                            onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.3)'; this.style.background='linear-gradient(202deg, #FF4B5C 0%, rgba(255, 75, 92, 0.66) 71%)'"
+                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)'; this.style.background='linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%)'"
+                            onclick="this.style.transform='translateY(2px)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)';">
+                            Edit
+                        </button>
+                    </form>
+                </div>
             <?php
         }
         ?>  
