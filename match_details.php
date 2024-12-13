@@ -216,7 +216,7 @@ if ($host['id'] == $user_id) {
             }
             ?>
         </ul>
-
+    </div>
 
 
 
