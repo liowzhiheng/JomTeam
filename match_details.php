@@ -205,7 +205,9 @@ if ($host['id'] == $user_id) {
                     $X--; // Decrease the count of "X" shown
                 } elseif ($currentPlayerIndex < $currentPlayersCount) {
                     // After "X", show the names of joined players
-                    $playerName = htmlspecialchars($players[$currentPlayerIndex]['first_name'] . " " . $players[$currentPlayerIndex]['last_name']);
+                    $player = $players[$currentPlayerIndex];
+                    $playerName = htmlspecialchars($player['first_name'] . " " . $player['last_name']);
+                    //$playerName = htmlspecialchars($players[$currentPlayerIndex]['first_name'] . " " . $players[$currentPlayerIndex]['last_name']);
                     //echo "<li id='player{$i}'>Player {$i}: $playerName</li>";
                     echo "<li id='player{$i}'>Player {$i}: <a href='player_profile.php?id={$player['id']}' style='color: blue; text-decoration: underline;'>$playerName</a></li>";
                     $currentPlayerIndex++; // Move to the next participant
