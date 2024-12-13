@@ -97,7 +97,7 @@ $result = mysqli_query($conn, $sql);
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         $image = isset($row['file']) && !empty($row['file']) ? 'uploads/' . $row['file'] : 'image/default.png';
-                        echo "<tr onclick='openModal({$row['id']}, \"{$row['name']}\", \"{$row['created_at']}\", \"{$row['title']}\", \"{$row['description']}\", \"{$row['rating']}\", \"{$image}\", event)'>";
+                        echo "<tr class='select' onclick='openModal({$row['id']}, \"{$row['name']}\", \"{$row['created_at']}\", \"{$row['title']}\", \"{$row['description']}\", \"{$row['rating']}\", \"{$image}\", event)'>";
                         echo "<td>" . $counter++ . "</td>";
                         echo "<td>" . strtoupper(htmlspecialchars($row['name'])) . "</td>";
                         echo "<td>" . htmlspecialchars($row['title']) . "</td>";

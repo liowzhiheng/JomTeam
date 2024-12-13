@@ -93,12 +93,15 @@ if (mysqli_num_rows($result3) > 0) {
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="footer.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5781241814075767"
-     crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
     <?php if ($_SESSION["LEVEL"] != 1) { ?>
-        <?php include('navbar.php'); ?>
+        <?php
+        include('navbar.php');
+        include('ads.php');
+        ?>
 
         <div class="banner">
             <h1>Find Your Best Sport Buddies</h1>
@@ -211,7 +214,7 @@ if (mysqli_num_rows($result3) > 0) {
                 </a>
             </div>
         </div>-->
-       
+
     <?php } else { ?>
         <nav class="navbar">
             <a href="#" class="logo">

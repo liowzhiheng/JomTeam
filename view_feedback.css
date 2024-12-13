@@ -116,7 +116,7 @@ tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-tr:hover {
+.select:hover {
     background-color: #5252D4;
 }
 
