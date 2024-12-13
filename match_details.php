@@ -67,7 +67,6 @@ if ($host['id'] == $user_id) {
     $ishost = 1;
 }
 ?>
-?>
 
 <!DOCTYPE html>
 <html lang="en">
