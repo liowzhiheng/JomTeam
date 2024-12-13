@@ -164,8 +164,9 @@ if ($host['id'] == $user_id) {
         <!-- Host Info -->
         <div>
             <label>Host:</label>
-            <?php echo htmlspecialchars($host['first_name'] . ' ' . $host['last_name']); ?>
-
+            <a href="player_profile.php?id=<?php echo $host['id']; ?>&match_id=<?php echo $match_id; ?>" class="host-name">
+                <?php echo htmlspecialchars($host['first_name'] . ' ' . $host['last_name']); ?>
+            </a>
         </div>
  
         <ul id="playersList">
@@ -207,7 +208,17 @@ if ($host['id'] == $user_id) {
                     // After "X", show the names of joined players
                     $player = $players[$currentPlayerIndex];
                     $playerName = htmlspecialchars($player['first_name'] . " " . $player['last_name']);
-                    echo "<li id='player{$i}'>Player {$i}: <a href='player_profile.php?id={$player['id']}' style='color: blue; text-decoration: underline;'>$playerName</a></li>";
+                    echo "<li id='player{$i}'>Player {$i}: <a href='player_profile.php?id={$player['id']}&match_id={$match_id}' 
+                    style='color: black; 
+                    text-decoration: none; 
+                    font-weight: 500; 
+                    display: inline-block;
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;'
+                    onmouseover=\"this.style.color='#EB1436'; 
+                                this.style.transform='translateY(-3px)'\"
+                    onmouseout=\"this.style.color='black'; 
+                                this.style.transform='none' 
+                                \">$playerName</a></li>";
                     $currentPlayerIndex++; // Move to the next participant
                 } else {
                     // Show "?" for any remaining empty slots
@@ -327,7 +338,7 @@ if ($host['id'] == $user_id) {
             </div>
             <?php
         }
-        ?>
+        ?>  
     </div>
 
     <script src="footer.js"></script>

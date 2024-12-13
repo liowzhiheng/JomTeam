@@ -2,89 +2,139 @@ body {
     overflow-y: auto;  /* Enable vertical scrolling */
     height: 100%;      /* Ensure full page height */
     font-family: 'Outfit', sans-serif;
-    background-color: #f4f4f4;
+    background: linear-gradient(to bottom right, #4facfe, #00f2fe); /* Blue gradient background */
     margin: 0;
     padding: 0;
 }
 
 .profile-container {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 20px auto;
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .back-button {
-    padding: 8px 16px;
+    padding: 10px 20px;
     background-color: #4CAF50;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: 500;
     cursor: pointer;
-    margin-bottom: 20px;
+    transition: transform 0.2s, background-color 0.2s;
 }
 
 .back-button:hover {
     background-color: #45a049;
+    transform: translateY(-2px);
 }
 
 .profile-header {
     text-align: center;
     margin-bottom: 20px;
-}
-
-.profile-picture {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.profile-details, .ratings-section {
-    margin-top: 20px;
-}
-
-.detail {
-    margin-bottom: 10px;
-}
-
-.rating-item {
-    background-color: #f9f9f9;
-    border-left: 4px solid #EB1436;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-.rate-player-section form {
     display: flex;
     flex-direction: column;
-}
-
-.rate-player-section input, 
-.rate-player-section select, 
-.rate-player-section textarea {
-    margin-bottom: 10px;
-    padding: 8px;
-}
-
-.rate-player-section button {
-    background-color: #EB1436;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 2px solid #f0f0f0;
 }
 
 /* Profile Picture Styling */
 .uploaded-images .profile-image {
-    width: 150px;       /* Set a fixed width */
-    height: 150px;      /* Match height to width */
+    width: 200px;       /* Set a fixed width */
+    height: 200px;      /* Match height to width */
     object-fit: cover;  /* Ensure image scales properly */
     border-radius: 50%; /* Make image circular */
-    border: 3px solid #4caf50; /* Optional: Add border */
+    border: 4px solid #86B6F6;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add slight shadow */
+}
+
+.uploaded-images .profile-image:hover {
+    transform: scale(1.25);
+}
+
+.profile-header h1 {
+    font-size: 2.5em;
+    color: #333;
+    margin: 1px 0;
+}
+
+.profile-rating span {
+    font-size: 1.2em;
+    color: #555;
+}
+
+.profile-details, .ratings-section {
+    font-size: 1.0em;
+    margin-top: 0;          /* Reduced from 10px */
+    padding: 15px 30px;     /* Reduced top/bottom padding from 30px */
+}
+
+.profile-details h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.profile-details {
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.detail {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    transition: transform 0.2s;
+}
+
+.detail strong {
+    color: #2c3e50;
+    font-size: 1.1em;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.rate-player-section {
+    background-color: #fff;
+    padding: 20px;          /* Reduced from 25px */
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    margin-top: 10px;       /* Reduced from 30px */
+}
+
+.rate-player-section h2 {
+    color: #2c3e50;
+    margin-bottom: 15px;    /* Reduced from 20px */
+}
+
+.rating-input {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;    /* Reduced from 20px */
+}
+
+button[type="submit"] {
+    width: 35%;
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
 }
 
 /* Rating Section */
@@ -118,11 +168,28 @@ body {
     display: none;
 }
 
-.stars .star {
-    font-size: 2rem;
+.stars {
+    font-size: 2em;
     color: #ccc;
     cursor: pointer;
     transition: color 0.3s;
+}
+
+.ratings-section .star {
+    font-size: 60px;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.ratings-section h2 {
+    font-size: 30px;
+    color: #333;
+}
+
+.rating-input label {
+    font-size: 20px;
+    color: #333;
 }
 
 .stars input[type="radio"]:checked ~ .star {

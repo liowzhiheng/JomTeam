@@ -135,14 +135,16 @@ $avgRating = $avgRatingResult->fetch_assoc()['avg_rating'];
     <link rel="stylesheet" href="player_profile.css">
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="footer.css">
-    <link rel="stylesheet" href="animation.css">
+
 </head>
 <body>
     <?php include('navbar.php'); ?>
 
     <div class="profile-container">
-    <button onclick="window.history.back()" class="back-button">← Back</button>
-        <div class="profile-header">
+    <!-- <button onclick="window.history.back()" class="back-button">← Back</button> -->
+    <button onclick="window.location.href='match_details.php?id=<?php echo $_GET['match_id']; ?>'" class="back-button">← Back</button>
+    
+    <div class="profile-header">
 
             <div class="uploaded-images">
                 <img id="imagePreview" src="<?php echo !empty($profilePicture) ? 'uploads/' . htmlspecialchars($profilePicture) : 'IMAGE/default.png'; ?>" alt="Profile Picture" class="profile-image">
@@ -153,11 +155,10 @@ $avgRating = $avgRatingResult->fetch_assoc()['avg_rating'];
             <div class="profile-rating">
                 <span>Average Rating: <?php printf("%.1f", $avgRating ?: 0); ?> / 5.0</span>
                 <div class="stars">
-                    <?php for ($i = 5; $i >= 1; $i--): ?>
+                    <?php for ($i = 1; $i <= 5; $i++): ?>
                         <span class="star <?php echo $i <= round($avgRating) ? 'selected' : ''; ?>">&#9733;</span>
                     <?php endfor; ?>
                 </div>
-                
 
                 <div class="detail">
                     <strong>Gender:</strong> 
@@ -198,7 +199,7 @@ $avgRating = $avgRatingResult->fetch_assoc()['avg_rating'];
                 <?php echo htmlspecialchars($profile['location'] ?? 'Not specified'); ?>
             </div>
 
-<!--             <div class="detail">
+            <div class="detail">
                 <strong>Interests:</strong> 
                 <?php echo htmlspecialchars($profile['interests'] ?? 'Not specified'); ?>
             </div>
@@ -206,9 +207,9 @@ $avgRating = $avgRatingResult->fetch_assoc()['avg_rating'];
             <div class="detail">
                 <strong>Preferred Game Types:</strong> 
                 <?php echo htmlspecialchars($profile['preferred_game_types'] ?? 'Not specified'); ?>
-            </div> -->
+            </div>
 
-<!--             <div class="detail">
+            <div class="detail">
                 <strong>Skill Level:</strong> 
                 <?php echo htmlspecialchars($profile['skill_level'] ?? 'Not specified'); ?>
             </div>
@@ -226,9 +227,9 @@ $avgRating = $avgRatingResult->fetch_assoc()['avg_rating'];
             <div class="detail">
                 <strong>Availability:</strong> 
                 <?php echo htmlspecialchars($profile['availability'] ?? 'Not specified'); ?>
-            </div> -->
+            </div>
 
-<!--             <div class="detail">
+            <div class="detail">
                 <strong>Last Active:</strong> 
                 <?php 
                 if (!empty($profile['last_active'])) {
@@ -238,7 +239,7 @@ $avgRating = $avgRatingResult->fetch_assoc()['avg_rating'];
                     echo 'Never';
                 }
                 ?>
-            </div> -->
+            </div>
 
         </div>
 
@@ -264,31 +265,14 @@ $avgRating = $avgRatingResult->fetch_assoc()['avg_rating'];
             <?php endif; ?> -->
 
             <?php if ($current_user_id != $profile_user_id): ?>
-            <!-- <div class="rate-player-section">
-                <h2>Rate This Player</h2>
-                <form action="submit_rating.php" method="POST">
-                    <input type="hidden" name="rated_user_id" value="<?php echo $profile_user_id; ?>">
-                    <div class="rating-input">
-                        <label for="rating">Rating:</label>
-                        <select name="rating" id="rating" required>
-                            <option value="">Select Rating</option>
-                            <option value="1">1 - Poor</option>
-                            <option value="2">2 - Fair</option>
-                            <option value="3">3 - Good</option>
-                            <option value="4">4 - Very Good</option>
-                            <option value="5">5 - Excellent</option>
-                        </select>
-                    </div>
-                    <button type="submit">Submit Rating</button>
-                </form>
-            </div> -->
 
             <div class="ratings-section">
             <?php if ($current_user_id != $profile_user_id): ?>
             <div class="rate-player-section">
                 <h2>Rate This Player</h2>
                 <form action="submit_rating.php" method="POST">
-                    <input type="hidden" name="rated_user_id" value="<?php echo $profile_user_id; ?>">
+                <input type="hidden" name="rated_user_id" value="<?php echo $profile_user_id; ?>">
+                <input type="hidden" name="match_id" value="<?php echo $_GET['match_id']; ?>">
 
                     <div class="rating-input">
                         <label for="rating">Rating:</label>
@@ -338,38 +322,9 @@ $avgRating = $avgRatingResult->fetch_assoc()['avg_rating'];
         });
     </script>
 
-    <script>
-            document.addEventListener("DOMContentLoaded", () => {
-                const body = document.body;
 
-                function createShape() {
-                    const shape = document.createElement("div");
-                    const shapeType = Math.random() > 0.9 ? "circle" : "square";
 
-                    shape.classList.add("shape", shapeType);
 
-                    // Random size
-                    const size = Math.random() * 150 + 80; // Size between 20px and 80px
-                    shape.style.width = size + "px";
-                    shape.style.height = size + "px";
-
-                    // Random position
-                    shape.style.top = Math.random() * window.innerHeight + "px";
-                    shape.style.left = Math.random() * window.innerWidth + "px";
-
-                    // Append shape to the body
-                    body.appendChild(shape);
-
-                    // Remove the shape after its animation ends
-                    setTimeout(() => shape.remove(), 5000);
-                }
-
-                // Add a new shape every 500ms
-                setInterval(createShape, 500);
-            });
-        </script>
-
-    <script src="transition.js" defer></script>
     
 </body>
 

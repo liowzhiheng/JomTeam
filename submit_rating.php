@@ -65,9 +65,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($insertStmt->execute()) {
         header("Location: player_profile.php?id=$rated_user_id");
+        header("Location: player_profile.php?id=$rated_user_id&match_id=" . $_POST['match_id']);
         exit();
     } else {
         header("Location: player_profile.php?id=$rated_user_id");
+        header("Location: player_profile.php?id=$rated_user_id&match_id=" . $_POST['match_id']);
         exit();
     }
 }

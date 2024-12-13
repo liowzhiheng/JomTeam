@@ -153,3 +153,15 @@ div p {
 .joined_button:hover {
     background-color: #e50c28;
 }
+
+.players_list a {
+    text-decoration: none;
+    color: black;
+}
+
+.players_list a:hover {
+    color: #EB1436;
+    transform: translateY(-3px);
+    display: inline-block;
+}
+
