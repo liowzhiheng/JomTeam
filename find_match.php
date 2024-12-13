@@ -57,7 +57,10 @@ if (mysqli_num_rows($result) > 0) {
 </head>
 
 <body>
-    <?php include('navbar.php'); ?>
+    <?php
+    include('navbar.php');
+    include('ads.php');
+    ?>
 
     <div class="profile-content">
         <h1 class="profile-title">Find Match</h1>
