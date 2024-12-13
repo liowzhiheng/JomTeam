@@ -47,7 +47,7 @@ $checkResult = $checkStmt->get_result();
 $has_joined = $checkResult->num_rows > 0;
 
 // host
-$hostQuery = "SELECT first_name, last_name, email FROM user WHERE id = ?";
+$hostQuery = "SELECT * FROM user WHERE id = ?";
 $hostStmt = $conn->prepare($hostQuery);
 $hostStmt->bind_param('i', $match['user_id']);
 $hostStmt->execute();
