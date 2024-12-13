@@ -198,7 +198,7 @@ $avgRating = $avgRatingResult->fetch_assoc()['avg_rating'];
                 <?php echo htmlspecialchars($profile['location'] ?? 'Not specified'); ?>
             </div>
 
-            <div class="detail">
+<!--             <div class="detail">
                 <strong>Interests:</strong> 
                 <?php echo htmlspecialchars($profile['interests'] ?? 'Not specified'); ?>
             </div>
@@ -206,7 +206,7 @@ $avgRating = $avgRatingResult->fetch_assoc()['avg_rating'];
             <div class="detail">
                 <strong>Preferred Game Types:</strong> 
                 <?php echo htmlspecialchars($profile['preferred_game_types'] ?? 'Not specified'); ?>
-            </div>
+            </div> -->
 
 <!--             <div class="detail">
                 <strong>Skill Level:</strong> 
@@ -228,7 +228,7 @@ $avgRating = $avgRatingResult->fetch_assoc()['avg_rating'];
                 <?php echo htmlspecialchars($profile['availability'] ?? 'Not specified'); ?>
             </div> -->
 
-            <div class="detail">
+<!--             <div class="detail">
                 <strong>Last Active:</strong> 
                 <?php 
                 if (!empty($profile['last_active'])) {
@@ -238,7 +238,7 @@ $avgRating = $avgRatingResult->fetch_assoc()['avg_rating'];
                     echo 'Never';
                 }
                 ?>
-            </div>
+            </div> -->
 
         </div>
 
