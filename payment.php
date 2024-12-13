@@ -31,6 +31,7 @@ $query = "
 $result = mysqli_query($conn, $query);
 $rows = mysqli_fetch_assoc($result);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,25 +39,19 @@ $rows = mysqli_fetch_assoc($result);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payments</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
-    <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-    <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet'>
-
+    <link rel="stylesheet" href="fonts.css">
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="footer.css">
     <link rel="stylesheet" href="payment.css">
-
+    
 </head>
 
-
-
-<?php include('navbar.php'); ?>
-
-<body className='snippet-body'>
+<body>
+    <?php include('navbar.php'); ?>
 
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class=" col-lg-6 col-md-8">
+            <div class="col-lg-6 col-md-8">
                 <div class="card p-3">
                     <div class="row justify-content-center">
                         <div class="col-12">
@@ -66,59 +61,55 @@ $rows = mysqli_fetch_assoc($result);
                     <form onsubmit="event.preventDefault()" class="form-card">
                         <div class="row justify-content-center mb-4 radio-group">
                             <div class="col-sm-3 col-5">
-                                <div class='radio selected mx-auto' data-value="dk"> <img class="fit-image"
-                                        src="https://i.imgur.com/5TqiRQV.jpg" width="105px" height="55px"> </div>
+                                <div class='radio selected mx-auto' data-value="dk">
+                                    <img class="fit-image" src="IMAGE/card1.jpg" width="105px" height="55px">
+                                </div>
                             </div>
                             <div class="col-sm-3 col-5">
-                                <div class='radio mx-auto' data-value="visa"> <img class="fit-image"
-                                        src="https://i.imgur.com/OdxcctP.jpg" width="105px" height="55px"> </div>
+                                <div class='radio mx-auto' data-value="visa">
+                                    <img class="fit-image" src="IMAGE/card2.jpg" width="105px" height="55px">
+                                </div>
                             </div>
                             <div class="col-sm-3 col-5">
-                                <div class='radio mx-auto' data-value="master"> <img class="fit-image"
-                                        src="https://i.imgur.com/WIAP9Ku.jpg" width="105px" height="55px"> </div>
+                                <div class='radio mx-auto' data-value="master">
+                                    <img class="fit-image" src="IMAGE/card3.jpg" width="105px" height="55px">
+                                </div>
                             </div>
                             <div class="col-sm-3 col-5">
-                                <div class='radio mx-auto' data-value="paypal"> <img class="fit-image"
-                                        src="https://i.imgur.com/cMk1MtK.jpg" width="105px" height="55px"> </div>
-                            </div> <br>
-                        </div>
-                        <div class="row justify-content-center form-group">
-                            <div class="col-12 px-auto">
-                                <div class="custom-control custom-radio custom-control-inline"> <input
-                                        id="customRadioInline1" type="radio" name="customRadioInline1"
-                                        class="custom-control-input" checked="true"> <label for="customRadioInline1"
-                                        class="custom-control-label label-radio">Private</label> </div>
-                                <div class="custom-control custom-radio custom-control-inline"> <input
-                                        id="customRadioInline2" type="radio" name="customRadioInline1"
-                                        class="custom-control-input"> <label for="customRadioInline2"
-                                        class="custom-control-label label-radio">Business</label> </div>
+                                <div class='radio mx-auto' data-value="paypal">
+                                    <img class="fit-image" src="IMAGE/card4.png" width="105px" height="55px">
+                                </div>
                             </div>
                         </div>
+              
                         <div class="row justify-content-center">
                             <div class="col-12">
-                                <div class="input-group"> <input type="text" name="Name" placeholder="John Doe">
+                                <div class="input-group">
+                                    <input type="text" name="Name" placeholder="John Doe">
                                     <label>Name</label>
                                 </div>
                             </div>
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-12">
-                                <div class="input-group"> <input type="text" id="cr_no" name="card-no"
-                                        placeholder="0000 0000 0000 0000" minlength="19" maxlength="19"> <label>Card
-                                        Number</label> </div>
+                                <div class="input-group">
+                                    <input type="text" id="cr_no" name="card-no" placeholder="0000 0000 0000 0000" minlength="19" maxlength="19">
+                                    <label>Card Number</label>
+                                </div>
                             </div>
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-6">
-                                        <div class="input-group"> <input type="text" id="exp" name="expdate"
-                                                placeholder="MM/YY" minlength="5" maxlength="5"> <label>Expiry
-                                                Date</label> </div>
+                                        <div class="input-group">
+                                            <input type="text" id="exp" name="expdate" placeholder="MM/YY" minlength="5" maxlength="5">
+                                            <label>Expiry Date</label>
+                                        </div>
                                     </div>
                                     <div class="col-6">
-                                        <div class="input-group"> <input type="password" name="cvv"
-                                                placeholder="&#9679;&#9679;&#9679;" minlength="3" maxlength="3">
+                                        <div class="input-group">
+                                            <input type="password" name="cvv" placeholder="&#9679;&#9679;&#9679;" minlength="3" maxlength="3">
                                             <label>CVV</label>
                                         </div>
                                     </div>
@@ -126,82 +117,79 @@ $rows = mysqli_fetch_assoc($result);
                             </div>
                         </div>
                         <div class="row justify-content-center">
-                            <div class="col-md-12"> <input type="submit" value="Pay 100 EUR"
-                                    class="btn btn-pay placeicon"> </div>
+                            <div class="col-md-12">
+                                <input type="submit" value="Pay Now" class="btn btn-pay placeicon">
+                            </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-    </div>
-    <script type='text/javascript'
-        src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js'></script>
-    <script type='text/javascript' src='#'></script>
-    <script type='text/javascript' src='#'></script>
-    <script type='text/javascript' src='#'></script>
+    </div>  
     <script type='text/javascript'>$(document).ready(function () {
 
-            //For Card Number formatted input
-            var cardNum = document.getElementById('cr_no');
-            cardNum.onkeyup = function (e) {
-                if (this.value == this.lastValue) return;
-                var caretPosition = this.selectionStart;
-                var sanitizedValue = this.value.replace(/[^0-9]/gi, '');
-                var parts = [];
+//For Card Number formatted input
+var cardNum = document.getElementById('cr_no');
+cardNum.onkeyup = function (e) {
+    if (this.value == this.lastValue) return;
+    var caretPosition = this.selectionStart;
+    var sanitizedValue = this.value.replace(/[^0-9]/gi, '');
+    var parts = [];
 
-                for (var i = 0, len = sanitizedValue.length; i < len; i += 4) {
-                    parts.push(sanitizedValue.substring(i, i + 4));
-                }
+    for (var i = 0, len = sanitizedValue.length; i < len; i += 4) {
+        parts.push(sanitizedValue.substring(i, i + 4));
+    }
 
-                for (var i = caretPosition - 1; i >= 0; i--) {
-                    var c = this.value[i];
-                    if (c < '0' || c > '9') {
-                        caretPosition--;
-                    }
-                }
-                caretPosition += Math.floor(caretPosition / 4);
+    for (var i = caretPosition - 1; i >= 0; i--) {
+        var c = this.value[i];
+        if (c < '0' || c > '9') {
+            caretPosition--;
+        }
+    }
+    caretPosition += Math.floor(caretPosition / 4);
 
-                this.value = this.lastValue = parts.join('-');
-                this.selectionStart = this.selectionEnd = caretPosition;
-            }
+    this.value = this.lastValue = parts.join('-');
+    this.selectionStart = this.selectionEnd = caretPosition;
+}
 
-            //For Date formatted input
-            var expDate = document.getElementById('exp');
-            expDate.onkeyup = function (e) {
-                if (this.value == this.lastValue) return;
-                var caretPosition = this.selectionStart;
-                var sanitizedValue = this.value.replace(/[^0-9]/gi, '');
-                var parts = [];
+//For Date formatted input
+var expDate = document.getElementById('exp');
+expDate.onkeyup = function (e) {
+    if (this.value == this.lastValue) return;
+    var caretPosition = this.selectionStart;
+    var sanitizedValue = this.value.replace(/[^0-9]/gi, '');
+    var parts = [];
 
-                for (var i = 0, len = sanitizedValue.length; i < len; i += 2) {
-                    parts.push(sanitizedValue.substring(i, i + 2));
-                }
+    for (var i = 0, len = sanitizedValue.length; i < len; i += 2) {
+        parts.push(sanitizedValue.substring(i, i + 2));
+    }
 
-                for (var i = caretPosition - 1; i >= 0; i--) {
-                    var c = this.value[i];
-                    if (c < '0' || c > '9') {
-                        caretPosition--;
-                    }
-                }
-                caretPosition += Math.floor(caretPosition / 2);
+    for (var i = caretPosition - 1; i >= 0; i--) {
+        var c = this.value[i];
+        if (c < '0' || c > '9') {
+            caretPosition--;
+        }
+    }
+    caretPosition += Math.floor(caretPosition / 2);
 
-                this.value = this.lastValue = parts.join('/');
-                this.selectionStart = this.selectionEnd = caretPosition;
-            }
+    this.value = this.lastValue = parts.join('/');
+    this.selectionStart = this.selectionEnd = caretPosition;
+}
 
-            // Radio button
-            $('.radio-group .radio').click(function () {
-                $(this).parent().parent().find('.radio').removeClass('selected');
-                $(this).addClass('selected');
-            });
-        })</script>
-    <script type='text/javascript'>var myLink = document.querySelector('a[href="#"]');
-        myLink.addEventListener('click', function (e) {
-            e.preventDefault();
-        });</script>
+// Radio button
+$('.radio-group .radio').click(function () {
+    $(this).parent().parent().find('.radio').removeClass('selected');
+    $(this).addClass('selected');
+});
+})</script>
+<script type='text/javascript'>var myLink = document.querySelector('a[href="#"]');
+myLink.addEventListener('click', function (e) {
+e.preventDefault();
+});</script>
 
 
-    <?php mysqli_close($conn); ?>
+<?php mysqli_close($conn); ?>
+
 </body>
 
 <!-- footer-->
@@ -292,5 +280,3 @@ $rows = mysqli_fetch_assoc($result);
 
 
 <script src="footer.js"></script>
-
-</html>
