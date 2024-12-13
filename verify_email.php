@@ -34,6 +34,7 @@
             background: rgba(0, 0, 0, 0.3);
         }
     </style>
+    <link rel="stylesheet" href="animation.css">
 </head>
 <body>
     <div class="container">
@@ -53,17 +54,22 @@
                 // Token is valid, verify the email
                 $sql2 = "UPDATE user SET email_verified = 1 WHERE verification_token = '$token'";
                 if (mysqli_query($conn, $sql2)) {
-                    echo "<h1 >Email Verified Successfully!</h1>";
+                    echo "<h1 >Email Verified Successfully!</h1>
+                    <img id="randomImage" alt="Login Successful" class="login-image" />";
                 } else {
-                    echo "<h1 >Error verifying email. Please try again later.</h1>";
+                    echo "<h1 >Error verifying email. Please try again later.</h1>
+                        <img id="randomImage" alt="Login Successful" class="login-image" />";
                 }
             } else {
-                echo "<h1 >Invalid or expired verification link.</h1>";
+                echo "<h1 >Invalid or expired verification link.</h1>
+                        <img id="randomImage" alt="Login Successful" class="login-image" />";
             }
         } else {
-            echo "<h1 class='message'>No token provided.</h1>";
+            echo "<h1 class='message'>No token provided.</h1>
+                        <img id="randomImage" alt="Login Successful" class="login-image" />";
         }
-
+<script src="random_pic.js"></script>
+        <script src="background_effect.js" defer></script>
         mysqli_close($conn);
         ?>
     </div>
