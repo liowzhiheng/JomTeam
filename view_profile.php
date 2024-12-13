@@ -92,7 +92,7 @@ if (empty($location)) {
 $status = isset($rows['status']) && !empty($rows['status']) ? htmlspecialchars($rows['status']) : '';
 // If the status is empty, set a default value or fetch from the database
     if (empty($status)) {
-        $status = "single";
+        $status = "Default Status from DB";
     }
     ?>
 
