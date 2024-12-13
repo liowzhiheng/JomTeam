@@ -1,3 +1,91 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.container-fluid {
+    padding-top: 100px;
+    padding-left: 300px;
+    padding-right: 300px;
+}
+
+
+/* Payment Styles */
+.card {
+    padding: 30px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.radio-group .radio {
+    border: 2px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.radio-group .radio img {
+    max-width: 100%;
+    height: auto;
+}
+
+.radio.selected {
+    border-color: #007bff;
+}
+
+.input-group {
+    margin: 15px 0;
+    position: relative;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.input-group label {
+    position: absolute;
+    top: -8px;
+    left: 10px;
+
+    padding: 0 5px;
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+.btn-pay {
+    background-color:  rgba(82, 82, 212, 0.86);
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-pay:hover {
+    background-color:  rgba(82, 82, 212, 0.86);
+}
+
+.fit-image {
+    width: 105px;
+    height: 55px;
+    object-fit: cover
+}
+
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -17,16 +105,8 @@
     background: #555;
 }
 
-.container-fluid {
-    background-color: #C5CAE9
-}
 
-.heading {
-    font-size: 40px;
-    margin-top: 35px;
-    margin-bottom: 30px;
-    padding-left: 20px
-}
+
 
 .card {
     border-radius: 10px !important;
@@ -68,30 +148,35 @@
 .input-group {
     position: relative;
     width: 100%;
-    overflow: hidden
+    overflow: hidden;
+    padding-bottom: 30px;
 }
 
 .input-group input {
     position: relative;
     height: 80px;
+    
     margin-left: 1px;
     margin-right: 1px;
     border-radius: 6px;
     padding-top: 30px;
     padding-left: 25px
+    
 }
 
 .input-group label {
     position: absolute;
     height: 24px;
+    
     background: none;
     border-radius: 6px;
     line-height: 48px;
     font-size: 15px;
     color: gray;
-    width: 100%;
+    width: 60%;
     font-weight: 100;
-    padding-left: 25px
+    padding-left: 18px;
+    padding-top:10px;
 }
 
 input:focus+label {
@@ -99,7 +184,7 @@ input:focus+label {
 }
 
 .btn-pay {
-    background-color: #304FFE;
+    background-color:  rgba(82, 82, 212, 0.86);
     height: 60px;
     color: #ffffff !important;
     font-weight: bold
@@ -109,10 +194,6 @@ input:focus+label {
     background-color: #3F51B5
 }
 
-.fit-image {
-    width: 100%;
-    object-fit: cover
-}
 
 img {
     border-radius: 5px
@@ -144,4 +225,10 @@ img {
 .label-radio {
     font-weight: bold;
     color: #000000
+}
+
+.heading
+{
+    color: rgba(82, 82, 212, 0.86);
+    margin-left: 2%;
 }
