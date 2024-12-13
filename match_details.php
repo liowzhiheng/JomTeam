@@ -7,6 +7,7 @@ require("config.php");
 // Start session to access user session data
 session_start();
 
+$user_id = $_SESSION['ID'];
 // Check if 'id' is passed in the URL
 if (isset($_GET['id'])) {
     $match_id = $_GET['id'];
@@ -59,6 +60,13 @@ if ($hostResult->num_rows > 0) {
     echo "Host not found.";
     exit;
 }
+
+$ishost = 0;
+
+if ($host['id'] == $user_id) {
+    $ishost = 1;
+}
+?>
 ?>
 
 <!DOCTYPE html>
@@ -215,7 +223,7 @@ if ($hostResult->num_rows > 0) {
 
 
 
-    <!-- Join Match Section -->
+     <!-- Join Match Section -->
     <div style="text-align: center;
             font-family:'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             font-size: 25px;
@@ -243,6 +251,7 @@ if ($hostResult->num_rows > 0) {
                         onclick="this.style.transform='translateY(2px)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)';">
                         Cancel
                     </button>
+                    </form>
             </div>
         <?php elseif ($current_players < $max_players): ?>
             <!-- If match is not full and user has not joined -->
@@ -267,6 +276,7 @@ if ($hostResult->num_rows > 0) {
                         onclick="this.style.transform='translateY(2px)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)';">
                         Join Match
                     </button>
+                    </form>
             </div>
         <?php else: ?>
             <!-- If match is full -->
@@ -288,6 +298,33 @@ if ($hostResult->num_rows > 0) {
                 </button>
             </div>
         <?php endif; ?>
+
+        <?php if ($ishost) { ?>
+            <div>
+                <p style="color: black;">Do you wish to delete this match?</p>
+                <form action="delete_match.php" method="POST" style="text-align: center;">
+                    <input type="hidden" name="id" value="<?php echo $match_id; ?>">
+                    <button style="width: 15%; 
+                    height: 100px; 
+                    font-size: 30px; 
+                    font-weight: 700; 
+                    color: white; 
+                    background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%); 
+                    border: none; 
+                    border-radius: 50px; 
+                    cursor: pointer; 
+                    transition: background-color 0.3s ease; 
+                    margin-top:1%;margin-left:2%" box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
+                        onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.3)'; this.style.background='linear-gradient(202deg, #FF4B5C 0%, rgba(255, 75, 92, 0.66) 71%)'"
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)'; this.style.background='linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%)'"
+                        onclick="this.style.transform='translateY(2px)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)';">
+                        Delete
+                    </button>
+                    </form>
+            </div>
+            <?php
+        }
+        ?>
     </div>
 
     <script src="footer.js"></script>
