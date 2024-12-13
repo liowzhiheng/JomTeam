@@ -1,4 +1,6 @@
 body {
+    overflow-y: auto;  /* Enable vertical scrolling */
+    height: 100%;      /* Ensure full page height */
     font-family: 'Outfit', sans-serif;
     background-color: #f4f4f4;
     margin: 0;
