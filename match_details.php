@@ -172,23 +172,23 @@ if ($host['id'] == $user_id) {
             <?php
             // Query to get players who joined the match
             $playersQuery = "
-        SELECT user.first_name, user.last_name 
-        FROM match_participants
-        INNER JOIN user ON match_participants.user_id = user.id
-        WHERE match_participants.match_id = ? 
-        ORDER BY match_participants.join_date ASC";
-
+            SELECT user.id, user.first_name, user.last_name 
+            FROM match_participants
+            INNER JOIN user ON match_participants.user_id = user.id
+            WHERE match_participants.match_id = ? 
+            ORDER BY match_participants.join_date ASC";
+        
             // Prepare and execute the query
             $stmt = $conn->prepare($playersQuery);
             $stmt->bind_param('i', $match_id);
             $stmt->execute();
             $playersResult = $stmt->get_result();
-
+        
             $players = [];
             while ($row = $playersResult->fetch_assoc()) {
                 $players[] = $row;
             }
-
+        
             $currentPlayerIndex = 0; // To track the index of players joining
             $maxPlayers = $max_players; // Max players allowed in the game
             $currentPlayersCount = count($players); // Get the count of current players in the match
@@ -196,7 +196,7 @@ if ($host['id'] == $user_id) {
             
             // Calculate how many "X" to display (the difference between current_players and actual players in DB)
             $X = $displayedCurrentPlayers - $currentPlayersCount;
-
+        
             // Loop to display all player slots
             for ($i = 1; $i <= $maxPlayers; $i++) {
                 if ($X > 0) {
@@ -207,8 +207,6 @@ if ($host['id'] == $user_id) {
                     // After "X", show the names of joined players
                     $player = $players[$currentPlayerIndex];
                     $playerName = htmlspecialchars($player['first_name'] . " " . $player['last_name']);
-                    //$playerName = htmlspecialchars($players[$currentPlayerIndex]['first_name'] . " " . $players[$currentPlayerIndex]['last_name']);
-                    //echo "<li id='player{$i}'>Player {$i}: $playerName</li>";
                     echo "<li id='player{$i}'>Player {$i}: <a href='player_profile.php?id={$player['id']}' style='color: blue; text-decoration: underline;'>$playerName</a></li>";
                     $currentPlayerIndex++; // Move to the next participant
                 } else {
@@ -218,7 +216,6 @@ if ($host['id'] == $user_id) {
             }
             ?>
         </ul>
-    </div>
 
 
 
