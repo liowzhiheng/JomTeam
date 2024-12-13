@@ -303,7 +303,7 @@ if ($host['id'] == $user_id) {
 
         <?php if ($ishost) { ?>
             <div>
-                <p style="color: black;margin-top:1%">Do you wish to delete this match?</p>
+                <p style="color: black;margin-top:3%">Do you wish to delete this match?</p>
                 <form action="delete_match.php" method="POST" style="text-align: center;" onSubmit="return confirm('Do you want to delete?') ">
                     <input type="hidden" name="id" value="<?php echo $match_id; ?>">
                     <button style="width: 15%; 
