@@ -12,26 +12,41 @@ if ($result && $result->num_rows > 0) {
     $imagePath = "ads/default.png";
 }
 
-$conn->close();
 ?>
 
-<link rel="stylesheet" href="ads.css">
+<!DOCTYPE html>
+<html lang="en">
 
-<div id="adPopup" class="popup">
-    <div class="popup-content">
-        <img id="adImage" src="<?php echo $imagePath; ?>" alt="Advertisement">
-        <button id="closeButton" onclick="closePopup()">Close</button>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="ads.css">
+</head>
+
+<body>
+
+
+
+    <div id="adPopup" class="popup">
+        <div class="popup-content">
+            <img id="adImage" src="<?php echo $imagePath; ?>" alt="Advertisement">
+            <button id="closeButton" onclick="closePopup()">Close</button>
+        </div>
     </div>
-</div>
 
-<script>
-    document.getElementById('adPopup').classList.add('show');
+    <script>
+        document.getElementById('adPopup').classList.add('show');
 
-    setTimeout(() => {
-        document.getElementById('closeButton').classList.add('visible');
-    }, 1000);
+        setTimeout(() => {
+            document.getElementById('closeButton').classList.add('visible');
+        }, 1000);
 
-    function closePopup() {
-        document.getElementById('adPopup').classList.remove('show');
-    }
-</script>
+        function closePopup() {
+            document.getElementById('adPopup').classList.remove('show');
+        }
+    </script>
+</body>
+
+</html>
