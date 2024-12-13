@@ -1,0 +1,137 @@
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.back-button {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.back-button:hover {
+    background-color: #45a049;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-picture {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-details, .ratings-section {
+    margin-top: 20px;
+}
+
+.detail {
+    margin-bottom: 10px;
+}
+
+.rating-item {
+    background-color: #f9f9f9;
+    border-left: 4px solid #EB1436;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.rate-player-section form {
+    display: flex;
+    flex-direction: column;
+}
+
+.rate-player-section input, 
+.rate-player-section select, 
+.rate-player-section textarea {
+    margin-bottom: 10px;
+    padding: 8px;
+}
+
+.rate-player-section button {
+    background-color: #EB1436;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* Profile Picture Styling */
+.uploaded-images .profile-image {
+    width: 150px;       /* Set a fixed width */
+    height: 150px;      /* Match height to width */
+    object-fit: cover;  /* Ensure image scales properly */
+    border-radius: 50%; /* Make image circular */
+    border: 3px solid #4caf50; /* Optional: Add border */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add slight shadow */
+}
+
+/* Rating Section */
+/* Profile Rating Stars - Fixed Display */
+.profile-rating .stars {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+    flex-direction: row;
+}
+
+.profile-rating .star {
+    font-size: 30px;
+    color: #ddd;
+    pointer-events: none;
+}
+
+.profile-rating .star.selected {
+    color: #f1c40f;
+}
+
+/* Interactive Rating Stars (for input) */
+.stars {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.stars input[type="radio"] {
+    display: none;
+}
+
+.stars .star {
+    font-size: 2rem;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.stars input[type="radio"]:checked ~ .star {
+    color: gold;
+}
+
+.stars label:hover,
+.stars label:hover ~ label {
+    color: gold;
+}
+
+.stars input[type="radio"]:checked + label {
+    color: gold;
+}
