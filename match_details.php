@@ -84,7 +84,7 @@ if ($host['id'] == $user_id) {
 
 <body>
 
-<?php include('navbar.php'); ?>
+    <?php include('navbar.php'); ?>
 
     <div class="profile-content">
         <h1 class="profile-title">Match Details:</h1>
@@ -152,6 +152,24 @@ if ($host['id'] == $user_id) {
             </div>
 
         </section>
+        <?php if ($ishost) { ?>
+
+
+            <div>
+                <form action="edit_match.php" method="POST" onSubmit="return confirm('Do you want to edit?')">
+                    <input type="hidden" name="id" value="<?php echo $match_id; ?>">
+                    <button class="edit_button">
+                        <img src="IMAGE/edit_button_2.png" alt="Edit" style="width: 16%; height: auto;">
+                    </button>
+                </form>
+            </div>
+
+
+
+
+            <?php
+        }
+        ?>
         <div class="players_title">
             Member 👥</div>
     </div>
@@ -164,11 +182,12 @@ if ($host['id'] == $user_id) {
         <!-- Host Info -->
         <div>
             <label>Host:</label>
-            <a href="player_profile.php?id=<?php echo $host['id']; ?>&match_id=<?php echo $match_id; ?>" class="host-name">
+            <a href="player_profile.php?id=<?php echo $host['id']; ?>&match_id=<?php echo $match_id; ?>"
+                class="host-name">
                 <?php echo htmlspecialchars($host['first_name'] . ' ' . $host['last_name']); ?>
             </a>
         </div>
- 
+
         <ul id="playersList">
             <?php
             // Query to get players who joined the match
@@ -178,18 +197,18 @@ if ($host['id'] == $user_id) {
             INNER JOIN user ON match_participants.user_id = user.id
             WHERE match_participants.match_id = ? 
             ORDER BY match_participants.join_date ASC";
-        
+
             // Prepare and execute the query
             $stmt = $conn->prepare($playersQuery);
             $stmt->bind_param('i', $match_id);
             $stmt->execute();
             $playersResult = $stmt->get_result();
-        
+
             $players = [];
             while ($row = $playersResult->fetch_assoc()) {
                 $players[] = $row;
             }
-        
+
             $currentPlayerIndex = 0; // To track the index of players joining
             $maxPlayers = $max_players; // Max players allowed in the game
             $currentPlayersCount = count($players); // Get the count of current players in the match
@@ -197,7 +216,7 @@ if ($host['id'] == $user_id) {
             
             // Calculate how many "X" to display (the difference between current_players and actual players in DB)
             $X = $displayedCurrentPlayers - $currentPlayersCount;
-        
+
             // Loop to display all player slots
             for ($i = 1; $i <= $maxPlayers; $i++) {
                 if ($X > 0) {
@@ -233,19 +252,20 @@ if ($host['id'] == $user_id) {
 
 
 
-     <!-- Join Match Section -->
+    <!-- Join Match Section -->
     <div style="text-align: center;
             font-family:'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             font-size: 25px;
-            margin-top:3%;">
-        <?php if ($has_joined): ?>
-            <!-- If user has already joined, show "Joined" button -->
-            <div>
-                <p style="color: black;">You have joined the match.</p>
-                <p style="color: black;">Do you wish to cancel?</p>
-                <form action="cancel_match.php" method="GET" style="text-align: center;">
-                    <input type="hidden" name="id" value="<?php echo $match_id; ?>">
-                    <button style="width: 15%; 
+            margin-top:3%; margin-left:5%">
+        <div style="display: flex; justify-content: center; flex-wrap: wrap;">
+            <?php if ($has_joined): ?>
+                <!-- If user has already joined, show "Joined" button -->
+                <div>
+                    <p style="color: black;">You have joined the match.</p>
+                    <p style="color: black;">Do you wish to cancel?</p>
+                    <form action="cancel_match.php" method="GET" style="text-align: center;">
+                        <input type="hidden" name="id" value="<?php echo $match_id; ?>">
+                        <button style="width: 300px; 
                         height: 100px; 
                         font-size: 30px; 
                         font-weight: 700; 
@@ -255,23 +275,22 @@ if ($host['id'] == $user_id) {
                         border-radius: 50px; 
                         cursor: pointer; 
                         transition: background-color 0.3s ease; 
-                        margin-top:1%" 
-                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
-                        onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.3)'; this.style.background='linear-gradient(202deg, #FF4B5C 0%, rgba(255, 75, 92, 0.66) 71%)'"
-                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)'; this.style.background='linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%)'"
-                        onclick="this.style.transform='translateY(2px)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)';">
-                        Cancel
-                    </button>
+                        margin-top:1%" box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
+                            onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.3)'; this.style.background='linear-gradient(202deg, #FF4B5C 0%, rgba(255, 75, 92, 0.66) 71%)'"
+                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)'; this.style.background='linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%)'"
+                            onclick="this.style.transform='translateY(2px)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)';">
+                            Cancel
+                        </button>
                     </form>
-            </div>
-        <?php elseif ($current_players < $max_players): ?>
-            <!-- If match is not full and user has not joined -->
-            <div>
-                <p style="color: black;">Are you interested to the match?</p>
-                <p style="color: black;">Join now and have fun!</p>
-                <form action="join_match.php" method="GET" style="text-align: center;">
-                    <input type="hidden" name="id" value="<?php echo $match_id; ?>">
-                    <button style="width: 15%; 
+                </div>
+            <?php elseif ($current_players < $max_players): ?>
+                <!-- If match is not full and user has not joined -->
+                <div>
+                    <p style="color: black;">Are you interested to the match?</p>
+                    <p style="color: black;">Join now and have fun!</p>
+                    <form action="join_match.php" method="GET" style="text-align: center;">
+                        <input type="hidden" name="id" value="<?php echo $match_id; ?>">
+                        <button style="width: 300px; 
                         height: 100px; 
                         font-size: 30px; 
                         font-weight: 700; 
@@ -281,21 +300,20 @@ if ($host['id'] == $user_id) {
                         border-radius: 50px; 
                         cursor: pointer; 
                         transition: background-color 0.3s ease; 
-                        margin-top:1%" 
-                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
-                        onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.3)'; this.style.background='linear-gradient(202deg, #FF4B5C 0%, rgba(255, 75, 92, 0.66) 71%)'"
-                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)'; this.style.background='linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%)'"
-                        onclick="this.style.transform='translateY(2px)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)';">
-                        Join Match
-                    </button>
+                        margin-top:1%" box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
+                            onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.3)'; this.style.background='linear-gradient(202deg, #FF4B5C 0%, rgba(255, 75, 92, 0.66) 71%)'"
+                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)'; this.style.background='linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%)'"
+                            onclick="this.style.transform='translateY(2px)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)';">
+                            Join Match
+                        </button>
                     </form>
-            </div>
-        <?php else: ?>
-            <!-- If match is full -->
-            <div>
-                <p style="color: black;">It seems the match is full.</p>
-                <p style="color: black;">Try to look for another one!</p>
-                <button style="width: 15%; 
+                </div>
+            <?php else: ?>
+                <!-- If match is full -->
+                <div>
+                    <p style="color: black;">It seems the match is full.</p>
+                    <p style="color: black;">Try to look for another one!</p>
+                    <button style="width: 300px; 
                         height: 100px; 
                         font-size: 30px; 
                         font-weight: 700; 
@@ -305,64 +323,32 @@ if ($host['id'] == $user_id) {
                         border-radius: 50px; 
                         cursor: pointer; 
                         transition: background-color 0.3s ease; 
-                        margin-top:1%" 
-                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
-                    Match Full
-                </button>
-            </div>
-        <?php endif; ?>
-
-        <?php if ($ishost) { ?>
-            <div>
-                <p style="color: black;margin-top:3%">Do you wish to delete this match?</p>
-                <form action="delete_match.php" method="POST" style="text-align: center;" onSubmit="return confirm('Do you want to delete?') ">
-                    <input type="hidden" name="id" value="<?php echo $match_id; ?>">
-                    <button style="width: 15%; 
-                    height: 100px; 
-                    font-size: 30px; 
-                    font-weight: 700; 
-                    color: white; 
-                    background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%); 
-                    border: none; 
-                    border-radius: 50px; 
-                    cursor: pointer; 
-                    transition: background-color 0.3s ease; 
-                    margin-top:1%" 
-                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
-                        onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.3)'; this.style.background='linear-gradient(202deg, #FF4B5C 0%, rgba(255, 75, 92, 0.66) 71%)'"
-                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)'; this.style.background='linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%)'"
-                        onclick="this.style.transform='translateY(2px)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)';">
-                        Delete
+                        margin-top:1%" box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+                        Match Full
                     </button>
-                    </form>
-            </div>
-        <div>
-                    <br>
-                    <p style="color: black;">Do you want to Edit this match?</p>
-                    <form action="edit_match.php" method="POST" style="text-align: center;"
-                        onSubmit="return confirm('Do you want to edit?') ">
+                </div>
+            <?php endif; ?>
+
+            <?php if ($ishost) { ?>
+                <div>
+                    <form action="delete_match.php" method="POST" onSubmit="return confirm('Do you want to delete?')">
                         <input type="hidden" name="id" value="<?php echo $match_id; ?>">
-                        <button style="width: 15%; 
-                    height: 100px; 
-                    font-size: 30px; 
-                    font-weight: 700; 
-                    color: white; 
-                    background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%); 
-                    border: none; 
-                    border-radius: 50px; 
-                    cursor: pointer; 
-                    transition: background-color 0.3s ease; 
-                    margin-top:1%;margin-left:2%" box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
-                            onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.3)'; this.style.background='linear-gradient(202deg, #FF4B5C 0%, rgba(255, 75, 92, 0.66) 71%)'"
-                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)'; this.style.background='linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%)'"
-                            onclick="this.style.transform='translateY(2px)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)';">
-                            Edit
+                        <button style="background: none; border: none; cursor: pointer; margin-top:89%; margin-left:40%">
+                            <img src="IMAGE/delete_button.png" alt="Delete" style="width: 100px; height: 100px;">
                         </button>
                     </form>
                 </div>
+
+            </div>
+
+
+
+
+
             <?php
-        }
-        ?>  
+            }
+            ?>
+    </div>
     </div>
 
     <script src="footer.js"></script>
