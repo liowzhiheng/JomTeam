@@ -41,7 +41,7 @@ if ($result && $result->num_rows > 0) {
 
         setTimeout(() => {
             document.getElementById('closeButton').classList.add('visible');
-        }, 1000);
+        }, 3000);
 
         function closePopup() {
             document.getElementById('adPopup').classList.remove('show');
