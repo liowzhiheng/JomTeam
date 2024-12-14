@@ -54,7 +54,10 @@ if (mysqli_num_rows($result3) > 0) {
 
 <body>
 <?php if ($_SESSION["LEVEL"] != 1) { ?>
-    <?php include('navbar.php'); ?>
+    <?php
+    include('navbar.php');
+    include('ads.php');
+    ?>
     <div>
         <div class="grid-section">
             <h1 class="created_match_title">Created Match</h1>
