@@ -375,7 +375,7 @@ if ($host['id'] == $user_id) {
             <a href="#" onclick="openModal('privacy')">Privacy Policy</a>
         </div>
         <div class="footer-info">
-            <p>&copy; 2024 JomTeam. All rights reserved.</p>
+            <p1>&copy; 2024 JomTeam. All rights reserved.</p1>
         </div>
     </div>
 </footer>
