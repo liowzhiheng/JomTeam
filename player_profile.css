@@ -1,8 +1,10 @@
 body {
     overflow-y: auto;  /* Enable vertical scrolling */
     height: 100%;      /* Ensure full page height */
-    font-family: 'Outfit', sans-serif;
-    background: linear-gradient(to bottom right, #4facfe, #00f2fe); /* Blue gradient background */
+    /*font-family: 'Outfit', sans-serif;*/
+    font-family: Arial, sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+   
+    background:white;
     margin: 0;
     padding: 0;
 }
@@ -17,20 +19,38 @@ body {
 }
 
 .back-button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
+    padding: 25px 25px;
+    background-color: #5252D4;
     color: white;
     border: none;
-    border-radius: 8px;
+    border-top-right-radius: 50px; /* Top-right corner */
+    border-bottom-right-radius: 50px; /* Bottom-right corner */
+    border-top-left-radius: 10px; /* Top-left corner */
+    border-bottom-left-radius: 10px; /* Bottom-left corner */
     font-size: 20px;
     font-weight: 500;
     cursor: pointer;
-    transition: transform 0.2s, background-color 0.2s;
+    transition: 
+        transform 0.2s ease-in-out, 
+        background-color 0.2s ease-in-out, 
+        width 0.3s ease-in-out, 
+        border-radius 0.3s ease-in-out; /* Smooth radius animation */
+    transform: translate(-35px, 90px); /* Consistent vertical position */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    width: 150px; /* Set an initial width */
 }
 
 .back-button:hover {
-    background-color: #45a049;
-    transform: translateY(-2px);
+    border-top-left-radius: 0px; /* Top-left corner */
+    border-bottom-left-radius: 0px; /* Bottom-left corner */
+    background-color: #3E3EB0;
+    transform: translate(-30px, 90px); /* Maintain the same Y position (101px) */
+    width: 170px; /* Adjust the width to make it longer */
+}
+
+.back-button img{
+    width: 60%;
+    height:auto;
 }
 
 .profile-header {
@@ -72,12 +92,13 @@ body {
 .profile-details, .ratings-section {
     font-size: 1.0em;
     margin-top: 0;          /* Reduced from 10px */
-    padding: 15px 30px;     /* Reduced top/bottom padding from 30px */
+    padding: 30px 30px;     /* Reduced top/bottom padding from 30px */
 }
 
 .profile-details h2 {
     font-size: 2em;
     margin-bottom: 20px;
+    color : #5252D4;
 }
 
 .profile-details {
@@ -90,6 +111,7 @@ body {
     background-color: #f8f9fa;
     border-radius: 10px;
     transition: transform 0.2s;
+    padding:15px;
 }
 
 .detail strong {
@@ -101,40 +123,46 @@ body {
 
 .rate-player-section {
     background-color: #fff;
-    padding: 20px;          /* Reduced from 25px */
+    padding: 40px;         
     border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    margin-top: 10px;       /* Reduced from 30px */
+    margin-top: 10px;      
 }
 
 .rate-player-section h2 {
     color: #2c3e50;
-    margin-bottom: 15px;    /* Reduced from 20px */
+    margin-bottom: 15px;  
 }
 
 .rating-input {
     display: flex;
     align-items: center;
     gap: 15px;
-    margin-bottom: 15px;    /* Reduced from 20px */
+    margin-bottom: 100px;   
 }
 
 button[type="submit"] {
-    width: 35%;
+    width: 31%;
+   margin-left: 500px;
     font-size: 20px;
     font-weight: 700;
     color: white;
     background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%);
     border: none;
-    padding: 12px 25px;
+    padding: 30px 30px;
     border-radius: 50px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    
+    transition: 
+        transform 0.2s ease-in-out, 
+        background-color 0.2s ease-in-out, 
+        width 0.3s ease-in-out, 
+        border-radius 0.3s ease-in-out; /* Smooth radius animation */
 }
 
 button[type="submit"]:hover {
-    background-color: #45a049;
     transform: translateY(-2px);
+    
 }
 
 /* Rating Section */
@@ -169,27 +197,32 @@ button[type="submit"]:hover {
 }
 
 .stars {
-    font-size: 2em;
+    font-size: 10em;
     color: #ccc;
     cursor: pointer;
     transition: color 0.3s;
+    margin-top: 5%;
+    margin-left: 20%;
 }
 
 .ratings-section .star {
-    font-size: 60px;
+    font-size: 100px;
     color: #ccc;
     cursor: pointer;
     transition: color 0.3s;
+   
 }
 
 .ratings-section h2 {
-    font-size: 30px;
-    color: #333;
+    font-size: 40px;
+    color: #5252D4;
 }
 
 .rating-input label {
     font-size: 20px;
-    color: #333;
+    color: #33333364;
+    justify-content: center;
+    align-items: center;
 }
 
 .stars input[type="radio"]:checked ~ .star {

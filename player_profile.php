@@ -127,6 +127,7 @@ $avgRating = $avgRatingResult->fetch_assoc()['avg_rating'];
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -137,21 +138,25 @@ $avgRating = $avgRatingResult->fetch_assoc()['avg_rating'];
     <link rel="stylesheet" href="footer.css">
 
 </head>
+<?php include('navbar.php'); ?>
 <body>
-    <?php include('navbar.php'); ?>
+    
 
     <div class="profile-container">
-    <!-- <button onclick="window.history.back()" class="back-button">← Back</button> -->
-    <button onclick="window.location.href='match_details.php?id=<?php echo $_GET['match_id']; ?>'" class="back-button">← Back</button>
-    
-    <div class="profile-header">
+        
+        <button onclick="window.location.href='match_details.php?id=<?php echo $_GET['match_id']; ?>'"
+            class="back-button"><img src="IMAGE/back.png" alt="back"></button>
+
+        <div class="profile-header">
 
             <div class="uploaded-images">
-                <img id="imagePreview" src="<?php echo !empty($profilePicture) ? 'uploads/' . htmlspecialchars($profilePicture) : 'IMAGE/default.png'; ?>" alt="Profile Picture" class="profile-image">
+                <img id="imagePreview"
+                    src="<?php echo !empty($profilePicture) ? 'uploads/' . htmlspecialchars($profilePicture) : 'IMAGE/default.png'; ?>"
+                    alt="Profile Picture" class="profile-image">
             </div>
 
             <h1><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></h1>
-            
+
             <div class="profile-rating">
                 <span>Average Rating: <?php printf("%.1f", $avgRating ?: 0); ?> / 5.0</span>
                 <div class="stars">
@@ -161,13 +166,13 @@ $avgRating = $avgRatingResult->fetch_assoc()['avg_rating'];
                 </div>
 
                 <div class="detail">
-                    <strong>Gender:</strong> 
+                    <strong>Gender:</strong>
                     <?php echo htmlspecialchars($user['gender'] ?? 'Not specified'); ?>
                 </div>
 
                 <div class="detail">
-                    <strong>Age:</strong> 
-                    <?php 
+                    <strong>Age:</strong>
+                    <?php
                     if (!empty($user['birth_date'])) {
                         $birthDate = new DateTime($user['birth_date']);
                         $today = new DateTime();
@@ -184,54 +189,54 @@ $avgRating = $avgRatingResult->fetch_assoc()['avg_rating'];
         <div class="profile-details">
             <h2>Profile Information</h2>
 
-                        <div class="detail">
-                <strong>Email:</strong> 
+            <div class="detail">
+                <strong>Email:</strong>
                 <?php echo htmlspecialchars($user['email']); ?>
             </div>
 
             <div class="detail">
-                <strong>Phone Number:</strong> 
+                <strong>Phone Number:</strong>
                 <?php echo htmlspecialchars($user['phone'] ?? 'Not provided'); ?>
             </div>
 
             <div class="detail">
-                <strong>Location:</strong> 
+                <strong>Location:</strong>
                 <?php echo htmlspecialchars($profile['location'] ?? 'Not specified'); ?>
             </div>
 
             <div class="detail">
-                <strong>Interests:</strong> 
+                <strong>Interests:</strong>
                 <?php echo htmlspecialchars($profile['interests'] ?? 'Not specified'); ?>
             </div>
 
             <div class="detail">
-                <strong>Preferred Game Types:</strong> 
+                <strong>Preferred Game Types:</strong>
                 <?php echo htmlspecialchars($profile['preferred_game_types'] ?? 'Not specified'); ?>
             </div>
 
             <div class="detail">
-                <strong>Skill Level:</strong> 
+                <strong>Skill Level:</strong>
                 <?php echo htmlspecialchars($profile['skill_level'] ?? 'Not specified'); ?>
             </div>
 
             <div class="detail">
-                <strong>Status:</strong> 
+                <strong>Status:</strong>
                 <?php echo htmlspecialchars($profile['status'] ?? 'Not specified'); ?>
             </div>
 
             <div class="detail">
-                <strong>Description:</strong> 
+                <strong>Description:</strong>
                 <?php echo htmlspecialchars($profile['description'] ?? 'No description provided'); ?>
             </div>
 
             <div class="detail">
-                <strong>Availability:</strong> 
+                <strong>Availability:</strong>
                 <?php echo htmlspecialchars($profile['availability'] ?? 'Not specified'); ?>
             </div>
 
             <div class="detail">
-                <strong>Last Active:</strong> 
-                <?php 
+                <strong>Last Active:</strong>
+                <?php
                 if (!empty($profile['last_active'])) {
                     $last_active = strtotime($profile['last_active']);
                     echo htmlspecialchars(date('F j, Y, g:i a', $last_active));
@@ -266,30 +271,35 @@ $avgRating = $avgRatingResult->fetch_assoc()['avg_rating'];
 
             <?php if ($current_user_id != $profile_user_id): ?>
 
-            <div class="ratings-section">
-            <?php if ($current_user_id != $profile_user_id): ?>
-            <div class="rate-player-section">
-                <h2>Rate This Player</h2>
-                <form action="submit_rating.php" method="POST">
-                <input type="hidden" name="rated_user_id" value="<?php echo $profile_user_id; ?>">
-                <input type="hidden" name="match_id" value="<?php echo $_GET['match_id']; ?>">
+                <div class="ratings-section">
+                    <?php if ($current_user_id != $profile_user_id): ?>
+                        <div class="rate-player-section">
+                            <h2>Rate This Player</h2>
+                            <form action="submit_rating.php" method="POST">
+                                <input type="hidden" name="rated_user_id" value="<?php echo $profile_user_id; ?>">
+                                <input type="hidden" name="match_id" value="<?php echo $_GET['match_id']; ?>">
 
-                    <div class="rating-input">
-                        <label for="rating">Rating:</label>
-                        <div class="stars">
-                            <input type="radio" name="rating" id="star5" value="5"><label for="star5" class="star">&#9733;</label>
-                            <input type="radio" name="rating" id="star4" value="4"><label for="star4" class="star">&#9733;</label>
-                            <input type="radio" name="rating" id="star3" value="3"><label for="star3" class="star">&#9733;</label>
-                            <input type="radio" name="rating" id="star2" value="2"><label for="star2" class="star">&#9733;</label>
-                            <input type="radio" name="rating" id="star1" value="1"><label for="star1" class="star">&#9733;</label>
+                                <div class="rating-input">
+                                    
+                                    <div class="stars">
+                                        <input type="radio" name="rating" id="star5" value="5"><label for="star5"
+                                            class="star">&#9733;</label>
+                                        <input type="radio" name="rating" id="star4" value="4"><label for="star4"
+                                            class="star">&#9733;</label>
+                                        <input type="radio" name="rating" id="star3" value="3"><label for="star3"
+                                            class="star">&#9733;</label>
+                                        <input type="radio" name="rating" id="star2" value="2"><label for="star2"
+                                            class="star">&#9733;</label>
+                                        <input type="radio" name="rating" id="star1" value="1"><label for="star1"
+                                            class="star">&#9733;</label>
+                                    </div>
+                                </div>
+
+                                <button type="submit">Submit Rating</button>
+                            </form>
                         </div>
-                    </div>
-
-                    <button type="submit">Submit Rating</button>
-                </form>
-            </div>
-            <?php endif; ?>
-        </div>
+                    <?php endif; ?>
+                </div>
 
             <?php endif; ?>
         </div>
@@ -325,17 +335,17 @@ $avgRating = $avgRatingResult->fetch_assoc()['avg_rating'];
 
 
 
-    
+
 </body>
 
 <footer>
-    <div class="footer-container">
+    <div style= "all: unset;" class="footer-container">
         <div class="footer-links">
             <a href="#" onclick="openModal('terms')">Terms of Service</a> |
             <a href="#" onclick="openModal('privacy')">Privacy Policy</a>
         </div>
         <div class="footer-info">
-            <p>&copy; 2024 JomTeam. All rights reserved.</p>
+            <p3>&copy; 2024 JomTeam. All rights reserved.</p3>
         </div>
     </div>
 </footer>
