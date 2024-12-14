@@ -227,8 +227,11 @@ if ($host['id'] == $user_id) {
                         <label>Email:</label>
                         <input type="text" value="<?php echo htmlspecialchars($host['email']); ?>" readonly>
                     </div>
-                    <div>
-                        <input type="submit" name="update" value="Update"></input>
+                  
+                      <div>
+                        <button type="submit" class="update_button" name="update" value="Update">
+                            <img src="IMAGE/update_button.png" alt="Submit Button">
+                        </button>
                     </div>
                 </div>
 
