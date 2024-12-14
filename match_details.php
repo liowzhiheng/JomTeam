@@ -256,7 +256,7 @@ if ($host['id'] == $user_id) {
     <div style="text-align: center;
             font-family:'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             font-size: 25px;
-            margin-top:3%; margin-left:5%">
+            margin-top:3%; margin-left:3%">
         <div style="display: flex; justify-content: center; flex-wrap: wrap;">
             <?php if ($has_joined): ?>
                 <!-- If user has already joined, show "Joined" button -->
