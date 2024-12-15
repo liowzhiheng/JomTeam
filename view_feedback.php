@@ -61,7 +61,8 @@ $result = mysqli_query($conn, $sql);
         <ul class="menu rightmenu">
             <li class="notification"><a href="#notification"><img src="IMAGE/NOTIFICATION.png" alt="Notification"></a>
             </li>
-            <li class="logout"><a href="index.php">Log out<img src="IMAGE/LOGOUT.png" alt="Logout"></a></li>
+            <li class="logout"><a href="index.php" onclick="return confirm('Are you sure want to logout?')">Log
+                    out<img src="IMAGE/LOGOUT.png" alt="Logout"></a></li>
         </ul>
     </nav>
 
