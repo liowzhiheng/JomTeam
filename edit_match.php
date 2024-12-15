@@ -80,6 +80,39 @@ if ($host['id'] == $user_id) {
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="footer.css">
     <link rel="stylesheet" href="match_details.css">
+
+    <style>
+        .table-container {
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 100px;
+            width: 100%;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #dbdbdb;
+            color: rgb(0, 0, 0);
+            margin: 0 auto;
+        }
+
+        .table th,
+        .table td {
+            padding: 12px 15px;
+            text-align: center;
+        }
+
+        .table th {
+            background-color: #888888;
+        }
+
+        .table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
 </head>
 
 <body>
@@ -238,7 +271,7 @@ if ($host['id'] == $user_id) {
             </form>
         </section>
 
-        <div style="width:100%;">
+        <div class="table-container">
             <br>
             <h1 class="profile-title">Player List: </h1>
             <?php
@@ -257,7 +290,8 @@ if ($host['id'] == $user_id) {
                 $players = [];
             }
             ?>
-            <table style="width:80%;">
+            <table
+                class="table">
                 <tr>
                     <th>Num</th>
                     <th>Name</th>
