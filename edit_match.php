@@ -80,39 +80,6 @@ if ($host['id'] == $user_id) {
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="footer.css">
     <link rel="stylesheet" href="match_details.css">
-    <style>
-        .table-container {
-            border-radius: 15px;
-            padding: 30px;
-            margin: 20px 100px;
-            width: 100%;
-            overflow: hidden;
-            text-align: center;
-        }
-
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: #dbdbdb;
-            color: rgb(0, 0, 0);
-            margin: 0 auto;
-        }
-
-        .table th,
-        .table td {
-            padding: 12px 15px;
-            text-align: center;
-        }
-
-        .table th {
-            background-color: #888888;
-        }
-
-        .table tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-    </style>
-
 </head>
 
 <body>
@@ -139,8 +106,7 @@ if ($host['id'] == $user_id) {
                     <input type="hidden" name="match_id" value="<?php echo $match_id; ?>">
                     <div class="group">
                         <label>Title:</label>
-                        <input type="text" name="match_title"
-                            value="<?php echo htmlspecialchars($match['match_title']); ?>" required>
+                        <input type="text" name ="match_title" value="<?php echo htmlspecialchars($match['match_title']); ?>" required>
                     </div>
                     <div class="group">
                         <label>Game Type:</label>
@@ -254,23 +220,25 @@ if ($host['id'] == $user_id) {
                     </div>
                     <div class="group">
                         <label>Description:</label>
-                        <input type="text " name="description"
-                            value="<?php echo nl2br(htmlspecialchars($match['description'])); ?>" required></input>
+                        <input name="description" value="<?php echo nl2br(htmlspecialchars($match['description'])); ?>" required></input>
                     </div>
 
                     <div class="group">
                         <label>Email:</label>
                         <input type="text" value="<?php echo htmlspecialchars($host['email']); ?>" readonly>
                     </div>
-                    <div>
-                        <input type="submit" name="update" value="Update"></input>
+                  
+                      <div>
+                        <button type="submit" class="update_button" name="update" value="Update">
+                            <img src="IMAGE/update_button.png" alt="Submit Button">
+                        </button>
                     </div>
                 </div>
 
             </form>
         </section>
 
-        <div class="table-container">
+        <div style="width:100%;">
             <br>
             <h1 class="profile-title">Player List: </h1>
             <?php
@@ -289,8 +257,7 @@ if ($host['id'] == $user_id) {
                 $players = [];
             }
             ?>
-            <table
-                class="table">
+            <table style="width:80%;">
                 <tr>
                     <th>Num</th>
                     <th>Name</th>
