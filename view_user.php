@@ -16,11 +16,12 @@ require("config.php"); // Include the database configuration file
 
 <body>
     <nav class="navbar">
-        <a href="#" class="logo">
+        <a href="dashboard.php" class="logo">
             <img src="IMAGE/jomteam.png" alt="Logo">
         </a>
 
         <ul class="menu leftmenu">
+            <li><a href="dashboard.php">Dashboard</a></li>
             <li><a href="view_user.php">Manage User</a></li>
             <li><a href="view_ads.php">Manage Ads</a></li>
             <li><a href="view_match.php">Manage Match</a></li>
@@ -30,7 +31,7 @@ require("config.php"); // Include the database configuration file
         <ul class="menu rightmenu">
             <li class="notification"><a href="#notification"><img src="IMAGE/NOTIFICATION.png" alt="Notification"></a>
             </li>
-            <li class="logout"><a href="index.php" onclick="return confirm('Are you sure want to logout?')">Log
+            <li class="logout"><a href="logout.php" onclick="return confirm('Are you sure want to logout?')">Log
                     out<img src="IMAGE/LOGOUT.png" alt="Logout"></a></li>
         </ul>
     </nav>

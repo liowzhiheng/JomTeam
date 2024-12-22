@@ -97,53 +97,52 @@ if (mysqli_num_rows($result3) > 0) {
 </head>
 
 <body>
-    <?php if ($_SESSION["LEVEL"] != 1) { ?>
-        <?php
-        include('navbar.php');
-        include('ads.php');
-        ?>
+    <?php
+    include('navbar.php');
+    include('ads.php');
+    ?>
 
-        <div class="banner">
-            <h1>Find Your Best Sport Buddies</h1>
-            <p>Connecting You with Passionate Teammates, Inspiring Workout Partners, and Lifelong Friends! <br>Join Today
-                and Kickstart Your Next Adventure on the Field! </p>
+    <div class="banner">
+        <h1>Find Your Best Sport Buddies</h1>
+        <p>Connecting You with Passionate Teammates, Inspiring Workout Partners, and Lifelong Friends! <br>Join Today
+            and Kickstart Your Next Adventure on the Field! </p>
 
+    </div>
+
+    <div class="banner-image">
+        <img src="IMAGE/swimming.png" alt="Sports">
+    </div>
+
+    <div class="find_match">Find Match
+        <div class="find_match_content">Finding the perfect match in sports can be a game-changer. <br>It's all about
+            connecting with individuals <br>who share your passion for the game and have the same dedication and drive.
         </div>
 
-        <div class="banner-image">
-            <img src="IMAGE/swimming.png" alt="Sports">
+        <div class="picture_box">
+            <a href="find_match.php">
+                <img src="IMAGE/find_button.png" class="picture">
+            </a>
         </div>
 
-        <div class="find_match">Find Match
-            <div class="find_match_content">Finding the perfect match in sports can be a game-changer. <br>It's all about
-                connecting with individuals <br>who share your passion for the game and have the same dedication and drive.
-            </div>
+    </div>
 
-            <div class="picture_box">
-                <a href="find_match.php">
-                    <img src="IMAGE/find_button.png" class="picture">
-                </a>
-            </div>
 
+    <!-- create_your_own_match-->
+    <div class="create_your_own_match">
+        <div class="create_your_own_match_title">Create your own match</div>
+        <div class="create-match-content">
+            Not finding the right match? No problem! <br>Create your own game-changing partnership and turn any
+            challenge
+            into a victory. <br>Join our network and start building your dream team today!
         </div>
-
-
-        <!-- create_your_own_match-->
-        <div class="create_your_own_match">
-            <div class="create_your_own_match_title">Create your own match</div>
-            <div class="create-match-content">
-                Not finding the right match? No problem! <br>Create your own game-changing partnership and turn any
-                challenge
-                into a victory. <br>Join our network and start building your dream team today!
-            </div>
-            <div class="picture_box">
-                <a href="create_match.php">
-                    <img src="IMAGE/button.png" class="picture">
-                </a>
-            </div>
+        <div class="picture_box">
+            <a href="create_match.php">
+                <img src="IMAGE/button.png" class="picture">
+            </a>
         </div>
+    </div>
 
-        <!--
+    <!--
         <div class="view_profile">Profile
             <div class="view_profile_content"><br>Let people know more about
                 you!<br>Share your passions, interests, and achievements.<br>Whether it's your love for sports, your
@@ -214,27 +213,6 @@ if (mysqli_num_rows($result3) > 0) {
                 </a>
             </div>
         </div>-->
-
-    <?php } else { ?>
-        <nav class="navbar">
-            <a href="#" class="logo">
-                <img src="IMAGE/jomteam.png" alt="Logo">
-            </a>
-
-            <ul class="menu leftmenu">
-                <li><a href="view_user.php">Manage User</a></li>
-                <li><a href="view_ads.php">Manage Ads</a></li>
-                <li><a href="#event">Manage Event</a></li>
-                <li><a href="#feedback">Feedback & Report</a></li>
-            </ul>
-
-            <ul class="menu rightmenu">
-                <li class="notification"><a href="#notification"><img src="IMAGE/NOTIFICATION.png" alt="Notification"></a>
-                </li>
-                <li class="logout"><a href="login.php">Log out<img src="IMAGE/LOGOUT.png" alt="Logout"></a></li>
-            </ul>
-        </nav>
-    <?php } ?>
 
     <a href="feedback.php" class="feedback-btn">
         <img src="IMAGE/FEEDBACK.png" alt="Feedback" class="feedback-img">

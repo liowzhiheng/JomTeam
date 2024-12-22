@@ -4,7 +4,7 @@ require("config.php");
 ?>
 
 <nav class="navbar">
-    <a href="#" class="logo">
+    <a href="main.php" class="logo">
         <img src="IMAGE/jomteam.png" alt="Logo">
     </a>
 
@@ -51,7 +51,7 @@ require("config.php");
             function confirmLogout() {
                 var confirmation = confirm("Are you sure you want to logout?");
                 if (confirmation) {
-                    window.location.href = "index.php"; // Redirect to index.php if confirmed
+                    window.location.href = "logout.php"; // Redirect to index.php if confirmed
                 }
             }
         </script>

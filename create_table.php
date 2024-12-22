@@ -39,7 +39,7 @@ $sqlUser = "CREATE TABLE user (
     phone VARCHAR(20),
     birth_date DATE,
     level INT DEFAULT 3,
-    verified TINYINT(1) DEFAULT 0,
+    last_activity DATETIME,
     premium TINYINT(1) DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP

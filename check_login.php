@@ -60,11 +60,11 @@ if (mysqli_num_rows($result) == 1) {
         <head>
             <link rel="stylesheet" href="check_login.css">
             <link rel="stylesheet" href="animation.css">
-            <meta http-equiv="refresh" content="3;url=<?php echo ($_SESSION["LEVEL"] == 1) ? 'view_user.php' : 'main.php'; ?>">
+            <meta http-equiv="refresh" content="3;url=<?php echo ($_SESSION["LEVEL"] == 1) ? 'dashboard.php' : 'main.php'; ?>">
         </head>
 
         <body>
-        <div class="background"></div>
+            <div class="background"></div>
             <div class="container">
                 <h2>Hi! <strong><?php echo htmlspecialchars($_SESSION["USER"]); ?></strong></h2>
                 <img id="randomImage" alt="Login Successful" class="login-image" />
@@ -72,6 +72,7 @@ if (mysqli_num_rows($result) == 1) {
         </body>
         <script src="random_pic.js"></script>
         <script src="background_effect.js" defer></script>
+
         </html>
         <?php
     } else {
