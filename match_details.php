@@ -324,7 +324,7 @@ if ($host['id'] == $user_id) {
                         border-radius: 50px; 
                         cursor: pointer; 
                         transition: background-color 0.3s ease; 
-                        margin-top:1%;margin-left:20% ;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+                        margin-top:1%;margin-left:10% ;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
                             Match Full
                         </button>
                     </div>
