@@ -340,18 +340,30 @@ if ($host['id'] == $user_id) {
                 </div>
 
             </div>
-
-
-
-
-
             <?php
             }
             ?>
     </div>
+
+    <div class="chatroom">
+        <h2>Chatroom</h2>
+        <div id="chatMessages" class="chat-messages">
+            <!-- Messages will be dynamically loaded here -->
+        </div>
+        <form id="chatForm">
+            <input type="hidden" id="match_id" value="<?php echo $match_id; ?>">
+            <input type="hidden" id="user_id" value="<?php echo $user_id; ?>">
+            <textarea id="chatInput" placeholder="Type your message here..." required></textarea>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+
+
     </div>
 
     <script src="footer.js"></script>
+    <script src="chat_room.js"></script>
 </body>
 
 <footer>
