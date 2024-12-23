@@ -238,6 +238,9 @@ select:focus {
     font-family: Arial, sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
    margin-bottom: 19px;
 }
+
+
+
 .chat-messages {
     color: #000;
     height: 300px;
@@ -248,7 +251,35 @@ select:focus {
     background-color: #fff;
     display: flex;
     flex-direction: column;
+    border-radius: 20px;
+    position: relative;
+    padding-right: 10px; /* Reserve space for the scrollbar */
 }
+
+/* Webkit Scrollbar */
+.chat-messages::-webkit-scrollbar {
+    width: 12px; /* Scrollbar width */
+    height: 50%; /* Shorten scrollbar height */
+}
+
+/* Track (background) */
+.chat-messages::-webkit-scrollbar-track {
+   
+    border-radius: 10px;
+    margin: 20px 0; /* Add spacing to center the scrollbar vertically */
+}
+
+/* Handle (scroll thumb) */
+.chat-messages::-webkit-scrollbar-thumb {
+    background: #5252D4;
+    border-radius: 10px;
+    height: 60px; /* Shorter scrollbar thumb */
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+    background: #3a3a8c;
+}
+
 
 .chat-message {
     margin-bottom: 15px;
@@ -264,7 +295,7 @@ select:focus {
 }
 
 .chat-message p {
-    background-color: #eb1436;
+    background-color:#5252D4;
     color: white;
     padding: 10px;
     border-radius: 15px;

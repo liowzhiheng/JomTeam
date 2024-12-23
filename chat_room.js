@@ -3,17 +3,39 @@ document.addEventListener("DOMContentLoaded", function () {
     const chatMessages = document.getElementById("chatMessages");
     const matchId = document.getElementById("match_id").value;
 
+    let userScrolling = false; // Tracks if the user is scrolling up
+    let previousScrollTop = 0; // Keeps track of previous scroll position
+
     // Fetch messages
     function fetchMessages() {
+        const currentScrollTop = chatMessages.scrollTop;
+        const isAtBottom = currentScrollTop + chatMessages.clientHeight >= chatMessages.scrollHeight;
+
         fetch("fetch_messages.php?match_id=" + matchId)
             .then(response => response.text())
             .then(data => {
-                chatMessages.innerHTML = data;
-                chatMessages.scrollTop = chatMessages.scrollHeight; // Auto-scroll to bottom
+                const currentContent = chatMessages.innerHTML;
+
+                if (data !== currentContent) {
+                    const previousHeight = chatMessages.scrollHeight;
+
+                    chatMessages.innerHTML = data;
+
+                    if (!userScrolling) {
+                        // Auto-scroll to the bottom if the user is at the bottom
+                        if (isAtBottom) {
+                            chatMessages.scrollTop = chatMessages.scrollHeight;
+                        }
+                    } else {
+                        // Preserve scroll position when user is viewing older messages
+                        const newHeight = chatMessages.scrollHeight;
+                        chatMessages.scrollTop = currentScrollTop + (newHeight - previousHeight);
+                    }
+                }
             });
     }
 
-    // Send message
+    // Handle new message submission
     chatForm.addEventListener("submit", function (e) {
         e.preventDefault();
         const chatInput = document.getElementById("chatInput").value;
@@ -27,8 +49,21 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(response => response.text())
             .then(() => {
                 document.getElementById("chatInput").value = ""; // Clear input
+                userScrolling = false; // Reset scrolling state
                 fetchMessages(); // Refresh messages
             });
+    });
+
+    // Detect user scroll activity
+    chatMessages.addEventListener("scroll", function () {
+        // Check if user has scrolled up
+        if (chatMessages.scrollTop < previousScrollTop) {
+            userScrolling = true;
+        } else if (chatMessages.scrollTop + chatMessages.clientHeight >= chatMessages.scrollHeight) {
+            userScrolling = false; // User is back at the bottom
+        }
+
+        previousScrollTop = chatMessages.scrollTop; // Update previous scroll position
     });
 
     // Refresh messages every 2 seconds
