@@ -90,6 +90,7 @@ if ($host['id'] == $user_id) {
         <h1 class="profile-title">Match Details:</h1>
     </div>
 
+    <div class=""> <!-- TESTINGGGGGGGGGGGGG big_container-->
     <div class="profile-content">
         <section class="profile-container">
 
@@ -256,7 +257,7 @@ if ($host['id'] == $user_id) {
     <div style="text-align: center;
             font-family:'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             font-size: 25px;
-            margin-top:3%; margin-left:3%">
+            margin-top:3%; ">
         <div style="display: flex; justify-content: center; flex-wrap: wrap;">
             <?php if ($has_joined): ?>
                 <!-- If user has already joined, show "Joined" button -->
@@ -345,6 +346,8 @@ if ($host['id'] == $user_id) {
             ?>
     </div>
 
+    </div>
+
     <div class="chatroom">
         <h2>Chatroom</h2>
         <div id="chatMessages" class="chat-messages">
@@ -359,11 +362,11 @@ if ($host['id'] == $user_id) {
     </div>
 
 
-
-    </div>
-
-    <script src="footer.js"></script>
+    
+    
     <script src="chat_room.js"></script>
+    <script src="footer.js"></script>
+    
 </body>
 
 <footer>
