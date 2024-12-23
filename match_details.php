@@ -91,144 +91,144 @@ if ($host['id'] == $user_id) {
     </div>
 
     <div class=""> <!-- TESTINGGGGGGGGGGGGG big_container-->
-    <div class="profile-content">
-        <section class="profile-container">
+        <div class="profile-content">
+            <section class="profile-container">
 
-            <!-- left -->
-            <div class=" profile-left">
+                <!-- left -->
+                <div class=" profile-left">
+                    <div>
+                        <img src="gamematch/<?php echo $match['file']; ?>" alt="Match Image"
+                            style="width: 200px; height: auto;">
+                    </div>
+                </div>
+                <!-- right -->
+                <div class="profile-right">
+                    <div class="group">
+                        <label>Title:</label>
+                        <input type="text" value="<?php echo htmlspecialchars($match['match_title']); ?>" readonly>
+                    </div>
+                    <div class="group">
+                        <label>Game Type:</label>
+                        <input type="text" value="<?php echo htmlspecialchars($match['game_type']); ?>" readonly>
+                    </div>
+                    <div class="group">
+                        <label>Location:</label>
+                        <input type="text" value="<?php echo htmlspecialchars($match['location']); ?>" readonly>
+                    </div>
+                    <div class="group">
+                        <label>Skill Level Required:</label>
+                        <textarea readonly><?php echo htmlspecialchars($match['skill_level_required']); ?></textarea>
+                    </div>
+                    <div class="group">
+                        <label>Start Date:</label>
+                        <input type="text" value="<?php echo date($match['start_date']); ?>" readonly>
+                    </div>
+                    <div class="group">
+                        <label>Start Time:</label>
+                        <input type="text" value="<?php echo $match['start_time'] ?>" readonly>
+                    </div>
+                    <div class="group">
+                        <label>Max Players:</label>
+                        <input type="text" id="max_players"
+                            value="<?php echo htmlspecialchars($match['max_players']); ?>" readonly>
+                    </div>
+                    <div class="group">
+                        <label>Current Players:</label>
+                        <input type="text" id="current_players"
+                            value="<?php echo htmlspecialchars($match['current_players']); ?>" readonly>
+                    </div>
+                    <div class="group">
+                        <label>Status:</label>
+                        <input type="text" value="<?php echo htmlspecialchars($match['status']); ?>" readonly>
+                    </div>
+                    <div class="group">
+                        <label>Description:</label>
+                        <textarea readonly><?php echo nl2br(htmlspecialchars($match['description'])); ?></textarea>
+                    </div>
+
+                    <div class="group">
+                        <label>Email:</label>
+                        <input type="text" value="<?php echo htmlspecialchars($host['email']); ?>" readonly>
+                    </div>
+                </div>
+
+            </section>
+            <?php if ($ishost) { ?>
+
+
                 <div>
-                    <img src="gamematch/<?php echo $match['file']; ?>" alt="Match Image"
-                        style="width: 200px; height: auto;">
+                    <form action="edit_match.php" method="POST" onSubmit="return confirm('Do you want to edit?')">
+                        <input type="hidden" name="id" value="<?php echo $match_id; ?>">
+                        <button class="edit_button">
+                            <img src="IMAGE/edit_button_2.png" alt="Edit" style="width: 16%; height: auto;">
+                        </button>
+                    </form>
                 </div>
-            </div>
-            <!-- right -->
-            <div class="profile-right">
-                <div class="group">
-                    <label>Title:</label>
-                    <input type="text" value="<?php echo htmlspecialchars($match['match_title']); ?>" readonly>
-                </div>
-                <div class="group">
-                    <label>Game Type:</label>
-                    <input type="text" value="<?php echo htmlspecialchars($match['game_type']); ?>" readonly>
-                </div>
-                <div class="group">
-                    <label>Location:</label>
-                    <input type="text" value="<?php echo htmlspecialchars($match['location']); ?>" readonly>
-                </div>
-                <div class="group">
-                    <label>Skill Level Required:</label>
-                    <textarea readonly><?php echo htmlspecialchars($match['skill_level_required']); ?></textarea>
-                </div>
-                <div class="group">
-                    <label>Start Date:</label>
-                    <input type="text" value="<?php echo date($match['start_date']); ?>" readonly>
-                </div>
-                <div class="group">
-                    <label>Start Time:</label>
-                    <input type="text" value="<?php echo $match['start_time'] ?>" readonly>
-                </div>
-                <div class="group">
-                    <label>Max Players:</label>
-                    <input type="text" id="max_players" value="<?php echo htmlspecialchars($match['max_players']); ?>"
-                        readonly>
-                </div>
-                <div class="group">
-                    <label>Current Players:</label>
-                    <input type="text" id="current_players"
-                        value="<?php echo htmlspecialchars($match['current_players']); ?>" readonly>
-                </div>
-                <div class="group">
-                    <label>Status:</label>
-                    <input type="text" value="<?php echo htmlspecialchars($match['status']); ?>" readonly>
-                </div>
-                <div class="group">
-                    <label>Description:</label>
-                    <textarea readonly><?php echo nl2br(htmlspecialchars($match['description'])); ?></textarea>
-                </div>
-
-                <div class="group">
-                    <label>Email:</label>
-                    <input type="text" value="<?php echo htmlspecialchars($host['email']); ?>" readonly>
-                </div>
-            </div>
-
-        </section>
-        <?php if ($ishost) { ?>
-
-
-            <div>
-                <form action="edit_match.php" method="POST" onSubmit="return confirm('Do you want to edit?')">
-                    <input type="hidden" name="id" value="<?php echo $match_id; ?>">
-                    <button class="edit_button">
-                        <img src="IMAGE/edit_button_2.png" alt="Edit" style="width: 16%; height: auto;">
-                    </button>
-                </form>
-            </div>
 
 
 
 
-            <?php
-        }
-        ?>
-        <div class="players_title">
-            Member 👥</div>
-    </div>
-
-    <div class="circle_container" id="circle_container">
-        <!-- Circles will be generated here -->
-    </div>
-
-    <div class="players_list">
-        <!-- Host Info -->
-        <div>
-            <label>Host:</label>
-            <a href="player_profile.php?id=<?php echo $host['id']; ?>&match_id=<?php echo $match_id; ?>"
-                class="host-name">
-                <?php echo htmlspecialchars($host['first_name'] . ' ' . $host['last_name']); ?>
-            </a>
+                <?php
+            }
+            ?>
+            <div class="players_title">
+                Member 👥</div>
         </div>
 
-        <ul id="playersList">
-            <?php
-            // Query to get players who joined the match
-            $playersQuery = "
+        <div class="circle_container" id="circle_container">
+            <!-- Circles will be generated here -->
+        </div>
+
+        <div class="players_list">
+            <!-- Host Info -->
+            <div>
+                <label>Host:</label>
+                <a href="player_profile.php?id=<?php echo $host['id']; ?>&match_id=<?php echo $match_id; ?>"
+                    class="host-name">
+                    <?php echo htmlspecialchars($host['first_name'] . ' ' . $host['last_name']); ?>
+                </a>
+            </div>
+
+            <ul id="playersList">
+                <?php
+                // Query to get players who joined the match
+                $playersQuery = "
             SELECT user.id, user.first_name, user.last_name 
             FROM match_participants
             INNER JOIN user ON match_participants.user_id = user.id
             WHERE match_participants.match_id = ? 
             ORDER BY match_participants.join_date ASC";
 
-            // Prepare and execute the query
-            $stmt = $conn->prepare($playersQuery);
-            $stmt->bind_param('i', $match_id);
-            $stmt->execute();
-            $playersResult = $stmt->get_result();
+                // Prepare and execute the query
+                $stmt = $conn->prepare($playersQuery);
+                $stmt->bind_param('i', $match_id);
+                $stmt->execute();
+                $playersResult = $stmt->get_result();
 
-            $players = [];
-            while ($row = $playersResult->fetch_assoc()) {
-                $players[] = $row;
-            }
+                $players = [];
+                while ($row = $playersResult->fetch_assoc()) {
+                    $players[] = $row;
+                }
 
-            $currentPlayerIndex = 0; // To track the index of players joining
-            $maxPlayers = $max_players; // Max players allowed in the game
-            $currentPlayersCount = count($players); // Get the count of current players in the match
-            $displayedCurrentPlayers = $current_players; // Track how many current players are there
-            
-            // Calculate how many "X" to display (the difference between current_players and actual players in DB)
-            $X = $displayedCurrentPlayers - $currentPlayersCount;
+                $currentPlayerIndex = 0; // To track the index of players joining
+                $maxPlayers = $max_players; // Max players allowed in the game
+                $currentPlayersCount = count($players); // Get the count of current players in the match
+                $displayedCurrentPlayers = $current_players; // Track how many current players are there
+                
+                // Calculate how many "X" to display (the difference between current_players and actual players in DB)
+                $X = $displayedCurrentPlayers - $currentPlayersCount;
 
-            // Loop to display all player slots
-            for ($i = 1; $i <= $maxPlayers; $i++) {
-                if ($X > 0) {
-                    // Show "X" for the remaining current players
-                    echo "<li id='player{$i}'>Player {$i}: X</li>";
-                    $X--; // Decrease the count of "X" shown
-                } elseif ($currentPlayerIndex < $currentPlayersCount) {
-                    // After "X", show the names of joined players
-                    $player = $players[$currentPlayerIndex];
-                    $playerName = htmlspecialchars($player['first_name'] . " " . $player['last_name']);
-                    echo "<li id='player{$i}'>Player {$i}: <a href='player_profile.php?id={$player['id']}&match_id={$match_id}' 
+                // Loop to display all player slots
+                for ($i = 1; $i <= $maxPlayers; $i++) {
+                    if ($X > 0) {
+                        // Show "X" for the remaining current players
+                        echo "<li id='player{$i}'>Player {$i}: X</li>";
+                        $X--; // Decrease the count of "X" shown
+                    } elseif ($currentPlayerIndex < $currentPlayersCount) {
+                        // After "X", show the names of joined players
+                        $player = $players[$currentPlayerIndex];
+                        $playerName = htmlspecialchars($player['first_name'] . " " . $player['last_name']);
+                        echo "<li id='player{$i}'>Player {$i}: <a href='player_profile.php?id={$player['id']}&match_id={$match_id}' 
                     style='color: black; 
                     text-decoration: none; 
                     font-weight: 500; 
@@ -239,34 +239,34 @@ if ($host['id'] == $user_id) {
                     onmouseout=\"this.style.color='black'; 
                                 this.style.transform='none' 
                                 \">$playerName</a></li>";
-                    $currentPlayerIndex++; // Move to the next participant
-                } else {
-                    // Show "?" for any remaining empty slots
-                    echo "<li id='player{$i}'>Player {$i}: ?</li>";
+                        $currentPlayerIndex++; // Move to the next participant
+                    } else {
+                        // Show "?" for any remaining empty slots
+                        echo "<li id='player{$i}'>Player {$i}: ?</li>";
+                    }
                 }
-            }
-            ?>
-        </ul>
-    </div>
+                ?>
+            </ul>
+        </div>
 
 
 
 
 
-    <!-- Join Match Section -->
-    <div style="text-align: center;
+        <!-- Join Match Section -->
+        <div style="text-align: center;
             font-family:'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             font-size: 25px;
             margin-top:3%; ">
-        <div style="display: flex; justify-content: center; flex-wrap: wrap;">
-            <?php if ($has_joined): ?>
-                <!-- If user has already joined, show "Joined" button -->
-                <div>
-                    <p style="color: black;">You have joined the match.</p>
-                    <p style="color: black;">Do you wish to cancel?</p>
-                    <form action="cancel_match.php" method="GET" style="text-align: center;">
-                        <input type="hidden" name="id" value="<?php echo $match_id; ?>">
-                        <button style="width: 300px; 
+            <div style="display: flex; justify-content: center; flex-wrap: wrap;">
+                <?php if ($has_joined): ?>
+                    <!-- If user has already joined, show "Joined" button -->
+                    <div>
+                        <p style="color: black;">You have joined the match.</p>
+                        <p style="color: black;">Do you wish to cancel?</p>
+                        <form action="cancel_match.php" method="GET" style="text-align: center;">
+                            <input type="hidden" name="id" value="<?php echo $match_id; ?>">
+                            <button style="width: 300px; 
                         height: 100px; 
                         font-size: 30px; 
                         font-weight: 700; 
@@ -277,21 +277,21 @@ if ($host['id'] == $user_id) {
                         cursor: pointer; 
                         transition: background-color 0.3s ease; 
                         margin-top:1%" box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
-                            onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.3)'; this.style.background='linear-gradient(202deg, #FF4B5C 0%, rgba(255, 75, 92, 0.66) 71%)'"
-                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)'; this.style.background='linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%)'"
-                            onclick="this.style.transform='translateY(2px)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)';">
-                            Cancel
-                        </button>
-                    </form>
-                </div>
-            <?php elseif ($current_players < $max_players): ?>
-                <!-- If match is not full and user has not joined -->
-                <div>
-                    <p style="color: black;">Are you interested to the match?</p>
-                    <p style="color: black;">Join now and have fun!</p>
-                    <form action="join_match.php" method="GET" style="text-align: center;">
-                        <input type="hidden" name="id" value="<?php echo $match_id; ?>">
-                        <button style="width: 300px; 
+                                onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.3)'; this.style.background='linear-gradient(202deg, #FF4B5C 0%, rgba(255, 75, 92, 0.66) 71%)'"
+                                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)'; this.style.background='linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%)'"
+                                onclick="this.style.transform='translateY(2px)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)';">
+                                Cancel
+                            </button>
+                        </form>
+                    </div>
+                <?php elseif ($current_players < $max_players): ?>
+                    <!-- If match is not full and user has not joined -->
+                    <div>
+                        <p style="color: black;">Are you interested to the match?</p>
+                        <p style="color: black;">Join now and have fun!</p>
+                        <form action="join_match.php" method="GET" style="text-align: center;">
+                            <input type="hidden" name="id" value="<?php echo $match_id; ?>">
+                            <button style="width: 300px; 
                         height: 100px; 
                         font-size: 30px; 
                         font-weight: 700; 
@@ -302,19 +302,19 @@ if ($host['id'] == $user_id) {
                         cursor: pointer; 
                         transition: background-color 0.3s ease; 
                         margin-top:1%" box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
-                            onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.3)'; this.style.background='linear-gradient(202deg, #FF4B5C 0%, rgba(255, 75, 92, 0.66) 71%)'"
-                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)'; this.style.background='linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%)'"
-                            onclick="this.style.transform='translateY(2px)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)';">
-                            Join Match
-                        </button>
-                    </form>
-                </div>
-            <?php else: ?>
-                <!-- If match is full -->
-                <div>
-                    <p style="color: black;">It seems the match is full.</p>
-                    <p style="color: black;">Try to look for another one!</p>
-                    <button style="width: 300px; 
+                                onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.3)'; this.style.background='linear-gradient(202deg, #FF4B5C 0%, rgba(255, 75, 92, 0.66) 71%)'"
+                                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)'; this.style.background='linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%)'"
+                                onclick="this.style.transform='translateY(2px)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)';">
+                                Join Match
+                            </button>
+                        </form>
+                    </div>
+                <?php else: ?>
+                    <!-- If match is full -->
+                    <div>
+                        <p style="color: black;">It seems the match is full.</p>
+                        <p style="color: black;">Try to look for another one!</p>
+                        <button style="width: 300px; 
                         height: 100px; 
                         font-size: 30px; 
                         font-weight: 700; 
@@ -325,26 +325,27 @@ if ($host['id'] == $user_id) {
                         cursor: pointer; 
                         transition: background-color 0.3s ease; 
                         margin-top:1%" box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
-                        Match Full
-                    </button>
-                </div>
-            <?php endif; ?>
-
-            <?php if ($ishost) { ?>
-                <div>
-                    <form action="delete_match.php" method="POST" onSubmit="return confirm('Do you want to delete?')">
-                        <input type="hidden" name="id" value="<?php echo $match_id; ?>">
-                        <button style="background: none; border: none; cursor: pointer; margin-top:89%; margin-left:40%">
-                            <img src="IMAGE/delete_button.png" alt="Delete" style="width: 100px; height: 100px;">
+                            Match Full
                         </button>
-                    </form>
-                </div>
+                    </div>
+                <?php endif; ?>
 
-            </div>
-            <?php
-            }
-            ?>
-    </div>
+                <?php if ($ishost) { ?>
+                    <div>
+                        <form action="delete_match.php" method="POST" onSubmit="return confirm('Do you want to delete?')">
+                            <input type="hidden" name="id" value="<?php echo $match_id; ?>">
+                            <button
+                                style="background: none; border: none; cursor: pointer; margin-top:89%; margin-left:40%">
+                                <img src="IMAGE/delete_button.png" alt="Delete" style="width: 100px; height: 100px;">
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+                <?php
+                }
+                ?>
+        </div>
 
     </div>
 
@@ -356,17 +357,18 @@ if ($host['id'] == $user_id) {
         <form id="chatForm">
             <input type="hidden" id="match_id" value="<?php echo $match_id; ?>">
             <input type="hidden" id="user_id" value="<?php echo $user_id; ?>">
-            <textarea id="chatInput" placeholder="Type your message here..." required></textarea>
+            <input class="typing_area" id="chatInput" placeholder="Type your message here..." required />
             <button type="submit">Send</button>
         </form>
     </div>
 
 
-    
-    
+
+
+
     <script src="chat_room.js"></script>
     <script src="footer.js"></script>
-    
+
 </body>
 
 <footer>
