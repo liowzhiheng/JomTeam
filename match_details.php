@@ -276,7 +276,7 @@ if ($host['id'] == $user_id) {
                         border-radius: 50px; 
                         cursor: pointer; 
                         transition: background-color 0.3s ease; 
-                        margin-top:1%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
+                        margin-top:1%" box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
                                 onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.3)'; this.style.background='linear-gradient(202deg, #FF4B5C 0%, rgba(255, 75, 92, 0.66) 71%)'"
                                 onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)'; this.style.background='linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%)'"
                                 onclick="this.style.transform='translateY(2px)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)';">
@@ -287,8 +287,8 @@ if ($host['id'] == $user_id) {
                 <?php elseif ($current_players < $max_players): ?>
                     <!-- If match is not full and user has not joined -->
                     <div>
-
-                        <p style="color: black; margin-left:20%;margin-top:15%">Join now and have fun!</p>
+                        <p style="color: black;">Are you interested to the match?</p>
+                        <p style="color: black;">Join now and have fun!</p>
                         <form action="join_match.php" method="GET" style="text-align: center;">
                             <input type="hidden" name="id" value="<?php echo $match_id; ?>">
                             <button style="width: 300px; 
@@ -301,7 +301,7 @@ if ($host['id'] == $user_id) {
                         border-radius: 50px; 
                         cursor: pointer; 
                         transition: background-color 0.3s ease; 
-                        margin-top:9%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);margin-left:10%"
+                        margin-top:1%" box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
                                 onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.3)'; this.style.background='linear-gradient(202deg, #FF4B5C 0%, rgba(255, 75, 92, 0.66) 71%)'"
                                 onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)'; this.style.background='linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%)'"
                                 onclick="this.style.transform='translateY(2px)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)';">
@@ -312,8 +312,8 @@ if ($host['id'] == $user_id) {
                 <?php else: ?>
                     <!-- If match is full -->
                     <div>
-                        <p style="color: black; margin-left:20%">It seems the match is full.</p>
-                        <p style="color: black; margin-left:20%">Try to look for another one!</p>
+                        <p style="color: black;">It seems the match is full.</p>
+                        <p style="color: black;">Try to look for another one!</p>
                         <button style="width: 300px; 
                         height: 100px; 
                         font-size: 30px; 
@@ -324,7 +324,7 @@ if ($host['id'] == $user_id) {
                         border-radius: 50px; 
                         cursor: pointer; 
                         transition: background-color 0.3s ease; 
-                        margin-top:1%;margin-left:10% ;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+                        margin-top:1%" box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
                             Match Full
                         </button>
                     </div>
@@ -335,7 +335,7 @@ if ($host['id'] == $user_id) {
                         <form action="delete_match.php" method="POST" onSubmit="return confirm('Do you want to delete?')">
                             <input type="hidden" name="id" value="<?php echo $match_id; ?>">
                             <button
-                                style="background: none; border: none; cursor: pointer; margin-top:81%; margin-left:30%">
+                                style="background: none; border: none; cursor: pointer; margin-top:89%; margin-left:40%">
                                 <img src="IMAGE/delete_button.png" alt="Delete" style="width: 100px; height: 100px;">
                             </button>
                         </form>
@@ -350,7 +350,7 @@ if ($host['id'] == $user_id) {
     </div>
 
     <div class="chatroom">
-        <h2>Chatroom</h2>
+        <h2>Chat Room💬</h2>
         <div id="chatMessages" class="chat-messages">
             <!-- Messages will be dynamically loaded here -->
         </div>
@@ -358,7 +358,7 @@ if ($host['id'] == $user_id) {
             <input type="hidden" id="match_id" value="<?php echo $match_id; ?>">
             <input type="hidden" id="user_id" value="<?php echo $user_id; ?>">
             <input id="chatInput" placeholder="Type your message here..." required />
-            <button type="submit">Send</button>
+            <button class="chat_button" type="submit">Send</button>
         </form>
     </div>
 

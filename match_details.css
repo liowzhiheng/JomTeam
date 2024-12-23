@@ -132,14 +132,16 @@ div p {
     padding: 10px;
     font-size: 1.2rem;
     color: white;
-    text-align: center; /* Ensure text is centered */
+    text-align: center;
+    /* Ensure text is centered */
 }
 
 /* Style the joined button */
 .joined_button {
     width: 75%;
     height: 70px;
-    font-size: 16px; /* Adjust font size */
+    font-size: 16px;
+    /* Adjust font size */
     font-weight: 700;
     color: white;
     background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%);
@@ -147,7 +149,8 @@ div p {
     border-radius: 50px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    display: inline-block; /* Fix button display */
+    display: inline-block;
+    /* Fix button display */
     margin-top: 10%;
     margin-left: auto;
     margin-right: auto;
@@ -189,6 +192,7 @@ div p {
     font-size: 16px;
     padding-right: 40px;
 }
+
 select:focus {
     outline: none;
     /* Remove default focus styles */
@@ -225,19 +229,20 @@ select:focus {
     margin-top: 100px;
     border-radius: 20px;
     padding: 65px;
-    background:white;
-    max-width: 900px; /* Limiting max width */
+    background: white;
+    max-width: 900px;
+    /* Limiting max width */
     margin-left: auto;
     margin-right: auto;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-.chatroom h2{
-    color:#5252D4;
-    font-size:60px;
+.chatroom h2 {
+    color: #5252D4;
+    font-size: 60px;
     font-family: Arial, sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-   margin-bottom: 19px;
-   
+    margin-bottom: 19px;
+
 }
 
 
@@ -254,27 +259,34 @@ select:focus {
     flex-direction: column;
     border-radius: 20px;
     position: relative;
-    padding-right: 10px; /* Reserve space for the scrollbar */
+    padding-right: 10px;
+    /* Reserve space for the scrollbar */
 }
 
 /* Webkit Scrollbar */
 .chat-messages::-webkit-scrollbar {
-    width: 12px; /* Scrollbar width */
-    height: 50%; /* Shorten scrollbar height */
+    width: 12px;
+    /* Scrollbar width */
+    height: 50%;
+    /* Shorten scrollbar height */
 }
 
 /* Track (background) */
 .chat-messages::-webkit-scrollbar-track {
-   
+
     border-radius: 10px;
-    margin: 20px 0; /* Add spacing to center the scrollbar vertically */
+    margin: 20px 0;
+    /* Add spacing to center the scrollbar vertically */
 }
 
 /* Handle (scroll thumb) */
 .chat-messages::-webkit-scrollbar-thumb {
     background: #5252D4;
-    border-radius: 10px;
-    height: 60px; /* Shorter scrollbar thumb */
+
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    height: 60px;
+    /* Shorter scrollbar thumb */
 }
 
 .chat-messages::-webkit-scrollbar-thumb:hover {
@@ -288,15 +300,17 @@ select:focus {
 }
 
 .chat-message.my-message {
-    justify-content: flex-end; /* Right align for current user */
+    justify-content: flex-end;
+    /* Right align for current user */
 }
 
 .chat-message.other-message {
-    justify-content: flex-start; /* Left align for other users */
+    justify-content: flex-start;
+    /* Left align for other users */
 }
 
 .chat-message p {
-    background-color:#5252D4;
+    background-color: #5252D4;
     color: white;
     padding: 10px;
     border-radius: 15px;
@@ -305,7 +319,8 @@ select:focus {
 }
 
 .chat-message.other-message p {
-    background-color: #7b848e; /* Different background for others */
+    background-color: #7b848e;
+    /* Different background for others */
 }
 
 #chatInput {
@@ -317,16 +332,18 @@ select:focus {
     margin-top: 10px;
     resize: none;
     font-family: 'Raleway', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-   font-size: 20px;
+    font-size: 20px;
 }
 
-button {
+.chat_button {
     padding: 10px 15px;
     background-color: #eb1436;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 15px;
     cursor: pointer;
+    margin-left: 690px;
+    transform: translateY(-62px);
 }
 
 
@@ -334,11 +351,12 @@ button {
 
 /* TESTINGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG */
 
-.big_container{
+.big_container {
     max-width: 1200px;
     margin: 20px auto;
     background-color: rgba(255, 255, 255, 0.95);
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transform: translateY(-100px);
 }
