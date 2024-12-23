@@ -358,7 +358,7 @@ if ($host['id'] == $user_id) {
             <input type="hidden" id="match_id" value="<?php echo $match_id; ?>">
             <input type="hidden" id="user_id" value="<?php echo $user_id; ?>">
             <input id="chatInput" placeholder="Type your message here..." required />
-            <button class="chat_button" type="submit">Send</button>
+            <button class="chat_button" type="submit">➤</button>
         </form>
     </div>
 

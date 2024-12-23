@@ -327,7 +327,7 @@ select:focus {
     width: 100%;
     padding: 20px;
     border-radius: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #b6b4b472;
     margin-bottom: 10px;
     margin-top: 10px;
     resize: none;
@@ -337,13 +337,13 @@ select:focus {
 
 .chat_button {
     padding: 10px 15px;
-    background-color: #eb1436;
+    background-color: #d1cbcc;
     color: white;
     border: none;
     border-radius: 15px;
     cursor: pointer;
-    margin-left: 690px;
-    transform: translateY(-62px);
+    margin-left: 705px;
+    transform: translateY(-63px);
 }
 
 
