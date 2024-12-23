@@ -262,8 +262,8 @@ if ($host['id'] == $user_id) {
                 <?php if ($has_joined): ?>
                     <!-- If user has already joined, show "Joined" button -->
                     <div>
-                        <p style="color: black;">You have joined the match.</p>
-                        <p style="color: black;">Do you wish to cancel?</p>
+                        <p style="color: black;margin-left:20%">You have joined the match.</p>
+                        <p style="color: black;margin-left:20%">Do you wish to cancel?</p>
                         <form action="cancel_match.php" method="GET" style="text-align: center;">
                             <input type="hidden" name="id" value="<?php echo $match_id; ?>">
                             <button style="width: 300px; 
@@ -276,7 +276,7 @@ if ($host['id'] == $user_id) {
                         border-radius: 50px; 
                         cursor: pointer; 
                         transition: background-color 0.3s ease; 
-                        margin-top:1%" box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
+                        margin-top:1%;margin-left:12%" box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
                                 onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.3)'; this.style.background='linear-gradient(202deg, #FF4B5C 0%, rgba(255, 75, 92, 0.66) 71%)'"
                                 onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)'; this.style.background='linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%)'"
                                 onclick="this.style.transform='translateY(2px)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)';">
@@ -287,8 +287,8 @@ if ($host['id'] == $user_id) {
                 <?php elseif ($current_players < $max_players): ?>
                     <!-- If match is not full and user has not joined -->
                     <div>
-                        <p style="color: black;">Are you interested to the match?</p>
-                        <p style="color: black;">Join now and have fun!</p>
+
+                        <p style="color: black; margin-left:20%;margin-top:15%">Join now and have fun!</p>
                         <form action="join_match.php" method="GET" style="text-align: center;">
                             <input type="hidden" name="id" value="<?php echo $match_id; ?>">
                             <button style="width: 300px; 
@@ -301,7 +301,7 @@ if ($host['id'] == $user_id) {
                         border-radius: 50px; 
                         cursor: pointer; 
                         transition: background-color 0.3s ease; 
-                        margin-top:1%" box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
+                        margin-top:9%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);margin-left:10%"
                                 onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.3)'; this.style.background='linear-gradient(202deg, #FF4B5C 0%, rgba(255, 75, 92, 0.66) 71%)'"
                                 onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)'; this.style.background='linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%)'"
                                 onclick="this.style.transform='translateY(2px)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)';">
@@ -324,7 +324,7 @@ if ($host['id'] == $user_id) {
                         border-radius: 50px; 
                         cursor: pointer; 
                         transition: background-color 0.3s ease; 
-                        margin-top:1%;margin-left:12% box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+                        margin-top:1%;margin-left:20% box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
                             Match Full
                         </button>
                     </div>
