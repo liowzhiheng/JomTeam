@@ -8,9 +8,19 @@ body, html {
     background: rgba(82, 82, 212);
     font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
+.background {
+    position: fixed; /* Stays fixed in place behind content */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; /* Pushes it behind everything else */
+    pointer-events: none; /* Prevent interaction with shapes */
+}
 
 .container {
     text-align: center; /* Center the text */
+    z-index: 1; /* Ensures content stays above the background */
 }
 
 .login-image {
