@@ -32,17 +32,17 @@ $rowFeedback = $resultFeedback->fetch_assoc();
 $newFeedback = $rowFeedback['new_feedback'] ?? 0;
 
 //Latest
-$sqlRecentUsers = "SELECT first_name, last_name, created_at FROM user ORDER BY created_at DESC LIMIT 5";
+$sqlRecentUsers = "SELECT first_name, last_name, created_at FROM user ORDER BY created_at DESC LIMIT 3";
 $resultRecentUsers = $conn->query($sqlRecentUsers);
 
 $sqlRecentMatches = "SELECT g.start_date, u.first_name, u.last_name 
                      FROM gamematch g 
                      JOIN user u ON g.user_id = u.id 
                      ORDER BY g.start_date DESC 
-                     LIMIT 5";
+                     LIMIT 3";
 $resultRecentMatches = $conn->query($sqlRecentMatches);
 
-$sqlRecentFeedback = "SELECT title, created_at FROM feedback ORDER BY created_at DESC LIMIT 5";
+$sqlRecentFeedback = "SELECT title, created_at FROM feedback ORDER BY created_at DESC LIMIT 3";
 $resultRecentFeedback = $conn->query($sqlRecentFeedback);
 ?>
 

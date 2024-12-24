@@ -88,89 +88,73 @@ $result = $conn->query($sql);
         <!-- List of Existing Ads -->
         <div class="box">
             <h2>Existing Ads</h2>
-            <?php if ($result->num_rows > 0): ?>
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>Image</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $counter = 1;
-                        while ($row = $result->fetch_assoc()): ?>
-                            <tr>
-                                <form method="POST" action="update_ads.php" enctype="multipart/form-data">
-                                    <!-- Hidden ID for update -->
-                                    <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                                    <td><?php echo $counter++; ?></td>
-                                    <td><input type="text" name="title" value="<?php echo htmlspecialchars($row['title']); ?>"
-                                            required></td>
-                                    <td><textarea name="description"
-                                            required><?php echo htmlspecialchars($row['description']); ?></textarea></td>
-                                    <td>
-                                        <?php if ($row['file']): ?>
-                                            <img src="ads/<?php echo $row['file']; ?>" alt="Ad Image"
-                                                style="width: 100px; height: auto;">
-                                        <?php else: ?>
-                                            <p>No image</p>
-                                        <?php endif; ?>
-                                        <br>
-                                        <input type="file" name="image" />
-                                    </td>
-                                    <td><input type="checkbox" name="status" <?php echo $row['status'] == 1 ? 'checked' : ''; ?>>
-                                        Active</td>
-                                    <td>
-                                        <button type="submit" name="update_ad">Update</button>
-                                        <a href="update_ads.php?delete_id=<?php echo $row['id']; ?>"
-                                            onclick="return confirm('Are you sure you want to delete this ad?')">
-                                            <button type="button" class="btn delete">Delete</button>
-                                        </a>
-                                    </td>
-                                </form>
-                            </tr>
-                        <?php endwhile; ?>
-                    </tbody>
-                </table>
-            <?php else: ?>
-                <p><br>No ads available to display.</p>
-            <?php endif; ?>
+            <div class="cards-container">
+                <?php if ($result->num_rows > 0): ?>
+                    <?php while ($row = $result->fetch_assoc()): ?>
+                        <a href="update_ads.php?id=<?php echo $row['id']; ?>" class="ad-card-link">
+                            <div class="ad-card">
+                                <div class="ad-image">
+                                    <img src="ads/<?php echo $row['file']; ?>" alt="Ad Image">
+                                </div>
+                                <div class="ad-details">
+                                    <h3><?php echo htmlspecialchars($row['title']); ?></h3>
+                                    <p>Status:
+                                        <button class="toggle-btn <?php echo $row['status'] ? 'active' : 'inactive'; ?>"
+                                            onclick="event.stopPropagation(); toggleStatus(<?php echo $row['id']; ?>, <?php echo $row['status']; ?>)">
+                                            <?php echo $row['status'] ? 'Active' : 'Inactive'; ?>
+                                        </button>
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <p>No ads available to display.</p>
+                <?php endif; ?>
+            </div>
         </div>
-    </div>
 
-    <script>
-        document.getElementById('image').addEventListener('change', function (event) {
-            const file = event.target.files[0];
-            const previewImg = document.getElementById('previewImg');
-            const uploadText = document.getElementById('uploadText');
+        <script>
+            document.getElementById('image').addEventListener('change', function (event) {
+                const file = event.target.files[0];
+                const previewImg = document.getElementById('previewImg');
+                const uploadText = document.getElementById('uploadText');
 
-            if (file) {
-                // No need to display the file name
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    previewImg.src = e.target.result;
-                    previewImg.style.display = 'block';
-                    uploadText.style.display = 'none';
-                };
-                reader.readAsDataURL(file);
-            } else {
-                previewImg.style.display = 'none';
-                uploadText.style.display = 'block';
+                if (file) {
+                    // No need to display the file name
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        previewImg.src = e.target.result;
+                        previewImg.style.display = 'block';
+                        uploadText.style.display = 'none';
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    previewImg.style.display = 'none';
+                    uploadText.style.display = 'block';
+                }
+            });
+
+            function toggleStatus(id, currentStatus) {
+                const newStatus = currentStatus ? 0 : 1;
+                fetch(`update_ads.php?toggle_status_id=${id}&new_status=${newStatus}`, {
+                    method: 'POST'
+                })
+                    .then(response => response.text())
+                    .then(data => {
+                        if (data.trim() === 'success') {
+                            location.reload(); // Refresh the page to update the UI
+                        }
+                    })
             }
-        });
 
-        const message = document.getElementById('message');
-        if (message) {
-            setTimeout(() => {
-                message.style.display = 'none';
-            }, 2000);
-        }
-    </script>
+            const message = document.getElementById('message');
+            if (message) {
+                setTimeout(() => {
+                    message.style.display = 'none';
+                }, 2000);
+            }
+        </script>
 </body>
 
 </html>
