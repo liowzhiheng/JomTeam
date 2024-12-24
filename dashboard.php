@@ -131,35 +131,38 @@ $resultRecentFeedback = $conn->query($sqlRecentFeedback);
 
         <section class="latest-activity">
             <h2>Latest Activity</h2>
-            <div class="activity-list">
-                <h3>New Users</h3>
-                <?php while ($user = $resultRecentUsers->fetch_assoc()) { ?>
-                    <div class="activity-item">
-                        <p><strong><?php echo strtoupper($user['first_name'] . ' ' . $user['last_name']); ?></strong> joined
-                            on
-                            <?php echo date("d M Y", strtotime($user['created_at'])); ?>.
-                        </p>
-                    </div>
-                <?php } ?>
+            <div class="activity-container">
+                <div class="activity-list">
+                    <h3>New Users</h3>
+                    <?php while ($user = $resultRecentUsers->fetch_assoc()) { ?>
+                        <div class="activity-item">
+                            <p><strong><?php echo strtoupper($user['first_name'] . ' ' . $user['last_name']); ?></strong>
+                                joined
+                                on
+                                <?php echo date("d M Y", strtotime($user['created_at'])); ?>.
+                            </p>
+                        </div>
+                    <?php } ?>
 
-                <h3>New Matches</h3>
-                <?php while ($match = $resultRecentMatches->fetch_assoc()) { ?>
-                    <div class="activity-item">
-                        <p><strong>Match Created By:</strong>
-                            <?php echo strtoupper($match['first_name'] . ' ' . $match['last_name']); ?> on
-                            <?php echo date("d M Y", strtotime($match['start_date'])); ?>.
-                        </p>
-                    </div>
-                <?php } ?>
+                    <h3>New Matches</h3>
+                    <?php while ($match = $resultRecentMatches->fetch_assoc()) { ?>
+                        <div class="activity-item">
+                            <p><strong>Match Created By:</strong>
+                                <?php echo strtoupper($match['first_name'] . ' ' . $match['last_name']); ?> on
+                                <?php echo date("d M Y", strtotime($match['start_date'])); ?>.
+                            </p>
+                        </div>
+                    <?php } ?>
 
-                <h3>New Feedback</h3>
-                <?php while ($feedback = $resultRecentFeedback->fetch_assoc()) { ?>
-                    <div class="activity-item">
-                        <p><strong>Feedback:</strong> "<?php echo $feedback['title']; ?>" received on
-                            <?php echo date("d M Y", strtotime($feedback['created_at'])); ?>.
-                        </p>
-                    </div>
-                <?php } ?>
+                    <h3>New Feedback</h3>
+                    <?php while ($feedback = $resultRecentFeedback->fetch_assoc()) { ?>
+                        <div class="activity-item">
+                            <p><strong>Feedback:</strong> "<?php echo $feedback['title']; ?>" received on
+                                <?php echo date("d M Y", strtotime($feedback['created_at'])); ?>.
+                            </p>
+                        </div>
+                    <?php } ?>
+                </div>
             </div>
         </section>
 

@@ -121,6 +121,17 @@ body {
 }
 
 .latest-activity {
+    margin-top: 40px;
+}
+
+.latest-activity h2 {
+    margin-bottom: 20px;
+    color: white;
+    font-size: 50px;
+    text-align: center;
+}
+
+.activity-container {
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
