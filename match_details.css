@@ -101,7 +101,8 @@
     /* Center-align the list under the circles */
     margin-top: 100px;
     /* Adjust font size for better readability */
-    margin-left: 34%;
+        transform: translateX(50%);
+    margin-left: -600px;
     color: #A0A9B5;
     font-family: 'Raleway', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     font-size: 40px;
