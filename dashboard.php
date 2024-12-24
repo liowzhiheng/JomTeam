@@ -35,6 +35,15 @@ $newFeedback = $rowFeedback['new_feedback'] ?? 0;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Pass PHP variable to JavaScript -->
+    <script>
+        const activeUsers = <?php echo $activeUsers; ?>;
+        const activeAds = <?php echo $activeAds; ?>;
+        const upcomingMatches = <?php echo $upcomingMatches; ?>;
+        const newFeedback = <?php echo $newFeedback; ?>;
+    </script>
+    <script src="dashboard.js" defer></script>
 </head>
 
 <body>
@@ -69,6 +78,7 @@ $newFeedback = $rowFeedback['new_feedback'] ?? 0;
                         <span class="count"><?php echo $activeUsers; ?></span>
                         <span class="label">Active Users Today</span>
                     </div>
+                    <canvas id="activeUsersChart" width="400" height="400"></canvas>
                 </div>
                 <div class="card">
                     <h3>Ads</h3>
@@ -76,6 +86,7 @@ $newFeedback = $rowFeedback['new_feedback'] ?? 0;
                         <span class="count"><?php echo $activeAds; ?></span>
                         <span class="label">Active Ads</span>
                     </div>
+                    <canvas id="activeAdsChart" width="400" height="400"></canvas>
                 </div>
                 <div class="card">
                     <h3>Matches</h3>
@@ -83,6 +94,7 @@ $newFeedback = $rowFeedback['new_feedback'] ?? 0;
                         <span class="count"><?php echo $upcomingMatches; ?></span>
                         <span class="label">Upcoming Matches</span>
                     </div>
+                    <canvas id="upcomingMatchesChart" width="400" height="400"></canvas>
                 </div>
                 <div class="card">
                     <h3>Feedback</h3>
@@ -90,6 +102,7 @@ $newFeedback = $rowFeedback['new_feedback'] ?? 0;
                         <span class="count"><?php echo $newFeedback; ?></span>
                         <span class="label">New Feedback</span>
                     </div>
+                    <canvas id="newFeedbackChart" width="400" height="400"></canvas>
                 </div>
             </div>
         </section>
@@ -108,8 +121,21 @@ $newFeedback = $rowFeedback['new_feedback'] ?? 0;
                 </div>
             </div>
         </section>
-    </main>
 
+        <section class="details">
+            <h2>Detailed Insights</h2>
+            <div class="details-grid">
+                <div class="details-item">
+                    <h3>User Logins</h3>
+                    <p>Display a table or graph of recent user login activity here.</p>
+                </div>
+                <div class="details-item">
+                    <h3>Ad Performance</h3>
+                    <p>Include details or graphs about ad performance metrics.</p>
+                </div>
+            </div>
+        </section>
+    </main>
 </body>
 
 </html>
