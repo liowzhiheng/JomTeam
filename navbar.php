@@ -16,7 +16,7 @@ require("config.php");
     </ul>
 
     <ul class="menu rightmenu">
-        <li><a href="history.php">History</a></li>
+        <li><a href="history.php">Match Activity</a></li>
         <li class="notification"><a href="#notification"><img src="IMAGE/NOTIFICATION.png" alt="Notification"></a>
         </li>
         <li class="profile">
