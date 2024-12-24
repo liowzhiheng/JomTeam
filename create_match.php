@@ -123,13 +123,97 @@ $rows = mysqli_fetch_assoc($result);
                         <label class="details">Location</label>
                         <select name="location" required>
                             <option value="" hidden>Select Location</option>
-                            <option value="Skudai">Skudai</option>
-                            <option value="Kulai">Kulai</option>
-                            <option value="Impian Emas">Impian Emas</option>
-                            <option value="Sutera">Sutera</option>
-                            <option value="Tun Aminah">Tun Aminah</option>
-                            <option value="Nusa Bestari">Nusa Bestari</option>
+                            <!-- Johor -->
+                            <optgroup label="Johor">
+                                <option value="Johor Bahru">Johor Bahru</option>
+                                <option value="Skudai">Skudai</option>
+                                <option value="Kulai">Kulai</option>
+                                <option value="Muar">Muar</option>
+                                <option value="Batu Pahat">Batu Pahat</option>
+                                <option value="Kota Tinggi">Kota Tinggi</option>
+                                <option value="Pontian">Pontian</option>
+                            </optgroup>
+                            <!-- Kedah -->
+                            <optgroup label="Kedah">
+                                <option value="Alor Setar">Alor Setar</option>
+                                <option value="Sungai Petani">Sungai Petani</option>
+                                <option value="Kulim">Kulim</option>
+                                <option value="Langkawi">Langkawi</option>
+                            </optgroup>
+                            <!-- Kelantan -->
+                            <optgroup label="Kelantan">
+                                <option value="Kota Bharu">Kota Bharu</option>
+                                <option value="Tanah Merah">Tanah Merah</option>
+                                <option value="Gua Musang">Gua Musang</option>
+                            </optgroup>
+                            <!-- Malacca -->
+                            <optgroup label="Malacca">
+                                <option value="Malacca City">Malacca City</option>
+                                <option value="Ayer Keroh">Ayer Keroh</option>
+                                <option value="Jasin">Jasin</option>
+                            </optgroup>
+                            <!-- Negeri Sembilan -->
+                            <optgroup label="Negeri Sembilan">
+                                <option value="Seremban">Seremban</option>
+                                <option value="Port Dickson">Port Dickson</option>
+                                <option value="Nilai">Nilai</option>
+                            </optgroup>
+                            <!-- Pahang -->
+                            <optgroup label="Pahang">
+                                <option value="Kuantan">Kuantan</option>
+                                <option value="Temerloh">Temerloh</option>
+                                <option value="Bentong">Bentong</option>
+                                <option value="Cameron Highlands">Cameron Highlands</option>
+                            </optgroup>
+                            <!-- Penang -->
+                            <optgroup label="Penang">
+                                <option value="George Town">George Town</option>
+                                <option value="Bayan Lepas">Bayan Lepas</option>
+                                <option value="Butterworth">Butterworth</option>
+                            </optgroup>
+                            <!-- Perak -->
+                            <optgroup label="Perak">
+                                <option value="Ipoh">Ipoh</option>
+                                <option value="Taiping">Taiping</option>
+                                <option value="Lumut">Lumut</option>
+                            </optgroup>
+                            <!-- Perlis -->
+                            <optgroup label="Perlis">
+                                <option value="Kangar">Kangar</option>
+                                <option value="Arau">Arau</option>
+                            </optgroup>
+                            <!-- Sabah -->
+                            <optgroup label="Sabah">
+                                <option value="Kota Kinabalu">Kota Kinabalu</option>
+                                <option value="Sandakan">Sandakan</option>
+                                <option value="Tawau">Tawau</option>
+                            </optgroup>
+                            <!-- Sarawak -->
+                            <optgroup label="Sarawak">
+                                <option value="Kuching">Kuching</option>
+                                <option value="Miri">Miri</option>
+                                <option value="Sibu">Sibu</option>
+                            </optgroup>
+                            <!-- Selangor -->
+                            <optgroup label="Selangor">
+                                <option value="Shah Alam">Shah Alam</option>
+                                <option value="Petaling Jaya">Petaling Jaya</option>
+                                <option value="Subang Jaya">Subang Jaya</option>
+                            </optgroup>
+                            <!-- Terengganu -->
+                            <optgroup label="Terengganu">
+                                <option value="Kuala Terengganu">Kuala Terengganu</option>
+                                <option value="Kemaman">Kemaman</option>
+                                <option value="Dungun">Dungun</option>
+                            </optgroup>
+                            <!-- Federal Territories -->
+                            <optgroup label="Federal Territories">
+                                <option value="Kuala Lumpur">Kuala Lumpur</option>
+                                <option value="Putrajaya">Putrajaya</option>
+                                <option value="Labuan">Labuan</option>
+                            </optgroup>
                         </select>
+
                     </div>
                     <div class="group">
                         <label class="details">Start Date</label>
@@ -363,7 +447,7 @@ $rows = mysqli_fetch_assoc($result);
         today.setHours(0, 0, 0, 0);
 
         if (inputDate.getTime() !== today.getTime()) {
-            alert("The date must be today!");
+            alert("The date must be today! (Unless you join premium 👻)");
             document.getElementById('startDate').value = ""; // Clear the invalid date
         }
     }
