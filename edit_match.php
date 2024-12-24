@@ -112,7 +112,6 @@ if ($host['id'] == $user_id) {
         .table tr:nth-child(even) {
             background-color: #f9f9f9;
         }
-        
     </style>
 </head>
 
@@ -413,14 +412,14 @@ if ($host['id'] == $user_id) {
             </form>
         </section>
         <h1 class="players_title">Member 👥 </h1>
-</div>
-        <div class="players_list" style="margin-top:-10px">
-
+    </div>
+    <div class="players_list" style="margin-top:-10px">
 
 <!-- Host Info -->
 <div>
     <label>Host:</label>
-    <a href="player_profile.php?id=<?php echo $host['id']; ?>&match_id=<?php echo $match_id; ?>" class="host-name">
+    <a href="player_profile.php?id=<?php echo $host['id']; ?>&match_id=<?php echo $match_id; ?>"
+        class="host-name">
         <?php echo htmlspecialchars($host['first_name'] . ' ' . $host['last_name']); ?>
     </a>
 </div>
@@ -450,48 +449,50 @@ if ($host['id'] == $user_id) {
     $maxPlayers = $match['max_players']; // Max players allowed in the game
     $currentPlayersCount = count($players); // Get the count of current players in the match
     $remainingSlots = $match['current_players'] - $currentPlayersCount; // Remaining slots for "X"
-
+    
     // Loop to display all player slots
     for ($i = 1; $i <= $maxPlayers; $i++) {
         if ($remainingSlots > 0) {
             // Show "X" placeholders dynamically
             echo "<li id='player{$i}'>
-                    Player {$i}: X
-                    <form action='delete_participant.php' method='POST' style='display: inline;'>
-                        <input type='hidden' name='id' value=''>
-                        <input type='hidden' name='match_id' value='{$match_id}'>
-                        <input type='hidden' name='real' value='0'>
-                        <input type='submit' class='delete_button' value='' style='background: none; border: none;'>
+                Player {$i}: X
+                <form action='delete_participant.php' method='POST' style='display: inline;'>
+                    <input type='hidden' name='id' value=''>
+                    <input type='hidden' name='match_id' value='{$match_id}'>
+                    <input type='hidden' name='real' value='0'>
+                    <button type='submit' class='delete_button' value='' style='background: none; border: none;' onclick='return confirmDelete()'>
                         <img src='IMAGE/delete_button.png' alt='Delete' style='cursor: pointer; width: 40px; height: 40px;transform: translateY(4px);'>
-                    </form>
-                </li>";
+                    </button>
+                </form>
+            </li>";
             $remainingSlots--; // Decrease the count of remaining "X"s
         } elseif ($currentPlayerIndex < $currentPlayersCount) {
             // Show the names of joined players
             $player = $players[$currentPlayerIndex];
             $playerName = htmlspecialchars($player['first_name'] . " " . $player['last_name']);
             echo "<li id='player{$i}'>
-                    Player {$i}: 
-                    <a href='player_profile.php?id={$player['id']}&match_id={$match_id}' 
-                        style='color: black; 
-                               text-decoration: none; 
-                               font-weight: 500; 
-                               display: inline-block;
-                               transition: transform 0.3s ease, box-shadow 0.3s ease;' 
-                        onmouseover=\"this.style.color='#EB1436'; 
-                                     this.style.transform='translateY(-3px)';\" 
-                        onmouseout=\"this.style.color='black'; 
-                                    this.style.transform='none';\">
-                        {$playerName}
-                    </a>
-                    <form action='delete_participant.php' method='POST' style='display: inline;'>
-                        <input type='hidden' name='id' value='{$player['id']}'>
-                        <input type='hidden' name='match_id' value='{$match_id}'>
-                        <input type='hidden' name='real' value='1'>
-                        <input type='submit' class='delete_button' value='' style='background: none; border: none;'>
+                Player {$i}: 
+                <a href='player_profile.php?id={$player['id']}&match_id={$match_id}' 
+                    style='color: black; 
+                           text-decoration: none; 
+                           font-weight: 500; 
+                           display: inline-block;
+                           transition: transform 0.3s ease, box-shadow 0.3s ease;' 
+                    onmouseover=\"this.style.color='#EB1436'; 
+                                 this.style.transform='translateY(-3px)';\" 
+                    onmouseout=\"this.style.color='black'; 
+                                this.style.transform='none';\">
+                    {$playerName}
+                </a>
+                <form action='delete_participant.php' method='POST' style='display: inline;'>
+                    <input type='hidden' name='id' value='{$player['id']}'>
+                    <input type='hidden' name='match_id' value='{$match_id}'>
+                    <input type='hidden' name='real' value='1'>
+                    <button type='submit' class='delete_button' value='' style='background: none; border: none;' onclick='return confirmDelete()'>
                         <img src='IMAGE/delete_button.png' alt='Delete' style='cursor: pointer; width: 40px; height: 40px;transform: translateY(9px);'>
-                    </form>
-                </li>";
+                    </button>
+                </form>
+            </li>";
             $currentPlayerIndex++; // Move to the next player
         } else {
             // Show "?" for any remaining empty slots
@@ -501,6 +502,13 @@ if ($host['id'] == $user_id) {
     ?>
 </ul>
 </div>
+
+<script>
+// JavaScript function to confirm before deleting
+function confirmDelete() {
+    return confirm('Are you sure you want to remove this player?');
+}
+</script>
 
 
 
