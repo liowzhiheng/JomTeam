@@ -120,52 +120,21 @@ body {
     color: #666;
 }
 
-.website-view {
-    margin-top: 40px;
-}
-
-.website-view h2 {
-    margin-bottom: 20px;
-    color: white;
-    font-size: 50px;
-    text-align: center;
-}
-
-.iframe-container {
-    position: relative;
-    width: 100%;
-    height: 600px;
-    overflow: hidden;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.iframe-container iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
 .latest-activity {
-    margin-top: 40px;
-}
-
-.latest-activity h2 {
-    margin-bottom: 20px;
-    color: white;
-    font-size: 50px;
-    text-align: center;
-}
-
-.activity-list {
-    background-color: white;
-    border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.activity-list h3 {
+    margin: 10px 0;
+    font-size: 1.2em;
 }
 
 .activity-item {
-    padding: 10px 0;
+    padding: 10px;
+    margin: 5px 0;
     border-bottom: 1px solid #ddd;
 }
 
@@ -173,13 +142,12 @@ body {
     border-bottom: none;
 }
 
-.activity-item p {
-    font-size: 16px;
-    color: #333;
-}
-
 .activity-item strong {
     color: #5252D4;
+}
+
+.activity-item p {
+    margin: 0;
 }
 
 .details {

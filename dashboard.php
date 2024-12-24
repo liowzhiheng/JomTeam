@@ -3,6 +3,11 @@ session_start();
 require("config.php");
 
 //Users
+$sqlTotalUsers = "SELECT COUNT(*) AS total_users FROM user";
+$resultTotalUsers = $conn->query($sqlTotalUsers);
+$rowTotalUsers = $resultTotalUsers->fetch_assoc();
+$totalUsers = $rowTotalUsers['total_users'] ?? 0;
+
 $sqlUsers = "SELECT COUNT(*) AS active_users FROM user WHERE DATE(last_activity) = CURDATE()";
 $resultUsers = $conn->query($sqlUsers);
 $rowUsers = $resultUsers->fetch_assoc();
@@ -25,6 +30,20 @@ $sqlFeedback = "SELECT COUNT(*) AS new_feedback FROM feedback WHERE DATE(created
 $resultFeedback = $conn->query($sqlFeedback);
 $rowFeedback = $resultFeedback->fetch_assoc();
 $newFeedback = $rowFeedback['new_feedback'] ?? 0;
+
+//Latest
+$sqlRecentUsers = "SELECT first_name, last_name, created_at FROM user ORDER BY created_at DESC LIMIT 5";
+$resultRecentUsers = $conn->query($sqlRecentUsers);
+
+$sqlRecentMatches = "SELECT g.start_date, u.first_name, u.last_name 
+                     FROM gamematch g 
+                     JOIN user u ON g.user_id = u.id 
+                     ORDER BY g.start_date DESC 
+                     LIMIT 5";
+$resultRecentMatches = $conn->query($sqlRecentMatches);
+
+$sqlRecentFeedback = "SELECT title, created_at FROM feedback ORDER BY created_at DESC LIMIT 5";
+$resultRecentFeedback = $conn->query($sqlRecentFeedback);
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +57,10 @@ $newFeedback = $rowFeedback['new_feedback'] ?? 0;
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Pass PHP variable to JavaScript -->
     <script>
+        const totalUsers = <?php echo $totalUsers; ?>;
         const activeUsers = <?php echo $activeUsers; ?>;
+        const activeUsersPercentage = totalUsers > 0 ? (activeUsers / totalUsers) * 100 : 0;
+        const inactiveUsersPercentage = 100 - activeUsersPercentage;
         const activeAds = <?php echo $activeAds; ?>;
         const upcomingMatches = <?php echo $upcomingMatches; ?>;
         const newFeedback = <?php echo $newFeedback; ?>;
@@ -110,15 +132,34 @@ $newFeedback = $rowFeedback['new_feedback'] ?? 0;
         <section class="latest-activity">
             <h2>Latest Activity</h2>
             <div class="activity-list">
-                <div class="activity-item">
-                    <p><strong>New User:</strong> John Doe has joined.</p>
-                </div>
-                <div class="activity-item">
-                    <p><strong>New Match:</strong> Match between Team A and Team B scheduled.</p>
-                </div>
-                <div class="activity-item">
-                    <p><strong>New Feedback:</strong> Feedback received on Match scheduling.</p>
-                </div>
+                <h3>New Users</h3>
+                <?php while ($user = $resultRecentUsers->fetch_assoc()) { ?>
+                    <div class="activity-item">
+                        <p><strong><?php echo strtoupper($user['first_name'] . ' ' . $user['last_name']); ?></strong> joined
+                            on
+                            <?php echo date("d M Y", strtotime($user['created_at'])); ?>.
+                        </p>
+                    </div>
+                <?php } ?>
+
+                <h3>New Matches</h3>
+                <?php while ($match = $resultRecentMatches->fetch_assoc()) { ?>
+                    <div class="activity-item">
+                        <p><strong>Match Created By:</strong>
+                            <?php echo strtoupper($match['first_name'] . ' ' . $match['last_name']); ?> on
+                            <?php echo date("d M Y", strtotime($match['start_date'])); ?>.
+                        </p>
+                    </div>
+                <?php } ?>
+
+                <h3>New Feedback</h3>
+                <?php while ($feedback = $resultRecentFeedback->fetch_assoc()) { ?>
+                    <div class="activity-item">
+                        <p><strong>Feedback:</strong> "<?php echo $feedback['title']; ?>" received on
+                            <?php echo date("d M Y", strtotime($feedback['created_at'])); ?>.
+                        </p>
+                    </div>
+                <?php } ?>
             </div>
         </section>
 

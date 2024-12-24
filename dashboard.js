@@ -1,10 +1,16 @@
-const activeUsersData = {
-    labels: ['Active Users Today'],
+const Users = {
+    labels: ['Active Users Today', 'Inactive Users'],
     datasets: [{
-        label: 'Active Users',
-        data: [activeUsers],
-        backgroundColor: 'rgba(82, 82, 212, 0.5)',
-        borderColor: 'rgba(82, 82, 212, 1)',
+        label: 'User Activity',
+        data: [activeUsersPercentage, inactiveUsersPercentage],
+        backgroundColor: [
+            'rgba(82, 82, 212, 0.7)', // Active Users color
+            'rgba(200, 200, 200, 0.7)' // Inactive Users color
+        ],
+        borderColor: [
+            'rgba(82, 82, 212, 1)',
+            'rgba(200, 200, 200, 1)'
+        ],
         borderWidth: 2
     }]
 };
@@ -42,10 +48,10 @@ const newFeedbackData = {
     }]
 };
 
-const activeUsersCtx = document.getElementById('activeUsersChart').getContext('2d');
-const activeUsersChart = new Chart(activeUsersCtx, {
-    type: 'bar',
-    data: activeUsersData,
+const UsersCtx = document.getElementById('activeUsersChart').getContext('2d');
+const activeUsersChart = new Chart(UsersCtx, {
+    type: 'pie',
+    data: Users,
     options: {
         responsive: true,
         plugins: {
@@ -53,7 +59,11 @@ const activeUsersChart = new Chart(activeUsersCtx, {
                 position: 'bottom',
             },
             tooltip: {
-                enabled: true,
+                callbacks: {
+                    label: function (tooltipItem) {
+                        return tooltipItem.label + ': ' + tooltipItem.raw.toFixed(2) + '%';
+                    }
+                }
             }
         }
     }
