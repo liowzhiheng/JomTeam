@@ -112,6 +112,7 @@ if ($host['id'] == $user_id) {
         .table tr:nth-child(even) {
             background-color: #f9f9f9;
         }
+        
     </style>
 </head>
 
@@ -139,7 +140,8 @@ if ($host['id'] == $user_id) {
                     <input type="hidden" name="match_id" value="<?php echo $match_id; ?>">
                     <div class="group">
                         <label>Title:</label>
-                        <input type="text" name ="match_title" value="<?php echo htmlspecialchars($match['match_title']); ?>" required>
+                        <input type="text" name="match_title"
+                            value="<?php echo htmlspecialchars($match['match_title']); ?>" required>
                     </div>
                     <div class="group">
                         <label>Game Type:</label>
@@ -178,30 +180,169 @@ if ($host['id'] == $user_id) {
                         <?php $selected_location = $match['location'] ?>
                         <select name="location" required>
                             <option value="" hidden>Select Location</option>
-                            <option value="Skudai" <?php if ($selected_location == "Skudai") {
-                                echo ("selected");
-                            } ?>>Skudai
-                            </option>
-                            <option value="Kulai" <?php if ($selected_location == "Kulai") {
-                                echo ("selected");
-                            } ?>>Kulai</option>
-                            <option value="Impian Emas" <?php if ($selected_location == "Impian Emas") {
-                                echo ("selected");
-                            } ?>>
-                                Impian Emas</option>
-                            <option value="Sutera" <?php if ($selected_location == "Sutera") {
-                                echo ("selected");
-                            } ?>>Sutera
-                            </option>
-                            <option value="Tun Aminah" <?php if ($selected_location == "Tun Aminah") {
-                                echo ("selected");
-                            } ?>>Tun
-                                Aminah</option>
-                            <option value="Nusa Bestari" <?php if ($selected_location == "Nusa Bestari") {
-                                echo ("selected");
-                            } ?>>
-                                Nusa Bestari</option>
+                            <!-- Johor -->
+                            <optgroup label="Johor">
+                                <option value="Johor Bahru" <?php if ($selected_location == "Johor Bahru")
+                                    echo "selected"; ?>>Johor Bahru</option>
+                                <option value="Skudai" <?php if ($selected_location == "Skudai")
+                                    echo "selected"; ?>>
+                                    Skudai</option>
+                                <option value="Kulai" <?php if ($selected_location == "Kulai")
+                                    echo "selected"; ?>>Kulai
+                                </option>
+                                <option value="Muar" <?php if ($selected_location == "Muar")
+                                    echo "selected"; ?>>Muar
+                                </option>
+                                <option value="Batu Pahat" <?php if ($selected_location == "Batu Pahat")
+                                    echo "selected"; ?>>Batu Pahat</option>
+                                <option value="Kota Tinggi" <?php if ($selected_location == "Kota Tinggi")
+                                    echo "selected"; ?>>Kota Tinggi</option>
+                                <option value="Pontian" <?php if ($selected_location == "Pontian")
+                                    echo "selected"; ?>>
+                                    Pontian</option>
+                            </optgroup>
+                            <!-- Kedah -->
+                            <optgroup label="Kedah">
+                                <option value="Alor Setar" <?php if ($selected_location == "Alor Setar")
+                                    echo "selected"; ?>>Alor Setar</option>
+                                <option value="Sungai Petani" <?php if ($selected_location == "Sungai Petani")
+                                    echo "selected"; ?>>Sungai Petani</option>
+                                <option value="Kulim" <?php if ($selected_location == "Kulim")
+                                    echo "selected"; ?>>Kulim
+                                </option>
+                                <option value="Langkawi" <?php if ($selected_location == "Langkawi")
+                                    echo "selected"; ?>>
+                                    Langkawi</option>
+                            </optgroup>
+                            <!-- Kelantan -->
+                            <optgroup label="Kelantan">
+                                <option value="Kota Bharu" <?php if ($selected_location == "Kota Bharu")
+                                    echo "selected"; ?>>Kota Bharu</option>
+                                <option value="Tanah Merah" <?php if ($selected_location == "Tanah Merah")
+                                    echo "selected"; ?>>Tanah Merah</option>
+                                <option value="Gua Musang" <?php if ($selected_location == "Gua Musang")
+                                    echo "selected"; ?>>Gua Musang</option>
+                            </optgroup>
+                            <!-- Malacca -->
+                            <optgroup label="Malacca">
+                                <option value="Malacca City" <?php if ($selected_location == "Malacca City")
+                                    echo "selected"; ?>>Malacca City</option>
+                                <option value="Ayer Keroh" <?php if ($selected_location == "Ayer Keroh")
+                                    echo "selected"; ?>>Ayer Keroh</option>
+                                <option value="Jasin" <?php if ($selected_location == "Jasin")
+                                    echo "selected"; ?>>Jasin
+                                </option>
+                            </optgroup>
+                            <!-- Negeri Sembilan -->
+                            <optgroup label="Negeri Sembilan">
+                                <option value="Seremban" <?php if ($selected_location == "Seremban")
+                                    echo "selected"; ?>>
+                                    Seremban</option>
+                                <option value="Port Dickson" <?php if ($selected_location == "Port Dickson")
+                                    echo "selected"; ?>>Port Dickson</option>
+                                <option value="Nilai" <?php if ($selected_location == "Nilai")
+                                    echo "selected"; ?>>Nilai
+                                </option>
+                            </optgroup>
+                            <!-- Pahang -->
+                            <optgroup label="Pahang">
+                                <option value="Kuantan" <?php if ($selected_location == "Kuantan")
+                                    echo "selected"; ?>>
+                                    Kuantan</option>
+                                <option value="Temerloh" <?php if ($selected_location == "Temerloh")
+                                    echo "selected"; ?>>
+                                    Temerloh</option>
+                                <option value="Bentong" <?php if ($selected_location == "Bentong")
+                                    echo "selected"; ?>>
+                                    Bentong</option>
+                                <option value="Cameron Highlands" <?php if ($selected_location == "Cameron Highlands")
+                                    echo "selected"; ?>>Cameron Highlands</option>
+                            </optgroup>
+                            <!-- Penang -->
+                            <optgroup label="Penang">
+                                <option value="George Town" <?php if ($selected_location == "George Town")
+                                    echo "selected"; ?>>George Town</option>
+                                <option value="Bayan Lepas" <?php if ($selected_location == "Bayan Lepas")
+                                    echo "selected"; ?>>Bayan Lepas</option>
+                                <option value="Butterworth" <?php if ($selected_location == "Butterworth")
+                                    echo "selected"; ?>>Butterworth</option>
+                            </optgroup>
+                            <!-- Perak -->
+                            <optgroup label="Perak">
+                                <option value="Ipoh" <?php if ($selected_location == "Ipoh")
+                                    echo "selected"; ?>>Ipoh
+                                </option>
+                                <option value="Taiping" <?php if ($selected_location == "Taiping")
+                                    echo "selected"; ?>>
+                                    Taiping</option>
+                                <option value="Lumut" <?php if ($selected_location == "Lumut")
+                                    echo "selected"; ?>>Lumut
+                                </option>
+                            </optgroup>
+                            <!-- Perlis -->
+                            <optgroup label="Perlis">
+                                <option value="Kangar" <?php if ($selected_location == "Kangar")
+                                    echo "selected"; ?>>
+                                    Kangar</option>
+                                <option value="Arau" <?php if ($selected_location == "Arau")
+                                    echo "selected"; ?>>Arau
+                                </option>
+                            </optgroup>
+                            <!-- Sabah -->
+                            <optgroup label="Sabah">
+                                <option value="Kota Kinabalu" <?php if ($selected_location == "Kota Kinabalu")
+                                    echo "selected"; ?>>Kota Kinabalu</option>
+                                <option value="Sandakan" <?php if ($selected_location == "Sandakan")
+                                    echo "selected"; ?>>
+                                    Sandakan</option>
+                                <option value="Tawau" <?php if ($selected_location == "Tawau")
+                                    echo "selected"; ?>>Tawau
+                                </option>
+                            </optgroup>
+                            <!-- Sarawak -->
+                            <optgroup label="Sarawak">
+                                <option value="Kuching" <?php if ($selected_location == "Kuching")
+                                    echo "selected"; ?>>
+                                    Kuching</option>
+                                <option value="Miri" <?php if ($selected_location == "Miri")
+                                    echo "selected"; ?>>Miri
+                                </option>
+                                <option value="Sibu" <?php if ($selected_location == "Sibu")
+                                    echo "selected"; ?>>Sibu
+                                </option>
+                            </optgroup>
+                            <!-- Selangor -->
+                            <optgroup label="Selangor">
+                                <option value="Shah Alam" <?php if ($selected_location == "Shah Alam")
+                                    echo "selected"; ?>>Shah Alam</option>
+                                <option value="Petaling Jaya" <?php if ($selected_location == "Petaling Jaya")
+                                    echo "selected"; ?>>Petaling Jaya</option>
+                                <option value="Subang Jaya" <?php if ($selected_location == "Subang Jaya")
+                                    echo "selected"; ?>>Subang Jaya</option>
+                            </optgroup>
+                            <!-- Terengganu -->
+                            <optgroup label="Terengganu">
+                                <option value="Kuala Terengganu" <?php if ($selected_location == "Kuala Terengganu")
+                                    echo "selected"; ?>>Kuala Terengganu</option>
+                                <option value="Kemaman" <?php if ($selected_location == "Kemaman")
+                                    echo "selected"; ?>>
+                                    Kemaman</option>
+                                <option value="Dungun" <?php if ($selected_location == "Dungun")
+                                    echo "selected"; ?>>
+                                    Dungun</option>
+                            </optgroup>
+                            <!-- Federal Territories -->
+                            <optgroup label="Federal Territories">
+                                <option value="Kuala Lumpur" <?php if ($selected_location == "Kuala Lumpur")
+                                    echo "selected"; ?>>Kuala Lumpur</option>
+                                <option value="Putrajaya" <?php if ($selected_location == "Putrajaya")
+                                    echo "selected"; ?>>Putrajaya</option>
+                                <option value="Labuan" <?php if ($selected_location == "Labuan")
+                                    echo "selected"; ?>>
+                                    Labuan</option>
+                            </optgroup>
                         </select>
+
                     </div>
                     <div class="group">
                         <label>Skill Level Required:</label>
@@ -253,15 +394,16 @@ if ($host['id'] == $user_id) {
                     </div>
                     <div class="group">
                         <label>Description:</label>
-                        <input name="description" value="<?php echo nl2br(htmlspecialchars($match['description'])); ?>" required></input>
+                        <input name="description" value="<?php echo nl2br(htmlspecialchars($match['description'])); ?>"
+                            required></input>
                     </div>
 
                     <div class="group">
                         <label>Email:</label>
                         <input type="text" value="<?php echo htmlspecialchars($host['email']); ?>" readonly>
                     </div>
-                  
-                      <div>
+
+                    <div>
                         <button type="submit" class="update_button" name="update" value="Update">
                             <img src="IMAGE/update_button.png" alt="Submit Button">
                         </button>
@@ -271,78 +413,96 @@ if ($host['id'] == $user_id) {
             </form>
         </section>
 
-        <div class="table-container">
-            <br>
-            <h1 class="profile-title">Player List: </h1>
-            <?php
-            $id = $match['id'];
-            $query2 = "
-            SELECT user.id, user.first_name, user.last_name 
-            FROM match_participants
-            INNER JOIN user ON match_participants.user_id = user.id
-            WHERE match_participants.match_id = $id 
-            ORDER BY match_participants.join_date ASC";
-            $result2 = mysqli_query($conn, $query2);
+        <div class="players_list">
 
-            if (mysqli_num_rows($result2) > 0) {
-                $players = mysqli_fetch_all($result2, MYSQLI_ASSOC);
-            } else {
-                $players = [];
-            }
-            ?>
-            <table
-                class="table">
-                <tr>
-                    <th>Num</th>
-                    <th>Name</th>
-                    <th>Action</th>
-                </tr>
-                <?php if ($match['current_players'] > 0) {
-                    $num_X = $match['current_players'] - mysqli_num_rows($result2);
-                    $num = 1;
-                    if (!empty($players)) {
-                        foreach ($players as $player) { ?>
-                            <tr>
-                                <td><?php echo $num; ?></td>
-                                <td><?php echo $player['first_name'] . $player['last_name']; ?></td>
-                                <td>
-                                    <form action='delete_participant.php' method='POST'>
-                                        <input type="hidden" name="id" value="<?php echo $player['id']; ?>">
-                                        <input type="hidden" name="match_id" value="<?php echo $match_id; ?>">
-                                        <input type="hidden" name="real" value="1">
-                                        <input type="submit" value="Remove"
-                                            onclick="return confirm('Are you sure you want to delete this user?')">
-                                    </form>
-                                </td>
-                            </tr>
-                            <?php
-                            $num += 1;
-                        }
-                    }
-                    if ($num_X != 0) {
-                        for ($i = 0; $i < $num_X; $i++) {
-                            ?>
-                            <tr>
-                                <td><?php echo $num; ?></td>
-                                <td>X</td>
-                                <td>
-                                    <form action='delete_participant.php' method='POST'>
-                                        <input type="hidden" name="id" value="<?php echo $player['id']; ?>">
-                                        <input type="hidden" name="match_id" value="<?php echo $match_id; ?>">
-                                        <input type="hidden" name="real" value="0">
-                                        <input type="submit" value="Remove"
-                                            onclick="return confirm('Are you sure you want to delete this user?')">
-                                    </form>
-                                </td>
-                            </tr>
-                            <?php
-                            $num += 1;
-                        }
-                    }
-                }
-                ?>
-            </table>
-        </div>
+<h1 class="players_title">Member 👥 </h1>
+<!-- Host Info -->
+<div>
+    <label>Host:</label>
+    <a href="player_profile.php?id=<?php echo $host['id']; ?>&match_id=<?php echo $match_id; ?>" class="host-name">
+        <?php echo htmlspecialchars($host['first_name'] . ' ' . $host['last_name']); ?>
+    </a>
+</div>
+
+<ul id="playersList">
+    <?php
+    // Query to get players who joined the match
+    $playersQuery = "
+    SELECT user.id, user.first_name, user.last_name 
+    FROM match_participants
+    INNER JOIN user ON match_participants.user_id = user.id
+    WHERE match_participants.match_id = ? 
+    ORDER BY match_participants.join_date ASC";
+
+    // Prepare and execute the query
+    $stmt = $conn->prepare($playersQuery);
+    $stmt->bind_param('i', $match_id);
+    $stmt->execute();
+    $playersResult = $stmt->get_result();
+
+    $players = [];
+    while ($row = $playersResult->fetch_assoc()) {
+        $players[] = $row;
+    }
+
+    $currentPlayerIndex = 0; // To track the index of players joining
+    $maxPlayers = $match['max_players']; // Max players allowed in the game
+    $currentPlayersCount = count($players); // Get the count of current players in the match
+    $remainingSlots = $match['current_players'] - $currentPlayersCount; // Remaining slots for "X"
+
+    // Loop to display all player slots
+    for ($i = 1; $i <= $maxPlayers; $i++) {
+        if ($remainingSlots > 0) {
+            // Show "X" placeholders dynamically
+            echo "<li id='player{$i}'>
+                    Player {$i}: X
+                    <form action='delete_participant.php' method='POST' style='display: inline;'>
+                        <input type='hidden' name='id' value=''>
+                        <input type='hidden' name='match_id' value='{$match_id}'>
+                        <input type='hidden' name='real' value='0'>
+                        <input type='submit' class='delete_button' value='' style='background: none; border: none;'>
+                        <img src='IMAGE/delete_button.png' alt='Delete' style='cursor: pointer; width: 40px; height: 40px;transform: translateY(4px);'>
+                    </form>
+                </li>";
+            $remainingSlots--; // Decrease the count of remaining "X"s
+        } elseif ($currentPlayerIndex < $currentPlayersCount) {
+            // Show the names of joined players
+            $player = $players[$currentPlayerIndex];
+            $playerName = htmlspecialchars($player['first_name'] . " " . $player['last_name']);
+            echo "<li id='player{$i}'>
+                    Player {$i}: 
+                    <a href='player_profile.php?id={$player['id']}&match_id={$match_id}' 
+                        style='color: black; 
+                               text-decoration: none; 
+                               font-weight: 500; 
+                               display: inline-block;
+                               transition: transform 0.3s ease, box-shadow 0.3s ease;' 
+                        onmouseover=\"this.style.color='#EB1436'; 
+                                     this.style.transform='translateY(-3px)';\" 
+                        onmouseout=\"this.style.color='black'; 
+                                    this.style.transform='none';\">
+                        {$playerName}
+                    </a>
+                    <form action='delete_participant.php' method='POST' style='display: inline;'>
+                        <input type='hidden' name='id' value='{$player['id']}'>
+                        <input type='hidden' name='match_id' value='{$match_id}'>
+                        <input type='hidden' name='real' value='1'>
+                        <input type='submit' class='delete_button' value='' style='background: none; border: none;'>
+                        <img src='IMAGE/delete_button.png' alt='Delete' style='cursor: pointer; width: 40px; height: 40px;transform: translateY(9px);'>
+                    </form>
+                </li>";
+            $currentPlayerIndex++; // Move to the next player
+        } else {
+            // Show "?" for any remaining empty slots
+            echo "<li id='player{$i}'>Player {$i}: ?</li>";
+        }
+    }
+    ?>
+</ul>
+</div>
+
+
+
     </div>
 
     <script src="footer.js"></script>
