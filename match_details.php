@@ -98,7 +98,7 @@ if ($host['id'] == $user_id) {
                 <div class=" profile-left">
                     <div>
                         <img src="gamematch/<?php echo $match['file']; ?>" alt="Match Image"
-                            style="width: 200px; height: auto;">
+                            style="width: 400px; height: 400;">
                     </div>
                 </div>
                 <!-- right -->
