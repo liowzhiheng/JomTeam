@@ -67,7 +67,7 @@ const activeAdsChart = new Chart(activeAdsCtx, {
         responsive: true,
         plugins: {
             legend: {
-                position: 'top',
+                position: 'bottom',
             },
             tooltip: {
                 enabled: true,
@@ -84,7 +84,7 @@ const upcomingMatchesChart = new Chart(upcomingMatchesCtx, {
         responsive: true,
         plugins: {
             legend: {
-                position: 'top',
+                position: 'bottom',
             },
             tooltip: {
                 enabled: true,
@@ -101,7 +101,7 @@ const newFeedbackChart = new Chart(newFeedbackCtx, {
         responsive: true,
         plugins: {
             legend: {
-                position: 'top',
+                position: 'bottom',
             },
             tooltip: {
                 enabled: true,
