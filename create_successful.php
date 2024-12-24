@@ -4,6 +4,28 @@
 <head>
     <link rel="stylesheet" href="check_login.css">
     <link rel="stylesheet" href="animation.css">
+    <style>
+        .background {
+            position: fixed;
+            /* Stays fixed in place behind content */
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            /* Pushes it behind everything else */
+            pointer-events: none;
+            /* Prevent interaction with shapes */
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            /* Ensures content stays above the background */
+            padding: 20px;
+        }
+    </style>
+
 </head>
 
 <body>
