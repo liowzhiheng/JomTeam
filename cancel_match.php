@@ -34,33 +34,8 @@ echo
         <meta http-equiv='refresh' content='1;url=cancel_successful.php?id=$match_id'>
       </div>";
 
-    } else {
-echo '
-    <body>
-      <div class="background"></div>
-        <div class="container">
-            <p>You are not part of this match.</p>
-            <p><a href="main.php">Go back to your dashboard</a></p>
-            <p><a href="match_details.php?id=' . $match_id . '">View Match Details</a></p>
-            <img id="randomImage" alt="Login Successful" class="login-image" />
-        </div>
-    <body>';
-
-
     }
-} else {
-echo '<body>
-  <div class="background"></div>
-        <div class="container">
-                <p>Error: Invalid request.</p>
-                <p><a href="main.php">Go back to your dashboard</a></p>
-                <p><a href="match_details.php?id=' . $match_id . '">View Match Details</a></p>
-                <img id="randomImage" alt="Login Successful" class="login-image" />
-        </div>
-</body>';
-
-
-}
+} 
 ?>
 
 <head>
@@ -69,6 +44,7 @@ echo '<body>
     <title>Join Match</title>
     <link rel="stylesheet" href="cancel.css">
     <link rel="stylesheet" href="animation.css">
+    
 </head>
 <body>
     <script src="random_pic.js"></script>
