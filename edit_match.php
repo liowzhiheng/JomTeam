@@ -412,10 +412,11 @@ if ($host['id'] == $user_id) {
 
             </form>
         </section>
+        <h1 class="players_title">Member 👥 </h1>
+</div>
+        <div class="players_list" style="margin-top:-10px">
 
-        <div class="players_list">
 
-<h1 class="players_title">Member 👥 </h1>
 <!-- Host Info -->
 <div>
     <label>Host:</label>
