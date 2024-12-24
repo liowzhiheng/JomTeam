@@ -312,10 +312,9 @@ select:focus {
 }
 
 #previewImg {
-    width: 200px; 
-    height: 200px;
+    width: 281px;
+    height: 281px;
     object-fit: contain;
-    /* Ensures aspect ratio is preserved */
 }
 
 #image {
