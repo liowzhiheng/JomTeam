@@ -76,9 +76,12 @@ if (mysqli_num_rows($result) > 0) {
         <div class="search-container">
             <form action="find_match.php" method="GET" class="search-form">
                 <div class="main-search">
-                    <input type="text" name="match_title" class="search-input"
-                        placeholder="🔍 Search by match title...">
-                    <button type="submit" class="search-button">Search</button>
+                    <input type="text" name="match_title" class="search-input" placeholder="Search by match title...">
+
+                    <button type="submit" class="search-button">
+                        <img src="IMAGE/search_icon.png" alt="" style="width: 24px; height: 24px;">
+                    </button>
+
                     <button type="button" class="filter-toggle-btn" onclick="toggleFilters()">Filters</button>
                 </div>
                 <div class="filter-section" id="filterSection">
