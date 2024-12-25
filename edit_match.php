@@ -385,11 +385,12 @@ if ($host['id'] == $user_id) {
                             value="<?php echo htmlspecialchars($match['max_players']); ?>" required
                             oninput="validatePlayerInput(this)" onchange="updatePlayers()">
                     </div>
+        
+
                     <div class="group">
                         <label>Current Players:</label>
-                        <input type="number" name="current_players" id="current_players"
-                            value="<?php echo htmlspecialchars($match['current_players']); ?>" required
-                            oninput="validatePlayerInput(this)" onchange="updatePlayers()">
+                        <input type="text" id="current_players"
+                            value="<?php echo htmlspecialchars($match['current_players']); ?>" readonly>
                     </div>
                     <div class="group">
                         <label>Description:</label>
@@ -455,7 +456,7 @@ if ($host['id'] == $user_id) {
                 if ($remainingSlots > 0) {
                     // Show "X" placeholders dynamically
                     echo "<li id='player{$i}'>
-                Player {$i}: X
+                Player {$i}: Reserved
                 <form action='delete_participant.php' method='POST' style='display: inline;'>
                     <input type='hidden' name='id' value=''>
                     <input type='hidden' name='match_id' value='{$match_id}'>

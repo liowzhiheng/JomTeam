@@ -20,14 +20,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             WHERE id = $match_id";
     $result = mysqli_query($conn, $sql);
 
-    if (mysqli_query($conn, $sql)) {
-        // Redirect to the successful creation page
+    if ($result) {
+        // Redirect to the updated match details page
         $_SESSION['message'] = "Update successfully!";
-        header("Location: history.php");
+        header("Location: match_details.php?id=$match_id");  // Redirect to match details page
         exit();
     } else {
-        // Redirect to the failure page if something goes wrong    
-        $_SESSION['message'] = "Update fail!";
+        // Redirect to the failure page if something goes wrong
+        $_SESSION['message'] = "Update failed!";
         header("Location: history.php");
         exit();
     }

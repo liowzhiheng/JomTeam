@@ -16,7 +16,7 @@ if (isset($_GET['id'])) {
 <head>
 
     <link rel="stylesheet" href="join_succesful.css"> <!-- Link to your CSS file if you have one -->
-    <meta http-equiv="refresh" content="3;url=find_match.php"> <!-- Redirect after 3 seconds -->
+    <meta http-equiv="refresh" content="3;url=history.php"> <!-- Redirect after 3 seconds -->
     <link rel="stylesheet" href="animation.css">
     <style>
         .background {

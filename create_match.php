@@ -225,7 +225,7 @@ $rows = mysqli_fetch_assoc($result);
                     </div>
                     <div class="group">
                         <label class="details">Duration of Game Match</label>
-                        <input type="text" name="duration" required>
+                        <input type="number" name="duration" required>
                     </div>
 
                     <div class="group">
