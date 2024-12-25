@@ -123,6 +123,48 @@ $avgRatingStmt->bind_param("i", $profile_user_id);
 $avgRatingStmt->execute();
 $avgRatingResult = $avgRatingStmt->get_result();
 $avgRating = $avgRatingResult->fetch_assoc()['avg_rating'];
+
+// Check if the users are already friends
+$friendCheckQuery = "SELECT * FROM friends WHERE (user_id = ? AND friend_id = ?) OR (user_id = ? AND friend_id = ?)";
+$friendCheckStmt = $conn->prepare($friendCheckQuery);
+$friendCheckStmt->bind_param("iiii", $current_user_id, $profile_user_id, $profile_user_id, $current_user_id);
+$friendCheckStmt->execute();
+$friendCheckResult = $friendCheckStmt->get_result();
+
+// If they are already friends, show "You are friends" message
+$is_friend = $friendCheckResult->num_rows > 0;
+
+// Handle the 'Add Friend' button
+if (isset($_POST['add_friend'])) {
+    if ($current_user_id == $profile_user_id) {
+        echo "You cannot send a friend request to yourself.";
+        exit();
+    }
+
+    // Check if a pending friend request exists
+    $requestCheckQuery = "SELECT * FROM friend_requests WHERE sender_id = ? AND receiver_id = ?";
+    $requestCheckStmt = $conn->prepare($requestCheckQuery);
+    $requestCheckStmt->bind_param("ii", $current_user_id, $profile_user_id);
+    $requestCheckStmt->execute();
+    $requestCheckResult = $requestCheckStmt->get_result();
+
+    if ($requestCheckResult->num_rows > 0) {
+        echo "You have already sent a friend request.";
+        exit();
+    }
+
+    // Insert new friend request
+    $insertRequestQuery = "INSERT INTO friend_requests (sender_id, receiver_id) VALUES (?, ?)";
+    $insertRequestStmt = $conn->prepare($insertRequestQuery);
+    $insertRequestStmt->bind_param("ii", $current_user_id, $profile_user_id);
+    $insertRequestStmt->execute();
+
+    if ($insertRequestStmt->affected_rows > 0) {
+        echo "Friend request sent!";
+    } else {
+        echo "Failed to send friend request.";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -139,11 +181,12 @@ $avgRating = $avgRatingResult->fetch_assoc()['avg_rating'];
 
 </head>
 <?php include('navbar.php'); ?>
+
 <body>
-    
+
 
     <div class="profile-container">
-        
+
         <button onclick="window.location.href='match_details.php?id=<?php echo $_GET['match_id']; ?>'"
             class="back-button"><img src="IMAGE/back.png" alt="back"></button>
 
@@ -280,7 +323,7 @@ $avgRating = $avgRatingResult->fetch_assoc()['avg_rating'];
                                 <input type="hidden" name="match_id" value="<?php echo $_GET['match_id']; ?>">
 
                                 <div class="rating-input">
-                                    
+
                                     <div class="stars">
                                         <input type="radio" name="rating" id="star5" value="5"><label for="star5"
                                             class="star">&#9733;</label>
@@ -303,6 +346,15 @@ $avgRating = $avgRatingResult->fetch_assoc()['avg_rating'];
 
             <?php endif; ?>
         </div>
+
+        <!-- Add Friend Button Logic -->
+        <?php if (!$is_friend && $current_user_id != $profile_user_id): ?>
+            <form action="player_profile.php?id=<?php echo $profile_user_id; ?>" method="POST">
+                <button type="submit" name="add_friend" class="add-friend-button">Send Friend Request</button>
+            </form>
+        <?php elseif ($is_friend): ?>
+            <p>You are friends!</p>
+        <?php endif; ?>
     </div>
 
     <script src="footer.js"></script>
@@ -339,7 +391,7 @@ $avgRating = $avgRatingResult->fetch_assoc()['avg_rating'];
 </body>
 
 <footer>
-    <div style= "all: unset;" class="footer-container">
+    <div style="all: unset;" class="footer-container">
         <div class="footer-links">
             <a href="#" onclick="openModal('terms')">Terms of Service</a> |
             <a href="#" onclick="openModal('privacy')">Privacy Policy</a>
