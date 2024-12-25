@@ -246,7 +246,7 @@ $rows = mysqli_fetch_assoc($result);
 
 
                     <div class="group">
-                        <label class="details">Current Players</label>
+                        <label class="details">Reserved Players</label>
                         <input type="number" name="current_players" id="current_players" min="0" value="0" required
                             oninput="validatePlayerInput(this)" onchange="updatePlayers()">
                     </div>
@@ -296,7 +296,7 @@ $rows = mysqli_fetch_assoc($result);
             // Generate players list
             for ($i = 0; $i < $max_players; $i++) {
                 if ($i < $current_players) {
-                    echo "<li id='player" . ($i + 1) . "'>Player " . ($i + 1) . ": X</li>";
+                    echo "<li id='player" . ($i + 1) . "'>Player " . ($i + 1) . ": Reserved</li>";
                 } else {
                     echo "<li id='player" . ($i + 1) . "'>Player " . ($i + 1) . ": ?</li>";
                 }
@@ -496,7 +496,7 @@ $rows = mysqli_fetch_assoc($result);
                 playerElement.id = `player${i + 1}`;
 
                 if (i < currentPlayers) {
-                    playerElement.textContent = `Player ${i + 1}: X`;
+                    playerElement.textContent = `Player ${i + 1}: Reserved`;
                 } else {
                     playerElement.textContent = `Player ${i + 1}: ?`;
                 }

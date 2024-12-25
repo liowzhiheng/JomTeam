@@ -222,7 +222,7 @@ if ($host['id'] == $user_id) {
                 for ($i = 1; $i <= $maxPlayers; $i++) {
                     if ($X > 0) {
                         // Show "X" for the remaining current players
-                        echo "<li id='player{$i}'>Player {$i}: X</li>";
+                        echo "<li id='player{$i}'>Player {$i}: Reserved</li>";
                         $X--; // Decrease the count of "X" shown
                     } elseif ($currentPlayerIndex < $currentPlayersCount) {
                         // After "X", show the names of joined players
@@ -266,49 +266,79 @@ if ($host['id'] == $user_id) {
                         <p style="color: black;">Do you wish to cancel?</p>
                         <form action="cancel_match.php" method="GET" style="text-align: center;">
                             <input type="hidden" name="id" value="<?php echo $match_id; ?>">
-                            <button style="width: 300px; 
-                        height: 100px; 
-                        font-size: 30px; 
-                        font-weight: 700; 
-                        color: white; 
-                        background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%); 
-                        border: none; 
-                        border-radius: 50px; 
-                        cursor: pointer; 
-                        transition: background-color 0.3s ease; 
-                        margin-top:1%" box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
-                                onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.3)'; this.style.background='linear-gradient(202deg, #FF4B5C 0%, rgba(255, 75, 92, 0.66) 71%)'"
-                                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)'; this.style.background='linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%)'"
-                                onclick="this.style.transform='translateY(2px)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)';">
+                            <button class="cancel-button">
                                 Cancel
                             </button>
                         </form>
+                        <style>
+                            /* Default style for the cancel button */
+                            .cancel-button {
+                                width: 300px;
+                                height: 100px;
+                                font-size: 30px;
+                                font-weight: 700;
+                                color: white;
+                                background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%);
+                                border: none;
+                                border-radius: 50px;
+                                cursor: pointer;
+                                margin-top: 1%;
+                                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                                transition: all 0.3s ease;
+                                /* Smooth transition for all properties */
+                            }
+
+                            /* Hover effect for the cancel button */
+                            .cancel-button:hover {
+                                transform: scale(1.1);
+                                /* Slightly enlarges the button */
+                                background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.9) 71%);
+                                /* Darkens the gradient */
+                            }
+                        </style>
                     </div>
+
+
+
                 <?php elseif ($current_players < $max_players): ?>
                     <!-- If match is not full and user has not joined -->
                     <div>
-                        <p style="color: black;">Are you interested to the match?</p>
+                        <p style="color: black;">Are you interested in the match?</p>
                         <p style="color: black;">Join now and have fun!</p>
                         <form action="join_match.php" method="GET" style="text-align: center;">
                             <input type="hidden" name="id" value="<?php echo $match_id; ?>">
-                            <button style="width: 300px; 
-                        height: 100px; 
-                        font-size: 30px; 
-                        font-weight: 700; 
-                        color: white; 
-                        background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%); 
-                        border: none; 
-                        border-radius: 50px; 
-                        cursor: pointer; 
-                        transition: background-color 0.3s ease; 
-                        margin-top:1%" box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
-                                onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.3)'; this.style.background='linear-gradient(202deg, #FF4B5C 0%, rgba(255, 75, 92, 0.66) 71%)'"
-                                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)'; this.style.background='linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%)'"
-                                onclick="this.style.transform='translateY(2px)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)';">
+                            <button class="join-button">
                                 Join Match
                             </button>
                         </form>
+                        <style>
+                            /* Default style for the button */
+                            .join-button {
+                                width: 300px;
+                                height: 100px;
+                                font-size: 30px;
+                                font-weight: 700;
+                                color: white;
+                                background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%);
+                                border: none;
+                                border-radius: 50px;
+                                cursor: pointer;
+                                margin-top: 1%;
+                                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                                transition: all 0.3s ease;
+                                /* Smooth transition for all properties */
+                            }
+
+                            /* Hover effect for the button */
+                            .join-button:hover {
+                                transform: scale(1.1);
+                                /* Slightly enlarges the button */
+                                background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.9) 71%);
+                            }
+                        </style>
                     </div>
+
+
                 <?php else: ?>
                     <!-- If match is full -->
                     <div>
@@ -334,11 +364,22 @@ if ($host['id'] == $user_id) {
                     <div>
                         <form action="delete_match.php" method="POST" onSubmit="return confirm('Do you want to delete?')">
                             <input type="hidden" name="id" value="<?php echo $match_id; ?>">
-                            <button
-                                style="background: none; border: none; cursor: pointer; margin-top:89%; margin-left:40%">
-                                <img src="IMAGE/delete_button.png" alt="Delete" style="width: 100px; height: 100px;">
+                            <button class="delete-button"
+                                style="background: none; border: none; cursor: pointer; margin-top: 89%; margin-left: 40%;">
+                                <img src="IMAGE/delete_button.png" alt="Delete" class="delete-img"
+                                    style="width: 100px; height: 100px;">
                             </button>
                         </form>
+
+                        <style>
+                            /* Hover effect for the delete button image */
+                            .delete-img:hover {
+                                transform: scale(1.1);
+                                /* Slightly enlarges the image */
+                                transition: all 0.3s ease;
+                                /* Smooth transition */
+                            }
+                        </style>
                     </div>
 
                 </div>

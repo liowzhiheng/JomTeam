@@ -415,62 +415,71 @@ if ($host['id'] == $user_id) {
     </div>
     <div class="players_list" style="margin-top:-10px">
 
-<!-- Host Info -->
-<div>
-    <label>Host:</label>
-    <a href="player_profile.php?id=<?php echo $host['id']; ?>&match_id=<?php echo $match_id; ?>"
-        class="host-name">
-        <?php echo htmlspecialchars($host['first_name'] . ' ' . $host['last_name']); ?>
-    </a>
-</div>
+        <!-- Host Info -->
+        <div>
+            <label>Host:</label>
+            <a href="player_profile.php?id=<?php echo $host['id']; ?>&match_id=<?php echo $match_id; ?>"
+                class="host-name">
+                <?php echo htmlspecialchars($host['first_name'] . ' ' . $host['last_name']); ?>
+            </a>
+        </div>
 
-<ul id="playersList">
-    <?php
-    // Query to get players who joined the match
-    $playersQuery = "
+        <ul id="playersList">
+            <?php
+            // Query to get players who joined the match
+            $playersQuery = "
     SELECT user.id, user.first_name, user.last_name 
     FROM match_participants
     INNER JOIN user ON match_participants.user_id = user.id
     WHERE match_participants.match_id = ? 
     ORDER BY match_participants.join_date ASC";
 
-    // Prepare and execute the query
-    $stmt = $conn->prepare($playersQuery);
-    $stmt->bind_param('i', $match_id);
-    $stmt->execute();
-    $playersResult = $stmt->get_result();
+            // Prepare and execute the query
+            $stmt = $conn->prepare($playersQuery);
+            $stmt->bind_param('i', $match_id);
+            $stmt->execute();
+            $playersResult = $stmt->get_result();
 
-    $players = [];
-    while ($row = $playersResult->fetch_assoc()) {
-        $players[] = $row;
-    }
+            $players = [];
+            while ($row = $playersResult->fetch_assoc()) {
+                $players[] = $row;
+            }
 
-    $currentPlayerIndex = 0; // To track the index of players joining
-    $maxPlayers = $match['max_players']; // Max players allowed in the game
-    $currentPlayersCount = count($players); // Get the count of current players in the match
-    $remainingSlots = $match['current_players'] - $currentPlayersCount; // Remaining slots for "X"
-    
-    // Loop to display all player slots
-    for ($i = 1; $i <= $maxPlayers; $i++) {
-        if ($remainingSlots > 0) {
-            // Show "X" placeholders dynamically
-            echo "<li id='player{$i}'>
+            $currentPlayerIndex = 0; // To track the index of players joining
+            $maxPlayers = $match['max_players']; // Max players allowed in the game
+            $currentPlayersCount = count($players); // Get the count of current players in the match
+            $remainingSlots = $match['current_players'] - $currentPlayersCount; // Remaining slots for "X"
+            
+            // Loop to display all player slots
+            for ($i = 1; $i <= $maxPlayers; $i++) {
+                if ($remainingSlots > 0) {
+                    // Show "X" placeholders dynamically
+                    echo "<li id='player{$i}'>
                 Player {$i}: X
                 <form action='delete_participant.php' method='POST' style='display: inline;'>
                     <input type='hidden' name='id' value=''>
                     <input type='hidden' name='match_id' value='{$match_id}'>
                     <input type='hidden' name='real' value='0'>
                     <button type='submit' class='delete_button' value='' style='background: none; border: none;' onclick='return confirmDelete()'>
-                        <img src='IMAGE/delete_button.png' alt='Delete' style='cursor: pointer; width: 40px; height: 40px;transform: translateY(4px);'>
+                        <img src='IMAGE/remove_user_button.png' alt='Delete'>
                     </button>
                 </form>
+                <style>
+    /* Apply hover effect to the image */
+    .delete_button img{cursor: pointer; width: 40px; height: 40px;transform: translate(20px,1px);}
+
+    .delete_button img:hover {
+        transform: translate(20px, 1px) scale(1.1) ; /* Slightly enlarges the image */
+        transition: all 0.3s ease; /* Smooth transition */
+    }
+</style>
             </li>";
-            $remainingSlots--; // Decrease the count of remaining "X"s
-        } elseif ($currentPlayerIndex < $currentPlayersCount) {
-            // Show the names of joined players
-            $player = $players[$currentPlayerIndex];
-            $playerName = htmlspecialchars($player['first_name'] . " " . $player['last_name']);
-            echo "<li id='player{$i}'>
+                    $remainingSlots--; // Decrease the count of remaining "X"s
+                } elseif ($currentPlayerIndex < $currentPlayersCount) {
+                    // Show the names of joined players
+                    $player = $players[$currentPlayerIndex];
+                    $playerName = htmlspecialchars($player['first_name'] . " " . $player['last_name']);
+                    echo "<li id='player{$i}'>
                 Player {$i}: 
                 <a href='player_profile.php?id={$player['id']}&match_id={$match_id}' 
                     style='color: black; 
@@ -489,26 +498,34 @@ if ($host['id'] == $user_id) {
                     <input type='hidden' name='match_id' value='{$match_id}'>
                     <input type='hidden' name='real' value='1'>
                     <button type='submit' class='delete_button' value='' style='background: none; border: none;' onclick='return confirmDelete()'>
-                        <img src='IMAGE/delete_button.png' alt='Delete' style='cursor: pointer; width: 40px; height: 40px;transform: translateY(9px);'>
+                        <img src='IMAGE/remove_user_button.png' alt='Delete'>
                     </button>
                 </form>
-            </li>";
-            $currentPlayerIndex++; // Move to the next player
-        } else {
-            // Show "?" for any remaining empty slots
-            echo "<li id='player{$i}'>Player {$i}: ?</li>";
-        }
-    }
-    ?>
-</ul>
-</div>
+                <style>
+    .delete_button img{cursor: pointer; width: 40px; height: 40px;transform: translate(20px,5px);;}
 
-<script>
-// JavaScript function to confirm before deleting
-function confirmDelete() {
-    return confirm('Are you sure you want to remove this player?');
-}
-</script>
+    .delete_button img:hover {
+        transform: translate(20px, 5px) scale(1.1) ; /* Slightly enlarges the image */
+        transition: all 0.3s ease; /* Smooth transition */
+    }
+</style>
+            </li>";
+                    $currentPlayerIndex++; // Move to the next player
+                } else {
+                    // Show "?" for any remaining empty slots
+                    echo "<li id='player{$i}'>Player {$i}: ?</li>";
+                }
+            }
+            ?>
+        </ul>
+    </div>
+
+    <script>
+        // JavaScript function to confirm before deleting
+        function confirmDelete() {
+            return confirm('Are you sure you want to remove this player?');
+        }
+    </script>
 
 
 
@@ -528,7 +545,7 @@ function confirmDelete() {
         today.setHours(0, 0, 0, 0);
 
         if (inputDate.getTime() !== today.getTime()) {
-            alert("The date must be today!");
+            alert("The date must be today! (Unless you join premium 👻)");
             document.getElementById('startDate').value = "<?php echo $match['start_date'] ?>"; // Clear the invalid date
         }
     }

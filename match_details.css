@@ -185,6 +185,11 @@ div p {
     margin-right: -1006px;
 }
 
+.edit_button img:hover {
+    transform: scale(1.1) ; /* Slightly enlarges the image */
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
 .group select {
     flex: 1;
     padding: 10px;
@@ -223,6 +228,10 @@ select:focus {
     /* Maintain the aspect ratio */
 }
 
+.update_button img:hover {
+    transform: scale(1.1) ; /* Slightly enlarges the image */
+    transition: all 0.3s ease; /* Smooth transition */
+}
 
 /* chat room */
 
