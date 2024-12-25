@@ -192,7 +192,10 @@ img.picture {
 
 .button:hover {
     background-color: #e50c28;
+    transform: scale(1.05) ; /* Slightly enlarges the image */
+        transition: all 0.3s ease; /* Smooth transition */
 }
+
 
 .create_button {
     width: 75%;
@@ -210,6 +213,8 @@ img.picture {
 
 .create_button:hover {
     background-color: #e50c28;
+    transform: scale(1.05) ; /* Slightly enlarges the image */
+        transition: all 0.3s ease; /* Smooth transition */
 }
 
 .error-message {
