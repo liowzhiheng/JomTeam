@@ -1,6 +1,40 @@
 <?php
-// Include database connection (for session handling or dynamic content like profile image)
 require("config.php");
+
+// Get user ID from session
+$userID = $_SESSION["ID"];
+
+// Query to fetch sender's name, profile image, and request date
+$stmt = $conn->prepare("
+    SELECT user.id AS sender_id, user.first_name, user.last_name, friend_requests.created_at
+    FROM friend_requests
+    JOIN user ON friend_requests.sender_id = user.id
+    WHERE friend_requests.receiver_id = ? AND friend_requests.status = 'pending'
+");
+$stmt->bind_param("i", $userID);
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Initialize array to store pending requests and the count
+$pendingRequests = [];
+$pendingCount = 0;  // Variable to store the count of pending requests
+
+// Fetch all pending requests
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $pendingRequests[] = [
+            'sender_id' => $row['sender_id'],
+            'sender_name' => $row['first_name'] . ' ' . $row['last_name'],
+            'created_at' => $row['created_at']
+        ];
+        $pendingCount++;  // Increment the count for each pending request
+    }
+} else {
+    echo "No pending requests found.";
+}
+
+// Close the statement
+$stmt->close();
 ?>
 
 <nav class="navbar">
@@ -17,7 +51,13 @@ require("config.php");
 
     <ul class="menu rightmenu">
         <li><a href="history.php">Match Activity</a></li>
-        <li class="notification"><a href="#notification"><img src="IMAGE/NOTIFICATION.png" alt="Notification"></a>
+        <li class="notification">
+            <a href="javascript:void(0);" onclick="showFriendRequests()">
+                <img src="IMAGE/NOTIFICATION.png" alt="Notification">
+                <?php if ($pendingCount > 0): ?>
+                    <span class="red-dot"></span>
+                <?php endif; ?>
+            </a>
         </li>
         <li class="profile">
             <?php
@@ -25,16 +65,13 @@ require("config.php");
             if (isset($_SESSION["ID"])) {
                 $res = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $_SESSION["ID"]);
                 $row = mysqli_fetch_assoc($res);
-                // Check if the user has uploaded a profile picture
                 if (empty($row['file'])) {
-                    // Display default logout icon if no image found
                     echo '<div class="image-container">
                             <a href="view_profile.php">
                                 <img src="IMAGE/LOGOUT.png" alt="Profile Image" class="uploaded-image"/>
                             </a>
                           </div>';
                 } else {
-                    // Display the uploaded profile image
                     echo '<div class="image-container">
                             <a href="view_profile.php">
                                 <img src="uploads/' . $row['file'] . '" alt="Uploaded Image" class="uploaded-image"/>
@@ -47,13 +84,58 @@ require("config.php");
         <li class="logout">
             <a href="javascript:void(0);" onclick="confirmLogout()">Logout</a>
         </li>
-        <script>
-            function confirmLogout() {
-                var confirmation = confirm("Are you sure you want to logout?");
-                if (confirmation) {
-                    window.location.href = "logout.php"; // Redirect to index.php if confirmed
-                }
-            }
-        </script>
     </ul>
 </nav>
+
+<div id="friendRequestsModal" class="modal">
+    <div class="modal-content">
+        <!-- Close button is here -->
+        <span class="close-btn" onclick="closeModal()">×</span>
+        <h2>Friend Requests</h2>
+        <div id="friendRequestsContent">
+            <!-- Friend requests will be dynamically populated here -->
+        </div>
+    </div>
+</div>
+
+<script>
+    function confirmLogout() {
+        var confirmation = confirm("Are you sure you want to logout?");
+        if (confirmation) {
+            window.location.href = "logout.php";
+        }
+    }
+
+    function closeModal() {
+        // Log to check if it's called
+        console.log('Closing modal...');
+
+        // Hide the modal by setting display to 'none'
+        document.getElementById('friendRequestsModal').style.display = 'none';
+    }
+
+    function showFriendRequests() {
+        let requestsContent = '';
+        const pendingRequests = <?php echo json_encode($pendingRequests); ?>;
+        const pendingCount = <?php echo $pendingCount; ?>;
+
+        if (pendingCount > 0) {
+            pendingRequests.forEach(function (request) {
+                requestsContent += `
+                    <div class="request-item">
+                        <p>${request.sender_name} is sending a friend request to you.</p>
+                    </div>
+                `;
+            });
+
+            document.getElementById('friendRequestsContent').innerHTML = requestsContent;
+            // Ensure modal is displayed when there are pending requests
+            document.getElementById('friendRequestsModal').style.display = 'block';
+        } else {
+            document.getElementById('friendRequestsContent').innerHTML = '<p>No pending friend requests.</p>';
+            // Display the modal even if no requests are present
+            document.getElementById('friendRequestsModal').style.display = 'block';
+        }
+
+    }
+</script>
