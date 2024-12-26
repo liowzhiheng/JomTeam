@@ -270,7 +270,7 @@ button[type="submit"]:hover {
     font-size: 20px;
     font-weight: 700;
     color: white;
-    background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%);
+    background:#5252D4;
     border: none;
     padding: 30px 30px;
     border-radius: 20px;
@@ -285,7 +285,7 @@ button[type="submit"]:hover {
 }
 
 .follow-button:hover {
-    background-color: #e50c28;
+    background-color:#3d3db1;
     transform: scale(1.05);
     /* Slightly enlarges the image */
     transition: all 0.3s ease;
@@ -344,3 +344,29 @@ button[type="submit"]:hover {
     /* Smooth radius animation */
 }
 
+.description-detail {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    background-color: #f8f9fa;
+    border-radius: 70px;
+    transition: transform 0.2s;
+    padding: 30px;
+    width: 800px;
+    min-height: 300px; /* Ensures a specific height */
+    margin-top: 50px;
+    margin-bottom: 25px;
+
+}
+
+.description-detail strong {
+    color: #2c3e50;
+    font-size: 1.1em;
+    display: block;
+    margin-bottom: 5px;
+    padding: 10px;
+}
+
+.description-detail p {
+    color: #2c3e50c2;
+ 
+}
