@@ -45,6 +45,7 @@ $stmt->close();
         <li><a href="find_match.php">Find Match</a></li>
         <li><a href="create_match.php">Create Match</a></li>
         <li><a href="premium.php">Premium</a></li>
+        <li><a href="friends_list.php">Social</a></li>
     </ul>
 
     <ul class="menu rightmenu">
