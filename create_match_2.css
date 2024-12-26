@@ -42,6 +42,8 @@ body {
     color: #5252D4;
     line-height: 1.6;
     padding: 10px;
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    
 }
 
 .profile-container {
