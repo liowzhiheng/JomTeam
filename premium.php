@@ -57,12 +57,14 @@ $rows = mysqli_fetch_assoc($result);
     </div>
 
     <div class="ads">
-        <div>
+        <div class="adsfree-container">
             <img class="adsfree" src="IMAGE/ads_free_2.png" />
+            <img class="adsfree-hover" src="IMAGE/hover_image.png" alt="Hover Image">
             <h1 class="profile-title_adsfree">ADS Free</h1>
         </div>
-        <div>
+        <div class="adsfree-container">
             <img class="time" src="IMAGE/time.png" />
+            <img class="time-hover" src="IMAGE/hover_image_2.png" alt="Hover Image">
             <h1 class="profile-title_time">Extent Time</h1>
         </div>
     </div>
@@ -71,6 +73,7 @@ $rows = mysqli_fetch_assoc($result);
     <div class="profile-content">
         <a href="payment.php">
             <img class="get_premium" src="IMAGE/get_premium.png" alt="Get Premium" />
+            
         </a>
 
         <h1 class="ads-profile-title">Just RM 2.00 / month!<br>No commitments, no worries<br>cancel anytime!</h1>
