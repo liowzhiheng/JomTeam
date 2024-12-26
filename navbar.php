@@ -15,7 +15,7 @@ $stmt->bind_param("i", $userID);
 $stmt->execute();
 $result = $stmt->get_result();
 
-// Initialize array to store pending requests and the count
+// Initialize array to store pending requests
 $pendingRequests = [];
 $pendingCount = 0;  // Variable to store the count of pending requests
 
@@ -29,8 +29,6 @@ if ($result->num_rows > 0) {
         ];
         $pendingCount++;  // Increment the count for each pending request
     }
-} else {
-    echo "No pending requests found.";
 }
 
 // Close the statement
@@ -98,6 +96,7 @@ $stmt->close();
     </div>
 </div>
 
+
 <script>
     function confirmLogout() {
         var confirmation = confirm("Are you sure you want to logout?");
@@ -107,19 +106,17 @@ $stmt->close();
     }
 
     function closeModal() {
-        // Log to check if it's called
         console.log('Closing modal...');
-
-        // Hide the modal by setting display to 'none'
         document.getElementById('friendRequestsModal').style.display = 'none';
     }
 
     function showFriendRequests() {
-        let requestsContent = '';
         const pendingRequests = <?php echo json_encode($pendingRequests); ?>;
         const pendingCount = <?php echo $pendingCount; ?>;
 
         if (pendingCount > 0) {
+            let requestsContent = '';
+            // Populate the modal with friend requests
             pendingRequests.forEach(function (request) {
                 requestsContent += `
                     <div class="request-item">
@@ -129,13 +126,11 @@ $stmt->close();
             });
 
             document.getElementById('friendRequestsContent').innerHTML = requestsContent;
-            // Ensure modal is displayed when there are pending requests
+            // Display the modal
             document.getElementById('friendRequestsModal').style.display = 'block';
         } else {
-            document.getElementById('friendRequestsContent').innerHTML = '<p>No pending friend requests.</p>';
-            // Display the modal even if no requests are present
-            document.getElementById('friendRequestsModal').style.display = 'block';
+            // Hide the modal if there are no pending requests
+            document.getElementById('friendRequestsModal').style.display = 'none';
         }
-
     }
 </script>
