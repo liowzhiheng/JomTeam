@@ -16,7 +16,7 @@ $friendsQuery = "
         u.id, 
         u.first_name, 
         u.last_name, 
-        COALESCE(i.file, 'default.png') AS profile_picture
+        IFNULL(i.file, 'default.png') AS profile_picture
     FROM friends f
     JOIN user u ON (f.user_id = u.id OR f.friend_id = u.id)
     LEFT JOIN images i ON i.user_id = u.id AND i.is_profile_picture = 1
@@ -66,21 +66,35 @@ if ($friendsResult->num_rows == 0) {
 
 
     <div class="profile-container">
-    <div class="profile-details">
-        <h1>Your Friends</h1>
-        <ul>
-            <?php while ($row = $friendsResult->fetch_assoc()): ?>
-                <p class="detail">
-                    <img src="IMAGE/<?php echo htmlspecialchars($row['profile_picture']); ?>" alt="Profile Picture"
-                        class="profile-pic">
-                    <a href="player_profile.php?id=<?php echo $row['id']; ?>">
-                        <span class="friend-name"><?php echo htmlspecialchars($row['first_name'] . " " . $row['last_name']); ?></span>
-                    </a>
-                </p>
-            <?php endwhile; ?>
-        </ul>
+        <div class="profile-details">
+            <h1>Your Friends</h1>
+            <ul>
+                <?php while ($row = $friendsResult->fetch_assoc()): ?>
+                    <p class="detail">
+                        <?php
+                        // Check if the user has a profile picture
+                        $profilePicRes = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $row['id'] . " AND is_profile_picture = 1");
+                        $profilePicRow = mysqli_fetch_assoc($profilePicRes);
+
+                        // Display the profile picture or the default image if none exists
+                        if (empty($profilePicRow['file'])) {
+                            // If no profile picture, show default image
+                            echo '<img src="IMAGE/default.png" alt="Profile Picture" class="profile-pic">';
+                        } else {
+                            // If profile picture exists, show it
+                            echo '<img src="uploads/' . $profilePicRow['file']. '" alt="Profile Picture" class="profile-pic">';
+                        }
+                        ?>
+                        <a href="player_profile.php?id=<?php echo $row['id']; ?>">
+                            <span
+                                class="friend-name"><?php echo htmlspecialchars($row['first_name'] . " " . $row['last_name']); ?></span>
+                        </a>
+                    </p>
+                <?php endwhile; ?>
+            </ul>
+        </div>
     </div>
-</div>
+
 
 
 
