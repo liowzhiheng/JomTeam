@@ -51,8 +51,8 @@ $rows = mysqli_fetch_assoc($result);
 
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-lg-6 col-md-8">
-                <div class="card p-3">
+            <div>
+                <div>
                     <div class="row justify-content-center">
                         <div class="col-12">
                             <h2 class="heading text-center">Payments</h2>
@@ -62,12 +62,12 @@ $rows = mysqli_fetch_assoc($result);
                         <div class="row justify-content-center mb-4 radio-group">
                             <div class="col-sm-3 col-5">
                                 <div class='radio selected mx-auto' data-value="dk">
-                                    <img class="fit-image" src="IMAGE/card1.jpg" width="105px" height="55px">
+                                    <img class="fit-image" src="IMAGE/card2.jpg" width="105px" height="55px">
                                 </div>
                             </div>
                             <div class="col-sm-3 col-5">
                                 <div class='radio mx-auto' data-value="visa">
-                                    <img class="fit-image" src="IMAGE/card2.jpg" width="105px" height="55px">
+                                    <img class="fit-image" src="IMAGE/card1.jpg" width="105px" height="55px">
                                 </div>
                             </div>
                             <div class="col-sm-3 col-5">
@@ -83,7 +83,7 @@ $rows = mysqli_fetch_assoc($result);
                         </div>
               
                         <div class="row justify-content-center">
-                            <div class="col-12">
+                            <div >
                                 <div class="input-group">
                                     <input type="text" name="Name" placeholder="John Doe">
                                     <label>Name</label>
@@ -91,7 +91,7 @@ $rows = mysqli_fetch_assoc($result);
                             </div>
                         </div>
                         <div class="row justify-content-center">
-                            <div class="col-12">
+                            <div>
                                 <div class="input-group">
                                     <input type="text" id="cr_no" name="card-no" placeholder="0000 0000 0000 0000" minlength="19" maxlength="19">
                                     <label>Card Number</label>
@@ -99,15 +99,15 @@ $rows = mysqli_fetch_assoc($result);
                             </div>
                         </div>
                         <div class="row justify-content-center">
-                            <div class="col-12">
+                            <div >
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div>
                                         <div class="input-group">
                                             <input type="text" id="exp" name="expdate" placeholder="MM/YY" minlength="5" maxlength="5">
                                             <label>Expiry Date</label>
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div >
                                         <div class="input-group">
                                             <input type="password" name="cvv" placeholder="&#9679;&#9679;&#9679;" minlength="3" maxlength="3">
                                             <label>CVV</label>
@@ -117,7 +117,7 @@ $rows = mysqli_fetch_assoc($result);
                             </div>
                         </div>
                         <div class="row justify-content-center">
-                            <div class="col-md-12">
+                            <div >
                                 <input type="submit" value="Pay Now" class="btn btn-pay placeicon">
                             </div>
                         </div>
@@ -128,53 +128,7 @@ $rows = mysqli_fetch_assoc($result);
     </div>  
     <script type='text/javascript'>$(document).ready(function () {
 
-//For Card Number formatted input
-var cardNum = document.getElementById('cr_no');
-cardNum.onkeyup = function (e) {
-    if (this.value == this.lastValue) return;
-    var caretPosition = this.selectionStart;
-    var sanitizedValue = this.value.replace(/[^0-9]/gi, '');
-    var parts = [];
 
-    for (var i = 0, len = sanitizedValue.length; i < len; i += 4) {
-        parts.push(sanitizedValue.substring(i, i + 4));
-    }
-
-    for (var i = caretPosition - 1; i >= 0; i--) {
-        var c = this.value[i];
-        if (c < '0' || c > '9') {
-            caretPosition--;
-        }
-    }
-    caretPosition += Math.floor(caretPosition / 4);
-
-    this.value = this.lastValue = parts.join('-');
-    this.selectionStart = this.selectionEnd = caretPosition;
-}
-
-//For Date formatted input
-var expDate = document.getElementById('exp');
-expDate.onkeyup = function (e) {
-    if (this.value == this.lastValue) return;
-    var caretPosition = this.selectionStart;
-    var sanitizedValue = this.value.replace(/[^0-9]/gi, '');
-    var parts = [];
-
-    for (var i = 0, len = sanitizedValue.length; i < len; i += 2) {
-        parts.push(sanitizedValue.substring(i, i + 2));
-    }
-
-    for (var i = caretPosition - 1; i >= 0; i--) {
-        var c = this.value[i];
-        if (c < '0' || c > '9') {
-            caretPosition--;
-        }
-    }
-    caretPosition += Math.floor(caretPosition / 2);
-
-    this.value = this.lastValue = parts.join('/');
-    this.selectionStart = this.selectionEnd = caretPosition;
-}
 
 // Radio button
 $('.radio-group .radio').click(function () {
