@@ -118,3 +118,36 @@ a:hover {
 .unfollow-button img:hover {
     transform: translate(720px, -30px) scale(1.1); /* Corrected syntax for combining translate and scale */
 }
+
+/* Style for the pending requests container */
+.pending-requests-container {
+    position: fixed;
+    top: 0;
+    right: -100%;  /* Initially off the screen */
+    width: 50%;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: -2px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: right 0.5s ease-in-out; /* Smooth slide-in effect */
+    z-index: 1000;
+}
+
+/* When the container is visible, slide it in */
+.pending-requests-container.show {
+    right: 0;
+}
+
+/* Button style */
+#showPendingRequestsButton {
+    background-color: #5252D4;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#showPendingRequestsButton:hover {
+    background-color: #3b3bc1;
+}
