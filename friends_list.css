@@ -51,7 +51,7 @@ body {
 
 .detail {
     font-size: 1.2em;
-    margin-bottom: 20px;
+    margin-bottom: -40px;
     background-color: #f8f9fa;
     border-radius: 10px;
     transition: transform 0.2s;
@@ -99,4 +99,22 @@ a:hover {
     color: #5252D4;
     transform: scale(1.05); /* Slightly enlarges the element */
     text-decoration: none;
+}
+
+.unfollow-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.unfollow-button img {
+    width: 50px; /* Adjust the size of the image */
+    height: 50px;
+    transition: transform 0.3s ease;
+    transform: translate(720px, -32px);
+}
+
+.unfollow-button img:hover {
+    transform: translate(720px, -30px) scale(1.1); /* Corrected syntax for combining translate and scale */
 }

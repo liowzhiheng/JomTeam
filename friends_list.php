@@ -33,6 +33,24 @@ if ($friendsResult->num_rows == 0) {
     exit();
 }
 
+if (isset($_POST['unfollow']) && isset($_POST['friend_id'])) {
+    $friend_id = $_POST['friend_id'];
+
+    // Ensure the user is logged in
+    if (isset($_SESSION['ID'])) {
+        $current_user_id = $_SESSION['ID'];
+
+        // Remove the friendship relationship from the 'friends' table
+        $deleteQuery = "DELETE FROM friends WHERE (user_id = ? AND friend_id = ?) OR (user_id = ? AND friend_id = ?)";
+        $deleteStmt = $conn->prepare($deleteQuery);
+        $deleteStmt->bind_param("iiii", $current_user_id, $friend_id, $friend_id, $current_user_id);
+        $deleteStmt->execute();
+
+        // Redirect back to the friends list or a profile page after unfollowing
+        header("Location: friends_list.php");
+        exit();
+    }
+}
 
 ?>
 
@@ -73,7 +91,7 @@ if ($friendsResult->num_rows == 0) {
                     <p class="detail">
                         <?php
                         // Check if the user has a profile picture
-                        $profilePicRes = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $row['id'] . " AND is_profile_picture = 1");
+                        $profilePicRes = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $row['id']);
                         $profilePicRow = mysqli_fetch_assoc($profilePicRes);
 
                         // Display the profile picture or the default image if none exists
@@ -82,19 +100,26 @@ if ($friendsResult->num_rows == 0) {
                             echo '<img src="IMAGE/default.png" alt="Profile Picture" class="profile-pic">';
                         } else {
                             // If profile picture exists, show it
-                            echo '<img src="uploads/' . $profilePicRow['file']. '" alt="Profile Picture" class="profile-pic">';
+                            echo '<img src="uploads/' . $profilePicRow['file'] . '" alt="Profile Picture" class="profile-pic">';
                         }
                         ?>
                         <a href="player_profile.php?id=<?php echo $row['id']; ?>">
                             <span
                                 class="friend-name"><?php echo htmlspecialchars($row['first_name'] . " " . $row['last_name']); ?></span>
                         </a>
+
+                        <!-- Unfollow button (Only display if already friends) -->
+                    <form action="friends_list.php" method="POST" >
+                        <input type="hidden" name="friend_id" value="<?php echo $row['id']; ?>">
+                        <button name="unfollow" class="unfollow-button">
+                            <img src="IMAGE/remove_user_button.png" alt="Unfollow">
+                        </button>
+                    </form>
                     </p>
                 <?php endwhile; ?>
             </ul>
         </div>
     </div>
-
 
 
 
