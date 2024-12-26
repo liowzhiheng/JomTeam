@@ -51,6 +51,44 @@ body {
     justify-content: center;
     gap: 200px;
     margin-top: 50px;
+    transition: opacity 0.3s ease-in-out; /* Smooth transition for opacity */
+    
+}
+
+.adsfree-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 310%;
+    /* Ensures it matches the size of the original image */
+    height: auto;
+    display: none;
+    /* Hidden by default */
+    z-index: 10;
+    /* Makes sure the hover image appears above the original image */
+    transform: translate(-160px,-160px);
+    transition: opacity 0.3s ease-in-out; /* Smooth transition for opacity */
+    
+}
+
+.adsfree-container:hover .adsfree-hover {
+    display: block;
+    /* Show the hover image on hover */
+}
+
+.adsfree-container:hover .adsfree-hover {
+    opacity: 1; /* Fade in the hover image */
+}
+
+.adsfree-container:hover .adsfree {
+    opacity: 0; /* Fade out the original image */
+}
+
+
+.adsfree-container {
+    position: relative;
+    /* Allows positioning of the hover image relative to this container */
+
 }
 
 .ads h1 {
@@ -62,19 +100,48 @@ body {
     height: 370px;
     margin-top: 10px;
     margin-bottom: 10px;
+    transition: opacity 0.3s ease-in-out; /* Smooth transition for opacity */
 }
 
 .time {
     margin-top: -15px;
     width: 410px;
-    height: 410px
+    height: 410px;
+    transition: opacity 0.3s ease-in-out; /* Smooth transition for opacity */
+}
+
+.time-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 335%;
+    /* Ensures it matches the size of the original image */
+    height: auto;
+    display: none;
+    /* Hidden by default */
+    z-index: 10;
+    /* Makes sure the hover image appears above the original image */
+    transform: translate(-780px,-160px);
+
+    transition: opacity 0.3s ease-in-out; /* Smooth transition for opacity */
+    
+}
+.adsfree-container:hover .time-hover {
+    display: block; /* Show the hover image on hover */
+}
+.adsfree-container:hover .time-hover {
+    opacity: 1; /* Fade in the hover image */
+}
+
+.adsfree-container:hover .time {
+    opacity: 0; /* Fade out the original image */
 }
 
 .profile-title_adsfree {
 
     margin-bottom: 5%;
     font-size: 52px;
-    color:black;
+    color: black;
     margin-top: 15%;
 
 }
@@ -95,8 +162,14 @@ body {
 
 }
 
-.get_premium{
+.get_premium {
     margin-top: 80px;
     width: 450px;
     height: auto;
+    transition: width 0.3s ease-in-out, transform 0.2s ease-in-out;
+
+}
+
+.get_premium:hover {
+    transform: scale(1.05);
 }
