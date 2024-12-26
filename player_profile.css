@@ -1,10 +1,12 @@
 body {
-    overflow-y: auto;  /* Enable vertical scrolling */
-    height: 100%;      /* Ensure full page height */
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+    height: 100%;
+    /* Ensure full page height */
     /*font-family: 'Outfit', sans-serif;*/
     font-family: Arial, sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-   
-    background:white;
+
+    background: white;
     margin: 0;
     padding: 0;
 }
@@ -23,34 +25,45 @@ body {
     background-color: #5252D4;
     color: white;
     border: none;
-    border-top-right-radius: 50px; /* Top-right corner */
-    border-bottom-right-radius: 50px; /* Bottom-right corner */
-    border-top-left-radius: 10px; /* Top-left corner */
-    border-bottom-left-radius: 10px; /* Bottom-left corner */
+    border-top-right-radius: 50px;
+    /* Top-right corner */
+    border-bottom-right-radius: 50px;
+    /* Bottom-right corner */
+    border-top-left-radius: 10px;
+    /* Top-left corner */
+    border-bottom-left-radius: 10px;
+    /* Bottom-left corner */
     font-size: 20px;
     font-weight: 500;
     cursor: pointer;
-    transition: 
-        transform 0.2s ease-in-out, 
-        background-color 0.2s ease-in-out, 
-        width 0.3s ease-in-out, 
-        border-radius 0.3s ease-in-out; /* Smooth radius animation */
-    transform: translate(-35px, 90px); /* Consistent vertical position */
+    transition:
+        transform 0.2s ease-in-out,
+        background-color 0.2s ease-in-out,
+        width 0.3s ease-in-out,
+        border-radius 0.3s ease-in-out;
+    /* Smooth radius animation */
+    transform: translate(-35px, 90px);
+    /* Consistent vertical position */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    width: 150px; /* Set an initial width */
+    width: 150px;
+    /* Set an initial width */
 }
 
 .back-button:hover {
-    border-top-left-radius: 0px; /* Top-left corner */
-    border-bottom-left-radius: 0px; /* Bottom-left corner */
+    border-top-left-radius: 0px;
+    /* Top-left corner */
+    border-bottom-left-radius: 0px;
+    /* Bottom-left corner */
     background-color: #3E3EB0;
-    transform: translate(-30px, 90px); /* Maintain the same Y position (101px) */
-    width: 170px; /* Adjust the width to make it longer */
+    transform: translate(-30px, 90px);
+    /* Maintain the same Y position (101px) */
+    width: 170px;
+    /* Adjust the width to make it longer */
 }
 
-.back-button img{
+.back-button img {
     width: 60%;
-    height:auto;
+    height: auto;
 }
 
 .profile-header {
@@ -66,12 +79,17 @@ body {
 
 /* Profile Picture Styling */
 .uploaded-images .profile-image {
-    width: 200px;       /* Set a fixed width */
-    height: 200px;      /* Match height to width */
-    object-fit: cover;  /* Ensure image scales properly */
-    border-radius: 50%; /* Make image circular */
+    width: 200px;
+    /* Set a fixed width */
+    height: 200px;
+    /* Match height to width */
+    object-fit: cover;
+    /* Ensure image scales properly */
+    border-radius: 50%;
+    /* Make image circular */
     border: 4px solid #86B6F6;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add slight shadow */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    /* Add slight shadow */
 }
 
 .uploaded-images .profile-image:hover {
@@ -89,16 +107,19 @@ body {
     color: #555;
 }
 
-.profile-details, .ratings-section {
+.profile-details,
+.ratings-section {
     font-size: 1.0em;
-    margin-top: 0;          /* Reduced from 10px */
-    padding: 30px 30px;     /* Reduced top/bottom padding from 30px */
+    margin-top: 0;
+    /* Reduced from 10px */
+    padding: 30px 30px;
+    /* Reduced top/bottom padding from 30px */
 }
 
 .profile-details h2 {
     font-size: 2em;
     margin-bottom: 20px;
-    color : #5252D4;
+    color: #5252D4;
 }
 
 .profile-details {
@@ -111,7 +132,7 @@ body {
     background-color: #f8f9fa;
     border-radius: 10px;
     transition: transform 0.2s;
-    padding:15px;
+    padding: 15px;
 }
 
 .detail strong {
@@ -123,27 +144,27 @@ body {
 
 .rate-player-section {
     background-color: #fff;
-    padding: 40px;         
+    padding: 40px;
     border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    margin-top: 10px;      
+    margin-top: 10px;
 }
 
 .rate-player-section h2 {
     color: #2c3e50;
-    margin-bottom: 15px;  
+    margin-bottom: 15px;
 }
 
 .rating-input {
     display: flex;
     align-items: center;
     gap: 15px;
-    margin-bottom: 100px;   
+    margin-bottom: 100px;
 }
 
 button[type="submit"] {
     width: 31%;
-   margin-left: 500px;
+    margin-left: 500px;
     font-size: 20px;
     font-weight: 700;
     color: white;
@@ -152,17 +173,22 @@ button[type="submit"] {
     padding: 30px 30px;
     border-radius: 50px;
     cursor: pointer;
-    
-    transition: 
-        transform 0.2s ease-in-out, 
-        background-color 0.2s ease-in-out, 
-        width 0.3s ease-in-out, 
-        border-radius 0.3s ease-in-out; /* Smooth radius animation */
+
+    transition:
+        transform 0.2s ease-in-out,
+        background-color 0.2s ease-in-out,
+        width 0.3s ease-in-out,
+        border-radius 0.3s ease-in-out;
+    /* Smooth radius animation */
 }
 
 button[type="submit"]:hover {
-    transform: translateY(-2px);
-    
+    background-color: #e50c28;
+    transform: scale(1.05);
+    /* Slightly enlarges the image */
+    transition: all 0.3s ease;
+    /* Smooth transition */
+
 }
 
 /* Rating Section */
@@ -210,7 +236,7 @@ button[type="submit"]:hover {
     color: #ccc;
     cursor: pointer;
     transition: color 0.3s;
-   
+
 }
 
 .ratings-section h2 {
@@ -225,15 +251,96 @@ button[type="submit"]:hover {
     align-items: center;
 }
 
-.stars input[type="radio"]:checked ~ .star {
+.stars input[type="radio"]:checked~.star {
     color: gold;
 }
 
 .stars label:hover,
-.stars label:hover ~ label {
+.stars label:hover~label {
     color: gold;
 }
 
-.stars input[type="radio"]:checked + label {
+.stars input[type="radio"]:checked+label {
     color: gold;
 }
+
+.follow-button {
+
+    width: 200px;
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%);
+    border: none;
+    padding: 30px 30px;
+    border-radius: 20px;
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease-in-out,
+        background-color 0.2s ease-in-out,
+        width 0.3s ease-in-out,
+        border-radius 0.3s ease-in-out;
+    /* Smooth radius animation */
+}
+
+.follow-button:hover {
+    background-color: #e50c28;
+    transform: scale(1.05);
+    /* Slightly enlarges the image */
+    transition: all 0.3s ease;
+    /* Smooth transition */
+
+}
+
+.requested-button{
+
+    width: 200px;
+    font-size: 20px;
+    font-weight: 700;
+    background-color: #ffffff;
+    color: rgba(94, 94, 94, 0.687);
+    border-color: rgba(94, 94, 94, 0.702);
+    padding: 30px 30px;
+    border-radius: 20px;
+    cursor: pointer;
+    border-style: solid;
+
+    transition:
+        transform 0.2s ease-in-out,
+        background-color 0.2s ease-in-out,
+        width 0.3s ease-in-out,
+        border-radius 0.3s ease-in-out;
+    /* Smooth radius animation */
+}
+
+.requested-button:hover {
+
+    transform: scale(1.05);
+    /* Slightly enlarges the image */
+    transition: all 0.3s ease;
+    /* Smooth transition */
+
+}
+
+.following-button {
+
+    width: 200px;
+    font-size: 20px;
+    font-weight: 700;
+    background-color: #ffffff;
+    color: rgba(94, 94, 94, 0.687);
+    border-color: rgba(94, 94, 94, 0.702);
+    padding: 30px 30px;
+    border-radius: 20px;
+    cursor: pointer;
+    border-style: solid;
+
+    transition:
+        transform 0.2s ease-in-out,
+        background-color 0.2s ease-in-out,
+        width 0.3s ease-in-out,
+        border-radius 0.3s ease-in-out;
+    /* Smooth radius animation */
+}
+

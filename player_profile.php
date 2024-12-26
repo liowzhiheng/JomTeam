@@ -130,41 +130,57 @@ $friendCheckStmt = $conn->prepare($friendCheckQuery);
 $friendCheckStmt->bind_param("iiii", $current_user_id, $profile_user_id, $profile_user_id, $current_user_id);
 $friendCheckStmt->execute();
 $friendCheckResult = $friendCheckStmt->get_result();
-
-// If they are already friends, show "You are friends" message
 $is_friend = $friendCheckResult->num_rows > 0;
 
-// Handle the 'Add Friend' button
+// Check if a friend request has been sent and is pending
+$checkRequestQuery = "SELECT id FROM friend_requests WHERE sender_id = ? AND receiver_id = ? AND status = 'pending'";
+$checkRequestStmt = $conn->prepare($checkRequestQuery);
+$checkRequestStmt->bind_param("ii", $current_user_id, $profile_user_id);
+$checkRequestStmt->execute();
+$checkRequestResult = $checkRequestStmt->get_result();
+$friend_request_sent = $checkRequestResult->num_rows > 0;
+
+// Handle the 'Follow' (Add Friend) button
 if (isset($_POST['add_friend'])) {
     if ($current_user_id == $profile_user_id) {
         echo "You cannot send a friend request to yourself.";
         exit();
     }
 
-    // Check if a pending friend request exists
-    $requestCheckQuery = "SELECT * FROM friend_requests WHERE sender_id = ? AND receiver_id = ?";
-    $requestCheckStmt = $conn->prepare($requestCheckQuery);
-    $requestCheckStmt->bind_param("ii", $current_user_id, $profile_user_id);
-    $requestCheckStmt->execute();
-    $requestCheckResult = $requestCheckStmt->get_result();
-
-    if ($requestCheckResult->num_rows > 0) {
-        echo "You have already sent a friend request.";
-        exit();
+    if (!$friend_request_sent) {
+        // Insert a new friend request if none exists
+        $insertRequestQuery = "INSERT INTO friend_requests (sender_id, receiver_id, status) VALUES (?, ?, 'pending')";
+        $insertRequestStmt = $conn->prepare($insertRequestQuery);
+        $insertRequestStmt->bind_param("ii", $current_user_id, $profile_user_id);
+        $insertRequestStmt->execute();
     }
-
-    // Insert new friend request
-    $insertRequestQuery = "INSERT INTO friend_requests (sender_id, receiver_id) VALUES (?, ?)";
-    $insertRequestStmt = $conn->prepare($insertRequestQuery);
-    $insertRequestStmt->bind_param("ii", $current_user_id, $profile_user_id);
-    $insertRequestStmt->execute();
-
-    if ($insertRequestStmt->affected_rows > 0) {
-        echo "Friend request sent!";
-    } else {
-        echo "Failed to send friend request.";
-    }
+    header("Location: player_profile.php?id=$profile_user_id");
+    exit();
 }
+
+// Handle the 'Cancel Request' button
+if (isset($_POST['cancel_request'])) {
+    // Delete the pending friend request
+    $deleteQuery = "DELETE FROM friend_requests WHERE sender_id = ? AND receiver_id = ? AND status = 'pending'";
+    $deleteStmt = $conn->prepare($deleteQuery);
+    $deleteStmt->bind_param("ii", $current_user_id, $profile_user_id);
+    $deleteStmt->execute();
+    header("Location: player_profile.php?id=$profile_user_id");
+    exit();
+}
+
+// Handle the 'Unfollow' button
+if (isset($_POST['unfollow'])) {
+    // Remove the friendship relationship
+    $deleteQuery = "DELETE FROM friends WHERE (user_id = ? AND friend_id = ?) OR (user_id = ? AND friend_id = ?)";
+    $deleteStmt = $conn->prepare($deleteQuery);
+    $deleteStmt->bind_param("iiii", $current_user_id, $profile_user_id, $profile_user_id, $current_user_id);
+    $deleteStmt->execute();
+    header("Location: player_profile.php?id=$profile_user_id");
+    exit();
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -226,8 +242,32 @@ if (isset($_POST['add_friend'])) {
                     }
                     ?>
                 </div>
+
             </div>
+            <div>
+                <!-- Add Friend Button Logic -->
+                <?php if (!$is_friend && !$friend_request_sent && $current_user_id != $profile_user_id): ?>
+                    <!-- If not a friend and no friend request sent -->
+                    <form action="player_profile.php?id=<?php echo $profile_user_id; ?>" method="POST">
+                        <button name="add_friend" class="follow-button">Follow</button>
+                    </form>
+                <?php elseif ($friend_request_sent): ?>
+                    <!-- If friend request has been sent -->
+                    <form action="player_profile.php?id=<?php echo $profile_user_id; ?>" method="POST">
+                        <button name="cancel_request" class="requested-button">Request</button>
+                    </form>
+                <?php elseif ($is_friend): ?>
+                    <!-- If already friends -->
+                    <form action="player_profile.php?id=<?php echo $profile_user_id; ?>" method="POST">
+                        <button name="unfollow" class="following-button">Unfollow</button>
+                    </form>
+                <?php endif; ?>
+            </div>
+
+
+
         </div>
+
 
         <div class="profile-details">
             <h2>Profile Information</h2>
@@ -347,14 +387,7 @@ if (isset($_POST['add_friend'])) {
             <?php endif; ?>
         </div>
 
-        <!-- Add Friend Button Logic -->
-        <?php if (!$is_friend && $current_user_id != $profile_user_id): ?>
-            <form action="player_profile.php?id=<?php echo $profile_user_id; ?>" method="POST">
-                <button type="submit" name="add_friend" class="add-friend-button">Send Friend Request</button>
-            </form>
-        <?php elseif ($is_friend): ?>
-            <p>You are friends!</p>
-        <?php endif; ?>
+
     </div>
 
     <script src="footer.js"></script>
