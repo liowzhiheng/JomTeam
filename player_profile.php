@@ -224,27 +224,16 @@ if (isset($_POST['unfollow'])) {
                     <?php endfor; ?>
                 </div>
 
-                <div class="detail">
-                    <strong>Gender:</strong>
-                    <?php echo htmlspecialchars($user['gender'] ?? 'Not specified'); ?>
+                <div class="description-detail">
+                    <strong>Description:</strong>
+                    <p>
+                        <?php echo htmlspecialchars($profile['description'] ?? 'No description provided'); ?>
+                    </p>
                 </div>
 
-                <div class="detail">
-                    <strong>Age:</strong>
-                    <?php
-                    if (!empty($user['birth_date'])) {
-                        $birthDate = new DateTime($user['birth_date']);
-                        $today = new DateTime();
-                        $age = $birthDate->diff($today)->y;
-                        echo htmlspecialchars($age . ' years old');
-                    } else {
-                        echo 'Not specified';
-                    }
-                    ?>
-                </div>
 
             </div>
-            <div>
+            <div style="margin-bottom: 25px;">
                 <!-- Add Friend Button Logic -->
                 <?php if (!$is_friend && !$friend_request_sent && $current_user_id != $profile_user_id): ?>
                     <!-- If not a friend and no friend request sent -->
@@ -271,6 +260,50 @@ if (isset($_POST['unfollow'])) {
 
         <div class="profile-details">
             <h2>Profile Information</h2>
+            <div class="detail">
+                <strong>Gender:</strong>
+                <?php echo htmlspecialchars($user['gender'] ?? 'Not specified'); ?>
+            </div>
+
+            <div class="detail">
+                <strong>Age:</strong>
+                <?php
+                if (!empty($user['birth_date'])) {
+                    $birthDate = new DateTime($user['birth_date']);
+                    $today = new DateTime();
+                    $age = $birthDate->diff($today)->y;
+                    echo htmlspecialchars($age . ' years old');
+                } else {
+                    echo 'Not specified';
+                }
+                ?>
+            </div>
+            <div class="detail">
+                <strong>Location:</strong>
+                <?php echo htmlspecialchars($profile['location'] ?? 'Not specified'); ?>
+            </div>
+            <div class="detail">
+                <strong>Status:</strong>
+                <?php echo htmlspecialchars($profile['status'] ?? 'Not specified'); ?>
+            </div>
+            <div class="detail">
+                <strong>Skill Level:</strong>
+                <?php echo htmlspecialchars($profile['skill_level'] ?? 'Not specified'); ?>
+            </div>
+            <div class="detail">
+                <strong>Preferred Game Types:</strong>
+                <?php echo htmlspecialchars($profile['preferred_game_types'] ?? 'Not specified'); ?>
+            </div>
+
+            <div class="detail">
+                <strong>Interests:</strong>
+                <?php echo htmlspecialchars($profile['interests'] ?? 'Not specified'); ?>
+            </div>
+
+            <div class="detail">
+                <strong>Availability:</strong>
+                <?php echo htmlspecialchars($profile['availability'] ?? 'Not specified'); ?>
+            </div>
 
             <div class="detail">
                 <strong>Email:</strong>
@@ -282,40 +315,9 @@ if (isset($_POST['unfollow'])) {
                 <?php echo htmlspecialchars($user['phone'] ?? 'Not provided'); ?>
             </div>
 
-            <div class="detail">
-                <strong>Location:</strong>
-                <?php echo htmlspecialchars($profile['location'] ?? 'Not specified'); ?>
-            </div>
 
-            <div class="detail">
-                <strong>Interests:</strong>
-                <?php echo htmlspecialchars($profile['interests'] ?? 'Not specified'); ?>
-            </div>
 
-            <div class="detail">
-                <strong>Preferred Game Types:</strong>
-                <?php echo htmlspecialchars($profile['preferred_game_types'] ?? 'Not specified'); ?>
-            </div>
 
-            <div class="detail">
-                <strong>Skill Level:</strong>
-                <?php echo htmlspecialchars($profile['skill_level'] ?? 'Not specified'); ?>
-            </div>
-
-            <div class="detail">
-                <strong>Status:</strong>
-                <?php echo htmlspecialchars($profile['status'] ?? 'Not specified'); ?>
-            </div>
-
-            <div class="detail">
-                <strong>Description:</strong>
-                <?php echo htmlspecialchars($profile['description'] ?? 'No description provided'); ?>
-            </div>
-
-            <div class="detail">
-                <strong>Availability:</strong>
-                <?php echo htmlspecialchars($profile['availability'] ?? 'Not specified'); ?>
-            </div>
 
             <div class="detail">
                 <strong>Last Active:</strong>
