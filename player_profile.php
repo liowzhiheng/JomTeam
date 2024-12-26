@@ -254,12 +254,12 @@ if (isset($_POST['unfollow'])) {
                 <?php elseif ($friend_request_sent): ?>
                     <!-- If friend request has been sent -->
                     <form action="player_profile.php?id=<?php echo $profile_user_id; ?>" method="POST">
-                        <button name="cancel_request" class="requested-button">Request</button>
+                        <button name="cancel_request" class="requested-button">Requested</button>
                     </form>
                 <?php elseif ($is_friend): ?>
                     <!-- If already friends -->
                     <form action="player_profile.php?id=<?php echo $profile_user_id; ?>" method="POST">
-                        <button name="unfollow" class="following-button">Unfollow</button>
+                        <button name="unfollow" class="following-button">Following</button>
                     </form>
                 <?php endif; ?>
             </div>
