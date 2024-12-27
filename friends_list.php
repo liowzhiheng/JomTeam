@@ -158,7 +158,7 @@ $requestResult = $requestStmt->get_result();
 
         <div id="friendsListContainer" class="profile-details">
             <h1>Your Friends</h1>
-            <button id="toggleViewButton" class="back-button"><img src="IMAGE/back.png" alt="back"></button>
+            <button id="toggleViewButton" class="back-button">Friend Request</button>
             <ul> 
                 <?php if ($friendsResult->num_rows > 0): ?>
                 <?php while ($row = $friendsResult->fetch_assoc()): ?>
@@ -196,7 +196,7 @@ $requestResult = $requestStmt->get_result();
         class="profile-details pending-requests-container request-container hidden_request">
         <div>
             <h1>Pending Friend Requests</h1>
-            <button id="toggleViewButtonBack" class="back-button2"><img src="IMAGE/back.png" alt="back"></button>
+            <button id="toggleViewButtonBack" class="back-button2">Friend List</button>
             <ul>
                 <?php if ($requestResult->num_rows > 0): ?>
                     <?php while ($row = $requestResult->fetch_assoc()): ?>
