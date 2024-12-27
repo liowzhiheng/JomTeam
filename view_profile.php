@@ -344,31 +344,28 @@ $rows = mysqli_fetch_assoc($result);
                             </button></p>
 
                     </div>
-
-
-
                 </div>
             </div>
         </form>
     </div>
 
     <!-- Add button to see friend requests -->
-<div class="button">
-    <p>
-        <a href="friend_requests.php" class="friend-requests-button">
-            <button type="button">View Friend Requests</button>
-        </a>
-    </p>
-</div>
+    <div class="button">
+        <p>
+            <a href="friend_requests.php" class="friend-requests-button">
+                <button type="button">View Friend Requests</button>
+            </a>
+        </p>
+    </div>
 
-<!-- Button to see friend list -->
-<div class="button">
-    <p>
-        <a href="friends_list.php" class="friend-list-button">
-            <button type="button">View Friend List</button>
-        </a>
-    </p>
-</div>
+    <!-- Button to see friend list -->
+    <div class="button">
+        <p>
+            <a href="friends_list.php" class="friend-list-button">
+                <button type="button">View Friend List</button>
+            </a>
+        </p>
+    </div>
 
 
     <script src="view_profile.js"></script>

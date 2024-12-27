@@ -143,7 +143,7 @@ $result = $conn->query($sql);
                     .then(response => response.text())
                     .then(data => {
                         if (data.trim() === 'success') {
-                            location.reload(); // Refresh the page to update the UI
+                            location.reload();
                         }
                     })
             }

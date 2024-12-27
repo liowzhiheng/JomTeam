@@ -81,6 +81,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
+// Delete Ad
+if (isset($_GET['delete_id'])) {
+    $id = intval($_GET['delete_id']);
+    $delete_query = "DELETE FROM ads WHERE id = $id";
+
+    if ($conn->query($delete_query) === TRUE) {
+        header("Location: view_ads.php?status=deleted");
+        exit();
+    } else {
+        header("Location: update_ads.php?id=$id&status=delete_fail");
+        exit();
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -89,45 +103,99 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Ad</title>
+    <title>Edit Ads</title>
+    <link rel="stylesheet" href="update_ads.css">
 </head>
 
 <body>
-    <h1>Edit Ad</h1>
+    <div class="container">
+        <div class="title">
+            <a href="view_ads.php" class="btn btn-secondary">Back</a>
+            <h1>Edit Ad</h1>
+        </div>
 
-    <?php if (isset($_GET['status']) && $_GET['status'] == 'fail'): ?>
-        <p style="color: red;">Error updating the ad. Please try again.</p>
-    <?php elseif (isset($_GET['status']) && $_GET['status'] == 'upload_fail'): ?>
-        <p style="color: red;">Error uploading the image. Please try again.</p>
-    <?php elseif (isset($_GET['status']) && $_GET['status'] == 'updated'): ?>
-        <p style="color: green;">Ad updated successfully!</p>
-    <?php endif; ?>
+        <div class="status-messages">
+            <?php if (isset($_GET['status']) && $_GET['status'] == 'fail'): ?>
+                <p class="error-message">Error updating the ad. Please try again.</p>
+            <?php elseif (isset($_GET['status']) && $_GET['status'] == 'upload_fail'): ?>
+                <p class="error-message">Error uploading the image. Please try again.</p>
+            <?php elseif (isset($_GET['status']) && $_GET['status'] == 'updated'): ?>
+                <p class="success-message">Ad updated successfully!</p>
+            <?php endif; ?>
+        </div>
 
-    <form action="update_ads.php?id=<?php echo $ads['id']; ?>" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="<?php echo $ads['id']; ?>">
-        <div>
-            <label for="title">Title:</label>
-            <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($ads['title']); ?>" required>
-        </div>
-        <div>
-            <label for="description">Description:</label>
-            <textarea id="description" name="description"
-                required><?php echo htmlspecialchars($ads['description']); ?></textarea>
-        </div>
-        <div>
-            <label for="status">Status:</label>
-            <input type="checkbox" id="status" name="status" <?php echo $ads['status'] ? 'checked' : ''; ?>>
-            <label for="status">Active</label>
-        </div>
-        <div>
-            <label for="image">Image:</label>
-            <input type="file" id="image" name="image">
-            <p>Current image: <?php echo $ads['file']; ?></p>
-        </div>
-        <button type="submit" name="update_ad">Update Ad</button>
-    </form>
+        <form action="update_ads.php?id=<?php echo $ads['id']; ?>" method="POST" enctype="multipart/form-data"
+            class="form">
+            <input type="hidden" name="id" value="<?php echo $ads['id']; ?>">
 
-    <a href="view_ads.php">Back to Ads</a>
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($ads['title']); ?>"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" name="description"
+                    required><?php echo htmlspecialchars($ads['description']); ?></textarea>
+            </div>
+
+            <div class="form-group status">
+                <label>Status:</label>
+                <label style="color: black; font-weight:lighter">
+                    <input type="checkbox" id="status" name="status" <?php echo $ads['status'] ? 'checked' : ''; ?>>Active
+                </label>
+            </div>
+
+            <div class="form-group" style="display: flex; align-items: center; gap: 20px;">
+                <div>
+                    <label>Current Image:</label>
+                    <div class="upload-area" id="uploadArea" style="cursor: default; border: 2px solid #ccc;">
+                        <img src="ads/<?php echo $ads['file']; ?>" alt="Current Image"
+                            style="max-height: 200px; weight: auto;">
+                    </div>
+                </div>
+                <div>
+                    <label>Upload New Image:</label>
+                    <div class="upload-area" id="uploadArea" onclick="document.getElementById('image').click();">
+                        <img id="previewImg" src="" alt="Preview" style="display: none;" />
+                        <p id="uploadText">Click to upload photo.</p>
+                    </div>
+                </div>
+                <input type="file" name="image" id="image" accept="image/*" hidden>
+                <div class="image-preview" id="imagePreview" style="display: none;">
+                    <img id="previewImg" src="" alt="Preview" />
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <a href="update_ads.php?delete_id=<?php echo $ads['id']; ?>" class="btn btn-danger"
+                    onclick="return confirm('Are you sure you want to delete this ad?');">Delete</a>
+                <button type="submit" name="update_ad" class="btn btn-primary">Update</button>
+            </div>
+        </form>
+
+        <script>
+            document.getElementById('image').addEventListener('change', function (event) {
+                const file = event.target.files[0];
+                const previewImg = document.getElementById('previewImg');
+                const uploadText = document.getElementById('uploadText');
+
+                if (file) {
+                    // No need to display the file name
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        previewImg.src = e.target.result;
+                        previewImg.style.display = 'block';
+                        uploadText.style.display = 'none';
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    previewImg.style.display = 'none';
+                    uploadText.style.display = 'block';
+                }
+            });
+        </script>
 </body>
 
 </html>

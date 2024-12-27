@@ -71,7 +71,7 @@ $result = $conn->query($sql);
                 $counter = 1;
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
-                        echo "<tr>";
+                        echo "<tr class='select'>";
                         echo "<td>" . $counter++ . "</td>";
                         echo "<td>" . $row['match_title'] . "</td>";
                         echo "<td>" . $row['game_type'] . "</td>";

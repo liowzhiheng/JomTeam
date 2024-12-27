@@ -26,9 +26,6 @@ if ($result && $result->num_rows > 0) {
 </head>
 
 <body>
-
-
-
     <div id="adPopup" class="popup">
         <div class="popup-content">
             <img id="adImage" src="<?php echo $imagePath; ?>" alt="Advertisement">

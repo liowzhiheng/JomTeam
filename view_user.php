@@ -119,56 +119,63 @@ require("config.php"); // Include the database configuration file
 
     // Execute the query
     $result = $conn->query($sql);
+    ?>
 
-    if ($result->num_rows > 0) {
-        echo "<div class='table-container'>";
-        echo "<table class='user-table'>";
-        echo "<tr>
-        <th>No</th>
-        <th>Username</th>
-        <th>Role</th>
-        <th>Phone</th>
-        <th>Email</th>
-        <th>Verification</th>
-        <th>Creation Time</th>
-        <th>Premium</th>
-        <th>Action</th>
-      </tr>";
+    <div class="table-container">
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Verification</th>
+                    <th>Creation Time</th>
+                    <th>Premium</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if ($result->num_rows > 0) {
+                    $counter = 1;
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr class='select' style='cursor: pointer;' onclick=\"document.getElementById('form_" . $row["id"] . "').submit();\">";
+                        echo "<td>" . $counter++ . "</td>";
+                        echo "<td>" . strtoupper(htmlspecialchars($row["first_name"] . ' ' . $row["last_name"])) . "</td>";
+                        $role = ($row['level'] == 1) ? 'admin' : 'user';
+                        echo "<td>" . htmlspecialchars($role) . "</td>";
+                        echo "<td>" . htmlspecialchars($row["phone"] ?? '') . "</td>";
+                        echo "<td>" . htmlspecialchars($row["email"]) . "</td>";
+                        $verify = ($row['email_verified'] == 1) ? 'Yes' : 'No';
+                        echo "<td>" . htmlspecialchars($verify) . "</td>";
+                        echo "<td>" . date('Y/m/d', strtotime($row["created_at"])) . "</td>";
+                        $premium = ($row['premium'] == 1) ? 'Yes' : 'No';
+                        echo "<td>" . htmlspecialchars($premium) . "</td>";
+                        echo "<td>";
 
-        // Initialize counter for sequential numbering
-        $counter = 1;
-
-        // Output data of each row (dynamic part)
-        while ($row = $result->fetch_assoc()) {
-            echo "<tr>";
-            echo "<td>" . $counter++ . "</td>"; // Sequential numbering
-            echo "<td>" . strtoupper(htmlspecialchars($row["first_name"] . ' ' . $row["last_name"])) . "</td>";
-            $role = ($row['level'] == 1) ? 'admin' : 'user';
-            echo "<td>" . htmlspecialchars($role) . "</td>";
-            echo "<td>" . htmlspecialchars($row["phone"] ?? '') . "</td>";
-            echo "<td>" . htmlspecialchars($row["email"]) . "</td>";
-            $verify = ($row['email_verified'] == 1) ? 'Yes' : 'No';
-            echo "<td>" . htmlspecialchars($verify) . "</td>";
-            echo "<td>" . date('Y/m/d', strtotime($row["created_at"])) . "</td>";
-            $premium = ($row['premium'] == 1) ? 'Yes' : 'No';
-            echo "<td>" . htmlspecialchars($premium) . "</td>";
-            echo "<td>";
-
-            // Show "Remove" button only if the user's level is not 1
-            if ($row['level'] != 1) {
-                echo "<form action='delete_user.php' method='POST' class='remove-form'>";
-                echo "<input type='hidden' name='id' value='" . htmlspecialchars($row["id"]) . "'>";
-                echo "<input type='submit' value='Remove' class='remove-button' onclick='return confirm(\"Are you sure you want to delete this user?\")'>";
-                echo "</form>";
-            }
-            echo "</td>";
-            echo "</tr>";
-        }
-        echo "</table>";
-        echo "</div>";
-    } else {
-        echo "<p class='p'>No users found.</p>";
-    }
+                        // Show "Remove" button only if the user's level is not 1
+                        if ($row['level'] != 1) {
+                            echo "<form action='delete_user.php' method='POST' class='remove-form'>";
+                            echo "<input type='hidden' name='id' value='" . htmlspecialchars($row["id"]) . "'>";
+                            echo "<input type='submit' value='Remove' class='remove-button' onclick='return confirm(\"Are you sure you want to delete this user?\")'>";
+                            echo "</form>";
+                        }
+                        echo "</td>";
+                        echo "</tr>";
+                        echo "<form id='form_" . $row["id"] . "' action='update_user.php' method='POST' style='display: none;'>";
+                        echo "<input type='hidden' name='user_id' value='" . htmlspecialchars($row["id"]) . "'>";
+                        echo "</form>";
+                    }
+                } else {
+                    echo "<tr><td colspan='9' class='p'>No users found.</td></tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+    <?php
     $conn->close();
     ?>
 

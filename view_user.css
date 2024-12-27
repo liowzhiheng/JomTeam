@@ -54,11 +54,23 @@
 }
 
 body {
-    background-color: #5252D4;
+    animation: pulseBackground 6s infinite;
     color: white;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+}
+
+@keyframes pulseBackground {
+
+    0%,
+    100% {
+        background-color: #5252D4;
+    }
+
+    50% {
+        background-color: #4682B4;
+    }
 }
 
 h2 {
@@ -189,7 +201,7 @@ h2 {
 .user-table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #d0e0ff;
+    background-color: white;
     color: rgb(0, 0, 0);
 }
 
@@ -205,7 +217,11 @@ h2 {
 }
 
 .user-table tr:nth-child(even) {
-    background-color: #ffffff;
+    background-color: #d0e0ff;
+}
+
+.user-table .select:hover {
+    background-color: #c9c9ff;
 }
 
 .remove-button {

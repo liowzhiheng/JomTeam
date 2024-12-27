@@ -6,9 +6,6 @@ function previewImage() {
     reader.onloadend = function () {
         // Display the preview image
         document.getElementById('imagePreview').src = reader.result;
-
-        // Submit the form automatically
-        document.getElementById('profileForm').submit();
     }
 
     if (file) {

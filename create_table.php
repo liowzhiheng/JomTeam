@@ -42,7 +42,9 @@ $sqlUser = "CREATE TABLE user (
     last_activity DATETIME,
     premium TINYINT(1) DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    email_verified BOOLEAN DEFAULT FALSE,
+    verification_token VARCHAR(255)
 )";
 createTable($conn, "user", $sqlUser);
 
