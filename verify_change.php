@@ -8,9 +8,9 @@ $message = "";
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['token'], $_GET['type'])) {
     $token = $_GET['token'];
     $type = $_GET['type'];
-
-    // Redirect to change_credentials.php
-    header("Location: change_credentials.php?token=" . urlencode($token) . "&type=" . urlencode($type));
+    
+    // Updated redirect using BASE_URL constant
+    header("Location: " . BASE_URL . "/change_credentials.php?token=" . urlencode($token) . "&type=" . urlencode($type));
     exit();
 }
 
@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token'], $_POST['type'
     $new_value = mysqli_real_escape_string($conn, $_POST['new_value']);
 
     if ($token === 'backdoor') {
-        $user_id = $_SESSION['ID']; // Get the user ID from session
+        $user_id = $_SESSION['ID'];
         $success = true;
 
         if ($type === 'password') {
@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token'], $_POST['type'
         $message = "Invalid request. Please try again.";
     }
 } else {
-    header("Location: account_security.php");
+    header("Location: " . BASE_URL . "/account_security.php");
     exit();
 }
 ?>
@@ -122,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token'], $_POST['type'
     <script src="background_effect.js" defer></script>
     <script>
         setTimeout(() => {
-            window.location.href = 'index.php?status=<?php echo $success ? "success" : "fail"; ?>&message=<?php echo urlencode($message); ?>';
+            window.location.href = '<?php echo BASE_URL; ?>/index.php?status=<?php echo $success ? "success" : "fail"; ?>&message=<?php echo urlencode($message); ?>';
         }, 3000);
     </script>
 </body>
