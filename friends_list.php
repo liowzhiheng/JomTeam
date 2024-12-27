@@ -28,10 +28,6 @@ $friendsStmt->bind_param("iii", $current_user_id, $current_user_id, $current_use
 $friendsStmt->execute();
 $friendsResult = $friendsStmt->get_result();
 
-if ($friendsResult->num_rows == 0) {
-    echo "You have no friends.";
-    exit();
-}
 
 if (isset($_POST['unfollow']) && isset($_POST['friend_id'])) {
     $friend_id = $_POST['friend_id'];
@@ -183,49 +179,53 @@ $requestResult = $requestStmt->get_result();
         </div>
     </div>
     <div class="">
-        <div id="pendingRequestsContainer" class="profile-details pending-requests-container hidden2">
-            <h1>Pending Friend Requests</h1>
-            <ul>
-                <?php if ($requestResult->num_rows > 0): ?>
-                    <?php while ($row = $requestResult->fetch_assoc()): ?>
-                        <p class="detail">
-                            <!-- Replace profile image section with a default placeholder if needed -->
-                            <img src="IMAGE/default.png" alt="Profile Picture" class="profile-pic">
-                            <span class="friend-name">
-                                <?php echo htmlspecialchars($row['first_name'] . " " . $row['last_name']); ?>
-                            </span>
-                        <form method="POST" style="display:inline;">
-                            <input type="hidden" name="request_id" value="<?php echo $row['id']; ?>">
-                            <button type="submit" name="accept_request" class="action-button">Accept</button>
-                        </form>
-                        <form method="POST" style="display:inline;">
-                            <input type="hidden" name="request_id" value="<?php echo $row['id']; ?>">
-                            <button type="submit" name="reject_request" class="action-button">Reject</button>
-                        </form>
-                        </p>
-                    <?php endwhile; ?>
-                <?php else: ?>
-                    <p class="no-requests">You have no pending friend requests.</p>
-                <?php endif; ?>
-            </ul>
+        <div id="pendingRequestsContainer"
+            class="profile-details pending-requests-container request-container hidden_request">
+            <div>
+                <h1>Pending Friend Requests</h1>
+                <ul>
+                    <?php if ($requestResult->num_rows > 0): ?>
+                        <?php while ($row = $requestResult->fetch_assoc()): ?>
+                            <p class="detail">
+                                <!-- Replace profile image section with a default placeholder if needed -->
+                                <img src="IMAGE/default.png" alt="Profile Picture" class="profile-pic">
+                                <span class="friend-name">
+                                    <?php echo htmlspecialchars($row['first_name'] . " " . $row['last_name']); ?>
+                                </span>
+                            <form method="POST" class="action-form">
+                                <input type="hidden" name="request_id" value="<?php echo $row['id']; ?>">
+                                <button type="submit" name="accept_request" class="action-button accept-button">Accept</button>
+                            </form>
+                            <form method="POST" class="action-form">
+                                <input type="hidden" name="request_id" value="<?php echo $row['id']; ?>">
+                                <button type="submit" name="reject_request" class="action-button reject-button">Reject</button>
+                            </form>
+
+                            </p>
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <p class="no-requests">You have no pending friend requests.</p>
+                    <?php endif; ?>
+                </ul>
+            </div>
         </div>
 
     </div>
 
 
 
-    <button id="toggleViewButton">View Pending Requests</button>
-
+    
+    <button id="toggleViewButton" class="back-button"><img src="IMAGE/back.png" alt="back"></button>
 
     <script>
         const toggleButton = document.getElementById('toggleViewButton');
         const pendingContainer = document.querySelector('.pending-requests-container');
-        const friendsListContainer = document.querySelector('.profile-details');
+        const friendsListContainer = document.querySelector('.profile-container');
 
         toggleButton.addEventListener('click', () => {
-            pendingContainer.classList.toggle('hidden2');
+            pendingContainer.classList.toggle('hidden_request');
             friendsListContainer.classList.toggle('hidden');
-            toggleButton.textContent = pendingContainer.classList.contains('hidden')
+            toggleButton.textContent = pendingContainer.classList.contains('hidden_request')
                 ? 'View Pending Requests'
                 : 'View Friends List';
         });

@@ -146,7 +146,10 @@ a:hover {
 }
 
 
-
+.profile-container
+{
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
 
 
 .profile-details {
@@ -160,11 +163,111 @@ a:hover {
     pointer-events: none;
 }
 
-.hidden2 {
+.hidden_request {
 
     opacity: 0;
     pointer-events: none;
 }
 
+.request-container {
+    max-width: 1000px;
+
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 100px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
 
 
+/* Style for action forms */
+.action-form {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+/* Base style for buttons */
+.action-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 27px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    transform: translate(500px,-30px);
+}
+
+/* Accept button styling */
+.accept-button {
+    background: #34c759;
+    
+}
+
+.accept-button:hover {
+    background: #34c759;
+    transform: translate(500px,-30px) scale(1.05);
+   /*  box-shadow: 0 6px 10px rgba(52, 199, 89, 0.6);*/
+}
+
+/* Reject button styling */
+.reject-button {
+    background:#ff3b30;
+   
+}
+
+.reject-button:hover {
+    background: #ff3b30;
+    transform: translate(500px,-30px) scale(1.05);
+    /*box-shadow: 0 6px 10px rgba(255, 59, 48, 0.6);*/
+}
+
+
+.back-button {
+    padding: 25px 25px;
+    background-color: #5252D4;
+    color: white;
+    border: none;
+    border-top-right-radius: 50px;
+    /* Top-right corner */
+    border-bottom-right-radius: 50px;
+    /* Bottom-right corner */
+    border-top-left-radius: 10px;
+    /* Top-left corner */
+    border-bottom-left-radius: 10px;
+    /* Bottom-left corner */
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+        transform 0.2s ease-in-out,
+        background-color 0.2s ease-in-out,
+        width 0.3s ease-in-out,
+        border-radius 0.3s ease-in-out;
+    /* Smooth radius animation */
+    transform: translate(1445px, -900px);
+    /* Consistent vertical position */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    width: 150px;
+    /* Set an initial width */
+    z-index: 1100;
+}
+
+.back-button:hover {
+    border-top-left-radius: 0px;
+    /* Top-left corner */
+    border-bottom-left-radius: 0px;
+    /* Bottom-left corner */
+    background-color: #3E3EB0;
+    transform: translate(1445px, -900px);
+    /* Maintain the same Y position (101px) */
+    width: 170px;
+    /* Adjust the width to make it longer */
+}
+
+.back-button img {
+    width: 60%;
+    height: auto;
+}
