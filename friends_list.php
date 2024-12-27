@@ -159,7 +159,8 @@ $requestResult = $requestStmt->get_result();
         <div id="friendsListContainer" class="profile-details">
             <h1>Your Friends</h1>
             <button id="toggleViewButton" class="back-button"><img src="IMAGE/back.png" alt="back"></button>
-            <ul>
+            <ul> 
+                <?php if ($friendsResult->num_rows > 0): ?>
                 <?php while ($row = $friendsResult->fetch_assoc()): ?>
                     <p class="detail">
                         <?php
@@ -183,6 +184,9 @@ $requestResult = $requestStmt->get_result();
                     </form>
                     </p>
                 <?php endwhile; ?>
+                <?php else: ?>
+                    <p class="detail ">You have no friends :(</p>
+                <?php endif; ?>
             </ul>
         </div>
 
