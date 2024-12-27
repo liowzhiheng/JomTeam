@@ -152,24 +152,18 @@ $requestResult = $requestStmt->get_result();
 
     </div>
 
-
     <div class="profile-container">
-        <div class="profile-details">
+        <div id="friendsListContainer" class="profile-details">
             <h1>Your Friends</h1>
             <ul>
                 <?php while ($row = $friendsResult->fetch_assoc()): ?>
                     <p class="detail">
                         <?php
-                        // Check if the user has a profile picture
                         $profilePicRes = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $row['id']);
                         $profilePicRow = mysqli_fetch_assoc($profilePicRes);
-
-                        // Display the profile picture or the default image if none exists
                         if (empty($profilePicRow['file'])) {
-                            // If no profile picture, show default image
                             echo '<img src="IMAGE/default.png" alt="Profile Picture" class="profile-pic">';
                         } else {
-                            // If profile picture exists, show it
                             echo '<img src="uploads/' . $profilePicRow['file'] . '" alt="Profile Picture" class="profile-pic">';
                         }
                         ?>
@@ -177,8 +171,6 @@ $requestResult = $requestStmt->get_result();
                             <span
                                 class="friend-name"><?php echo htmlspecialchars($row['first_name'] . " " . $row['last_name']); ?></span>
                         </a>
-
-                        <!-- Unfollow button (Only display if already friends) -->
                     <form action="friends_list.php" method="POST">
                         <input type="hidden" name="friend_id" value="<?php echo $row['id']; ?>">
                         <button name="unfollow" class="unfollow-button">
@@ -189,47 +181,56 @@ $requestResult = $requestStmt->get_result();
                 <?php endwhile; ?>
             </ul>
         </div>
-
-        <!-- Button to show pending requests -->
-        <button id="showPendingRequestsButton" class="slide-button">View Pending Requests</button>
-
-        <!-- Container to show the pending requests -->
-        <div id="pendingRequestsContainer" class="pending-requests-container">
+    </div>
+    <div class="">
+        <div id="pendingRequestsContainer" class="profile-details pending-requests-container hidden2">
             <h1>Pending Friend Requests</h1>
-            <div id="pendingRequestsContent">
-                <table border="1">
-                    <tr>
-                        <th>Sender</th>
-                        <th>Action</th>
-                    </tr>
-                    <?php if ($requestResult->num_rows > 0): ?>
-                        <?php while ($row = $requestResult->fetch_assoc()): ?>
-                            <tr>
-                                <td><?php echo htmlspecialchars($row['first_name'] . " " . $row['last_name']); ?></td>
-                                <td>
-                                    <form method="POST" style="display:inline;">
-                                        <input type="hidden" name="request_id" value="<?php echo $row['id']; ?>">
-                                        <button type="submit" name="accept_request">Accept</button>
-                                    </form>
-                                    <form method="POST" style="display:inline;">
-                                        <input type="hidden" name="request_id" value="<?php echo $row['id']; ?>">
-                                        <button type="submit" name="reject_request">Reject</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        <?php endwhile; ?>
-                    <?php else: ?>
-                        <tr>
-                            <td colspan="2">You have no pending friend requests.</td>
-                        </tr>
-                    <?php endif; ?>
-                </table>
-            </div>
+            <ul>
+                <?php if ($requestResult->num_rows > 0): ?>
+                    <?php while ($row = $requestResult->fetch_assoc()): ?>
+                        <p class="detail">
+                            <!-- Replace profile image section with a default placeholder if needed -->
+                            <img src="IMAGE/default.png" alt="Profile Picture" class="profile-pic">
+                            <span class="friend-name">
+                                <?php echo htmlspecialchars($row['first_name'] . " " . $row['last_name']); ?>
+                            </span>
+                        <form method="POST" style="display:inline;">
+                            <input type="hidden" name="request_id" value="<?php echo $row['id']; ?>">
+                            <button type="submit" name="accept_request" class="action-button">Accept</button>
+                        </form>
+                        <form method="POST" style="display:inline;">
+                            <input type="hidden" name="request_id" value="<?php echo $row['id']; ?>">
+                            <button type="submit" name="reject_request" class="action-button">Reject</button>
+                        </form>
+                        </p>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <p class="no-requests">You have no pending friend requests.</p>
+                <?php endif; ?>
+            </ul>
         </div>
 
     </div>
 
 
+
+    <button id="toggleViewButton">View Pending Requests</button>
+
+
+    <script>
+        const toggleButton = document.getElementById('toggleViewButton');
+        const pendingContainer = document.querySelector('.pending-requests-container');
+        const friendsListContainer = document.querySelector('.profile-details');
+
+        toggleButton.addEventListener('click', () => {
+            pendingContainer.classList.toggle('hidden2');
+            friendsListContainer.classList.toggle('hidden');
+            toggleButton.textContent = pendingContainer.classList.contains('hidden')
+                ? 'View Pending Requests'
+                : 'View Friends List';
+        });
+
+    </script>
 
 
 
@@ -321,12 +322,6 @@ $requestResult = $requestStmt->get_result();
 </div>
 
 <script src="footer.js"></script>
-<script>
-    document.getElementById('showPendingRequestsButton').addEventListener('click', function () {
-        // Show the pending requests container with sliding effect
-        document.getElementById('pendingRequestsContainer').classList.toggle('show');
-    });
 
-</script>
 
 </html>

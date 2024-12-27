@@ -59,7 +59,7 @@ body {
 }
 
 .profile-details {
-    border-bottom: 2px solid #f0f0f0;
+    /*border-bottom: 2px solid #f0f0f0;*/
 }
 
 .profile-details h1 {
@@ -74,16 +74,16 @@ body {
     border-radius: 50%;
     margin-right: 10px;
     object-fit: cover;
-    position: relative; 
-    top: 5px; 
+    position: relative;
+    top: 5px;
     margin-left: 10px;
 }
 
 .friend-name {
     font-size: 46px;
     font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    position: relative; 
-    top: -3px; 
+    position: relative;
+    top: -3px;
     left: 10px;
 
 }
@@ -92,12 +92,14 @@ a {
     text-decoration: none;
     color: inherit;
     transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
-    display: inline-block; /* Ensures `transform` works */
+    display: inline-block;
+    /* Ensures `transform` works */
 }
 
 a:hover {
     color: #5252D4;
-    transform: scale(1.05); /* Slightly enlarges the element */
+    transform: scale(1.05);
+    /* Slightly enlarges the element */
     text-decoration: none;
 }
 
@@ -109,45 +111,60 @@ a:hover {
 }
 
 .unfollow-button img {
-    width: 50px; /* Adjust the size of the image */
+    width: 50px;
+    /* Adjust the size of the image */
     height: 50px;
     transition: transform 0.3s ease;
     transform: translate(720px, -32px);
 }
 
 .unfollow-button img:hover {
-    transform: translate(720px, -30px) scale(1.1); /* Corrected syntax for combining translate and scale */
+    transform: translate(720px, -30px) scale(1.1);
+    /* Corrected syntax for combining translate and scale */
 }
 
 /* Style for the pending requests container */
 .pending-requests-container {
-    position: fixed;
-    top: 0;
-    right: -100%;  /* Initially off the screen */
-    width: 50%;
-    height: 100%;
-    background-color: #fff;
-    box-shadow: -2px 0px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    transition: right 0.5s ease-in-out; /* Smooth slide-in effect */
+    position: relative;
+
+    transition: translateY(-100px) right 0.5s ease-in-out;
+    /* Smooth slide-in effect */
     z-index: 1000;
+    transform: translateY(-500px);
+    max-width: 1000px;
+    margin: 50px auto;
+ 
+    padding: 100px;
+
+
 }
 
-/* When the container is visible, slide it in */
-.pending-requests-container.show {
-    right: 0;
+.pending-requests-container h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: #5252D4;
 }
 
-/* Button style */
-#showPendingRequestsButton {
-    background-color: #5252D4;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
+
+
+
+
+.profile-details {
+    transition: transform 0.5s ease, opacity 0.5s ease;
+
 }
 
-#showPendingRequestsButton:hover {
-    background-color: #3b3bc1;
+.hidden {
+    transform: translate(5%);
+    opacity: 0;
+    pointer-events: none;
 }
+
+.hidden2 {
+
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+
