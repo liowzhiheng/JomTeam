@@ -6,9 +6,9 @@ require("config.php");
 session_start(); 
 
 // Check if 'id' is passed in the URL
-if (isset($_GET['id'])) {
-    $match_id = $_GET['id'];
-    $user_id = $_SESSION['ID'];
+if (isset($_POST['user_id'])) {
+    $match_id = $_POST['match_id'];
+    $user_id = $_POST['user_id'];
 
     // Check if the match exists
     $query = "SELECT * FROM gamematch WHERE id = ?";
@@ -53,11 +53,7 @@ if (isset($_GET['id'])) {
                 $insertStmt->bind_param('ii', $match_id, $user_id);
                 $insertStmt->execute();
                 
-                // Show success message and redirect after a short delay
-                echo "<div class='message success'>
-                        
-                        <meta http-equiv='refresh' content='1;url=join_successful.php?id=$match_id'>
-                      </div>";
+                header("Location: history.php");
             } else {
                 // If the match is full, show an error message
                 echo "<div class='message error'>
