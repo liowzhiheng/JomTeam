@@ -5,15 +5,31 @@ require('config.php');
 $success = false;
 $message = "";
 
+// Handle GET requests for email verification links
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['token'], $_GET['type'])) {
     $token = $_GET['token'];
     $type = $_GET['type'];
     
-    // Updated redirect using BASE_URL constant
-    header("Location: " . BASE_URL . "/change_credentials.php?token=" . urlencode($token) . "&type=" . urlencode($type));
-    exit();
+    // Verify token exists and hasn't expired
+    $check_sql = "SELECT user_id FROM pending_changes 
+                  WHERE verification_token = ? 
+                  AND change_type = ? 
+                  AND expires_at > CURRENT_TIMESTAMP";
+    $check_stmt = mysqli_prepare($conn, $check_sql);
+    mysqli_stmt_bind_param($check_stmt, "ss", $token, $type);
+    mysqli_stmt_execute($check_stmt);
+    $check_result = mysqli_stmt_get_result($check_stmt);
+
+    if (mysqli_num_rows($check_result) > 0) {
+        header("Location: " . BASE_URL . "/change_credentials.php?token=" . urlencode($token) . "&type=" . urlencode($type));
+        exit();
+    } else {
+        header("Location: " . BASE_URL . "/account_security.php?status=fail&message=Invalid or expired token");
+        exit();
+    }
 }
 
+// Handle POST requests for credential updates
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token'], $_POST['type'], $_POST['new_value'])) {
     $token = mysqli_real_escape_string($conn, $_POST['token']);
     $type = mysqli_real_escape_string($conn, $_POST['type']);
@@ -22,20 +38,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token'], $_POST['type'
     if ($token === 'backdoor') {
         $user_id = $_SESSION['ID'];
         $success = true;
-
-        if ($type === 'password') {
-            $update_sql = "UPDATE user SET password = ? WHERE id = ?";
-            $update_stmt = mysqli_prepare($conn, $update_sql);
-            mysqli_stmt_bind_param($update_stmt, "si", $new_value, $user_id);
-
-            if (mysqli_stmt_execute($update_stmt)) {
-                $message = "Password successfully updated!";
-            }
-        }
     } else {
-        $sql = "SELECT user_id FROM pending_changes WHERE verification_token = ?";
+        // Verify token, expiration, and get stored new_value
+        $sql = "SELECT user_id, new_value FROM pending_changes 
+                WHERE verification_token = ? 
+                AND change_type = ? 
+                AND expires_at > CURRENT_TIMESTAMP";
         $stmt = mysqli_prepare($conn, $sql);
-        mysqli_stmt_bind_param($stmt, "s", $token);
+        mysqli_stmt_bind_param($stmt, "ss", $token, $type);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
 
@@ -47,12 +57,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token'], $_POST['type'
 
     if ($success) {
         if ($type === 'password') {
+            $hashed_password = password_hash($new_value, PASSWORD_DEFAULT);
+            
             $update_sql = "UPDATE user SET password = ? WHERE id = ?";
             $update_stmt = mysqli_prepare($conn, $update_sql);
-            mysqli_stmt_bind_param($update_stmt, "si", $new_value, $user_id);
+            mysqli_stmt_bind_param($update_stmt, "si", $hashed_password, $user_id);
 
             if (mysqli_stmt_execute($update_stmt)) {
                 $message = "Your password has been successfully updated!";
+                
                 if ($token !== 'backdoor') {
                     $delete_sql = "DELETE FROM pending_changes WHERE verification_token = ?";
                     $delete_stmt = mysqli_prepare($conn, $delete_sql);
