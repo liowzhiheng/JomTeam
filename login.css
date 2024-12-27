@@ -311,4 +311,23 @@ img.picture {
     padding: 20px;
 }
 
+.forgot-password {
+    text-decoration: none;
+    color: #333;
+    font-size: 65%;
+    font-weight: 500;
+    margin-top: 5%;
+}
+
+.forgot-password a {
+    color: #EB1436;
+    text-decoration: none;
+    font-size: 90%;
+    font-weight: 500;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+
 
