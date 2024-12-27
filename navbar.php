@@ -4,9 +4,21 @@ require("config.php");
 // Get user ID from session
 $userID = $_SESSION["ID"];
 
+// Check if the notification has been marked as seen
+if (isset($_POST['notification_seen'])) {
+    // Update the status of notifications as seen but don't delete from the database
+    $stmt = $conn->prepare("UPDATE friend_requests SET status = 'seen' WHERE receiver_id = ? AND status = 'pending'");
+    $stmt->bind_param("i", $userID);
+    $stmt->execute();
+    $stmt->close();
+
+    // Set session variable to indicate notification is seen
+    $_SESSION['notification_seen'] = true;
+}
+
 // Query to fetch sender's name, profile image, and request date
 $stmt = $conn->prepare("
-    SELECT user.id AS sender_id, user.first_name, user.last_name, friend_requests.created_at
+    SELECT user.id AS sender_id, user.first_name, user.last_name, friend_requests.created_at, friend_requests.status
     FROM friend_requests
     JOIN user ON friend_requests.sender_id = user.id
     WHERE friend_requests.receiver_id = ? AND friend_requests.status = 'pending'
@@ -46,7 +58,6 @@ $stmt->close();
         <li><a href="create_match.php">Create Match</a></li>
         <li><a href="friends_list.php">Social</a></li>
         <li><a href="premium.php">Premium</a></li>
-        
     </ul>
 
     <ul class="menu rightmenu">
@@ -54,7 +65,7 @@ $stmt->close();
         <li class="notification">
             <a href="javascript:void(0);" onclick="showFriendRequests()">
                 <img src="IMAGE/NOTIFICATION.png" alt="Notification">
-                <?php if ($pendingCount > 0): ?>
+                <?php if ($pendingCount > 0 && !isset($_SESSION['notification_seen'])): ?>
                     <span class="red-dot"></span>
                 <?php endif; ?>
             </a>
@@ -89,15 +100,11 @@ $stmt->close();
 
 <div id="friendRequestsModal" class="modal">
     <div class="modal-content">
-        <!-- Close button is here -->
-        <span class="close-btn" onclick="closeModal()">×</span>
+        <span class="close-btn" onclick="closeModal()">close</span>
         <h2>Friend Requests</h2>
-        <div id="friendRequestsContent">
-            <!-- Friend requests will be dynamically populated here -->
-        </div>
+        <div id="friendRequestsContent"></div>
     </div>
 </div>
-
 
 <script>
     function confirmLogout() {
@@ -108,9 +115,20 @@ $stmt->close();
     }
 
     function closeModal() {
-        console.log('Closing modal...');
         document.getElementById('friendRequestsModal').style.display = 'none';
+        document.querySelector('.red-dot').style.display = 'none';  // Hide the red dot
+
+        fetch(window.location.href, {  // Send AJAX request to mark as seen
+            method: 'POST',
+            body: new URLSearchParams('notification_seen=true')
+        }).then(response => {
+            console.log('Notification marked as seen');
+        }).catch(error => {
+            console.error('Error:', error);
+        });
     }
+
+    document.querySelector('.close-btn').addEventListener('click', closeModal);
 
     function showFriendRequests() {
         const pendingRequests = <?php echo json_encode($pendingRequests); ?>;
@@ -128,11 +146,35 @@ $stmt->close();
             });
 
             document.getElementById('friendRequestsContent').innerHTML = requestsContent;
-            // Display the modal
             document.getElementById('friendRequestsModal').style.display = 'block';
         } else {
-            // Hide the modal if there are no pending requests
-            document.getElementById('friendRequestsModal').style.display = 'none';
+            // If no pending requests, show 'It's empty' message
+            document.getElementById('friendRequestsContent').innerHTML = '<p></p>';
+            document.getElementById('friendRequestsModal').style.display = 'block';
         }
+
+        // Send AJAX request to mark notification as seen
+        fetch(window.location.href, {
+            method: 'POST',
+            body: new URLSearchParams('notification_seen=true')
+        }).then(response => {
+            document.querySelector('.red-dot').style.display = 'none';
+        }).catch(error => {
+            console.error('Error:', error);
+        });
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const notificationSeen = <?php echo isset($_SESSION['notification_seen']) ? 'true' : 'false'; ?>;
+        if (notificationSeen) {
+            document.querySelector('.red-dot').style.display = 'none';
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const notificationSeen = <?php echo isset($_SESSION['notification_seen']) ? 'true' : 'false'; ?>;
+        if (notificationSeen) {
+            document.querySelector('.red-dot').style.display = 'none';
+        }
+    });
 </script>
