@@ -1,0 +1,153 @@
+/* Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
+
+/* Global Font */
+* {
+    font-family: 'Outfit', sans-serif;
+}
+
+/* Main Container Styles */
+.profile-content {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: linear-gradient(145deg, #1a237e, #283593);
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.profile-title {
+    color: #ffffff;
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Current Details Section */
+.current-details {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.current-details h2 {
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+.detail-row {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+    gap: 15px;
+    color: #ffffff;
+}
+
+.detail-row label {
+    min-width: 100px;
+    font-weight: 600;
+}
+
+.detail-row span {
+    min-width: 200px;
+}
+
+/* Password Display */
+.password-display {
+    display: flex;
+    gap: 10px;
+    width: 200px;
+}
+
+.password-display input {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+/* Buttons */
+.password-toggle {
+    background: #7959bf;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    font-size: 0.9em;
+}
+
+.password-toggle:hover {
+    background: #303f9f;
+}
+
+.reset-form {
+    margin-left: auto;
+}
+
+.reset-button {
+    padding: 15px 25px;
+    border: none;
+    font-size: 13px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #5252D4, #5146b4);
+    transition: all 0.3s ease;
+}
+
+.reset-button:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+    font-weight: bold;
+}
+
+/* Messages */
+.message {
+    padding: 15px;
+    border-radius: 6px;
+    margin: 20px 0;
+    text-align: center;
+    font-weight: 500;
+}
+
+.success {
+    background: rgba(76, 175, 80, 0.2);
+    color: #c8e6c9;
+}
+
+.fail {
+    background: rgba(244, 67, 54, 0.2);
+    color: #ffcdd2;
+}
+
+/* Backdoor */
+.backdoor-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.backdoor-link {
+    padding: 10px 20px;
+    background: #1565c0;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.backdoor-link:hover {
+    background: #0d47a1;
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
