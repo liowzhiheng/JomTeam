@@ -7,32 +7,32 @@ $status = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = mysqli_real_escape_string($conn, $_POST['email']);
-    
+   
     // Check if email exists
     $sql = "SELECT id FROM user WHERE email = ?";
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, "s", $email);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
-    
+   
     if ($row = mysqli_fetch_assoc($result)) {
         $user_id = $row['id'];
-        $token = bin2hex(random_bytes(32));
-        
-        // Store token in pending_changes
-        $sql = "INSERT INTO pending_changes (user_id, change_type, verification_token) VALUES (?, 'password', ?)";
+        $verification_token = bin2hex(random_bytes(16));
+       
+        // Store token in pending_changes with timestamp
+        $sql = "INSERT INTO pending_changes (user_id, change_type, verification_token, created_at) 
+                VALUES (?, 'password', ?, NOW())";
         $stmt = mysqli_prepare($conn, $sql);
-        mysqli_stmt_bind_param($stmt, "is", $user_id, $token);
-        
+        mysqli_stmt_bind_param($stmt, "is", $user_id, $verification_token);
+       
         if (mysqli_stmt_execute($stmt)) {
-            $reset_link = "http://localhost/JomTeam/change_credentials.php?token=$token&type=password";
-            $to = $email;
+            $verification_link = "http://jomteam.com/verify_change.php?token=$verification_token&type=password";
             $subject = "Password Reset Request";
-            $message = "Click the following link to reset your password: $reset_link";
-            $headers = "From: jomteam@example.com";
-            
-            mail($to, $subject, $message, $headers);
-            
+            $message = "Click the link to reset your password:\n\n$verification_link";
+            $headers = "From: no-reply@jomteam.com";
+           
+            mail($email, $subject, $message, $headers);
+           
             $status = 'success';
             $message = "Password reset link has been sent to your email.";
         }
@@ -56,10 +56,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="profile-content">
         <h1 class="profile-title">Forgot Password</h1>
-        
+       
         <?php if ($message): ?>
             <div class="alert <?php echo $status; ?>">
-                <?php echo $message; ?>
+                <?php echo htmlspecialchars($message); ?>
             </div>
         <?php endif; ?>
 
@@ -87,5 +87,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
         </script>
+    </div>
 </body>
 </html>

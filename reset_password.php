@@ -78,20 +78,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         password.addEventListener('input', function() {
             const feedback = document.getElementById('passwordFeedback');
             if (!validatePassword(this.value) && this.value) {
+                feedback.style.color = '#ff4444';
                 feedback.textContent = 'Password must be at least 8 characters and contain at least 2 of the following: uppercase, lowercase, number, symbol';
                 feedback.style.display = 'block';
             } else {
-                feedback.style.display = 'none';
+                feedback.style.color = '#79C314';
+                feedback.textContent = 'Password meets requirements';
             }
         });
 
         confirmPassword.addEventListener('input', function() {
             const feedback = document.getElementById('confirmPasswordFeedback');
             if (this.value !== password.value) {
+                feedback.style.color = '#ff4444';
                 feedback.textContent = 'Passwords do not match';
                 feedback.style.display = 'block';
             } else {
-                feedback.style.display = 'none';
+                feedback.style.color = '#79C314';
+                feedback.textContent = 'Passwords match';
             }
         });
 
