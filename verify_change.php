@@ -31,7 +31,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['token'], $_GET['type']))
 
 // Handle POST requests for credential updates
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token'], $_POST['type'], $_POST['new_value'])) {
-    error_log("Received type: " . $_POST['type']); // This will help verify what type is being sent
     $token = mysqli_real_escape_string($conn, $_POST['token']);
     $type = mysqli_real_escape_string($conn, $_POST['type']);
     $new_value = mysqli_real_escape_string($conn, $_POST['new_value']);
