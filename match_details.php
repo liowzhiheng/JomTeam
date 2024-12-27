@@ -33,6 +33,8 @@ if (isset($_GET['id'])) {
     exit;
 }
 
+
+
 // Fetch current number of players and max players
 $current_players = $match['current_players'];
 $max_players = $match['max_players'];
@@ -45,6 +47,14 @@ $checkStmt->bind_param('ii', $match_id, $user_id);
 $checkStmt->execute();
 $checkResult = $checkStmt->get_result();
 $has_joined = $checkResult->num_rows > 0;
+
+//Check if has request
+$checkQuery = "SELECT * FROM match_request WHERE match_id = ? AND request_user_id = ?";
+$checkStmt = $conn->prepare($checkQuery);
+$checkStmt->bind_param('ii', $match_id, $user_id);
+$checkStmt->execute();
+$checkResult = $checkStmt->get_result();
+$has_request = $checkResult->num_rows > 0;
 
 // host
 $hostQuery = "SELECT * FROM user WHERE id = ?";
@@ -80,6 +90,7 @@ if ($host['id'] == $user_id) {
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="footer.css">
     <link rel="stylesheet" href="match_details.css">
+
 </head>
 
 <body>
@@ -298,14 +309,50 @@ if ($host['id'] == $user_id) {
                         </style>
                     </div>
 
+                <?php elseif ($has_request): ?>
+                    <div>
+                        <p style="color: black;">You have request the match.</p>
+                        <p style="color: black;">Do you wish to cancel the request?</p>
+                        <form action="cancel_request.php" method="GET" style="text-align: center;">
+                            <input type="hidden" name="id" value="<?php echo $match_id; ?>">
+                            <button class="cancel-button">
+                                Cancel
+                            </button>
+                        </form>
+                        <style>
+                            /* Default style for the cancel button */
+                            .cancel-button {
+                                width: 300px;
+                                height: 100px;
+                                font-size: 30px;
+                                font-weight: 700;
+                                color: white;
+                                background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%);
+                                border: none;
+                                border-radius: 50px;
+                                cursor: pointer;
+                                margin-top: 1%;
+                                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                                transition: all 0.3s ease;
+                                /* Smooth transition for all properties */
+                            }
 
+                            /* Hover effect for the cancel button */
+                            .cancel-button:hover {
+                                transform: scale(1.1);
+                                /* Slightly enlarges the button */
+                                background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.9) 71%);
+                                /* Darkens the gradient */
+                            }
+                        </style>
+                    </div>
 
                 <?php elseif ($current_players < $max_players): ?>
                     <!-- If match is not full and user has not joined -->
                     <div>
                         <p style="color: black;">Are you interested in the match?</p>
                         <p style="color: black;">Join now and have fun!</p>
-                        <form action="join_match.php" method="GET" style="text-align: center;">
+                        <form action="request_match.php" method="GET" style="text-align: center;">
                             <input type="hidden" name="id" value="<?php echo $match_id; ?>">
                             <button class="join-button">
                                 Join Match
@@ -361,32 +408,38 @@ if ($host['id'] == $user_id) {
                 <?php endif; ?>
 
                 <?php if ($ishost) { ?>
-                    <div>
-                        <form action="delete_match.php" method="POST" onSubmit="return confirm('Do you want to delete?')">
-                            <input type="hidden" name="id" value="<?php echo $match_id; ?>">
-                            <button class="delete-button"
-                                style="background: none; border: none; cursor: pointer; margin-top: 89%; margin-left: 40%;">
-                                <img src="IMAGE/delete_button.png" alt="Delete" class="delete-img"
-                                    style="width: 100px; height: 100px;">
-                            </button>
-                        </form>
 
-                        <style>
-                            /* Hover effect for the delete button image */
-                            .delete-img:hover {
-                                transform: scale(1.1);
-                                /* Slightly enlarges the image */
-                                transition: all 0.3s ease;
-                                /* Smooth transition */
-                            }
-                        </style>
+
+                    <div>
+                        <a href="#" onclick="openModal('request')"><img src="IMAGE/request.png" alt="Delete"
+                                class="delete-img" style="width: 100px; height: 100px; margin-top: 85%; margin-left: 40%;"></a>
                     </div>
 
+                    <form action="delete_match.php" method="POST" onSubmit="return confirm('Do you want to delete?')">
+                        <input type="hidden" name="id" value="<?php echo $match_id; ?>">
+                        <button class="delete-button"
+                            style="background: none; border: none; cursor: pointer; margin-top: 89%; margin-left: 80%;">
+                            <img src="IMAGE/delete_button.png" alt="Delete" class="delete-img"
+                                style="width: 100px; height: 100px;">
+                        </button>
+                    </form>
+
+                    <style>
+                        /* Hover effect for the delete button image */
+                        .delete-img:hover {
+                            transform: scale(1.1);
+                            /* Slightly enlarges the image */
+                            transition: all 0.3s ease;
+                            /* Smooth transition */
+                        }
+                    </style>
                 </div>
-                <?php
+
+            </div>
+            <?php
                 }
                 ?>
-        </div>
+    </div>
 
     </div>
 
@@ -497,6 +550,53 @@ if ($host['id'] == $user_id) {
     </div>
 </div>
 
+<div id="requestModal" class="modal">
+    <div class="modal-content" style="color:black;">
+        <span class="close" onclick="closeModal('request')">&times;</span>
+        <?php
+        $query2 = "SELECT * from match_request WHERE match_id = $match_id AND status='pending'";
+        $result2 = mysqli_query($conn, $query2);
+
+        if (mysqli_num_rows($result2) > 0) {
+            $requests = mysqli_fetch_all($result2, MYSQLI_ASSOC);
+            echo "hahahaha";
+        } else {
+            echo "sadadadad";
+            $requests = [];
+        }
+        ?>
+        <h1>Match Request:</h1>
+        <table>
+            <?php if (!empty($requests)): ?>
+                <?php foreach ($requests as $request):
+                    $request_id = $request['request_user_id'];
+                    $query3 = "SELECT * from user WHERE id = $request_id";
+                    $result3 = mysqli_query($conn, $query3);
+
+                    if (mysqli_num_rows($result3) > 0) {
+                        $row2 = mysqli_fetch_assoc($result3);
+                        echo htmlspecialchars($row2['first_name'] . ' ' . $row2['last_name']); ?>
+                        <form method="POST" class="action-form" action="match_request_action.php">
+                            <input type="hidden" name="request_user_id" value="<?php echo $row2['id']; ?>">
+                            <input type="hidden" name="request_match_id" value="<?php echo $request['match_id']; ?>">
+                            <button type="submit" name="accept_request_match" class="action-button accept-button">Accept</button>
+                        </form>
+                        <form method="POST" class="action-form" action="match_request_action.php">
+                            <input type="hidden" name="request_user_id" value="<?php echo $row2['id']; ?>">
+                            <input type="hidden" name="request_match_id" value="<?php echo $request['match_id']; ?>">
+                            <button type="submit" name="reject_request_match" class="action-button reject-button">Reject</button>
+                        </form>
+                        <?php
+                    }
+                endforeach;
+                ?>
+            </table>
+        <?php else: ?>
+            <p style="color:black;">No requests found.</p>
+        <?php endif; ?>
+    </div>
+</div>
+
 
 <script src="footer.js"></script>
 
@@ -525,6 +625,7 @@ if ($host['id'] == $user_id) {
             }
         }
     }
+
 
     // Initialize the circles on page load
     document.addEventListener('DOMContentLoaded', updatePlayers);
