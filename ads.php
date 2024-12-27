@@ -36,6 +36,7 @@ if ($result && $result->num_rows > 0) {
 <body>
 
 
+<?php if ($is_premium == 0): ?>
 
     <div id="adPopup" class="popup">
         <div class="popup-content">
@@ -43,7 +44,7 @@ if ($result && $result->num_rows > 0) {
             <button id="closeButton" onclick="closePopup()">Close</button>
         </div>
     </div>
-
+    <?php endif; ?>
     <script>
         document.getElementById('adPopup').classList.add('show');
 
