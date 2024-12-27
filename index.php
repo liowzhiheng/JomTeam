@@ -69,6 +69,10 @@
                     <p class="register">
                         Not registered yet? <a href="register.php" class="register1">Create a new account</a>
                     </p>
+
+                    <p class="forgot-password">
+                        Forgot your password? <a href="forgot_password.php" class="register1">Reset it here</a>
+                    </p>
                 </div>
                 <p><input type="submit" value="Login" class="button" /></p>
             </form>
