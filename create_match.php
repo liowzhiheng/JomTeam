@@ -1,5 +1,7 @@
 <?php
+
 session_start(); // Start the PHP session
+
 
 // Check if the user is logged in
 if ($_SESSION["Login"] != "YES") {
@@ -50,7 +52,6 @@ $rows = mysqli_fetch_assoc($result);
 
     <?php
     include('navbar.php');
-    include('ads.php');
     ?>
 
     <div class="profile-content">
