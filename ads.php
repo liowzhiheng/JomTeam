@@ -10,7 +10,7 @@ $result = $conn->query($query);
 
 
 
-
+if ($is_premium == 0) {
 if ($result && $result->num_rows > 0) {
     $ad = $result->fetch_assoc();
     $imagePath = "ads/" . $ad["file"];
@@ -18,7 +18,7 @@ if ($result && $result->num_rows > 0) {
     $imagePath = "ads/default.png";
 }
 
-
+}
 
 
 
