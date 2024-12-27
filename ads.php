@@ -16,7 +16,7 @@ if ($is_premium == 0) {
         // Fetch a random ad from the results
         $ads = $result->fetch_all(MYSQLI_ASSOC);
         $randomAd = $ads[array_rand($ads)];
-        $imagePath = "uploads/" . $randomAd["file"];
+        $imagePath = "ads/" . $ads["file"];
     } else {
         echo "<p>No ads available.</p>";
     }
