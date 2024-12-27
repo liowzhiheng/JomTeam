@@ -97,9 +97,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token'], $_POST['type'
             $message = "Invalid request. Please try again.";
         }
 
-} else {
-    header("Location: " . BASE_URL . "/account_security.php");
-    exit();
+    } else {
+        header("Location: " . BASE_URL . "/account_security.php");
+        exit();
+    }
 }
 ?>
 
