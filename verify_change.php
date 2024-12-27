@@ -5,32 +5,34 @@ require('config.php');
 $success = false;
 $message = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token']) && isset($_POST['type']) && isset($_POST['new_value'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token'], $_POST['type'], $_POST['new_value'])) {
     $token = mysqli_real_escape_string($conn, $_POST['token']);
     $type = mysqli_real_escape_string($conn, $_POST['type']);
     $new_value = mysqli_real_escape_string($conn, $_POST['new_value']);
-    
+
     if ($token === 'backdoor') {
-        $user_id = $_SESSION['ID']; // Get the user ID from session
+        $user_id = $_SESSION['ID']; // Get the user ID from the session
         $success = true;
-        
+
         if ($type === 'password') {
             $update_sql = "UPDATE user SET password = ? WHERE id = ?";
             $update_stmt = mysqli_prepare($conn, $update_sql);
             mysqli_stmt_bind_param($update_stmt, "si", $new_value, $user_id);
-            
+
             if (mysqli_stmt_execute($update_stmt)) {
                 $message = "Password successfully updated!";
+            } else {
+                $success = false;
+                $message = "An error occurred while updating your password.";
             }
         }
-    
     } else {
         $sql = "SELECT user_id FROM pending_changes WHERE verification_token = ?";
         $stmt = mysqli_prepare($conn, $sql);
         mysqli_stmt_bind_param($stmt, "s", $token);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
-        
+
         if ($row = mysqli_fetch_assoc($result)) {
             $user_id = $row['user_id'];
             $success = true;
@@ -44,19 +46,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token']) && isset($_PO
             mysqli_stmt_bind_param($check_stmt, "si", $new_value, $user_id);
             mysqli_stmt_execute($check_stmt);
             $check_result = mysqli_stmt_get_result($check_stmt);
-            
+
             if (mysqli_num_rows($check_result) > 0) {
                 $success = false;
                 $message = "This email is already registered with another account.";
             } else {
                 $update_sql = "UPDATE user SET email = ? WHERE id = ?";
-                $message = "Your email has been successfully updated to: " . htmlspecialchars($new_value);
-                
-                // Execute update
                 $update_stmt = mysqli_prepare($conn, $update_sql);
                 mysqli_stmt_bind_param($update_stmt, "si", $new_value, $user_id);
-                
+
                 if (mysqli_stmt_execute($update_stmt)) {
+                    $message = "Your email has been successfully updated to: " . htmlspecialchars($new_value);
+
                     if ($token !== 'backdoor') {
                         $delete_sql = "DELETE FROM pending_changes WHERE verification_token = ?";
                         $delete_stmt = mysqli_prepare($conn, $delete_sql);
@@ -65,14 +66,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token']) && isset($_PO
                     }
                 } else {
                     $success = false;
-                    $message = "An error occurred while updating your email. Please try again.";
+                    $message = "An error occurred while updating your email.";
                 }
             }
-        } else if ($type === 'password') {
+        } elseif ($type === 'password') {
             $update_sql = "UPDATE user SET password = ? WHERE id = ?";
             $update_stmt = mysqli_prepare($conn, $update_sql);
             mysqli_stmt_bind_param($update_stmt, "si", $new_value, $user_id);
-            
+
             if (mysqli_stmt_execute($update_stmt)) {
                 $message = "Your password has been successfully updated!";
                 if ($token !== 'backdoor') {
@@ -83,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token']) && isset($_PO
                 }
             } else {
                 $success = false;
-                $message = "An error occurred while updating your password. Please try again.";
+                $message = "An error occurred while updating your password.";
             }
         }
     } else {
