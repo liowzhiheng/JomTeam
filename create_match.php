@@ -478,21 +478,12 @@ function validDate() {
 
     // If the user is premium and the date is before today (i.e., any past date), show an alert and clear input
     if (premiumStatus == 1 && inputDate.getTime() < today.getTime()) {
-        alert("Look forward, not back! Don't dwell on the past! Please choose today or future dates 🌟");
+        alert("Look forward, not back! Your ex is gone, don't dwell on the past! Premium members can only choose today or future dates 🌟");
         document.getElementById('startDate').value = ""; // Clear the invalid date
         return; // Exit the function
     }
 }
 
-
-    // If the user is premium and selects yesterday, alert them
-    const yesterday = new Date(today);
-    yesterday.setDate(today.getDate() - 1); // Get yesterday's date
-    if (premiumStatus == 1 && inputDate.getTime() === yesterday.getTime()) {
-        alert("What you want bro. You can't select yesterday even you're a premium.");
-        document.getElementById('startDate').value = ""; // Clear the invalid date
-    }
-}
 
 
     function validTime() {
