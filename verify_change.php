@@ -39,7 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token'], $_POST['type'
         $user_id = $_SESSION['ID'];
         $success = true;
     } else {
-        // Verify token, expiration, and get stored new_value
         $sql = "SELECT user_id, new_value FROM pending_changes 
                 WHERE verification_token = ? 
                 AND change_type = ? 
@@ -57,11 +56,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token'], $_POST['type'
 
     if ($success) {
         if ($type === 'password') {
-            $hashed_password = password_hash($new_value, PASSWORD_DEFAULT);
-            
             $update_sql = "UPDATE user SET password = ? WHERE id = ?";
             $update_stmt = mysqli_prepare($conn, $update_sql);
-            mysqli_stmt_bind_param($update_stmt, "si", $hashed_password, $user_id);
+            mysqli_stmt_bind_param($update_stmt, "si", $new_value, $user_id);
 
             if (mysqli_stmt_execute($update_stmt)) {
                 $message = "Your password has been successfully updated!";
