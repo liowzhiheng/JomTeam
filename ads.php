@@ -1,16 +1,10 @@
 <?php
 require("config.php");
 
-$user_id = $_SESSION["ID"] ?? null;
-$is_premium = $_SESSION["premium"] ?? 0; // Use session variable for quick access
-
 // Fetch a random active ad
 $query = "SELECT file FROM ads WHERE status = 1 ORDER BY RAND() LIMIT 1";
 $result = $conn->query($query);
 
-
-
-if ($is_premium == 0) {
 if ($result && $result->num_rows > 0) {
     $ad = $result->fetch_assoc();
     $imagePath = "ads/" . $ad["file"];
@@ -18,9 +12,7 @@ if ($result && $result->num_rows > 0) {
     $imagePath = "ads/default.png";
 }
 
-}
-
-
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +28,6 @@ if ($result && $result->num_rows > 0) {
 <body>
 
 
-<?php if ($is_premium == 0): ?>
 
     <div id="adPopup" class="popup">
         <div class="popup-content">
@@ -44,7 +35,7 @@ if ($result && $result->num_rows > 0) {
             <button id="closeButton" onclick="closePopup()">Close</button>
         </div>
     </div>
-    <?php endif; ?>
+
     <script>
         document.getElementById('adPopup').classList.add('show');
 
