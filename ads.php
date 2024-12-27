@@ -1,22 +1,51 @@
 <?php
 require("config.php");
 
-// Fetch a random active ad
-$query = "SELECT file FROM ads WHERE status = 1 ORDER BY RAND() LIMIT 1";
-$result = $conn->query($query);
+$user_id = $_SESSION["ID"] ?? null;
 
-if ($result && $result->num_rows > 0) {
-    $ad = $result->fetch_assoc();
-    $imagePath = "ads/" . $ad["file"];
-} else {
-    $imagePath = "ads/default.png";
+if ($user_id === null) {
+    echo "User ID is not set.";
+    exit();
 }
 
+// Query to fetch the premium status of the user
+$query = "SELECT premium FROM user WHERE id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Check if the result contains any rows
+if ($result && $result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $premium = $row["premium"];
+
+    if ($premium == 1) {
+        // If the user is premium, skip showing ads
+        return;
+    }
+    
+    // Fetch the ad if the user is not premium
+    $adQuery = "SELECT file FROM ads WHERE status = 1 ORDER BY RAND() LIMIT 1";
+    $adResult = $conn->query($adQuery);
+
+    if ($adResult && $adResult->num_rows > 0) {
+        $ad = $adResult->fetch_assoc();
+        $imagePath = "ads/" . $ad["file"];
+    } else {
+        $imagePath = "ads/default.png";
+    }
+} else {
+    echo "User not found or no premium status.";
+    exit();
+}
+
+$stmt->close();
+$conn->close();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 
 <head>
     <meta charset="UTF-8">
@@ -26,8 +55,6 @@ if ($result && $result->num_rows > 0) {
 </head>
 
 <body>
-
-
 
     <div id="adPopup" class="popup">
         <div class="popup-content">
