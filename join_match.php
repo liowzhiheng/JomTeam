@@ -3,7 +3,7 @@
 
 require("config.php");
 
-session_start(); 
+session_start();
 
 // Check if 'id' is passed in the URL
 if (isset($_POST['user_id'])) {
@@ -52,8 +52,11 @@ if (isset($_POST['user_id'])) {
                 $insertStmt = $conn->prepare($insertQuery);
                 $insertStmt->bind_param('ii', $match_id, $user_id);
                 $insertStmt->execute();
-                
-                header("Location: history.php");
+                ?>
+                <form name="my_form" action="match_details.php" method="GET">
+                    <input type="hidden" name="id" value="<?php echo $match_id ?>">
+                </form>
+                <?php
             } else {
                 // If the match is full, show an error message
                 echo "<div class='message error'>
@@ -87,3 +90,7 @@ if (isset($_POST['user_id'])) {
     <title>Join Match</title>
     <link rel="stylesheet" href="check_login.css"> <!-- Link to your CSS file -->
 </head>
+
+<script>
+    document.my_form.submit(); //automatically submits the form
+</script>
