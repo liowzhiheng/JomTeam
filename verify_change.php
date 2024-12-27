@@ -5,6 +5,15 @@ require('config.php');
 $success = false;
 $message = "";
 
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['token'], $_GET['type'])) {
+    $token = $_GET['token'];
+    $type = $_GET['type'];
+
+    // Redirect to change_credentials.php
+    header("Location: change_credentials.php?token=" . urlencode($token) . "&type=" . urlencode($type));
+    exit();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token'], $_POST['type'], $_POST['new_value'])) {
     $token = mysqli_real_escape_string($conn, $_POST['token']);
     $type = mysqli_real_escape_string($conn, $_POST['type']);
