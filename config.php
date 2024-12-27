@@ -5,6 +5,9 @@
 	$db_pass = 'Jom5201314.';
 	$db_name = 'u442919130_jomteam';
 
+	// Define base URL for the website
+	define('BASE_URL', 'https://jomteam.com');
+
 	// login to MySQL Server from PHP
 	$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 
