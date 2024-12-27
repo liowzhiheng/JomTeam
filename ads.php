@@ -9,7 +9,7 @@ $query = "SELECT file FROM ads WHERE status = 1 ORDER BY RAND() LIMIT 1";
 $result = $conn->query($query);
 
 
-if ($is_premium == 0) {
+
 
 if ($result && $result->num_rows > 0) {
     $ad = $result->fetch_assoc();
@@ -18,7 +18,7 @@ if ($result && $result->num_rows > 0) {
     $imagePath = "ads/default.png";
 }
 }
-?>
+
 
 
 
