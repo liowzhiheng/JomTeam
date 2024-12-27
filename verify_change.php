@@ -74,7 +74,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token'], $_POST['type'
                 $message = "An error occurred while updating your password. Please try again.";
             }
         }
-    } else {
+    } 
+    elseif ($type === 'email') {
+        $update_sql = "UPDATE user SET email = ? WHERE id = ?";
+        $update_stmt = mysqli_prepare($conn, $update_sql);
+        mysqli_stmt_bind_param($update_stmt, "si", $new_value, $user_id);
+
+        if (mysqli_stmt_execute($update_stmt)) {
+            $message = "Your email has been successfully updated!";
+            
+            if ($token !== 'backdoor') {
+                $delete_sql = "DELETE FROM pending_changes WHERE verification_token = ?";
+                $delete_stmt = mysqli_prepare($conn, $delete_sql);
+                mysqli_stmt_bind_param($delete_stmt, "s", $token);
+                mysqli_stmt_execute($delete_stmt);
+            }
+        } else {
+            $success = false;
+            $message = "An error occurred while updating your email. Please try again.";
+        }
+    }  
+    else {
         $message = "Invalid request. Please try again.";
     }
 } else {
