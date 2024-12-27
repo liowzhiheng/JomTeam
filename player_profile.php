@@ -142,6 +142,7 @@ $friend_request_sent = $checkRequestResult->num_rows > 0;
 
 // Handle the 'Follow' (Add Friend) button
 if (isset($_POST['add_friend'])) {
+    $match_id = $_GET['match_id'];
     if ($current_user_id == $profile_user_id) {
         echo "You cannot send a friend request to yourself.";
         exit();
@@ -154,29 +155,31 @@ if (isset($_POST['add_friend'])) {
         $insertRequestStmt->bind_param("ii", $current_user_id, $profile_user_id);
         $insertRequestStmt->execute();
     }
-    header("Location: player_profile.php?id=$profile_user_id");
+    header("Location: player_profile.php?id=$profile_user_id&match_id=$match_id");
     exit();
 }
 
 // Handle the 'Cancel Request' button
 if (isset($_POST['cancel_request'])) {
+    $match_id = $_GET['match_id'];
     // Delete the pending friend request
     $deleteQuery = "DELETE FROM friend_requests WHERE sender_id = ? AND receiver_id = ? AND status = 'pending'";
     $deleteStmt = $conn->prepare($deleteQuery);
     $deleteStmt->bind_param("ii", $current_user_id, $profile_user_id);
     $deleteStmt->execute();
-    header("Location: player_profile.php?id=$profile_user_id");
+    header("Location: player_profile.php?id=$profile_user_id&match_id=$match_id");
     exit();
 }
 
 // Handle the 'Unfollow' button
 if (isset($_POST['unfollow'])) {
+    $match_id = $_GET['match_id'];
     // Remove the friendship relationship
     $deleteQuery = "DELETE FROM friends WHERE (user_id = ? AND friend_id = ?) OR (user_id = ? AND friend_id = ?)";
     $deleteStmt = $conn->prepare($deleteQuery);
     $deleteStmt->bind_param("iiii", $current_user_id, $profile_user_id, $profile_user_id, $current_user_id);
     $deleteStmt->execute();
-    header("Location: player_profile.php?id=$profile_user_id");
+    header("Location: player_profile.php?id=$profile_user_id&match_id=$match_id");
     exit();
 }
 
