@@ -202,9 +202,11 @@ $requestResult = $requestStmt->get_result();
                     <?php while ($row = $requestResult->fetch_assoc()): ?>
                         <p class="detail">
                             <img src="IMAGE/default.png" alt="Profile Picture" class="profile-pic">
+                            <a href="player_profile.php?id=<?php echo $row['id']; ?>">
                             <span class="friend-name">
                                 <?php echo htmlspecialchars($row['first_name'] . " " . $row['last_name']); ?>
                             </span>
+                            </a>
                         <form method="POST" class="action-form">
                             <input type="hidden" name="request_id" value="<?php echo $row['id']; ?>">
                             <button type="submit" name="accept_request" class="action-button accept-button">Accept</button>
