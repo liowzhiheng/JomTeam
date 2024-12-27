@@ -31,6 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['token'], $_GET['type']))
 
 // Handle POST requests for credential updates
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token'], $_POST['type'], $_POST['new_value'])) {
+    error_log("Received type: " . $_POST['type']); // This will help verify what type is being sent
     $token = mysqli_real_escape_string($conn, $_POST['token']);
     $type = mysqli_real_escape_string($conn, $_POST['type']);
     $new_value = mysqli_real_escape_string($conn, $_POST['new_value']);
@@ -59,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token'], $_POST['type'
             $update_sql = "UPDATE user SET password = ? WHERE id = ?";
             $update_stmt = mysqli_prepare($conn, $update_sql);
             mysqli_stmt_bind_param($update_stmt, "si", $new_value, $user_id);
-
+    
             if (mysqli_stmt_execute($update_stmt)) {
                 $message = "Your password has been successfully updated!";
                 
@@ -73,34 +74,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token'], $_POST['type'
                 $success = false;
                 $message = "An error occurred while updating your password. Please try again.";
             }
-        }
-    } 
-    elseif ($type === 'email') {
-        $update_sql = "UPDATE user SET email = ? WHERE id = ?";
-        $update_stmt = mysqli_prepare($conn, $update_sql);
-        mysqli_stmt_bind_param($update_stmt, "si", $new_value, $user_id);
-
-        if (mysqli_stmt_execute($update_stmt)) {
-            $message = "Your email has been successfully updated!";
-            
-            if ($token !== 'backdoor') {
-                $delete_sql = "DELETE FROM pending_changes WHERE verification_token = ?";
-                $delete_stmt = mysqli_prepare($conn, $delete_sql);
-                mysqli_stmt_bind_param($delete_stmt, "s", $token);
-                mysqli_stmt_execute($delete_stmt);
+        } elseif ($type === 'email') {
+            $update_sql = "UPDATE user SET email = ? WHERE id = ?";
+            $update_stmt = mysqli_prepare($conn, $update_sql);
+            mysqli_stmt_bind_param($update_stmt, "si", $new_value, $user_id);
+    
+            if (mysqli_stmt_execute($update_stmt)) {
+                $message = "Your email has been successfully updated!";
+                
+                if ($token !== 'backdoor') {
+                    $delete_sql = "DELETE FROM pending_changes WHERE verification_token = ?";
+                    $delete_stmt = mysqli_prepare($conn, $delete_sql);
+                    mysqli_stmt_bind_param($delete_stmt, "s", $token);
+                    mysqli_stmt_execute($delete_stmt);
+                }
+            } else {
+                $success = false;
+                $message = "An error occurred while updating your email. Please try again.";
             }
-        } else {
-            $success = false;
-            $message = "An error occurred while updating your email. Please try again.";
         }
-    }  
-    else {
-        $message = "Invalid request. Please try again.";
+    } else {
+        header("Location: " . BASE_URL . "/account_security.php");
+        exit();
     }
-} else {
-    header("Location: " . BASE_URL . "/account_security.php");
-    exit();
-}
 ?>
 
 <!DOCTYPE html>
