@@ -126,7 +126,7 @@ a:hover {
 /* Style for the pending requests container */
 .pending-requests-container {
     position: relative;
-
+    margin: 150px auto;
     transition: translateY(-100px) right 0.5s ease-in-out;
     /* Smooth slide-in effect */
     z-index: 1000;
@@ -171,7 +171,7 @@ a:hover {
 
 .request-container {
     max-width: 1000px;
-
+   
     background-color: rgba(255, 255, 255, 0.95);
     padding: 100px;
     border-radius: 20px;
@@ -247,12 +247,13 @@ a:hover {
         width 0.3s ease-in-out,
         border-radius 0.3s ease-in-out;
     /* Smooth radius animation */
-    transform: translate(1445px, -900px);
+    transform: translate(885px, -110px);
     /* Consistent vertical position */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     width: 150px;
     /* Set an initial width */
-    z-index: 1100;
+  
+    position: absolute;
 }
 
 .back-button:hover {
@@ -261,13 +262,62 @@ a:hover {
     border-bottom-left-radius: 0px;
     /* Bottom-left corner */
     background-color: #3E3EB0;
-    transform: translate(1445px, -900px);
+    transform: translate(887px, -110px);
     /* Maintain the same Y position (101px) */
     width: 170px;
     /* Adjust the width to make it longer */
 }
 
 .back-button img {
+    width: 60%;
+    height: auto;
+}
+
+
+.back-button2 {
+    padding: 25px 25px;
+    background-color: #5252D4;
+    color: white;
+    border: none;
+    border-top-right-radius: 50px;
+    /* Top-right corner */
+    border-bottom-right-radius: 50px;
+    /* Bottom-right corner */
+    border-top-left-radius: 10px;
+    /* Top-left corner */
+    border-bottom-left-radius: 10px;
+    /* Bottom-left corner */
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+        transform 0.2s ease-in-out,
+        background-color 0.2s ease-in-out,
+        width 0.3s ease-in-out,
+        border-radius 0.3s ease-in-out;
+    /* Smooth radius animation */
+    transform: translate(885px, -130px);
+    /* Consistent vertical position */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    width: 150px;
+    /* Set an initial width */
+  
+    position: absolute;
+}
+
+.back-button2:hover {
+    border-top-left-radius: 0px;
+    /* Top-left corner */
+    border-bottom-left-radius: 0px;
+    /* Bottom-left corner */
+    background-color: #3E3EB0;
+    transform: translate(887px, -130px);
+    /* Maintain the same Y position (101px) */
+    width: 170px;
+    /* Adjust the width to make it longer */
+}
+
+.back-button2 img {
     width: 60%;
     height: auto;
 }

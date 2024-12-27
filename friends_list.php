@@ -147,10 +147,18 @@ $requestResult = $requestStmt->get_result();
             goals, hitting the gym, or simply enjoying the journey.<br>Join now and make every moment count! </p>
 
     </div>
+    <div>
+        <div>
+
+        </div class="background">
+
+    </div>
 
     <div class="profile-container">
+
         <div id="friendsListContainer" class="profile-details">
             <h1>Your Friends</h1>
+            <button id="toggleViewButton" class="back-button"><img src="IMAGE/back.png" alt="back"></button>
             <ul>
                 <?php while ($row = $friendsResult->fetch_assoc()): ?>
                     <p class="detail">
@@ -177,57 +185,61 @@ $requestResult = $requestStmt->get_result();
                 <?php endwhile; ?>
             </ul>
         </div>
-    </div>
-    <div class="">
-        <div id="pendingRequestsContainer"
-            class="profile-details pending-requests-container request-container hidden_request">
-            <div>
-                <h1>Pending Friend Requests</h1>
-                <ul>
-                    <?php if ($requestResult->num_rows > 0): ?>
-                        <?php while ($row = $requestResult->fetch_assoc()): ?>
-                            <p class="detail">
-                                <!-- Replace profile image section with a default placeholder if needed -->
-                                <img src="IMAGE/default.png" alt="Profile Picture" class="profile-pic">
-                                <span class="friend-name">
-                                    <?php echo htmlspecialchars($row['first_name'] . " " . $row['last_name']); ?>
-                                </span>
-                            <form method="POST" class="action-form">
-                                <input type="hidden" name="request_id" value="<?php echo $row['id']; ?>">
-                                <button type="submit" name="accept_request" class="action-button accept-button">Accept</button>
-                            </form>
-                            <form method="POST" class="action-form">
-                                <input type="hidden" name="request_id" value="<?php echo $row['id']; ?>">
-                                <button type="submit" name="reject_request" class="action-button reject-button">Reject</button>
-                            </form>
 
-                            </p>
-                        <?php endwhile; ?>
-                    <?php else: ?>
-                        <p class="no-requests">You have no pending friend requests.</p>
-                    <?php endif; ?>
-                </ul>
-            </div>
+    </div>
+
+    <div id="pendingRequestsContainer"
+        class="profile-details pending-requests-container request-container hidden_request">
+        <div>
+            <h1>Pending Friend Requests</h1>
+            <button id="toggleViewButtonBack" class="back-button2"><img src="IMAGE/back.png" alt="back"></button>
+            <ul>
+                <?php if ($requestResult->num_rows > 0): ?>
+                    <?php while ($row = $requestResult->fetch_assoc()): ?>
+                        <p class="detail">
+                            <img src="IMAGE/default.png" alt="Profile Picture" class="profile-pic">
+                            <span class="friend-name">
+                                <?php echo htmlspecialchars($row['first_name'] . " " . $row['last_name']); ?>
+                            </span>
+                        <form method="POST" class="action-form">
+                            <input type="hidden" name="request_id" value="<?php echo $row['id']; ?>">
+                            <button type="submit" name="accept_request" class="action-button accept-button">Accept</button>
+                        </form>
+                        <form method="POST" class="action-form">
+                            <input type="hidden" name="request_id" value="<?php echo $row['id']; ?>">
+                            <button type="submit" name="reject_request" class="action-button reject-button">Reject</button>
+                        </form>
+                        </p>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <p class="detail ">You have no pending friend requests.</p>
+                <?php endif; ?>
+            </ul>
         </div>
-
     </div>
 
 
 
-    
-    <button id="toggleViewButton" class="back-button"><img src="IMAGE/back.png" alt="back"></button>
+
+
+
 
     <script>
         const toggleButton = document.getElementById('toggleViewButton');
+        const toggleButtonBack = document.getElementById('toggleViewButtonBack');
         const pendingContainer = document.querySelector('.pending-requests-container');
         const friendsListContainer = document.querySelector('.profile-container');
 
+        // Toggle from friends list to pending requests
         toggleButton.addEventListener('click', () => {
-            pendingContainer.classList.toggle('hidden_request');
-            friendsListContainer.classList.toggle('hidden');
-            toggleButton.textContent = pendingContainer.classList.contains('hidden_request')
-                ? 'View Pending Requests'
-                : 'View Friends List';
+            pendingContainer.classList.remove('hidden_request');
+            friendsListContainer.classList.add('hidden');
+        });
+
+        // Toggle from pending requests back to friends list
+        toggleButtonBack.addEventListener('click', () => {
+            pendingContainer.classList.add('hidden_request');
+            friendsListContainer.classList.remove('hidden');
         });
 
     </script>
