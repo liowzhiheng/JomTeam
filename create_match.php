@@ -469,12 +469,21 @@ if ($result->num_rows > 0) {
     inputDate.setHours(0, 0, 0, 0);
     today.setHours(0, 0, 0, 0);
 
-    // If the user is not premium and the date is not today, show an alert and clear the input
+    // Check if the user is not premium and the date is not today
     if (premiumStatus == 0 && inputDate.getTime() !== today.getTime()) {
         alert("The date must be today! (Unless you're a premium member 👻)");
         document.getElementById('startDate').value = ""; // Clear the invalid date
     }
+
+    // If the user is premium and selects yesterday, alert them
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1); // Get yesterday's date
+    if (premiumStatus == 1 && inputDate.getTime() === yesterday.getTime()) {
+        alert("What you want bro. You can't select yesterday even you're a premium.");
+        document.getElementById('startDate').value = ""; // Clear the invalid date
+    }
 }
+
 
     function validTime() {
         const inputTime = document.getElementById('startTime').value;
