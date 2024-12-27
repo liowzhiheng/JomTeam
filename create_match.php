@@ -32,6 +32,25 @@ $query = "
 
 $result = mysqli_query($conn, $query);
 $rows = mysqli_fetch_assoc($result);
+
+
+// Query to fetch the premium status of the user
+$query = "SELECT premium FROM user WHERE id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $user_id); // Bind the user ID to the query
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    // Fetch the premium status
+    $row = $result->fetch_assoc();
+    $premium_status = $row['premium'];
+
+   
+} else {
+    echo "User not found.";
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,6 +68,7 @@ $rows = mysqli_fetch_assoc($result);
 
 <body>
     <audio id="popSound" src="sound/pop-sound.mp3" preload="auto"></audio>
+    <input type="hidden" id="premiumStatus" value="<?php echo $premium_status; ?>" />
 
     <?php
     include('navbar.php');
@@ -441,17 +461,20 @@ $rows = mysqli_fetch_assoc($result);
     }
 
     function validDate() {
-        const inputDate = new Date(document.getElementById('startDate').value);
-        const today = new Date();
+    const inputDate = new Date(document.getElementById('startDate').value); // Get the input date
+    const today = new Date(); // Get today's date
+    const premiumStatus = document.getElementById('premiumStatus').value; // Get premium status from hidden input (or session value)
 
-        inputDate.setHours(0, 0, 0, 0);
-        today.setHours(0, 0, 0, 0);
+    // Set hours to 0 for both to compare only dates (ignoring time)
+    inputDate.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
 
-        if (inputDate.getTime() !== today.getTime()) {
-            alert("The date must be today! (Unless you join premium 👻)");
-            document.getElementById('startDate').value = ""; // Clear the invalid date
-        }
+    // If the user is not premium and the date is not today, show an alert and clear the input
+    if (premiumStatus == 0 && inputDate.getTime() !== today.getTime()) {
+        alert("The date must be today! (Unless you're a premium member 👻)");
+        document.getElementById('startDate').value = ""; // Clear the invalid date
     }
+}
 
     function validTime() {
         const inputTime = document.getElementById('startTime').value;
@@ -466,6 +489,8 @@ $rows = mysqli_fetch_assoc($result);
             document.getElementById('startTime').value = ""; // Clear the invalid input
         }
     }
+
+    
     // Initialize the circles on page load
     document.addEventListener('DOMContentLoaded', function () {
         updatePlayers();
