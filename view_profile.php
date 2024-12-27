@@ -96,6 +96,15 @@ $rows = mysqli_fetch_assoc($result);
     }
     ?>
 
+    <!-- Add button to see account security -->
+    <div class="button">
+        <a href="account_security.php" class="account-security-button">
+            <button type="button" class="security-btn">
+                Account Security
+            </button>
+        </a>
+    </div>
+
     <div class="profile-content">
         <h1 class="profile-title">Profile</h1>
         <p class="profile-description">
