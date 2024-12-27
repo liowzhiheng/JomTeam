@@ -235,24 +235,32 @@ if (isset($_POST['unfollow'])) {
             </div>
             <div style="margin-bottom: 25px;">
                 <!-- Add Friend Button Logic -->
+                <?php
+                // Safely get match_id and escape variables for HTML
+                $match_id = htmlspecialchars($_GET['match_id'] ?? '', ENT_QUOTES, 'UTF-8');
+                $profile_user_id = htmlspecialchars($profile_user_id, ENT_QUOTES, 'UTF-8');
+                ?>
+
                 <?php if (!$is_friend && !$friend_request_sent && $current_user_id != $profile_user_id): ?>
                     <!-- If not a friend and no friend request sent -->
-                    <form action="player_profile.php?id=<?php echo $profile_user_id; ?>" method="POST">
+                    <form action="player_profile.php?id=<?php echo $profile_user_id; ?>&match_id=<?php echo $match_id; ?>"
+                        method="POST">
                         <button name="add_friend" class="follow-button">Follow</button>
                     </form>
                 <?php elseif ($friend_request_sent): ?>
                     <!-- If friend request has been sent -->
-                    <form action="player_profile.php?id=<?php echo $profile_user_id; ?>" method="POST">
+                    <form action="player_profile.php?id=<?php echo $profile_user_id; ?>&match_id=<?php echo $match_id; ?>"
+                        method="POST">
                         <button name="cancel_request" class="requested-button">Requested</button>
                     </form>
                 <?php elseif ($is_friend): ?>
                     <!-- If already friends -->
-                    <form action="player_profile.php?id=<?php echo $profile_user_id; ?>" method="POST">
+                    <form action="player_profile.php?id=<?php echo $profile_user_id; ?>&match_id=<?php echo $match_id; ?>"
+                        method="POST">
                         <button name="unfollow" class="following-button">Following</button>
                     </form>
                 <?php endif; ?>
             </div>
-
 
 
         </div>
