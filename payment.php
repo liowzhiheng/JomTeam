@@ -12,10 +12,12 @@ if (!isset($_SESSION["ID"])) {
     echo "User ID is not set in the session.";
     exit();
 }
+
 $user_id = $_SESSION["ID"];
 
 require("config.php");
 
+// Retrieve user profile information
 $query = "
     SELECT 
         u.first_name, 
@@ -25,16 +27,40 @@ $query = "
     FROM 
         user u 
     WHERE 
-        u.id = '$user_id'
+        u.id = ?
 ";
 
-$result = mysqli_query($conn, $query);
-$rows = mysqli_fetch_assoc($result);
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$rows = $result->fetch_assoc();
+
+// Check if the "Pay Now" button is clicked
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["pay_now"])) {
+    // Update the user's premium status
+    $sql = "UPDATE user SET premium = 1 WHERE id = ?";
+    $updateStmt = $conn->prepare($sql);
+    $updateStmt->bind_param("i", $user_id);
+
+    if ($updateStmt->execute()) {
+        // Update session and redirect to a success page
+        $_SESSION["premium"] = 1; // Store premium status in session for quick access
+        header("Location: success.php");
+        exit();
+    } else {
+        echo "Error updating premium status: " . $conn->error;
+    }
+
+    $updateStmt->close();
+}
+
+$stmt->close();
+$conn->close();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,9 +69,7 @@ $rows = mysqli_fetch_assoc($result);
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="footer.css">
     <link rel="stylesheet" href="payment.css">
-    
 </head>
-
 <body>
     <?php include('navbar.php'); ?>
 
@@ -58,7 +82,8 @@ $rows = mysqli_fetch_assoc($result);
                             <h2 class="heading text-center">Payments</h2>
                         </div>
                     </div>
-                    <form onsubmit="event.preventDefault()" class="form-card">
+                    <form method="POST" class="form-card">
+                        <!-- Payment form content -->
                         <div class="row justify-content-center mb-4 radio-group">
                             <div class="col-sm-3 col-5">
                                 <div class='radio selected mx-auto' data-value="dk">
@@ -81,9 +106,8 @@ $rows = mysqli_fetch_assoc($result);
                                 </div>
                             </div>
                         </div>
-              
                         <div class="row justify-content-center">
-                            <div >
+                            <div>
                                 <div class="input-group">
                                     <input type="text" name="Name" placeholder="John Doe">
                                     <label>Name</label>
@@ -99,7 +123,7 @@ $rows = mysqli_fetch_assoc($result);
                             </div>
                         </div>
                         <div class="row justify-content-center">
-                            <div >
+                            <div>
                                 <div class="row">
                                     <div>
                                         <div class="input-group">
@@ -107,7 +131,7 @@ $rows = mysqli_fetch_assoc($result);
                                             <label>Expiry Date</label>
                                         </div>
                                     </div>
-                                    <div >
+                                    <div>
                                         <div class="input-group">
                                             <input type="password" name="cvv" placeholder="&#9679;&#9679;&#9679;" minlength="3" maxlength="3">
                                             <label>CVV</label>
@@ -117,34 +141,30 @@ $rows = mysqli_fetch_assoc($result);
                             </div>
                         </div>
                         <div class="row justify-content-center">
-                            <div >
-                                <input type="submit" value="Pay Now" class="btn btn-pay placeicon">
+                            <div>
+                                <input type="submit" name="pay_now" value="Pay Now" class="btn btn-pay placeicon">
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-    </div>  
-    <script type='text/javascript'>$(document).ready(function () {
+    </div>
 
+    <script type='text/javascript'>
+        $(document).ready(function () {
+            // Radio button
+            $('.radio-group .radio').click(function () {
+                $(this).parent().parent().find('.radio').removeClass('selected');
+                $(this).addClass('selected');
+            });
+        });
+    </script>
 
-
-// Radio button
-$('.radio-group .radio').click(function () {
-    $(this).parent().parent().find('.radio').removeClass('selected');
-    $(this).addClass('selected');
-});
-})</script>
-<script type='text/javascript'>var myLink = document.querySelector('a[href="#"]');
-myLink.addEventListener('click', function (e) {
-e.preventDefault();
-});</script>
-
-
-<?php mysqli_close($conn); ?>
-
+    <?php mysqli_close($conn); ?>
 </body>
+</html>
+
 
 <!-- footer-->
 <footer>
