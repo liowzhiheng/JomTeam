@@ -23,7 +23,8 @@ $query = "
         u.first_name, 
         u.last_name, 
         u.gender, 
-        u.phone
+        u.phone, 
+        u.premium
     FROM 
         user u 
     WHERE 
@@ -38,15 +39,23 @@ $rows = $result->fetch_assoc();
 
 // Check if the "Pay Now" button is clicked
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["pay_now"])) {
-    // Update the user's premium status
-    $sql = "UPDATE user SET premium = 1 WHERE id = ?";
+    // Retrieve the user's current premium status
+    $premium = $rows["premium"];
+
+    // Toggle the premium status: if it's 1, set it to 0; if it's 0, set it to 1
+    $new_premium_status = ($premium == 1) ? 0 : 1;
+
+    // Update the user's premium status in the database
+    $sql = "UPDATE user SET premium = ? WHERE id = ?";
     $updateStmt = $conn->prepare($sql);
-    $updateStmt->bind_param("i", $user_id);
+    $updateStmt->bind_param("ii", $new_premium_status, $user_id);
 
     if ($updateStmt->execute()) {
-        // Update session and redirect to a success page
-        $_SESSION["premium"] = 1; // Store premium status in session for quick access
-        header("Location: success.php");
+        // Update session with new premium status
+        $_SESSION["premium"] = $new_premium_status;
+
+        // Redirect to a success page (or just refresh the page)
+        header("Location: " . $_SERVER['PHP_SELF']);
         exit();
     } else {
         echo "Error updating premium status: " . $conn->error;
