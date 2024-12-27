@@ -66,6 +66,24 @@ $ishost = 0;
 if ($host['id'] == $user_id) {
     $ishost = 1;
 }
+
+// Query to fetch the premium status of the user
+$query = "SELECT premium FROM user WHERE id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $user_id); // Bind the user ID to the query
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    // Fetch the premium status
+    $row = $result->fetch_assoc();
+    $premium_status = $row['premium'];
+
+
+} else {
+    echo "User not found.";
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -118,6 +136,7 @@ if ($host['id'] == $user_id) {
 <body>
 
     <?php include('navbar.php'); ?>
+    <input type="hidden" id="premiumStatus" value="<?php echo $premium_status; ?>" />
 
     <div class="profile-content">
         <h1 class="profile-title">Match Details:</h1>
@@ -385,7 +404,7 @@ if ($host['id'] == $user_id) {
                             value="<?php echo htmlspecialchars($match['max_players']); ?>" required
                             oninput="validatePlayerInput(this)" onchange="updatePlayers()">
                     </div>
-        
+
 
                     <div class="group">
                         <label>Current Players:</label>
@@ -539,17 +558,30 @@ if ($host['id'] == $user_id) {
 
 <script>
     function validDate() {
-        const inputDate = new Date(document.getElementById('startDate').value);
-        const today = new Date();
+        const inputDate = new Date(document.getElementById('startDate').value); // Get the input date
+        const today = new Date(); // Get today's date
+        const premiumStatus = document.getElementById('premiumStatus').value; // Get premium status from hidden input (or session value)
 
+        // Set hours to 0 for both dates to ignore time
         inputDate.setHours(0, 0, 0, 0);
         today.setHours(0, 0, 0, 0);
 
-        if (inputDate.getTime() !== today.getTime()) {
-            alert("The date must be today! (Unless you join premium 👻)");
-            document.getElementById('startDate').value = "<?php echo $match['start_date'] ?>"; // Clear the invalid date
+        // If the user is not premium and the date is not today, show an alert and clear input
+        if (premiumStatus == 0 && inputDate.getTime() !== today.getTime()) {
+            alert("The date must be today! (Unless you're a premium member 👻)");
+            document.getElementById('startDate').value = ""; // Clear the invalid date
+            return; // Exit the function
+        }
+
+        // If the user is premium and the date is before today (i.e., any past date), show an alert and clear input
+        if (premiumStatus == 1 && inputDate.getTime() < today.getTime()) {
+            alert("Look forward, not back! Don't dwell on the past! Please choose today or future dates 🌟🥲");
+            document.getElementById('startDate').value = ""; // Clear the invalid date
+            return; // Exit the function
         }
     }
+
+
 
     function validTime() {
         const inputTime = document.getElementById('startTime').value;
