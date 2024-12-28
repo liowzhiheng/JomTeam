@@ -101,7 +101,7 @@
     /* Center-align the list under the circles */
     margin-top: 100px;
     /* Adjust font size for better readability */
-        transform: translateX(50%);
+    transform: translateX(50%);
     margin-left: -600px;
     color: #A0A9B5;
     font-family: 'Raleway', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -186,8 +186,10 @@ div p {
 }
 
 .edit_button img:hover {
-    transform: scale(1.1) ; /* Slightly enlarges the image */
-    transition: all 0.3s ease; /* Smooth transition */
+    transform: scale(1.1);
+    /* Slightly enlarges the image */
+    transition: all 0.3s ease;
+    /* Smooth transition */
 }
 
 .group select {
@@ -238,8 +240,10 @@ input:focus {
 }
 
 .update_button img:hover {
-    transform: scale(1.1) ; /* Slightly enlarges the image */
-    transition: all 0.3s ease; /* Smooth transition */
+    transform: scale(1.1);
+    /* Slightly enlarges the image */
+    transition: all 0.3s ease;
+    /* Smooth transition */
 }
 
 /* chat room */
@@ -378,4 +382,88 @@ input:focus {
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     transform: translateY(-100px);
+}
+
+
+.match-request {
+
+    background-color: #fff;
+    margin: 20% auto;
+    padding: 40px;
+    border-radius: 20px;
+   
+    max-width: 800px;
+
+}
+.match-request h1{
+
+color: black;
+margin-bottom: 30px;
+
+}
+
+.detail {
+    font-size: 1.0em;
+    margin-bottom: -40px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    transition: transform 0.2s;
+    padding: 15px;
+}
+
+.friend-name {
+    font-size: 35px;
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    position: relative;
+    top: -3px;
+    left: 0px;
+    color: #000;
+    margin-left: -200px;
+
+}
+
+
+/* Style for action forms */
+.action-form {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+/* Base style for buttons */
+.action-button {
+    display: inline-block;
+    padding: 8px 18px;
+    font-size: 27px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    transform: translate(445px,-22px);
+}
+
+/* Accept button styling */
+.accept-button {
+    background: #34c759;
+    
+}
+
+.accept-button:hover {
+    background: #34c759;
+    transform: translate(445px,-22px) scale(1.05);
+   /*  box-shadow: 0 6px 10px rgba(52, 199, 89, 0.6);*/
+}
+
+/* Reject button styling */
+.reject-button {
+    background:#ff3b30;
+   
+}
+
+.reject-button:hover {
+    background: #ff3b30;
+    transform: translate(445px,-22px) scale(1.05);
+    /*box-shadow: 0 6px 10px rgba(255, 59, 48, 0.6);*/
 }
