@@ -4,16 +4,27 @@ require("config.php");
 // Get user ID from session
 $userID = $_SESSION["ID"];
 
-// Check if the notification has been marked as seen
+// Check if the notification has been marked as seen (only for the notification modal)
 if (isset($_POST['notification_seen'])) {
-    // Update the status of friend requests as seen
-    $stmt = $conn->prepare("UPDATE friend_requests SET status = 'seen' WHERE receiver_id = ? AND status = 'pending'");
+    // Mark the requests as seen only for notifications
+    $stmt = $conn->prepare("UPDATE friend_requests SET status = 'seen' WHERE receiver_id = ? AND status = 'pending' AND is_notified = 0");
     $stmt->bind_param("i", $userID);
     $stmt->execute();
     $stmt->close();
 
-    // Update the status of match requests as seen
-    $stmt = $conn->prepare("UPDATE match_request SET status = 'seen' WHERE match_id IN (SELECT match_id FROM gamematch WHERE user_id = ?) AND status = 'pending'");
+    // Mark the match requests as seen only for notifications
+    $stmt = $conn->prepare("UPDATE match_request SET status = 'seen' WHERE match_id IN (SELECT match_id FROM gamematch WHERE user_id = ?) AND status = 'pending' AND is_notified = 0");
+    $stmt->bind_param("i", $userID);
+    $stmt->execute();
+    $stmt->close();
+
+    // Mark these requests as notified (so they aren't marked again)
+    $stmt = $conn->prepare("UPDATE friend_requests SET is_notified = 1 WHERE receiver_id = ? AND is_notified = 0");
+    $stmt->bind_param("i", $userID);
+    $stmt->execute();
+    $stmt->close();
+
+    $stmt = $conn->prepare("UPDATE match_request SET is_notified = 1 WHERE match_id IN (SELECT match_id FROM gamematch WHERE user_id = ?) AND is_notified = 0");
     $stmt->bind_param("i", $userID);
     $stmt->execute();
     $stmt->close();
@@ -81,7 +92,7 @@ if ($result->num_rows > 0) {
 $stmt->close();
 ?>
 
-
+<!-- Navbar -->
 <nav class="navbar">
     <a href="main.php" class="logo">
         <img src="IMAGE/jomteam.png" alt="Logo">
@@ -143,13 +154,13 @@ $stmt->close();
 
 <script>
     function confirmLogout() {
-    var confirmation = confirm("Are you sure you want to logout?");
-    if (confirmation) {
-        window.location.href = "logout.php";
+        var confirmation = confirm("Are you sure you want to logout?");
+        if (confirmation) {
+            window.location.href = "logout.php";
+        }
     }
-}
 
-function showNotifications() {
+    function showNotifications() {
     const pendingRequests = <?php echo json_encode($pendingRequests); ?>;
     const pendingMatchRequests = <?php echo json_encode($pendingMatchRequests); ?>;
     const pendingCount = <?php echo $pendingCount; ?>;
@@ -182,6 +193,7 @@ function showNotifications() {
         `;
     });
 
+    // Show the notifications in the modal
     document.getElementById('friendRequestsContent').innerHTML = requestsContent;
     document.getElementById('friendRequestsModal').style.display = 'block';
 
@@ -196,21 +208,21 @@ function showNotifications() {
     });
 }
 
-function closeModal() {
-    document.getElementById('friendRequestsModal').style.display = 'none';
-    document.querySelector('.red-dot').style.display = 'none';  // Hide the red dot
+    function closeModal() {
+        document.getElementById('friendRequestsModal').style.display = 'none';
+        document.querySelector('.red-dot').style.display = 'none';  // Hide the red dot
 
-    // Send AJAX request to mark all notifications as seen
-    fetch(window.location.href, {  // Send AJAX request to mark as seen
-        method: 'POST',
-        body: new URLSearchParams('notification_seen=true')
-    }).then(response => {
-        console.log('Notification marked as seen');
-    }).catch(error => {
-        console.error('Error:', error);
-    });
-}
+        // Send AJAX request to mark all notifications as seen
+        fetch(window.location.href, {  // Send AJAX request to mark as seen
+            method: 'POST',
+            body: new URLSearchParams('notification_seen=true')
+        }).then(response => {
+            console.log('Notification marked as seen');
+        }).catch(error => {
+            console.error('Error:', error);
+        });
+    }
 
-document.querySelector('.close-btn').addEventListener('click', closeModal);
-document.querySelector('.notification a').addEventListener('click', showNotifications);
+    document.querySelector('.close-btn').addEventListener('click', closeModal);
+    document.querySelector('.notification a').addEventListener('click', showNotifications);
 </script>
