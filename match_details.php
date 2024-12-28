@@ -601,7 +601,10 @@ if ($host['id'] == $user_id) {
             </ul>
         <?php else: ?>
             </p>
+            <p class="detail">
             <p class="friend-name">No requests found.</p>
+            </p>
+            
         <?php endif; ?>
     </div>
 </div>
