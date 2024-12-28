@@ -2,38 +2,40 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
 
 /* Global Font */
-* {
+.profile-content div{
     font-family: 'Outfit', sans-serif;
 }
+
 
 /* Main Container Styles */
 .profile-content {
     max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
-    background: linear-gradient(145deg, #1a237e, #283593);
-    border-radius: 12px;
+    margin: 60px auto;
+    padding: 50px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 40px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .profile-title {
-    color: #ffffff;
+    color: #EB1436;
     text-align: center;
     font-size: 2.5em;
     margin-bottom: 30px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    font-family: 'Outfit', sans-serif
+    
 }
 
 /* Current Details Section */
 .current-details {
-    background: rgba(255, 255, 255, 0.1);
     padding: 25px;
+    border: #2c3e50;
     border-radius: 8px;
     margin-bottom: 30px;
 }
 
 .current-details h2 {
-    color: #ffffff;
+    color: #2c3e50;
     margin-bottom: 20px;
     font-size: 1.8em;
 }
@@ -43,7 +45,9 @@
     align-items: center;
     margin: 15px 0;
     gap: 15px;
-    color: #ffffff;
+    background-color: #f8f9fa;
+    padding: 30px;
+    border-radius: 20px;
 }
 
 .detail-row label {
@@ -59,20 +63,21 @@
 .password-display {
     display: flex;
     gap: 10px;
-    width: 200px;
+    width: 300px;
 }
 
 .password-display input {
     flex: 1;
     padding: 8px;
     border: none;
-    border-radius: 4px;
+    border-radius: 10px;
     background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ccc;
 }
 
 /* Buttons */
 .password-toggle {
-    background: #7959bf;
+
     color: white;
     padding: 8px 15px;
     border: none;
@@ -83,9 +88,7 @@
     font-size: 0.9em;
 }
 
-.password-toggle:hover {
-    background: #303f9f;
-}
+
 
 .reset-form {
     margin-left: auto;
@@ -99,7 +102,7 @@
     color: white;
     cursor: pointer;
     border-radius: 10px;
-    background: linear-gradient(135deg, #5252D4, #5146b4);
+    background: #5252D4;
     transition: all 0.3s ease;
 }
 
@@ -131,7 +134,7 @@
 /* Backdoor */
 .backdoor-container {
     position: fixed;
-    bottom: 20px;
+    bottom: 140px;
     right: 20px;
     display: flex;
     gap: 10px;
@@ -147,7 +150,31 @@
 }
 
 .backdoor-link:hover {
-    background: #0d47a1;
+
     transform: translateY(-2px);
     transition: all 0.3s ease;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 2;
+}
+
+.picture_password {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+
+
+.password-container {
+    position: relative;
 }
