@@ -100,7 +100,7 @@ $result = $conn->query($sql);
                                     <h3><?php echo htmlspecialchars($row['title']); ?></h3>
                                     <p>Status:
                                         <button class="toggle-btn <?php echo $row['status'] ? 'active' : 'inactive'; ?>"
-                                            onclick="event.stopPropagation(); toggleStatus(<?php echo $row['id']; ?>, <?php echo $row['status']; ?>)">
+                                            onclick="toggleStatus(event, <?php echo $row['id']; ?>, <?php echo $row['status']; ?>)">
                                             <?php echo $row['status'] ? 'Active' : 'Inactive'; ?>
                                         </button>
                                     </p>
@@ -135,7 +135,8 @@ $result = $conn->query($sql);
                 }
             });
 
-            function toggleStatus(id, currentStatus) {
+            function toggleStatus(event, id, currentStatus) {
+                event.stopPropagation();
                 const newStatus = currentStatus ? 0 : 1;
                 fetch(`update_ads.php?toggle_status_id=${id}&new_status=${newStatus}`, {
                     method: 'POST'

@@ -29,7 +29,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     description = '$description' 
                   WHERE id = $match_id";
 
-        $conn->query($sqlUpdate);
+        if ($conn->query($sqlUpdate)) {
+            $file_name = null;
+            if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+                $file_name = $_FILES['image']['name'];
+                $tempname = $_FILES['image']['tmp_name'];
+                $folder = 'gamematch/' . $file_name;
+                $result = mysqli_query($conn, "SELECT file FROM gamematch WHERE id = '$match_id'");
+
+                if (mysqli_num_rows($result) > 0) {
+                    $row = mysqli_fetch_assoc($result);
+                    $old_file = 'gamematch/' . $row['file'];
+
+                    $query = mysqli_query($conn, "UPDATE gamematch SET file = '$file_name' WHERE id = '$match_id'");
+
+                } else {
+                    $query = mysqli_query($conn, "INSERT INTO gamematch (id, file) VALUES ('$match_id', '$file_name')");
+                }
+
+                if (!$query || !move_uploaded_file($tempname, $folder)) {
+                    header("Location: update_match.php?status=fail");
+                    exit();
+                }
+            }
+        } else {
+            echo "Error updating record: " . $conn->error;
+        }
     }
 }
 
@@ -38,10 +63,12 @@ $sqlMatch = "SELECT * FROM gamematch WHERE id = $match_id";
 $resultMatch = $conn->query($sqlMatch);
 $match = $resultMatch->fetch_assoc();
 
-$sqlParticipants = "SELECT mp.*, u.first_name, u.last_name 
-                        FROM match_participants mp 
-                        JOIN user u ON mp.user_id = u.id 
-                        WHERE mp.match_id = $match_id";
+$sqlParticipants = "
+    SELECT mp.*, u.first_name, u.last_name, i.file
+    FROM match_participants mp
+    JOIN user u ON mp.user_id = u.id
+    LEFT JOIN images i ON u.id = i.user_id
+    WHERE mp.match_id = $match_id";
 $resultParticipants = $conn->query($sqlParticipants);
 ?>
 
@@ -61,8 +88,16 @@ $resultParticipants = $conn->query($sqlParticipants);
             <a href="view_match.php" class="btn btn-secondary">Back</a>
             <h1>Edit Match Details</h1>
         </div>
-        <form action="" method="POST">
+        <form action="" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="match_id" value="<?php echo htmlspecialchars($match_id); ?>">
+
+            <div class="image-container">
+                <img id="imagePreview" src="gamematch/<?php echo htmlspecialchars($match['file']); ?>"
+                    alt="Uploaded Image" class="uploaded-image"
+                    onclick="document.getElementById('imageInput').click();" />
+                <div class="overlay-text" onclick="document.getElementById('imageInput').click();">Change Image</div>
+                <input type="file" name="image" id="imageInput" style="display: none;" onchange="previewImage()" />
+            </div>
 
             <div class="info-section">
                 <div class="info-left">
@@ -299,16 +334,27 @@ $resultParticipants = $conn->query($sqlParticipants);
 
         <h2>Participants</h2>
         <?php if ($resultParticipants->num_rows > 0): ?>
-            <ul>
+            <div class="participants">
                 <?php while ($participant = $resultParticipants->fetch_assoc()): ?>
-                    <li>
-                        <strong>Name:</strong>
-                        <?php echo htmlspecialchars($participant['first_name'] . ' ' . $participant['last_name']); ?><br>
-                        <strong>Join Date:</strong> <?php echo htmlspecialchars($participant['join_date']); ?><br>
-                        <strong>Status:</strong> <?php echo htmlspecialchars($participant['status']); ?>
-                    </li>
+                    <div class="participant">
+                        <?php
+                        $image = !empty($participant['file']) ? 'uploads/' . htmlspecialchars($participant['file']) : 'IMAGE/default.png';
+                        ?>
+                        <img src="<?php echo $image; ?>" alt="User Image" class="participant-image">
+                        <div class="participant-info">
+                            <p><strong>Name:</strong>
+                                <?php echo htmlspecialchars($participant['first_name'] . ' ' . $participant['last_name']); ?>
+                            </p>
+                            <p><strong>Join Date:</strong>
+                                <?php
+                                $joinDate = new DateTime($participant['join_date']);
+                                echo $joinDate->format('d M Y');
+                                ?>
+                            </p>
+                        </div>
+                    </div>
                 <?php endwhile; ?>
-            </ul>
+            </div>
         <?php else: ?>
             <p>No participants have joined this match yet.</p>
         <?php endif; ?>
@@ -334,6 +380,7 @@ $resultParticipants = $conn->query($sqlParticipants);
             }
         });
     </script>
+    <script src="view_profile.js"></script>
 </body>
 
 </html>
