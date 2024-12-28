@@ -40,7 +40,7 @@ require("config.php"); // Include the database configuration file
     // Display session message if it exists
     if (isset($_SESSION['message'])) {
         echo "<p id='message' class='success-message'>" . $_SESSION['message'] . "</p>";
-        unset($_SESSION['message']); // Clear the message after displaying it
+        unset($_SESSION['message']);
     }
     ?>
 

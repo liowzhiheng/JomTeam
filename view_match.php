@@ -102,7 +102,7 @@ $result = $conn->query($sql);
                         echo "<td>";
                         echo "<form action='delete_match.php' method='POST' class='remove-form'>";
                         echo "<input type='hidden' name='id' value='" . htmlspecialchars($row["id"]) . "'>";
-                        echo "<input type='submit' value='Remove' class='remove-button' onclick='return confirm(\"Are you sure you want to delete this match?\")'>";
+                        echo "<input type='submit' value='Delete' class='remove-button' onclick='return confirm(\"Are you sure you want to delete this match?\")'>";
                         echo "</form>";
                         echo "</td>";
                         echo "</tr>";

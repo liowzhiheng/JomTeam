@@ -52,7 +52,7 @@ $result = mysqli_query($conn, $sql);
         </a>
 
         <ul class="menu leftmenu">
-        <li><a href="dashboard.php">Dashboard</a></li>
+            <li><a href="dashboard.php">Dashboard</a></li>
             <li><a href="view_user.php">Manage User</a></li>
             <li><a href="view_ads.php">Manage Ads</a></li>
             <li><a href="view_match.php">Manage Match</a></li>
@@ -66,6 +66,17 @@ $result = mysqli_query($conn, $sql);
                     out<img src="IMAGE/LOGOUT.png" alt="Logout"></a></li>
         </ul>
     </nav>
+
+    <?php
+    if (isset($_GET['status'])) {
+        $status = $_GET['status'];
+        if ($status === 'deleted') {
+            echo '<p id="message" class="message deleted">Feedback deleted successfully!</p>';
+        } elseif ($status === 'fail') {
+            echo '<p id="message" class="message fail">Something went wrong. Please try again.</p>';
+        }
+    }
+    ?>
 
     <h2>Manage Feedback & Report</h2>
     <div class="table-container">
@@ -91,6 +102,7 @@ $result = mysqli_query($conn, $sql);
                             <?= $sort === 'status' ? ($order === 'ASC' ? '▲' : '▼') : '' ?>
                         </a>
                     </th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -107,10 +119,16 @@ $result = mysqli_query($conn, $sql);
                         echo "<td>" . htmlspecialchars($row['rating']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['created_at']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['status']) . "</td>";
+                        echo "<td>";
+                        echo "<form action='delete_feedback.php' method='POST' class='remove-form' onsubmit='return confirm(\"Are you sure you want to delete this feedback?\");'>";
+                        echo "<input type='hidden' name='id' value='" . htmlspecialchars($row["id"]) . "'>";
+                        echo "<button type='submit' class='remove-button' onclick='event.stopPropagation();'>Delete</button>";
+                        echo "</form>";
+                        echo "</td>";
                         echo "</tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='7'>No feedback & report available</td></tr>";
+                    echo "<tr><td colspan='8'>No feedback & report available</td></tr>";
                 }
                 ?>
             </tbody>
@@ -142,6 +160,14 @@ $result = mysqli_query($conn, $sql);
         <button class="close-btn" onclick="closeModal(event)">Close</button>
     </div>
 
+    <script>
+        const messageElement = document.getElementById('message');
+        if (messageElement) {
+            setTimeout(() => {
+                messageElement.style.display = 'none';
+            }, 2000);
+        }
+    </script>
     <script src="view_feedback.js"></script>
 </body>
 

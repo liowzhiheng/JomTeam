@@ -39,7 +39,7 @@ if (isset($_GET['id'])) {
         $userStmt->bind_param("i", $id);
 
         if ($userStmt->execute()) {
-            $_SESSION['message'] = "User and related profile removed successfully!";
+            $_SESSION['message'] = "User and related profile deleted successfully!";
         } else {
             $_SESSION['message'] = "Error deleting user: " . $userStmt->error;
         }

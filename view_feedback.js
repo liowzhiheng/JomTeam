@@ -51,4 +51,4 @@ window.onload = function () {
         window.scrollTo(0, scrollPosition);
         localStorage.removeItem('scrollPosition');
     }
-};
+}
