@@ -1,8 +1,6 @@
 <?php
 session_start();
-
 require("config.php");
-
 
 if ($_SESSION["LEVEL"] == 1) {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -20,10 +18,23 @@ if ($_SESSION["LEVEL"] == 1) {
         }
     }
 
-    $conn->close();
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
 
+        $deleteSql = "DELETE FROM gamematch WHERE id = ?";
+        $matchStmt = $conn->prepare($deleteSql);
+        $matchStmt->bind_param("i", $id);
+        if ($matchStmt->execute()) {
+            header("Location: view_match.php?status=deleted");
+            exit();
+        } else {
+            header("Location: view_match.php?status=fail");
+            exit();
+        }
+    }
+    $conn->close();
     header("Location: view_match.php");
-}else{
+} else {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $id = $_POST['id'];
 
@@ -38,8 +49,6 @@ if ($_SESSION["LEVEL"] == 1) {
             exit();
         }
     }
-
     $conn->close();
 }
-
 exit();

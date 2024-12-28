@@ -80,6 +80,44 @@ h2 {
     margin: 0;
 }
 
+.function-box {
+    display: flex;
+    margin: 20px 100px;
+    gap: 5px;
+    justify-content: flex-start;
+}
+
+.search-form input[type="text"] {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 250px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+}
+
+.search-form input[type="text"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.search-form input[type="submit"] {
+    padding: 12px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-form input[type="submit"]:hover {
+    background-color: #38a6ef;
+}
+
+
 .table-container {
     background-color: #ffffff;
     border-radius: 15px;
@@ -101,7 +139,7 @@ table {
 
 th,
 td {
-    padding: 10px 15px;
+    padding: 9px 15px;
     text-align: center;
     white-space: nowrap;
     text-overflow: ellipsis;

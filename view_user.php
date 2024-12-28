@@ -159,7 +159,7 @@ require("config.php"); // Include the database configuration file
                         if ($row['level'] != 1) {
                             echo "<form action='delete_user.php' method='POST' class='remove-form'>";
                             echo "<input type='hidden' name='id' value='" . htmlspecialchars($row["id"]) . "'>";
-                            echo "<input type='submit' value='Remove' class='remove-button' onclick='return confirm(\"Are you sure you want to delete this user?\")'>";
+                            echo "<input type='submit' value='Delete' class='remove-button' onclick='return confirm(\"Are you sure you want to delete this user?\")'>";
                             echo "</form>";
                         }
                         echo "</td>";

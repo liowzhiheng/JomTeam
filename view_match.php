@@ -50,6 +50,24 @@ $result = $conn->query($sql);
     ?>
 
     <h2>Manage Match</h2>
+    <div class="function-box">
+        <form action="" method="GET" class="search-form">
+            <input type="text" name="search" placeholder="Search by match title"
+                value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+            <input type="submit" value="Search">
+        </form>
+    </div>
+
+    <?php
+    $search = isset($_GET['search']) ? $_GET['search'] : '';
+    $sql = "SELECT * FROM gamematch WHERE 1=1";
+    if (!empty($_GET['search'])) {
+        $search = $conn->real_escape_string($_GET['search']);
+        $sql .= " AND match_title LIKE '%$search%'";
+    }
+    $result = $conn->query($sql);
+    ?>
+
     <div class="table-container">
         <table>
             <thead>
@@ -71,7 +89,7 @@ $result = $conn->query($sql);
                 $counter = 1;
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
-                        echo "<tr class='select'>";
+                        echo "<tr class='select' onclick=\"document.getElementById('form_" . $row["id"] . "').submit();\">";
                         echo "<td>" . $counter++ . "</td>";
                         echo "<td>" . $row['match_title'] . "</td>";
                         echo "<td>" . $row['game_type'] . "</td>";
@@ -88,6 +106,9 @@ $result = $conn->query($sql);
                         echo "</form>";
                         echo "</td>";
                         echo "</tr>";
+                        echo "<form id='form_" . $row["id"] . "' action='update_match.php' method='POST' style='display: none;'>";
+                        echo "<input type='hidden' name='match_id' value='" . htmlspecialchars($row["id"]) . "'>";
+                        echo "</form>";
                     }
                 } else {
                     echo "<tr><td colspan='11'>No matchs found</td></tr>";

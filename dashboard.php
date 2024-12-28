@@ -20,7 +20,7 @@ $rowAds = $resultAds->fetch_assoc();
 $activeAds = $rowAds['active_ads'] ?? 0;
 
 //Matches
-$sqlMatches = "SELECT COUNT(*) AS upcoming_matches FROM gamematch WHERE start_date > CURDATE()";
+$sqlMatches = "SELECT COUNT(*) AS upcoming_matches FROM gamematch WHERE CONCAT(start_date, ' ', start_time) > NOW()";
 $resultMatches = $conn->query($sqlMatches);
 $rowMatches = $resultMatches->fetch_assoc();
 $upcomingMatches = $rowMatches['upcoming_matches'] ?? 0;
@@ -162,20 +162,6 @@ $resultRecentFeedback = $conn->query($sqlRecentFeedback);
                             </p>
                         </div>
                     <?php } ?>
-                </div>
-            </div>
-        </section>
-
-        <section class="details">
-            <h2>Detailed Insights</h2>
-            <div class="details-grid">
-                <div class="details-item">
-                    <h3>User Logins</h3>
-                    <p>Display a table or graph of recent user login activity here.</p>
-                </div>
-                <div class="details-item">
-                    <h3>Ad Performance</h3>
-                    <p>Include details or graphs about ad performance metrics.</p>
                 </div>
             </div>
         </section>
