@@ -16,20 +16,23 @@ $user_id = $_SESSION["ID"];
 
 require("config.php");
 
-$query = "
-    SELECT 
-        u.first_name, 
-        u.last_name, 
-        u.gender, 
-        u.phone
-    FROM 
-        user u 
-    WHERE 
-        u.id = '$user_id'
-";
+// Fetch user data
+$query = "SELECT first_name, last_name, gender, phone, premium FROM user WHERE id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
 
-$result = mysqli_query($conn, $query);
-$rows = mysqli_fetch_assoc($result);
+if ($result->num_rows > 0) {
+    $user = $result->fetch_assoc();
+    $premium_status = $user['premium'];
+} else {
+    echo "User not found.";
+    exit();
+}
+
+$stmt->close();
+$conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,52 +40,86 @@ $rows = mysqli_fetch_assoc($result);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Your Own Match</title>
+    <title>JOM Premium</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="premium.css">
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="footer.css">
-
 </head>
 
 <body>
     <?php include('navbar.php'); ?>
 
-    <div class="profile-content">
-        <h1 class="profile-title">JOM Premium!</h1>
-        <p class="profile-description">
-            With JOM Premium, you can unlock exclusive tools, and personalized tools.<br> Take control of your journey
-            and experience success like never before.
-        </p>
-    </div>
+    <?php if (isset($premium_status) && $premium_status == 1): ?>
 
-    <div class="ads">
-        <div class="adsfree-container">
-            <img class="adsfree" src="IMAGE/ads_free_2.png" />
-            <img class="adsfree-hover" src="IMAGE/hover_image.png" alt="Hover Image">
-            <h1 class="profile-title_adsfree">ADS Free</h1>
+        <div class="profile-content">
+            <h1 class="profile-title">JOM Premium!</h1>
+            <p class="profile-description">
+                With JOM Premium, you can unlock exclusive tools, and personalized tools.<br>
+                Take control of your journey and experience success like never before.
+            </p>
         </div>
-        <div class="adsfree-container">
-            <img class="time" src="IMAGE/time.png" />
-            <img class="time-hover" src="IMAGE/hover_image_2.png" alt="Hover Image">
-            <h1 class="profile-title_time">Extent Time</h1>
+
+        <div class="ads">
+            <div class="adsfree-container">
+                <img class="adsfree" src="IMAGE/ads_free_2.png" />
+                <img class="adsfree-hover" src="IMAGE/hover_image.png" alt="Hover Image">
+                <h1 class="profile-title_adsfree">ADS Free</h1>
+            </div>
+            <div class="adsfree-container">
+                <img class="time" src="IMAGE/time.png" />
+                <img class="time-hover" src="IMAGE/hover_image_2.png" alt="Hover Image">
+                <h1 class="profile-title_time">Extend Time</h1>
+            </div>
         </div>
-    </div>
 
+        <div class="profile-content">
+            <a href="cancel_premium.php">
+                <img class="get_premium" src="IMAGE/cancel_premium.png" alt="Cancel Premium" />
+            </a>
+            <h1 class="ads-profile-title">🎉 You are a Premium Member! Enjoy your exclusive benefits! 🌟</h1>
+        </div>
+    <?php else: ?>
+        <div class="profile-content">
+            <h1 class="profile-title">JOM Premium!</h1>
+            <p class="profile-description">
+                With JOM Premium, you can unlock exclusive tools, and personalized tools.<br>
+                Take control of your journey and experience success like never before.
+            </p>
+        </div>
 
-    <div class="profile-content">
-        <a href="payment.php">
-            <img class="get_premium" src="IMAGE/get_premium.png" alt="Get Premium" />
-            
-        </a>
+        <div class="ads">
+            <div class="adsfree-container">
+                <img class="adsfree" src="IMAGE/ads_free_2.png" />
+                <img class="adsfree-hover" src="IMAGE/hover_image.png" alt="Hover Image">
+                <h1 class="profile-title_adsfree">ADS Free</h1>
+            </div>
+            <div class="adsfree-container">
+                <img class="time" src="IMAGE/time.png" />
+                <img class="time-hover" src="IMAGE/hover_image_2.png" alt="Hover Image">
+                <h1 class="profile-title_time">Extend Time</h1>
+            </div>
+        </div>
 
-        <h1 class="ads-profile-title">Just RM 2.00 / month!<br>No commitments, no worries<br>cancel anytime!</h1>
-
-
-    </div>
-
-    <?php mysqli_close($conn); ?>
+        <div class="profile-content">
+            <a href="payment.php">
+                <img class="get_premium" src="IMAGE/get_premium.png" alt="Get Premium" />
+            </a>
+            <h1 class="ads-profile-title">Just RM 2.00 / month!<br>No commitments, no worries, cancel anytime!</h1>
+        </div>
+    <?php endif; ?>
 </body>
+
+<script>
+    function cancelPremium() {
+        if (confirm("Are you sure you want to cancel your premium subscription?")) {
+            fetch('cancel_premium.php');
+        }
+    }
+</script>
+
+
+
 
 <!-- footer-->
 <footer>

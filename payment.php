@@ -53,13 +53,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["pay_now"])) {
     if ($updateStmt->execute()) {
         // Update session with new premium status
         $_SESSION["premium"] = $new_premium_status;
-
-        // Redirect to a success page (or just refresh the page)
-        header("Location: " . $_SERVER['PHP_SELF']);
+    
+        // Redirect to a success page
+        header("Location: success.php");
         exit();
     } else {
         echo "Error updating premium status: " . $conn->error;
     }
+    
 
     $updateStmt->close();
 }
@@ -150,6 +151,7 @@ $conn->close();
                             </div>
                         </div>
                         <div class="row justify-content-center">
+                        
                             <div>
                                 <input type="submit" name="pay_now" value="Pay Now" class="btn btn-pay placeicon">
                             </div>

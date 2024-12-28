@@ -1,9 +1,38 @@
 <?php
 session_start();
-require('config.php');
 
-// Show success message and redirect options
+// Check if the user is logged in
+if ($_SESSION["Login"] != "YES") {
+    header("Location: index.php");
+    exit();
+}
+
+// Check if USER_ID is set
+if (!isset($_SESSION["ID"])) {
+    echo "User ID is not set in the session.";
+    exit();
+}
+
+$user_id = $_SESSION["ID"];
+
+require("config.php");
+
+// Update the user's premium status to 0
+$query = "UPDATE user SET premium = 0 WHERE id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $user_id);
+
+// Execute the statement
+if ($stmt->execute()) {
+    
+} else {
+    echo "Error: " . $stmt->error;
+}
+
+$stmt->close();
+
 ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -38,7 +67,7 @@ require('config.php');
 <body>
     <div class="background"></div>
     <div class="container">
-        <h2>Hi! <strong><?php echo htmlspecialchars($_SESSION["USER"]); ?></strong><br>You are premium now babe.❤️</h2>
+        <h2>Hi! <strong><?php echo htmlspecialchars($_SESSION["USER"]); ?></strong><br>You are not premium now babe.💔</h2>
         <img id="randomImage" alt="Login Successful" class="login-image" />
     </div>
 </body>
@@ -47,6 +76,5 @@ require('config.php');
 
 </html>
 <?php
-
 mysqli_close($conn);
 ?>
