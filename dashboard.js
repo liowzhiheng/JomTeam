@@ -4,8 +4,8 @@ const Users = {
         label: 'User Activity',
         data: [activeUsersPercentage, inactiveUsersPercentage],
         backgroundColor: [
-            'rgba(82, 82, 212, 0.7)', // Active Users color
-            'rgba(200, 200, 200, 0.7)' // Inactive Users color
+            'rgba(82, 82, 212, 0.7)',
+            'rgba(200, 200, 200, 0.7)'
         ],
         borderColor: [
             'rgba(82, 82, 212, 1)',
@@ -15,13 +15,19 @@ const Users = {
     }]
 };
 
-const activeAdsData = {
-    labels: ['Active Ads'],
+const Ads = {
+    labels: ['Active Ads', 'Inactive Ads'],
     datasets: [{
         label: 'Active Ads',
-        data: [activeAds],
-        backgroundColor: 'rgba(54, 162, 235, 0.5)',
-        borderColor: 'rgba(54, 162, 235, 1)',
+        data: [activeAdsPercentage, inactiveAdsPercentage],
+        backgroundColor: [
+            'rgba(54, 162, 235, 0.7)',
+            'rgba(200, 200, 200, 0.7)'
+        ],
+        borderColor: [
+            'rgba(54, 162, 235, 1)',
+            'rgba(200, 200, 200, 1)'
+        ],
         borderWidth: 2
     }]
 };
@@ -69,10 +75,10 @@ const activeUsersChart = new Chart(UsersCtx, {
     }
 });
 
-const activeAdsCtx = document.getElementById('activeAdsChart').getContext('2d');
-const activeAdsChart = new Chart(activeAdsCtx, {
-    type: 'bar',
-    data: activeAdsData,
+const AdsCtx = document.getElementById('activeAdsChart').getContext('2d');
+const activeAdsChart = new Chart(AdsCtx, {
+    type: 'pie',
+    data: Ads,
     options: {
         responsive: true,
         plugins: {
@@ -80,7 +86,11 @@ const activeAdsChart = new Chart(activeAdsCtx, {
                 position: 'bottom',
             },
             tooltip: {
-                enabled: true,
+                callbacks: {
+                    label: function (tooltipItem) {
+                        return tooltipItem.label + ': ' + tooltipItem.raw.toFixed(2) + '%';
+                    }
+                }
             }
         }
     }

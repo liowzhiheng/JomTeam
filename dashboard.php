@@ -14,6 +14,11 @@ $rowUsers = $resultUsers->fetch_assoc();
 $activeUsers = $rowUsers['active_users'] ?? 0;
 
 //Ads
+$sqlTotalAds = "SELECT COUNT(*) AS total_ads FROM ads";
+$resultTotalAds = $conn->query($sqlTotalAds);
+$rowTotalAds = $resultTotalAds->fetch_assoc();
+$totalAds = $rowTotalAds['total_ads'] ?? 0;
+
 $sqlAds = "SELECT COUNT(*) AS active_ads FROM ads WHERE status = 1";
 $resultAds = $conn->query($sqlAds);
 $rowAds = $resultAds->fetch_assoc();
@@ -61,7 +66,10 @@ $resultRecentFeedback = $conn->query($sqlRecentFeedback);
         const activeUsers = <?php echo $activeUsers; ?>;
         const activeUsersPercentage = totalUsers > 0 ? (activeUsers / totalUsers) * 100 : 0;
         const inactiveUsersPercentage = 100 - activeUsersPercentage;
+        const totalAds = <?php echo $totalAds; ?>;
         const activeAds = <?php echo $activeAds; ?>;
+        const activeAdsPercentage = totalAds > 0 ? (activeAds / totalAds) * 100 : 0;
+        const inactiveAdsPercentage = 100 - activeAdsPercentage;
         const upcomingMatches = <?php echo $upcomingMatches; ?>;
         const newFeedback = <?php echo $newFeedback; ?>;
     </script>
