@@ -6,8 +6,14 @@ $userID = $_SESSION["ID"];
 
 // Check if the notification has been marked as seen
 if (isset($_POST['notification_seen'])) {
-    // Update the status of notifications as seen but don't delete from the database
+    // Update the status of friend requests as seen
     $stmt = $conn->prepare("UPDATE friend_requests SET status = 'seen' WHERE receiver_id = ? AND status = 'pending'");
+    $stmt->bind_param("i", $userID);
+    $stmt->execute();
+    $stmt->close();
+
+    // Update the status of match requests as seen
+    $stmt = $conn->prepare("UPDATE match_request SET status = 'seen' WHERE match_id IN (SELECT match_id FROM gamematch WHERE user_id = ?) AND status = 'pending'");
     $stmt->bind_param("i", $userID);
     $stmt->execute();
     $stmt->close();
@@ -16,7 +22,7 @@ if (isset($_POST['notification_seen'])) {
     $_SESSION['notification_seen'] = true;
 }
 
-// Query to fetch sender's name, profile image, and request date
+// Query for pending friend requests
 $stmt = $conn->prepare("
     SELECT user.id AS sender_id, user.first_name, user.last_name, friend_requests.created_at, friend_requests.status
     FROM friend_requests
@@ -27,11 +33,11 @@ $stmt->bind_param("i", $userID);
 $stmt->execute();
 $result = $stmt->get_result();
 
-// Initialize array to store pending requests
+// Initialize array to store pending friend requests
 $pendingRequests = [];
-$pendingCount = 0;  // Variable to store the count of pending requests
+$pendingCount = 0;
 
-// Fetch all pending requests
+// Fetch all pending friend requests
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $pendingRequests[] = [
@@ -39,13 +45,42 @@ if ($result->num_rows > 0) {
             'sender_name' => $row['first_name'] . ' ' . $row['last_name'],
             'created_at' => $row['created_at']
         ];
-        $pendingCount++;  // Increment the count for each pending request
+        $pendingCount++;
+    }
+}
+
+// Query for pending match requests
+$stmt = $conn->prepare("
+    SELECT user.id AS sender_id, user.first_name, user.last_name, match_request.match_id, gamematch.match_title
+    FROM match_request
+    JOIN user ON match_request.request_user_id = user.id
+    JOIN gamematch ON match_request.match_id = gamematch.id
+    WHERE match_request.status = 'pending' AND gamematch.user_id = ?
+");
+$stmt->bind_param("i", $userID);
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Initialize array to store pending match requests
+$pendingMatchRequests = [];
+$pendingMatchCount = 0;
+
+// Fetch all pending match requests
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $pendingMatchRequests[] = [
+            'sender_id' => $row['sender_id'],
+            'sender_name' => $row['first_name'] . ' ' . $row['last_name'],
+            'match_title' => $row['match_title']
+        ];
+        $pendingMatchCount++;
     }
 }
 
 // Close the statement
 $stmt->close();
 ?>
+
 
 <nav class="navbar">
     <a href="main.php" class="logo">
@@ -63,9 +98,9 @@ $stmt->close();
     <ul class="menu rightmenu">
         <li><a href="history.php">Match Activity</a></li>
         <li class="notification">
-            <a href="javascript:void(0);" onclick="showFriendRequests()">
+            <a href="javascript:void(0);" onclick="showNotifications()">
                 <img src="IMAGE/NOTIFICATION.png" alt="Notification">
-                <?php if ($pendingCount > 0 && !isset($_SESSION['notification_seen'])): ?>
+                <?php if (($pendingCount + $pendingMatchCount) > 0 && !isset($_SESSION['notification_seen'])): ?>
                     <span class="red-dot"></span>
                 <?php endif; ?>
             </a>
@@ -108,73 +143,74 @@ $stmt->close();
 
 <script>
     function confirmLogout() {
-        var confirmation = confirm("Are you sure you want to logout?");
-        if (confirmation) {
-            window.location.href = "logout.php";
-        }
+    var confirmation = confirm("Are you sure you want to logout?");
+    if (confirmation) {
+        window.location.href = "logout.php";
+    }
+}
+
+function showNotifications() {
+    const pendingRequests = <?php echo json_encode($pendingRequests); ?>;
+    const pendingMatchRequests = <?php echo json_encode($pendingMatchRequests); ?>;
+    const pendingCount = <?php echo $pendingCount; ?>;
+    const pendingMatchCount = <?php echo $pendingMatchCount; ?>;
+
+    // If there are no pending requests, show 'No new notifications' message
+    if (pendingCount === 0 && pendingMatchCount === 0) {
+        document.getElementById('friendRequestsContent').innerHTML = '<p>No new notifications</p>';
+        document.getElementById('friendRequestsModal').style.display = 'block';
+        return; // Stop execution if no requests
     }
 
-    function closeModal() {
-        document.getElementById('friendRequestsModal').style.display = 'none';
+    let requestsContent = '';
+
+    // Display friend requests
+    pendingRequests.forEach(function (request) {
+        requestsContent += `
+            <div class="request-item">
+                <p>${request.sender_name} is sending a friend request to you.</p>
+            </div>
+        `;
+    });
+
+    // Display match requests
+    pendingMatchRequests.forEach(function (matchRequest) {
+        requestsContent += `
+            <div class="request-item">
+                <p>${matchRequest.sender_name} is requesting to join your match "${matchRequest.match_title}".</p>
+            </div>
+        `;
+    });
+
+    document.getElementById('friendRequestsContent').innerHTML = requestsContent;
+    document.getElementById('friendRequestsModal').style.display = 'block';
+
+    // Send AJAX request to mark all notifications as seen (both friend and match)
+    fetch(window.location.href, {
+        method: 'POST',
+        body: new URLSearchParams('notification_seen=true')
+    }).then(response => {
         document.querySelector('.red-dot').style.display = 'none';  // Hide the red dot
-
-        fetch(window.location.href, {  // Send AJAX request to mark as seen
-            method: 'POST',
-            body: new URLSearchParams('notification_seen=true')
-        }).then(response => {
-            console.log('Notification marked as seen');
-        }).catch(error => {
-            console.error('Error:', error);
-        });
-    }
-
-    document.querySelector('.close-btn').addEventListener('click', closeModal);
-
-    function showFriendRequests() {
-        const pendingRequests = <?php echo json_encode($pendingRequests); ?>;
-        const pendingCount = <?php echo $pendingCount; ?>;
-
-        if (pendingCount > 0) {
-            let requestsContent = '';
-            // Populate the modal with friend requests
-            pendingRequests.forEach(function (request) {
-                requestsContent += `
-                    <div class="request-item">
-                        <p>${request.sender_name} is sending a friend request to you.</p>
-                    </div>
-                `;
-            });
-
-            document.getElementById('friendRequestsContent').innerHTML = requestsContent;
-            document.getElementById('friendRequestsModal').style.display = 'block';
-        } else {
-            // If no pending requests, show 'It's empty' message
-            document.getElementById('friendRequestsContent').innerHTML = '<p></p>';
-            document.getElementById('friendRequestsModal').style.display = 'block';
-        }
-
-        // Send AJAX request to mark notification as seen
-        fetch(window.location.href, {
-            method: 'POST',
-            body: new URLSearchParams('notification_seen=true')
-        }).then(response => {
-            document.querySelector('.red-dot').style.display = 'none';
-        }).catch(error => {
-            console.error('Error:', error);
-        });
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-        const notificationSeen = <?php echo isset($_SESSION['notification_seen']) ? 'true' : 'false'; ?>;
-        if (notificationSeen) {
-            document.querySelector('.red-dot').style.display = 'none';
-        }
+    }).catch(error => {
+        console.error('Error:', error);
     });
+}
 
-    document.addEventListener('DOMContentLoaded', function () {
-        const notificationSeen = <?php echo isset($_SESSION['notification_seen']) ? 'true' : 'false'; ?>;
-        if (notificationSeen) {
-            document.querySelector('.red-dot').style.display = 'none';
-        }
+function closeModal() {
+    document.getElementById('friendRequestsModal').style.display = 'none';
+    document.querySelector('.red-dot').style.display = 'none';  // Hide the red dot
+
+    // Send AJAX request to mark all notifications as seen
+    fetch(window.location.href, {  // Send AJAX request to mark as seen
+        method: 'POST',
+        body: new URLSearchParams('notification_seen=true')
+    }).then(response => {
+        console.log('Notification marked as seen');
+    }).catch(error => {
+        console.error('Error:', error);
     });
+}
+
+document.querySelector('.close-btn').addEventListener('click', closeModal);
+document.querySelector('.notification a').addEventListener('click', showNotifications);
 </script>
