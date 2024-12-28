@@ -53,14 +53,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["pay_now"])) {
     if ($updateStmt->execute()) {
         // Update session with new premium status
         $_SESSION["premium"] = $new_premium_status;
-    
+
         // Redirect to a success page
         header("Location: success.php");
         exit();
     } else {
         echo "Error updating premium status: " . $conn->error;
     }
-    
+
 
     $updateStmt->close();
 }
@@ -71,6 +71,7 @@ $conn->close();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -80,6 +81,7 @@ $conn->close();
     <link rel="stylesheet" href="footer.css">
     <link rel="stylesheet" href="payment.css">
 </head>
+
 <body>
     <?php include('navbar.php'); ?>
 
@@ -94,28 +96,23 @@ $conn->close();
                     </div>
                     <form method="POST" class="form-card">
                         <!-- Payment form content -->
-                        <div class="row justify-content-center mb-4 radio-group">
-                            <div class="col-sm-3 col-5">
-                                <div class='radio selected mx-auto' data-value="dk">
+                        <div class="row justify-content-center mb-4">
+                            <div class="d-flex flex-row justify-content-center radio-group">
+                                <div class="radio selected mx-2" data-value="dk">
                                     <img class="fit-image" src="IMAGE/card2.jpg" width="105px" height="55px">
                                 </div>
-                            </div>
-                            <div class="col-sm-3 col-5">
-                                <div class='radio mx-auto' data-value="visa">
+                                <div class="radio mx-2" data-value="visa">
                                     <img class="fit-image" src="IMAGE/card1.jpg" width="105px" height="55px">
                                 </div>
-                            </div>
-                            <div class="col-sm-3 col-5">
-                                <div class='radio mx-auto' data-value="master">
+                                <div class="radio mx-2" data-value="master">
                                     <img class="fit-image" src="IMAGE/card3.jpg" width="105px" height="55px">
                                 </div>
-                            </div>
-                            <div class="col-sm-3 col-5">
-                                <div class='radio mx-auto' data-value="paypal">
+                                <div class="radio mx-2" data-value="paypal">
                                     <img class="fit-image" src="IMAGE/card4.png" width="105px" height="55px">
                                 </div>
                             </div>
                         </div>
+
                         <div class="row justify-content-center">
                             <div>
                                 <div class="input-group">
@@ -127,7 +124,8 @@ $conn->close();
                         <div class="row justify-content-center">
                             <div>
                                 <div class="input-group">
-                                    <input type="text" id="cr_no" name="card-no" placeholder="0000 0000 0000 0000" minlength="19" maxlength="19">
+                                    <input type="text" id="cr_no" name="card-no" placeholder="0000 0000 0000 0000"
+                                        minlength="19" maxlength="19">
                                     <label>Card Number</label>
                                 </div>
                             </div>
@@ -137,13 +135,15 @@ $conn->close();
                                 <div class="row">
                                     <div>
                                         <div class="input-group">
-                                            <input type="text" id="exp" name="expdate" placeholder="MM/YY" minlength="5" maxlength="5">
+                                            <input type="text" id="exp" name="expdate" placeholder="MM/YY" minlength="5"
+                                                maxlength="5">
                                             <label>Expiry Date</label>
                                         </div>
                                     </div>
                                     <div>
                                         <div class="input-group">
-                                            <input type="password" name="cvv" placeholder="&#9679;&#9679;&#9679;" minlength="3" maxlength="3">
+                                            <input type="password" name="cvv" placeholder="&#9679;&#9679;&#9679;"
+                                                minlength="3" maxlength="3">
                                             <label>CVV</label>
                                         </div>
                                     </div>
@@ -151,7 +151,7 @@ $conn->close();
                             </div>
                         </div>
                         <div class="row justify-content-center">
-                        
+
                             <div>
                                 <input type="submit" name="pay_now" value="Pay Now" class="btn btn-pay placeicon">
                             </div>
@@ -174,6 +174,7 @@ $conn->close();
 
     <?php mysqli_close($conn); ?>
 </body>
+
 </html>
 
 
