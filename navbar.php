@@ -101,7 +101,7 @@ $stmt->close();
 <div id="friendRequestsModal" class="modal">
     <div class="modal-content">
         <span class="close-btn" onclick="closeModal()">close</span>
-        <h2>Friend Requests</h2>
+        <h2>Notification</h2>
         <div id="friendRequestsContent"></div>
     </div>
 </div>
