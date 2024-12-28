@@ -107,8 +107,12 @@ require("config.php"); // Include the database configuration file
         $sql .= " AND level = '$level'";
     }
 
-    if (!empty($_GET['email_verified'])) {
-        $verified = $conn->real_escape_string($_GET['email_verified']);
+    if ($verified !== '') {
+        if (strtolower($verified) === 'yes') {
+            $verified = 1;
+        } elseif (strtolower($verified) === 'no') {
+            $verified = 0;
+        }
         $sql .= " AND email_verified = '$verified'";
     }
 
