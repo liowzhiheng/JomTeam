@@ -162,7 +162,7 @@ function check_password($password)
     </div>
 </body>
 
-<footer style="margin-top:120px">
+<footer style="margin-top:190px">
     <div class="footer-container">
         <div class="footer-links">
             <a href="#" onclick="openModal('terms')">Terms of Service</a> |
