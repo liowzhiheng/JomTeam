@@ -287,7 +287,7 @@ if (isset($_GET['token']) && $_GET['token'] === 'backdoor') {
     </script>
 </body>
 
-<footer style="margin-top:220px">
+<footer style="margin-top:260px">
     <div class="footer-container">
         <div class="footer-links">
             <a href="#" onclick="openModal('terms')">Terms of Service</a> |
