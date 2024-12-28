@@ -15,7 +15,6 @@ if (!isset($_SESSION["ID"])) {
 
 require("config.php");
 
-// Fetch user and profile data
 $user_id = $_SESSION['ID'];
 
 $query = "
@@ -26,6 +25,7 @@ $query = "
         u.email, 
         u.password,
         u.phone, 
+        u.premium,
         p.status, 
         p.description, 
         p.location, 
@@ -115,29 +115,41 @@ $rows = mysqli_fetch_assoc($result);
         </p>
         <form action="update_profile.php" method="post" enctype="multipart/form-data">
             <div class="profile-container">
-                <!-- Image Section -->
-                <div class="profile-left">
-                    <div class="uploaded-images">
-                        <?php
-                        $res = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $_SESSION["ID"]);
-                        while ($row = mysqli_fetch_assoc($res)) {
-                            if (empty($row['file'])) {
-                                echo '<div class="image-container">
-                    <img id="imagePreview" src="IMAGE/default.png" alt="Default Image" class="uploaded-image" onclick="document.getElementById(\'imageInput\').click();"/>
-                    <div class="overlay-text" onclick="document.getElementById(\'imageInput\').click();">Upload Image</div>
-                </div>';
-                            } else {
-                                echo '<div class="image-container">
-                    <img id="imagePreview" src="uploads/' . $row['file'] . '" alt="Uploaded Image" class="uploaded-image" onclick="document.getElementById(\'imageInput\').click();"/>
-                    <div class="overlay-text" onclick="document.getElementById(\'imageInput\').click();">Change Image</div>
-                </div>';
-                            }
-                        }
-                        ?>
-                        <input type="file" name="image" id="imageInput" style="display: none;"
-                            onchange="previewImage()" />
-                    </div>
-                </div>
+
+        <!-- Image Section -->
+        <div class="profile-left">
+            <div class="uploaded-images">
+                <?php
+                $res = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $_SESSION["ID"]);
+                while ($row = mysqli_fetch_assoc($res)) {
+                    if (empty($row['file'])) {
+                        if ($rows['premium']): ?>
+                            <div class="premium-profile-frame">
+                        <?php endif; ?>
+                        <div class="image-container">
+                            <img id="imagePreview" src="IMAGE/default.png" alt="Default Image" class="uploaded-image" onclick="document.getElementById('imageInput').click();"/>
+                            <div class="overlay-text" onclick="document.getElementById('imageInput').click();">Upload Image</div>
+                        </div>
+                        <?php if ($rows['premium']): ?>
+                            </div>
+                        <?php endif; ?>
+                    <?php } else { 
+                        if ($rows['premium']): ?>
+                            <div class="premium-profile-frame">
+                        <?php endif; ?>
+                        <div class="image-container">
+                            <img id="imagePreview" src="uploads/<?php echo $row['file']; ?>" alt="Uploaded Image" class="uploaded-image" onclick="document.getElementById('imageInput').click();"/>
+                            <div class="overlay-text" onclick="document.getElementById('imageInput').click();">Change Image</div>
+                        </div>
+                        <?php if ($rows['premium']): ?>
+                            </div>
+                        <?php endif; ?>
+                    <?php }
+                }
+                ?>
+                <input type="file" name="image" id="imageInput" style="display: none;" onchange="previewImage()" />
+            </div>
+        </div>
 
                 <!-- Info Section -->
                 <div class="profile-right">
