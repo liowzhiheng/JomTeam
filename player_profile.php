@@ -32,7 +32,7 @@ while ($row = $diagnosticResult->fetch_assoc()) {
 }
 
 // Fetch user basic information
-$userQuery = "SELECT id, first_name, last_name, email, gender, birth_date, phone FROM user WHERE id = ?";
+$userQuery = "SELECT id, first_name, last_name, email, gender, birth_date, phone, premium FROM user WHERE id = ?";
 $userStmt = $conn->prepare($userQuery);
 $userStmt->bind_param("i", $profile_user_id);
 $userStmt->execute();
@@ -211,11 +211,21 @@ if (isset($_POST['unfollow'])) {
 
         <div class="profile-header">
 
-            <div class="uploaded-images">
-                <img id="imagePreview"
-                    src="<?php echo !empty($profilePicture) ? 'uploads/' . htmlspecialchars($profilePicture) : 'IMAGE/default.png'; ?>"
-                    alt="Profile Picture" class="profile-image">
-            </div>
+        <div class="uploaded-images">
+            <?php if ($user['premium']): ?>
+                <div class="premium-profile-frame">
+                    <div class="inner-ring"></div>
+            <?php endif; ?>
+                    <div class="image-container">
+                        <img id="imagePreview"
+                            src="<?php echo !empty($profilePicture) ? 'uploads/' . htmlspecialchars($profilePicture) : 'IMAGE/default.png'; ?>"
+                            alt="Profile Picture" 
+                            class="profile-image">
+                    </div>
+            <?php if ($user['premium']): ?>
+                </div>
+            <?php endif; ?>
+        </div>
 
             <h1><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></h1>
 
@@ -248,7 +258,7 @@ if (isset($_POST['unfollow'])) {
                     <!-- If not a friend and no friend request sent -->
                     <form action="player_profile.php?id=<?php echo $profile_user_id; ?>&match_id=<?php echo $match_id; ?>"
                         method="POST">
-                        <button name="add_friend" class="follow-button">Add Friend</button>
+                        <button name="add_friend" class="follow-button">Follow</button>
                     </form>
                 <?php elseif ($friend_request_sent): ?>
                     <!-- If friend request has been sent -->
@@ -260,7 +270,7 @@ if (isset($_POST['unfollow'])) {
                     <!-- If already friends -->
                     <form action="player_profile.php?id=<?php echo $profile_user_id; ?>&match_id=<?php echo $match_id; ?>"
                         method="POST">
-                        <button name="unfollow" class="following-button">Friend</button>
+                        <button name="unfollow" class="following-button">Following</button>
                     </form>
                 <?php endif; ?>
             </div>

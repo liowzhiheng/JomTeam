@@ -100,6 +100,7 @@ body {
     font-size: 2.5em;
     color: #333;
     margin: 1px 0;
+    margin-top: 20px;
 }
 
 .profile-rating span {
@@ -370,3 +371,119 @@ button[type="submit"]:hover {
     color: #2c3e50c2;
  
 }
+
+/* Premium profile frame animation */
+.premium-profile-frame {
+    position: relative;
+    display: inline-block;
+}
+
+/* Outer light neon ring with enhanced visibility */
+.premium-profile-frame::before {
+    content: '';
+    position: absolute;
+    top: -35px;
+    left: -35px;
+    right: -35px;
+    bottom: -35px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, 
+        #e6feff,
+        #00e6ff,
+        #0099ff,
+        #00b3ff,
+        #0077ff,
+        #00e6ff,
+        #e6feff,
+        #0099ff
+    );
+    z-index: -3;
+    animation: rotate 2s linear infinite, shine 1s infinite;
+    box-shadow: 
+        0 0 60px rgba(0, 230, 255, 0.9),
+        0 0 100px rgba(0, 153, 255, 0.8),
+        0 0 140px rgba(0, 179, 255, 0.7),
+        inset 0 0 70px rgba(0, 230, 255, 0.9),
+        inset 0 0 100px rgba(0, 153, 255, 0.8);
+}
+
+/* Middle blue ring with increased intensity */
+.premium-profile-frame::after {
+    content: '';
+    position: absolute;
+    top: -25px;
+    left: -25px;
+    right: -25px;
+    bottom: -25px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, 
+        #00e6ff,
+        #0099ff,
+        #00b3ff,
+        #0077ff,
+        #00e6ff,
+        #0099ff,
+        #00e6ff,
+        #0099ff
+    );
+    filter: blur(15px);
+    z-index: -2;
+    animation: rotate 2s linear infinite reverse, shine 1s infinite 0.3s;
+    opacity: 0.9;
+    box-shadow: 
+        0 0 80px rgba(0, 230, 255, 0.9),
+        0 0 120px rgba(0, 153, 255, 0.8),
+        inset 0 0 90px rgba(0, 230, 255, 0.9);
+}
+
+/* Inner glow ring with enhanced vibrancy */
+.inner-ring {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    right: -15px;
+    bottom: -15px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, 
+        #00e6ff,
+        #0099ff,
+        #00b3ff,
+        #0077ff,
+        #00e6ff,
+        #0099ff,
+        #00e6ff,
+        #0099ff
+    );
+    z-index: -1;
+    animation: rotate 2s linear infinite, shine 1s infinite 0.6s;
+    box-shadow: 
+        0 0 50px rgba(0, 230, 255, 1),
+        0 0 80px rgba(0, 153, 255, 0.9),
+        0 0 110px rgba(0, 179, 255, 0.8),
+        inset 0 0 50px rgba(0, 230, 255, 1),
+        inset 0 0 80px rgba(0, 153, 255, 0.9);
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes shine {
+    0% { opacity: 1; filter: brightness(1.2); }
+    50% { opacity: 0.8; filter: brightness(1); }
+    100% { opacity: 1; filter: brightness(1.2); }
+}
+
+.premium-profile-frame .profile-image {
+    position: relative;
+    z-index: 1;
+    border: 7px solid #00e6ff;
+    box-shadow: 
+        0 0 45px rgba(0, 230, 255, 1),
+        0 0 75px rgba(0, 153, 255, 0.9),
+        0 0 105px rgba(0, 179, 255, 0.8),
+        inset 0 0 45px rgba(0, 230, 255, 0.9);
+}
+
