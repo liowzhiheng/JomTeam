@@ -68,7 +68,7 @@ $stmt->close();
     <div class="background"></div>
     <div class="container">
         <h2>Hi! <strong><?php echo htmlspecialchars($_SESSION["USER"]); ?></strong><br>You are not premium now babe.💔</h2>
-        <img src="why.jpg" />
+        <img src="IMAGE/why.jpg" />
     </div>
 </body>
 <script src="random_pic.js"></script>
