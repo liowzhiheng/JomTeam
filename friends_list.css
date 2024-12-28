@@ -266,7 +266,7 @@ a:hover {
     border-bottom-left-radius: 0px;
     /* Bottom-left corner */
     background-color: #3E3EB0;
-    transform: translate(887px, -110px);
+    transform: translate(900px, -110px);
     /* Maintain the same Y position (101px) */
     width: 170px;
     /* Adjust the width to make it longer */
@@ -318,7 +318,7 @@ a:hover {
     border-bottom-left-radius: 0px;
     /* Bottom-left corner */
     background-color: #3E3EB0;
-    transform: translate(887px, -130px);
+    transform: translate(898px, -130px);
     /* Maintain the same Y position (101px) */
     width: 170px;
     /* Adjust the width to make it longer */
