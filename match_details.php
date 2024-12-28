@@ -412,7 +412,8 @@ if ($host['id'] == $user_id) {
 
                     <div>
                         <a href="#" onclick="openModal('request')"><img src="IMAGE/request.png" alt="Delete"
-                                class="delete-img" style="width: 100px; height: 100px; margin-top: 85%; margin-left: 40%;"></a>
+                                class="delete-img"
+                                style="width: 100px; height: 100px; margin-top: 85%; margin-left: 40%;"></a>
                     </div>
 
                     <form action="delete_match.php" method="POST" onSubmit="return confirm('Do you want to delete?')">
@@ -551,22 +552,25 @@ if ($host['id'] == $user_id) {
 </div>
 
 <div id="requestModal" class="modal">
-    <div class="modal-content" style="color:black;">
+    <div class="match-request" style="color:black;">
         <span class="close" onclick="closeModal('request')">&times;</span>
+        
+        
         <?php
         $query2 = "SELECT * from match_request WHERE match_id = $match_id AND status='pending'";
         $result2 = mysqli_query($conn, $query2);
 
         if (mysqli_num_rows($result2) > 0) {
             $requests = mysqli_fetch_all($result2, MYSQLI_ASSOC);
-            echo "hahahaha";
+
         } else {
-            echo "sadadadad";
+
             $requests = [];
         }
         ?>
         <h1>Match Request:</h1>
-        <table>
+        <ul>
+            <p class="detail">
             <?php if (!empty($requests)): ?>
                 <?php foreach ($requests as $request):
                     $request_id = $request['request_user_id'];
@@ -575,23 +579,28 @@ if ($host['id'] == $user_id) {
 
                     if (mysqli_num_rows($result3) > 0) {
                         $row2 = mysqli_fetch_assoc($result3);
-                        echo htmlspecialchars($row2['first_name'] . ' ' . $row2['last_name']); ?>
+
+                        echo '<span class="friend-name">' . htmlspecialchars($row2['first_name'] . ' ' . $row2['last_name']) . '</span>'; ?>
+
                         <form method="POST" class="action-form" action="match_request_action.php">
                             <input type="hidden" name="request_user_id" value="<?php echo $row2['id']; ?>">
                             <input type="hidden" name="request_match_id" value="<?php echo $request['match_id']; ?>">
                             <button type="submit" name="accept_request_match" class="action-button accept-button">Accept</button>
                         </form>
+
                         <form method="POST" class="action-form" action="match_request_action.php">
                             <input type="hidden" name="request_user_id" value="<?php echo $row2['id']; ?>">
                             <input type="hidden" name="request_match_id" value="<?php echo $request['match_id']; ?>">
                             <button type="submit" name="reject_request_match" class="action-button reject-button">Reject</button>
                         </form>
+
                         <?php
                     }
                 endforeach;
                 ?>
-            </table>
+            </ul>
         <?php else: ?>
+            </p>
             <p style="color:black;">No requests found.</p>
         <?php endif; ?>
     </div>
