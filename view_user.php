@@ -116,12 +116,15 @@ require("config.php"); // Include the database configuration file
         $sql .= " AND email_verified = '$verified'";
     }
 
-    if (!empty($_GET['premium'])) {
-        $premium = $conn->real_escape_string($_GET['premium']);
+    if ($premium !== '') {
+        if (strtolower($premium) === 'yes') {
+            $premium = 1;
+        } elseif (strtolower($premium) === 'no') {
+            $premium = 0;
+        }
         $sql .= " AND premium = '$premium'";
     }
 
-    // Execute the query
     $result = $conn->query($sql);
     ?>
 
