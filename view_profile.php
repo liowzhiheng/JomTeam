@@ -1,438 +1,83 @@
 <?php
-session_start(); // Start the PHP session
-
-// Check if the user is logged in
-if ($_SESSION["Login"] != "YES") {
-    header("Location: index.php");
-    exit();
-}
-
-// Check if USER_ID is set
-if (!isset($_SESSION["ID"])) {
-    echo "User ID is not set in the session.";
-    exit();
-}
+session_start(); // Start the session
 
 require("config.php");
 
-$user_id = $_SESSION['ID'];
+// Check if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Check if user ID is set in the session
+    if (!isset($_SESSION['ID'])) {
+        echo "User ID is not set in the session.";
+        exit();
+    }
 
-$query = "
-    SELECT 
-        u.first_name, 
-        u.last_name, 
-        u.gender, 
-        u.email, 
-        u.password,
-        u.phone, 
-        u.premium,
-        p.status, 
-        p.description, 
-        p.location, 
-        p.interests, 
-        p.preferred_game_types, 
-        p.skill_level, 
-        p.availability 
-    FROM 
-        user u 
-    LEFT JOIN 
-        profile p 
-    ON 
-        u.id = p.user_id 
-    WHERE 
-        u.id = '$user_id'
-";
+    // Retrieve and sanitize form data
+    $first_name = mysqli_real_escape_string($conn, $_POST['fname']);
+    $last_name = mysqli_real_escape_string($conn, $_POST['lname']);
+    $gender = mysqli_real_escape_string($conn, $_POST['gender']);
+    $phone = mysqli_real_escape_string($conn, $_POST['phone']);
+    $status = mysqli_real_escape_string($conn, $_POST['status']);
+    $description = mysqli_real_escape_string($conn, $_POST['description']);
+    $location = mysqli_real_escape_string($conn, $_POST['location']);
+    $interests = mysqli_real_escape_string($conn, $_POST['interests']);
+    $frame = mysqli_real_escape_string($conn, $_POST['frame']);
+    $user_id = $_SESSION['ID'];
 
-$result = mysqli_query($conn, $query);
+    // Handle the image upload if there's a file
+    $file_name = null;  // Initialize as null, so it doesn't overwrite the current image if no new image is selected
+    if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+        $file_name = $_FILES['image']['name'];
+        $tempname = $_FILES['image']['tmp_name'];
+        $folder = 'uploads/' . $file_name;
 
-if (!$result || mysqli_num_rows($result) == 0) {
-    echo "No profile data found.";
-    exit();
-}
+        // Check if an image already exists for this user
+        $result = mysqli_query($conn, "SELECT file FROM images WHERE user_id = '$user_id'");
 
-$rows = mysqli_fetch_assoc($result);
-?>
+        if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            $old_file = 'uploads/' . $row['file'];
 
-<!DOCTYPE html>
-<html lang="en">
+            $query = mysqli_query($conn, "UPDATE images SET file = '$file_name' WHERE user_id = '$user_id'");
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+            // Delete the old file if it exists
+            if (file_exists($old_file)) {
+                unlink($old_file);
+            }
+        } else {
+            // Insert a new record if no existing image found
+            $query = mysqli_query($conn, "INSERT INTO images (user_id, file) VALUES ('$user_id', '$file_name')");
+        }
 
-    <link rel="stylesheet" href="view_profile.css">
-    <link rel="stylesheet" href="navbar.css">
-    <link rel="stylesheet" href="footer.css">
-</head>
-
-<body>
-    <?php
-    include('navbar.php');
-    include('ads.php');
-
-    if (isset($_GET['status'])) {
-        $status = $_GET['status'];
-
-        if ($status === 'success') {
-            echo '<p id="message" class="message success">Profile update successfully!</p>';
-        } elseif ($status === 'fail') {
-            echo '<p id="message" class="message fail">Sorry, something went wrong. Please try again.</p>';
+        // Move the uploaded file to the uploads directory
+        if (!$query || !move_uploaded_file($tempname, $folder)) {
+            // If the image upload fails, redirect with failure status
+            header("Location: view_profile.php?status=fail");
+            exit();
         }
     }
 
+    $update_query = "
+        UPDATE user u
+        JOIN profile p ON u.id = p.user_id
+        SET 
+            u.first_name = '$first_name',
+            u.last_name = '$last_name',
+            u.gender = '$gender',
+            u.phone = '$phone',
+            p.status = '$status',
+            p.description = '$description',
+            p.location = '$location',
+            p.interests = '$interests',
+            p.frame = '$frame'
+        WHERE u.id = '$user_id'
+    ";
 
-    $location = isset($rows['location']) && !empty($rows['location']) ? htmlspecialchars($rows['location']) : '';
-    // Check if location is empty and set default from database
-    if (empty($location)) {
-
-        $location = "Default Location from DB";
+    if (mysqli_query($conn, $update_query)) {
+        header("Location: view_profile.php?status=success");
+        exit();
+    } else {
+        header("Location: view_profile.php?status=fail");
+        exit();
     }
-
-    $status = isset($rows['status']) && !empty($rows['status']) ? htmlspecialchars($rows['status']) : '';
-    // If the status is empty, set a default value or fetch from the database
-    if (empty($status)) {
-        $status = "Default Status from DB";
-    }
-    ?>
-
-    <!-- Add button to see account security -->
-    <div class="button">
-        <a href="account_security.php" class="account-security-button">
-            <button type="button" class="security-btn">
-                Account Security
-            </button>
-        </a>
-    </div>
-
-    <div class="profile-content">
-        <h1 class="profile-title">Profile</h1>
-        <p class="profile-description">
-            Let people know more about you! Share your passions, interests, and achievements.
-            Whether it's your love for sports, your favorite hobbies, or your proudest moments,
-            let your profile tell your unique story. Join our community and start making meaningful
-            connections today!
-        </p>
-        <form action="update_profile.php" method="post" enctype="multipart/form-data">
-            <div class="profile-container">
-
-                <!-- Image Section -->
-                <div class="profile-left">
-                    <div class="uploaded-images">
-                        <?php
-                        $res = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $_SESSION["ID"]);
-                        while ($row = mysqli_fetch_assoc($res)) {
-                            if (empty($row['file'])) {
-                                if ($rows['premium']): ?>
-                                    <div class="premium-profile-frame">
-                                    <?php endif; ?>
-                                    <div class="image-container">
-                                        <img id="imagePreview" src="IMAGE/default.png" alt="Default Image"
-                                            class="uploaded-image" onclick="document.getElementById('imageInput').click();" />
-                                        <div class="overlay-text" onclick="document.getElementById('imageInput').click();">
-                                            Upload Image</div>
-                                    </div>
-                                    <?php if ($rows['premium']): ?>
-                                    </div>
-                                <?php endif; ?>
-                            <?php } else {
-                                if ($rows['premium']): ?>
-                                    <div class="premium-profile-frame">
-                                    <?php endif; ?>
-                                    <div class="image-container">
-                                        <img id="imagePreview" src="uploads/<?php echo $row['file']; ?>" alt="Uploaded Image"
-                                            class="uploaded-image" onclick="document.getElementById('imageInput').click();" />
-                                        <div class="overlay-text" onclick="document.getElementById('imageInput').click();">
-                                            Change Image</div>
-                                    </div>
-                                    <?php if ($rows['premium']): ?>
-                                    </div>
-                                <?php endif; ?>
-                                <?php $isPremium = $rows['premium']; ?>
-                                <div class="image-container">
-                                    <?php if ($isPremium): ?>
-                                        <img src="IMAGE/frame_1.png" alt="Premium Frame" class="premium-frame" id="premium-frame" />
-                                        <div class="frame-selector">
-                                            <button onclick="changeFrame('frame_1.png')">Frame 1</button>
-                                            <button onclick="changeFrame('frame_2.png')">Frame 2</button>
-                                            <button onclick="changeFrame('frame_3.png')">Frame 3</button>
-                                        </div>
-                                    <?php endif; ?>
-                                    <script>
-                                        function changeFrame(frame) {
-                                            const frameImage = document.getElementById('premium-frame');
-                                            frameImage.src = `IMAGE/${frame}`;
-                                        }
-
-                                    </script>
-                                </div>
-
-                            <?php }
-
-
-                        }
-                        ?>
-
-                        <input type="file" name="image" id="imageInput" style="display: none;"
-                            onchange="previewImage()" />
-                    </div>
-                </div>
-
-                <!-- Info Section -->
-                <div class="profile-right">
-                    <div class="group">
-                        <label for="fname">First Name:</label>
-                        <input type="text" id="fname" name="fname"
-                            value="<?php echo htmlspecialchars($rows['first_name']); ?>"
-                            placeholder="Enter your first name">
-                    </div>
-
-                    <div class="group">
-                        <label for="lname">Last Name:</label>
-                        <input type="text" id="lname" name="lname"
-                            value="<?php echo htmlspecialchars($rows['last_name']); ?>"
-                            placeholder="Enter your last name">
-                    </div>
-
-                    <div class="group">
-                        <label for="gender">Gender:</label>
-                        <input type="text" name="gender" value="<?php echo htmlspecialchars($rows['gender']); ?>"
-                            readonly>
-                    </div>
-
-                    <div class="group">
-                        <label for="email">Email:</label>
-                        <input type="text" name="email" value="<?php echo htmlspecialchars($rows['email']); ?>"
-                            readonly>
-                    </div>
-
-                    <div class="group">
-                        <label for="phone">Phone Number:</label>
-                        <input type="text" id="phone" name="phone"
-                            value="<?php echo htmlspecialchars($rows['phone']); ?>"
-                            placeholder="Enter your phone number">
-                    </div>
-
-                    <div class="group">
-                        <label for="location">Location:</label>
-                        <div class="location_selection">
-                            <select name="location">
-                                <!-- Show current location as the default selected option -->
-                                <option value="" <?php echo empty($location) ? 'selected' : ''; ?>>Please select your
-                                    location</option>
-
-                                <!-- Johor -->
-                                <optgroup label="Johor">
-                                    <option value="Johor Bahru" <?php echo $location === 'Johor Bahru' ? 'selected' : ''; ?>>Johor Bahru</option>
-                                    <option value="Skudai" <?php echo $location === 'Skudai' ? 'selected' : ''; ?>>Skudai
-                                    </option>
-                                    <option value="Kulai" <?php echo $location === 'Kulai' ? 'selected' : ''; ?>>Kulai
-                                    </option>
-                                    <option value="Muar" <?php echo $location === 'Muar' ? 'selected' : ''; ?>>Muar
-                                    </option>
-                                    <option value="Batu Pahat" <?php echo $location === 'Batu Pahat' ? 'selected' : ''; ?>>Batu Pahat</option>
-                                    <option value="Kota Tinggi" <?php echo $location === 'Kota Tinggi' ? 'selected' : ''; ?>>Kota Tinggi</option>
-                                    <option value="Pontian" <?php echo $location === 'Pontian' ? 'selected' : ''; ?>>
-                                        Pontian</option>
-                                </optgroup>
-
-                                <!-- Kedah -->
-                                <optgroup label="Kedah">
-                                    <option value="Alor Setar" <?php echo $location === 'Alor Setar' ? 'selected' : ''; ?>>Alor Setar</option>
-                                    <option value="Sungai Petani" <?php echo $location === 'Sungai Petani' ? 'selected' : ''; ?>>Sungai Petani</option>
-                                    <option value="Kulim" <?php echo $location === 'Kulim' ? 'selected' : ''; ?>>Kulim
-                                    </option>
-                                    <option value="Langkawi" <?php echo $location === 'Langkawi' ? 'selected' : ''; ?>>
-                                        Langkawi</option>
-                                </optgroup>
-
-                                <!-- Kelantan -->
-                                <optgroup label="Kelantan">
-                                    <option value="Kota Bharu" <?php echo $location === 'Kota Bharu' ? 'selected' : ''; ?>>Kota Bharu</option>
-                                    <option value="Tanah Merah" <?php echo $location === 'Tanah Merah' ? 'selected' : ''; ?>>Tanah Merah</option>
-                                    <option value="Gua Musang" <?php echo $location === 'Gua Musang' ? 'selected' : ''; ?>>Gua Musang</option>
-                                </optgroup>
-
-                                <!-- Malacca -->
-                                <optgroup label="Malacca">
-                                    <option value="Malacca City" <?php echo $location === 'Malacca City' ? 'selected' : ''; ?>>Malacca City</option>
-                                    <option value="Ayer Keroh" <?php echo $location === 'Ayer Keroh' ? 'selected' : ''; ?>>Ayer Keroh</option>
-                                    <option value="Jasin" <?php echo $location === 'Jasin' ? 'selected' : ''; ?>>Jasin
-                                    </option>
-                                </optgroup>
-
-                                <!-- Negeri Sembilan -->
-                                <optgroup label="Negeri Sembilan">
-                                    <option value="Seremban" <?php echo $location === 'Seremban' ? 'selected' : ''; ?>>
-                                        Seremban</option>
-                                    <option value="Port Dickson" <?php echo $location === 'Port Dickson' ? 'selected' : ''; ?>>Port Dickson</option>
-                                    <option value="Nilai" <?php echo $location === 'Nilai' ? 'selected' : ''; ?>>Nilai
-                                    </option>
-                                </optgroup>
-
-                                <!-- Pahang -->
-                                <optgroup label="Pahang">
-                                    <option value="Kuantan" <?php echo $location === 'Kuantan' ? 'selected' : ''; ?>>
-                                        Kuantan</option>
-                                    <option value="Temerloh" <?php echo $location === 'Temerloh' ? 'selected' : ''; ?>>
-                                        Temerloh</option>
-                                    <option value="Bentong" <?php echo $location === 'Bentong' ? 'selected' : ''; ?>>
-                                        Bentong</option>
-                                    <option value="Cameron Highlands" <?php echo $location === 'Cameron Highlands' ? 'selected' : ''; ?>>Cameron Highlands</option>
-                                </optgroup>
-
-                                <!-- Penang -->
-                                <optgroup label="Penang">
-                                    <option value="George Town" <?php echo $location === 'George Town' ? 'selected' : ''; ?>>George Town</option>
-                                    <option value="Bayan Lepas" <?php echo $location === 'Bayan Lepas' ? 'selected' : ''; ?>>Bayan Lepas</option>
-                                    <option value="Butterworth" <?php echo $location === 'Butterworth' ? 'selected' : ''; ?>>Butterworth</option>
-                                </optgroup>
-
-                                <!-- Perak -->
-                                <optgroup label="Perak">
-                                    <option value="Ipoh" <?php echo $location === 'Ipoh' ? 'selected' : ''; ?>>Ipoh
-                                    </option>
-                                    <option value="Taiping" <?php echo $location === 'Taiping' ? 'selected' : ''; ?>>
-                                        Taiping</option>
-                                    <option value="Lumut" <?php echo $location === 'Lumut' ? 'selected' : ''; ?>>Lumut
-                                    </option>
-                                </optgroup>
-
-                                <!-- Perlis -->
-                                <optgroup label="Perlis">
-                                    <option value="Kangar" <?php echo $location === 'Kangar' ? 'selected' : ''; ?>>Kangar
-                                    </option>
-                                    <option value="Arau" <?php echo $location === 'Arau' ? 'selected' : ''; ?>>Arau
-                                    </option>
-                                </optgroup>
-
-                                <!-- Sabah -->
-                                <optgroup label="Sabah">
-                                    <option value="Kota Kinabalu" <?php echo $location === 'Kota Kinabalu' ? 'selected' : ''; ?>>Kota Kinabalu</option>
-                                    <option value="Sandakan" <?php echo $location === 'Sandakan' ? 'selected' : ''; ?>>
-                                        Sandakan</option>
-                                    <option value="Tawau" <?php echo $location === 'Tawau' ? 'selected' : ''; ?>>Tawau
-                                    </option>
-                                </optgroup>
-
-                                <!-- Sarawak -->
-                                <optgroup label="Sarawak">
-                                    <option value="Kuching" <?php echo $location === 'Kuching' ? 'selected' : ''; ?>>
-                                        Kuching</option>
-                                    <option value="Miri" <?php echo $location === 'Miri' ? 'selected' : ''; ?>>Miri
-                                    </option>
-                                    <option value="Sibu" <?php echo $location === 'Sibu' ? 'selected' : ''; ?>>Sibu
-                                    </option>
-                                </optgroup>
-
-                                <!-- Selangor -->
-                                <optgroup label="Selangor">
-                                    <option value="Shah Alam" <?php echo $location === 'Shah Alam' ? 'selected' : ''; ?>>
-                                        Shah Alam</option>
-                                    <option value="Petaling Jaya" <?php echo $location === 'Petaling Jaya' ? 'selected' : ''; ?>>Petaling Jaya</option>
-                                    <option value="Subang Jaya" <?php echo $location === 'Subang Jaya' ? 'selected' : ''; ?>>Subang Jaya</option>
-                                </optgroup>
-
-                                <!-- Terengganu -->
-                                <optgroup label="Terengganu">
-                                    <option value="Kuala Terengganu" <?php echo $location === 'Kuala Terengganu' ? 'selected' : ''; ?>>Kuala Terengganu</option>
-                                    <option value="Kemaman" <?php echo $location === 'Kemaman' ? 'selected' : ''; ?>>
-                                        Kemaman</option>
-                                    <option value="Dungun" <?php echo $location === 'Dungun' ? 'selected' : ''; ?>>Dungun
-                                    </option>
-                                </optgroup>
-
-                                <!-- Federal Territories -->
-                                <optgroup label="Federal Territories">
-                                    <option value="Kuala Lumpur" <?php echo $location === 'Kuala Lumpur' ? 'selected' : ''; ?>>Kuala Lumpur</option>
-                                    <option value="Putrajaya" <?php echo $location === 'Putrajaya' ? 'selected' : ''; ?>>
-                                        Putrajaya</option>
-                                    <option value="Labuan" <?php echo $location === 'Labuan' ? 'selected' : ''; ?>>Labuan
-                                    </option>
-                                </optgroup>
-                            </select>
-
-                        </div>
-                    </div>
-
-                    <div class="group">
-                        <label for="status">Status:</label>
-                        <div class="status_selection">
-                            <select name="status">
-                                <!-- Display current status if it's set, otherwise display a placeholder -->
-                                <option value="" <?php echo empty($status) ? 'selected' : ''; ?>>Please select your
-                                    Status
-                                </option>
-                                <option value="single" <?php echo $status === 'single' ? 'selected' : ''; ?>>Single
-                                </option>
-                                <option value="not single" <?php echo $status === 'not single' ? 'selected' : ''; ?>>Not
-                                    Single</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="group">
-                        <label for="description">Description:</label>
-                        <textarea id="description" name="description"
-                            placeholder="Tell us about yourself..."><?php echo htmlspecialchars($rows['description']); ?></textarea>
-                    </div>
-
-
-
-                    <div class="group">
-                        <label for="interests">Interests:</label>
-                        <textarea id="interests" name="interests"
-                            placeholder="List your interests (e.g., traveling, cooking, reading, playing basketball)..."><?php echo htmlspecialchars($rows['interests']); ?></textarea>
-                    </div>
-
-                    <div class="button">
-                        <p><button type="submit" id="update">
-                                <img src="IMAGE/update_button_white.png" alt="Update"
-                                    style="width: 130px; height: auto;">
-                            </button></p>
-
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-
-    <script src="view_profile.js"></script>
-    <?php mysqli_close($conn); ?>
-</body>
-
-<footer>
-    <div class="footer-container">
-        <div class="footer-links">
-            <a href="#" onclick="openModal('terms')">Terms of Service</a> |
-            <a href="#" onclick="openModal('privacy')">Privacy Policy</a>
-        </div>
-        <div class="footer-info">
-            <p>&copy; 2024 JomTeam. All rights reserved.</p>
-        </div>
-    </div>
-</footer>
-
-<!-- Modal for Terms of Service -->
-<div id="termsModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal('terms')">&times;</span>
-        <h2>Terms of Service</h2>
-        <p>Welcome to JomTeam! By using our platform, you agree to these Terms of Service. Please read them carefully.
-        </p>
-    </div>
-</div>
-
-<!-- Modal for Privacy Policy -->
-<div id="privacyModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal('privacy')">&times;</span>
-        <h2>Privacy Policy</h2>
-        <p>At JomTeam, we respect your privacy. This policy outlines how we handle your personal data when you use our
-            platform.</p>
-    </div>
-</div>
-
-<script src="footer.js"></script>
-
-</html>
+}
+?>
