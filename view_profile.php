@@ -55,7 +55,7 @@ $rows = mysqli_fetch_assoc($result);
 
 $sql = "SELECT file FROM frame WHERE id = $rows['frame']";
 $result2 = mysqli_query($conn, $sql);
-$rows2 = mysqli_fetch_assoc($result);
+$rows2 = mysqli_fetch_assoc($result2);
 
 ?>
 
