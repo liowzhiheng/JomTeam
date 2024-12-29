@@ -49,7 +49,7 @@ $checkResult = $checkStmt->get_result();
 $has_joined = $checkResult->num_rows > 0;
 
 //Check if has request
-$checkQuery = "SELECT * FROM match_request WHERE match_id = ? AND request_user_id = ?";
+$checkQuery = "SELECT * FROM match_request WHERE match_id = ? AND request_user_id = ? AND status = 'pending'";
 $checkStmt = $conn->prepare($checkQuery);
 $checkStmt->bind_param('ii', $match_id, $user_id);
 $checkStmt->execute();
