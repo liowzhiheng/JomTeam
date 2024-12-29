@@ -56,6 +56,10 @@ $rows = mysqli_fetch_assoc($result);
 $sql = "SELECT file FROM frame WHERE id = $rows['frame']";
 $result2 = mysqli_query($conn, $sql);
 $rows2 = mysqli_fetch_assoc($result2);
+if (!$result2 || mysqli_num_rows($result2) == 0) {
+    echo "No profile data found.";
+    exit();
+}
 
 ?>
 
