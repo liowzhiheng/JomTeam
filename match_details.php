@@ -352,6 +352,15 @@ if ($host['id'] == $user_id) {
                     <div>
                         <p style="color: black;">Are you interested in the match?</p>
                         <p style="color: black;">Join now and have fun!</p>
+                        if($ishost){
+                            <form action="join_match.php" method="POST" style="text-align: center;">
+                            <input type="hidden" name="match_id" value="<?php echo $match_id; ?>">
+                            <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+                            <button class="join-button">
+                                Join Match
+                            </button>
+                        </form>
+                        }
                         <form action="request_match.php" method="GET" style="text-align: center;">
                             <input type="hidden" name="id" value="<?php echo $match_id; ?>">
                             <button class="join-button">
