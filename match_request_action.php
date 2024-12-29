@@ -41,7 +41,7 @@ if (isset($_POST['reject_request_match'])) {
     // Redirect to prevent duplicate submissions
     ?>
     <form name="my_form" action="match_details.php" method="GET">
-                    <input type="hidden" name="id" value="<?php echo $match_id ?>">
+                    <input type="hidden" name="id" value="<?php echo $request_match_id ?>">
     </form>
     <?php
 }
