@@ -206,7 +206,7 @@ if (isset($_POST['unfollow'])) {
 
     <div class="profile-container">
 
-        <button onclick="window.location.href='friend_list.php'"
+        <button onclick="window.location.href='friends_list.php'"
             class="back-button"><img src="IMAGE/back.png" alt="back"></button>
 
         <div class="profile-header">
