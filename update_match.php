@@ -316,9 +316,8 @@ $resultParticipants = $conn->query($sqlParticipants);
                     </select><br>
 
                     <label><strong>Current Players:</strong></label>
-                    <input type="number" name="current_players"
-                        value="<?php echo htmlspecialchars($match['current_players']); ?>" min="0" id="current_players"
-                        max="<?php echo htmlspecialchars($match['max_players']); ?>"><br>
+                    <p class="read">
+                        <?php echo !empty($match['current_players']) ? $match['current_players'] : 'N/A'; ?></p><br>
 
                     <label><strong>Description:</strong></label>
                     <textarea name="description"
@@ -336,10 +335,11 @@ $resultParticipants = $conn->query($sqlParticipants);
         <?php if ($resultParticipants->num_rows > 0): ?>
             <div class="participants">
                 <?php while ($participant = $resultParticipants->fetch_assoc()): ?>
+                    <?php
+                    $image = !empty($participant['file']) ? 'uploads/' . htmlspecialchars($participant['file']) : 'IMAGE/default.png';
+                    $participantId = htmlspecialchars($participant['id']); // Assuming `id` is the unique identifier for the participant
+                    ?>
                     <div class="participant">
-                        <?php
-                        $image = !empty($participant['file']) ? 'uploads/' . htmlspecialchars($participant['file']) : 'IMAGE/default.png';
-                        ?>
                         <img src="<?php echo $image; ?>" alt="User Image" class="participant-image">
                         <div class="participant-info">
                             <p><strong>Name:</strong>
@@ -358,6 +358,7 @@ $resultParticipants = $conn->query($sqlParticipants);
         <?php else: ?>
             <p>No participants have joined this match yet.</p>
         <?php endif; ?>
+
     </div>
 
     <script>
