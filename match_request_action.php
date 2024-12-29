@@ -39,8 +39,11 @@ if (isset($_POST['reject_request_match'])) {
     $result = mysqli_query($conn, $updateQuery);
 
     // Redirect to prevent duplicate submissions
-    header("Location: " . $_SERVER['PHP_SELF'] . "?id=" . $match_id);
-    exit();
+    ?>
+    <form name="my_form" action="match_details.php" method="GET">
+                    <input type="hidden" name="id" value="<?php echo $match_id ?>">
+    </form>
+    <?php
 }
 ?>
 
