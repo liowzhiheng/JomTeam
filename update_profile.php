@@ -20,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $description = mysqli_real_escape_string($conn, $_POST['description']);
     $location = mysqli_real_escape_string($conn, $_POST['location']);
     $interests = mysqli_real_escape_string($conn, $_POST['interests']);
+    $frame = mysqli_real_escape_string($conn, $_POST['frame']);
     $user_id = $_SESSION['ID'];
 
     // Handle the image upload if there's a file
@@ -66,7 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             p.status = '$status',
             p.description = '$description',
             p.location = '$location',
-            p.interests = '$interests'
+            p.interests = '$interests',
+            p.frame = '$frame'
         WHERE u.id = '$user_id'
     ";
 
