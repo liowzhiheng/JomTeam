@@ -49,7 +49,7 @@ $checkResult = $checkStmt->get_result();
 $has_joined = $checkResult->num_rows > 0;
 
 //Check if has request
-$checkQuery = "SELECT * FROM match_request WHERE match_id = ? AND request_user_id = ?";
+$checkQuery = "SELECT * FROM match_request WHERE match_id = ? AND request_user_id = ? AND status = 'pending'";
 $checkStmt = $conn->prepare($checkQuery);
 $checkStmt->bind_param('ii', $match_id, $user_id);
 $checkStmt->execute();
@@ -352,12 +352,26 @@ if ($host['id'] == $user_id) {
                     <div>
                         <p style="color: black;">Are you interested in the match?</p>
                         <p style="color: black;">Join now and have fun!</p>
+                        <?php if($ishost){ ?>
+                            <form action="join_match.php" method="POST" style="text-align: center;">
+                            <input type="hidden" name="match_id" value="<?php echo $match_id; ?>">
+                            <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+                            <button class="join-button">
+                                Join Match
+                            </button>
+                        </form>
+                        <?php 
+                        }else{
+                        ?>
                         <form action="request_match.php" method="GET" style="text-align: center;">
                             <input type="hidden" name="id" value="<?php echo $match_id; ?>">
                             <button class="join-button">
                                 Join Match
                             </button>
                         </form>
+                        <?php
+                        }
+                        ?>
                         <style>
                             /* Default style for the button */
                             .join-button {
