@@ -92,9 +92,7 @@ body {
     /* Add slight shadow */
 }
 
-.uploaded-images .profile-image:hover {
-    transform: scale(1.25);
-}
+
 
 .profile-header h1 {
     font-size: 2.5em;
@@ -486,4 +484,19 @@ button[type="submit"]:hover {
         0 0 105px rgba(0, 179, 255, 0.8),
         inset 0 0 45px rgba(0, 230, 255, 0.9);
 }
+
+
+
+.premium-frame {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 80%;
+    pointer-events: none; /* Allow clicks to pass through to the image */
+    transform: translate(0px, 210px);
+    z-index: 2;
+    transition: transform 0.3s ease-in-out; /* Smooth animation for transform */
+}
+
 

@@ -211,21 +211,27 @@ if (isset($_POST['unfollow'])) {
 
         <div class="profile-header">
 
-        <div class="uploaded-images">
-            <?php if ($user['premium']): ?>
-                <div class="premium-profile-frame">
-                    <div class="inner-ring"></div>
-            <?php endif; ?>
+            <div class="uploaded-images">
+                <?php if ($user['premium']): ?>
+                    <div class="premium-profile-frame">
+                        <div class="inner-ring"></div>
+                        <div class="image-container">
+
+                           
+                                <img src="IMAGE/frame_1.png" alt="Premium Frame" class="premium-frame" />
+                        
+
+                        </div>
+                    <?php endif; ?>
                     <div class="image-container">
                         <img id="imagePreview"
                             src="<?php echo !empty($profilePicture) ? 'uploads/' . htmlspecialchars($profilePicture) : 'IMAGE/default.png'; ?>"
-                            alt="Profile Picture" 
-                            class="profile-image">
+                            alt="Profile Picture" class="profile-image">
                     </div>
-            <?php if ($user['premium']): ?>
-                </div>
-            <?php endif; ?>
-        </div>
+                    <?php if ($user['premium']): ?>
+                    </div>
+                <?php endif; ?>
+            </div>
 
             <h1><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></h1>
 

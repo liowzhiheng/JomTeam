@@ -346,11 +346,11 @@ form {
 
 
 .premium-frame {
-   position: relative;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* Allow clicks to pass through to the image */
-   transform: translate(-20px,-280px);
-}
+    position: relative;
+     top: 0;
+     left: 0;
+     width: 80%;
+     height: 80%;
+     pointer-events: none; /* Allow clicks to pass through to the image */
+    transform: translate(0px,-210px);
+ }

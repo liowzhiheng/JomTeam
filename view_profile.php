@@ -152,7 +152,7 @@ $rows = mysqli_fetch_assoc($result);
                                 <div class="image-container">
                                  
                                     <?php if ($isPremium): ?>
-                                        <img src="IMAGE/chill.png" alt="Premium Frame" class="premium-frame" />
+                                        <img src="IMAGE/frame_1.png" alt="Premium Frame" class="premium-frame" />
                                     <?php endif; ?>
                                     
                                 </div>
