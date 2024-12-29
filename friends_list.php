@@ -172,7 +172,7 @@ $requestResult = $requestStmt->get_result();
                             echo '<img src="uploads/' . $profilePicRow['file'] . '" alt="Profile Picture" class="profile-pic">';
                         }
                         ?>
-                        <a href="player_profile.php?id=<?php echo $row['id']; ?>">
+                        <a href="player_profile2.php?id=<?php echo $row['id']; ?>">
                             <span
                                 class="friend-name"><?php echo htmlspecialchars($row['first_name'] . " " . $row['last_name']); ?></span>
                         </a>
