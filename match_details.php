@@ -361,7 +361,7 @@ if ($host['id'] == $user_id) {
                             </button>
                         </form>
                         <?php 
-                        }
+                        }else{
                         ?>
                         <form action="request_match.php" method="GET" style="text-align: center;">
                             <input type="hidden" name="id" value="<?php echo $match_id; ?>">
@@ -369,6 +369,9 @@ if ($host['id'] == $user_id) {
                                 Join Match
                             </button>
                         </form>
+                        <?php
+                        }
+                        ?>
                         <style>
                             /* Default style for the button */
                             .join-button {
