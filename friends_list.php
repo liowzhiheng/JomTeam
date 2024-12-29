@@ -202,7 +202,7 @@ $requestResult = $requestStmt->get_result();
                     <?php while ($row = $requestResult->fetch_assoc()): ?>
                         <p class="detail">
                             <img src="IMAGE/default.png" alt="Profile Picture" class="profile-pic">
-                            <a href="player_profile.php?id=<?php echo $row['sender_id']; ?>">
+                            <a href="player_profile2.php?id=<?php echo $row['sender_id']; ?>">
                             <span class="friend-name">
                                 <?php echo htmlspecialchars($row['first_name'] . " " . $row['last_name']); ?>
                             </span>

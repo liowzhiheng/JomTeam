@@ -150,12 +150,23 @@ $rows = mysqli_fetch_assoc($result);
                                 <?php endif; ?>
                                 <?php $isPremium = $rows['premium']; ?>
                                 <div class="image-container">
-                                 
                                     <?php if ($isPremium): ?>
-                                        <img src="IMAGE/frame_1.png" alt="Premium Frame" class="premium-frame" />
+                                        <img src="IMAGE/frame_1.png" alt="Premium Frame" class="premium-frame" id="premium-frame" />
+                                        <div class="frame-selector">
+                                            <button onclick="changeFrame('frame_1.png')">Frame 1</button>
+                                            <button onclick="changeFrame('frame_2.png')">Frame 2</button>
+                                            <button onclick="changeFrame('frame_3.png')">Frame 3</button>
+                                        </div>
                                     <?php endif; ?>
-                                    
+                                    <script>
+                                        function changeFrame(frame) {
+                                            const frameImage = document.getElementById('premium-frame');
+                                            frameImage.src = `IMAGE/${frame}`;
+                                        }
+
+                                    </script>
                                 </div>
+
                             <?php }
 
 
