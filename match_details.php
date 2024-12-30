@@ -594,6 +594,9 @@ if ($host['id'] == $user_id) {
 
                     if (mysqli_num_rows($result3) > 0) {
                         $row2 = mysqli_fetch_assoc($result3);
+
+
+                        echo '<p class="detail"> <span class="friend-name">' . htmlspecialchars($row2['first_name'] . ' ' . $row2['last_name']) . '</span>';
                         //profile picture
                         $profilePicRes = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $row2['id']);
                         $profilePicRow = mysqli_fetch_assoc($profilePicRes);
@@ -601,10 +604,7 @@ if ($host['id'] == $user_id) {
                             echo '<img src="IMAGE/default.png" alt="Profile Picture" class="profile-pic">';
                         } else {
                             echo '<img src="uploads/' . $profilePicRow['file'] . '" alt="Profile Picture" class="profile-pic">';
-                        }
-
-                        echo '<p class="detail"> <span class="friend-name">' . htmlspecialchars($row2['first_name'] . ' ' . $row2['last_name']) . '</span>'; ?>
-
+                        } ?>
                         <form method="POST" class="action-form" action="match_request_action.php">
                             <input type="hidden" name="request_user_id" value="<?php echo $row2['id']; ?>">
                             <input type="hidden" name="request_match_id" value="<?php echo $request['match_id']; ?>">
