@@ -352,24 +352,24 @@ if ($host['id'] == $user_id) {
                     <div>
                         <p style="color: black;">Are you interested in the match?</p>
                         <p style="color: black;">Join now and have fun!</p>
-                        <?php if($ishost){ ?>
+                        <?php if ($ishost) { ?>
                             <form action="join_match.php" method="POST" style="text-align: center;">
-                            <input type="hidden" name="match_id" value="<?php echo $match_id; ?>">
-                            <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
-                            <button class="join-button">
-                                Join Match
-                            </button>
-                        </form>
-                        <?php 
-                        }else{
-                        ?>
-                        <form action="request_match.php" method="GET" style="text-align: center;">
-                            <input type="hidden" name="id" value="<?php echo $match_id; ?>">
-                            <button class="join-button">
-                                Join Match
-                            </button>
-                        </form>
-                        <?php
+                                <input type="hidden" name="match_id" value="<?php echo $match_id; ?>">
+                                <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+                                <button class="join-button">
+                                    Join Match
+                                </button>
+                            </form>
+                            <?php
+                        } else {
+                            ?>
+                            <form action="request_match.php" method="GET" style="text-align: center;">
+                                <input type="hidden" name="id" value="<?php echo $match_id; ?>">
+                                <button class="join-button">
+                                    Join Match
+                                </button>
+                            </form>
+                            <?php
                         }
                         ?>
                         <style>
@@ -568,8 +568,8 @@ if ($host['id'] == $user_id) {
 <div id="requestModal" class="modal">
     <div class="match-request" style="color:black;">
         <span class="close" onclick="closeModal('request')">&times;</span>
-        
-        
+
+
         <?php
         $query2 = "SELECT * from match_request WHERE match_id = $match_id AND status='pending'";
         $result2 = mysqli_query($conn, $query2);
@@ -584,8 +584,9 @@ if ($host['id'] == $user_id) {
         ?>
         <h1>Match Request:</h1>
         <ul>
-            <p class="detail">
+
             <?php if (!empty($requests)): ?>
+
                 <?php foreach ($requests as $request):
                     $request_id = $request['request_user_id'];
                     $query3 = "SELECT * from user WHERE id = $request_id";
@@ -593,8 +594,16 @@ if ($host['id'] == $user_id) {
 
                     if (mysqli_num_rows($result3) > 0) {
                         $row2 = mysqli_fetch_assoc($result3);
+                        //profile picture
+                        $profilePicRes = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $row2['id']);
+                        $profilePicRow = mysqli_fetch_assoc($profilePicRes);
+                        if (empty($profilePicRow['file'])) {
+                            echo '<img src="IMAGE/default.png" alt="Profile Picture" class="profile-pic">';
+                        } else {
+                            echo '<img src="uploads/' . $profilePicRow['file'] . '" alt="Profile Picture" class="profile-pic">';
+                        }
 
-                        echo '<span class="friend-name">' . htmlspecialchars($row2['first_name'] . ' ' . $row2['last_name']) . '</span>'; ?>
+                        echo '<p class="detail"> <span class="friend-name">' . htmlspecialchars($row2['first_name'] . ' ' . $row2['last_name']) . '</span>'; ?>
 
                         <form method="POST" class="action-form" action="match_request_action.php">
                             <input type="hidden" name="request_user_id" value="<?php echo $row2['id']; ?>">
@@ -607,18 +616,20 @@ if ($host['id'] == $user_id) {
                             <input type="hidden" name="request_match_id" value="<?php echo $request['match_id']; ?>">
                             <button type="submit" name="reject_request_match" class="action-button reject-button">Reject</button>
                         </form>
-
+                        </p>
                         <?php
                     }
                 endforeach;
                 ?>
+                </p>
             </ul>
         <?php else: ?>
             </p>
+
             <p class="detail">
             <p class="friend-name">No requests found.</p>
             </p>
-            
+
         <?php endif; ?>
     </div>
 </div>
