@@ -389,6 +389,10 @@ if (!$result2 || mysqli_num_rows($result2) == 0) {
                             placeholder="List your interests (e.g., traveling, cooking, reading, playing basketball)..."><?php echo htmlspecialchars($rows['interests']); ?></textarea>
                     </div>
 
+                    <div>
+                        <input type="hidden" id="frame" name="frame" value="<?php echo htmlspecialchars($rows2['file']); ?>"
+                    </div>
+
                     <div class="button">
                         <p><button type="submit" id="update">
                                 <img src="IMAGE/update_button_white.png" alt="Update"
