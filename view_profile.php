@@ -167,7 +167,6 @@ if (!$result2 || mysqli_num_rows($result2) == 0) {
                                             <button name="frame" value="1">Frame 1</button>
                                             <button name="frame" value="2">Frame 2</button>
                                             <button name="frame" value="3">Frame 3</button>
-                                            <input type="hidden" id="frame" name="frame" value="<?php echo htmlspecialchars($rows2['file']); ?>"
                                         </div>
                                     <?php endif; ?>
                                 </div>
