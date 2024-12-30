@@ -162,7 +162,7 @@ if (!$result2 || mysqli_num_rows($result2) == 0) {
                                 <?php $isPremium = $rows['premium']; ?>
                                 <div class="image-container">
                                     <?php if ($isPremium): ?>
-                                    <input type="hidden" id="frame" name="frame" value="<?php echo htmlspecialchars($rows2['frame']); ?>"
+                                    <input type="hidden" id="frame" name="frame" value="<?php echo htmlspecialchars($rows2['file']); ?>"
                                         <img src="IMAGE/<?php echo $rows2['file'] ?>" class="premium-frame"/>
                                         <div class="frame-selector">
                                             <button name="frame" value="1">Frame 1</button>
