@@ -441,7 +441,7 @@ margin-bottom: 30px;
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    transform: translate(445px,-22px);
+    transform: translate(445px,-28px);
 }
 
 /* Accept button styling */
