@@ -479,3 +479,19 @@ margin-bottom: 30px;
     top: 5px;
     margin-left: 10px;
     transform: translateX(-320px);
+}
+
+.detail a {
+    text-decoration: none;
+    color: black;
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+    display: inline-block;
+    /* Ensures `transform` works */
+}
+
+.detail a:hover {
+    color: #5252D4;
+    transform: scale(1.05);
+    /* Slightly enlarges the element */
+    text-decoration: none;
+}
