@@ -594,9 +594,10 @@ if ($host['id'] == $user_id) {
 
                     if (mysqli_num_rows($result3) > 0) {
                         $row2 = mysqli_fetch_assoc($result3);
-
-
-                        echo '<p class="detail"> <span class="friend-name">' . htmlspecialchars($row2['first_name'] . ' ' . $row2['last_name']) . '</span>';
+echo '<p class="detail">';
+                        echo '<a class="friend-name" href="player_profile.php?id=' . htmlspecialchars($row2['id']) . '">';
+                        echo htmlspecialchars($row2['first_name'] . ' ' . $row2['last_name']);
+                        echo '</a>';
                         //profile picture
                         $profilePicRes = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $row2['id']);
                         $profilePicRow = mysqli_fetch_assoc($profilePicRes);
