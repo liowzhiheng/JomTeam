@@ -146,14 +146,15 @@ if (!$result2 || mysqli_num_rows($result2) == 0) {
                                         <div class="overlay-text" onclick="document.getElementById('imageInput').click();">
                                             Upload Image</div>
                                     </div>
-                                    <img src="IMAGE/<?php echo $rows2['file'] ?>" class="premium-frame"/>
+           
+                                    <?php if ($rows['premium']): ?>
+                                    </div>
+                                <img src="IMAGE/<?php echo $rows2['file'] ?>" class="premium-frame"/>
                                         <div class="frame-selector">
                                             <button name="frame" value="1">Frame 1</button>
                                             <button name="frame" value="2">Frame 2</button>
                                             <button name="frame" value="3">Frame 3</button>
-                                        </div>    
-                                    <?php if ($rows['premium']): ?>
-                                    </div>
+                                        </div> 
                                 <?php endif; ?>
                             <?php } else {
                                 if ($rows['premium']): ?>
