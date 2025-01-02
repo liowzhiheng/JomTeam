@@ -126,6 +126,9 @@ if (!$result2 || mysqli_num_rows($result2) == 0) {
         </p>
         <form action="update_profile.php" method="post" enctype="multipart/form-data">
             <div class="profile-container">
+                <div>
+                    <input type="hidden" id="frame" name="frame" style="position:absolute;" value="<?php echo htmlspecialchars($rows['frame']); ?>"/>
+                </div>
 
                 <!-- Image Section -->
                 <div class="profile-left">
@@ -183,9 +186,6 @@ if (!$result2 || mysqli_num_rows($result2) == 0) {
                 </div>
 
                 <!-- Info Section -->
-                <div>
-                    <input type="hidden" id="frame" name="frame" style="position:absolute;" value="<?php echo htmlspecialchars($rows['frame']); ?>"/>
-                </div>
                 <div class="profile-right">
                     <div class="group">
                         <label for="fname">First Name:</label>
