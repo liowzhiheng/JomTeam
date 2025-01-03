@@ -20,6 +20,7 @@
 
         gtag('config', 'G-ES1HCMHVQX');
     </script>
+    <link rel="shortcut icon" type="image/jpg" href="IMAGE/jomteam_new_logo.ico"/>
 </head>
 
 <body class="transition-container">
