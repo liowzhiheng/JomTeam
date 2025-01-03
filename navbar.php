@@ -95,7 +95,7 @@ $stmt->close();
 <!-- Navbar -->
 <nav class="navbar">
     <a href="main.php" class="logo">
-        <img src="IMAGE/jomteam.png" alt="Logo">
+        <img src="IMAGE/jomteam_new_logo.png" alt="Logo">
     </a>
 
     <ul class="menu leftmenu">
