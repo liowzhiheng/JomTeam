@@ -63,6 +63,7 @@ if ($result->num_rows > 0) {
     <link rel="stylesheet" href="create_match_2.css">
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="footer.css">
+<link rel="shortcut icon" type="image/jpg" href="IMAGE/jomteam_new_logo.ico"/>
 
 </head>
 
