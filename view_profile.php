@@ -75,6 +75,7 @@ if (!$result2 || mysqli_num_rows($result2) == 0) {
     <link rel="stylesheet" href="view_profile.css">
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="footer.css">
+    <link rel="shortcut icon" type="image/jpg" href="IMAGE/jomteam_new_logo.ico"/>
 </head>
 
 <body>
