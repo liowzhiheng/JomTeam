@@ -194,6 +194,15 @@ if ($host['id'] == $user_id) {
             <!-- Host Info -->
             <div>
                 <label>Host:</label>
+                <?php
+                if (empty($host['profile_picture'])) {
+                    // Default profile picture if not available
+                    echo '<img src="IMAGE/default.png" alt="Host Profile Picture" class="profile-pic-player">';
+                } else {
+                    // Host's profile picture
+                    echo '<img src="uploads/' . $host['profile_picture'] . '" alt="Host Profile Picture" class="profile-pic-player">';
+                }
+                ?>
                 <a href="player_profile.php?id=<?php echo $host['id']; ?>&match_id=<?php echo $match_id; ?>"
                     class="host-name">
                     <?php echo htmlspecialchars($host['first_name'] . ' ' . $host['last_name']); ?>
@@ -204,7 +213,7 @@ if ($host['id'] == $user_id) {
                 <?php
                 // Query to get players who joined the match
                 $playersQuery = "
-            SELECT user.id, user.first_name, user.last_name 
+            SELECT user.id, user.first_name, user.last_name,user.premium 
             FROM match_participants
             INNER JOIN user ON match_participants.user_id = user.id
             WHERE match_participants.match_id = ? 
@@ -239,7 +248,8 @@ if ($host['id'] == $user_id) {
                         // After "X", show the names of joined players
                         $player = $players[$currentPlayerIndex];
                         $playerName = htmlspecialchars($player['first_name'] . " " . $player['last_name']);
-                         $profilePicRes = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $player['id']);
+                        
+                        $profilePicRes = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $player['id']);
                         $profilePicRow = mysqli_fetch_assoc($profilePicRes);
                         
                         echo "<li id='player{$i}'>Player {$i}: ";
