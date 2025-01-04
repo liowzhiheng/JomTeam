@@ -311,7 +311,7 @@ if ($host['id'] == $user_id) {
                                 font-size: 30px;
                                 font-weight: 700;
                                 color: white;
-                                background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%);
+                                background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.9) 71%);
                                 border: none;
                                 border-radius: 50px;
                                 cursor: pointer;
@@ -349,7 +349,7 @@ if ($host['id'] == $user_id) {
                                 font-size: 30px;
                                 font-weight: 700;
                                 color: white;
-                                background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%);
+                                background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.9) 71%);
                                 border: none;
                                 border-radius: 50px;
                                 cursor: pointer;
@@ -402,7 +402,7 @@ if ($host['id'] == $user_id) {
                                 font-size: 30px;
                                 font-weight: 700;
                                 color: white;
-                                background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.66) 71%);
+                                background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.9) 71%);
                                 border: none;
                                 border-radius: 50px;
                                 cursor: pointer;
