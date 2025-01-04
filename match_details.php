@@ -239,6 +239,13 @@ if ($host['id'] == $user_id) {
                         // After "X", show the names of joined players
                         $player = $players[$currentPlayerIndex];
                         $playerName = htmlspecialchars($player['first_name'] . " " . $player['last_name']);
+                         $profilePicRes = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $player['id']);
+                        $profilePicRow = mysqli_fetch_assoc($profilePicRes);
+                        if (empty($profilePicRow['file'])) {
+                            echo '<img src="IMAGE/default.png" alt="Profile Picture" class="profile-pic">';
+                        } else {
+                            echo '<img src="uploads/' . $profilePicRow['file'] . '" alt="Profile Picture" class="profile-pic">';
+                        }
                         echo "<li id='player{$i}'>Player {$i}: <a href='player_profile.php?id={$player['id']}&match_id={$match_id}' 
                     style='color: black; 
                     text-decoration: none; 
