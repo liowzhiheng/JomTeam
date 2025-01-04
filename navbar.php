@@ -1,4 +1,5 @@
 <?php
+session_start();
 require("config.php");
 
 // Get user ID from session
@@ -62,7 +63,7 @@ if ($result->num_rows > 0) {
 
 // Query for pending match requests
 $stmt = $conn->prepare("
-    SELECT user.id AS sender_id, user.first_name, user.last_name, match_request.match_id, gamematch.match_title, match_request.status
+    SELECT user.id AS sender_id, user.first_name, user.last_name, match_request.match_id, gamematch.match_title, match_request.status, gamematch.user_id AS receiver_id
     FROM match_request
     JOIN user ON match_request.request_user_id = user.id
     JOIN gamematch ON match_request.match_id = gamematch.id
@@ -159,7 +160,7 @@ $stmt->close();
         <li><a href="history.php">Match Activity</a></li>
         <li class="notification">
             <a href="javascript:void(0);" onclick="showNotifications()">
-                <img src="IMAGE/NOTIFICATION.png" alt="Notification" >
+                <img src="IMAGE/NOTIFICATION.png" alt="Notification">
                 <?php if (($pendingCount + $pendingMatchCount) > 0 && !isset($_SESSION['notification_seen'])): ?>
                     <span class="red-dot"></span>
                 <?php endif; ?>
@@ -218,7 +219,7 @@ $stmt->close();
         }
     }
 
-     function showNotifications() {
+    function showNotifications() {
         const pendingRequests = <?php echo json_encode($pendingRequests); ?>;
         const pendingMatchRequests = <?php echo json_encode($pendingMatchRequests); ?>;
         const userId = <?php echo json_encode($userId); ?>;  // Assuming userId is passed from PHP
@@ -261,10 +262,10 @@ $stmt->close();
 
             if (statusMessage) {
                 requestsContent += `
-            <div class="request-item">
-                <p>${statusMessage}</p>
-            </div>
-            `;
+        <div class="request-item">
+            <p>${statusMessage}</p>
+        </div>
+        `;
             }
         });
 
@@ -281,6 +282,7 @@ $stmt->close();
             console.error('Error:', error);
         });
     }
+
     function closeModal() {
         document.getElementById('friendRequestsModal').style.display = 'none';
         document.querySelector('.red-dot').style.display = 'none';  // Hide the red dot
