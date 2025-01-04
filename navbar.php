@@ -1,5 +1,4 @@
 <?php
-session_start();
 require("config.php");
 
 // Get user ID from session
@@ -63,12 +62,19 @@ if ($result->num_rows > 0) {
 
 // Query for pending match requests
 $stmt = $conn->prepare("
-    SELECT user.id AS sender_id, user.first_name, user.last_name, match_request.match_id, gamematch.match_title, match_request.status, gamematch.user_id AS receiver_id
+    SELECT 
+        user.id AS sender_id, 
+        user.first_name, 
+        user.last_name, 
+        match_request.match_id, 
+        gamematch.match_title, 
+        match_request.status, 
+        gamematch.user_id AS receiver_id
     FROM match_request
     JOIN user ON match_request.request_user_id = user.id
     JOIN gamematch ON match_request.match_id = gamematch.id
     WHERE gamematch.user_id = ? 
-    AND (match_request.status = 'pending' OR match_request.status = 'accepted' OR match_request.status = 'rejected')
+    AND match_request.status IN ('pending', 'accepted', 'rejected')
 ");
 $stmt->bind_param("i", $userID);
 $stmt->execute();
@@ -234,6 +240,8 @@ $stmt->close();
 
         let requestsContent = '';
 
+        console.log("Pending Match Requests:", pendingMatchRequests);
+        
         // Display friend requests
         pendingRequests.forEach(function (request) {
             requestsContent += `
@@ -247,17 +255,11 @@ $stmt->close();
             let statusMessage = '';
 
             if (matchRequest.status === 'pending') {
-                if (matchRequest.receiver_id === userId) {
-                    statusMessage = `Someone is requesting to join your match.`;
-                }
-            } else {
-                if (matchRequest.sender_id === userId) {
-                    if (matchRequest.status === 'accepted') {
-                        statusMessage = `Your request to join "${matchRequest.match_title}" has been accepted.`;
-                    } else if (matchRequest.status === 'rejected') {
-                        statusMessage = `Your request to join "${matchRequest.match_title}" has been rejected.`;
-                    }
-                }
+                statusMessage = `Someone is requesting to join your match "${matchRequest.match_title}".`;
+            } else if (matchRequest.status === 'accepted') {
+                statusMessage = `Your request to join "${matchRequest.match_title}" has been accepted.`;
+            } else if (matchRequest.status === 'rejected') {
+                statusMessage = `Your request to join "${matchRequest.match_title}" has been rejected.`;
             }
 
             if (statusMessage) {
