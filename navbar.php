@@ -62,11 +62,12 @@ if ($result->num_rows > 0) {
 
 // Query for pending match requests
 $stmt = $conn->prepare("
-    SELECT user.id AS sender_id, user.first_name, user.last_name, match_request.match_id, gamematch.match_title
+    SELECT user.id AS sender_id, user.first_name, user.last_name, match_request.match_id, gamematch.match_title, match_request.status
     FROM match_request
     JOIN user ON match_request.request_user_id = user.id
     JOIN gamematch ON match_request.match_id = gamematch.id
-    WHERE match_request.status = 'pending' AND gamematch.user_id = ?
+    WHERE gamematch.user_id = ? 
+    AND (match_request.status = 'pending' OR match_request.status = 'accepted' OR match_request.status = 'rejected')
 ");
 $stmt->bind_param("i", $userID);
 $stmt->execute();
@@ -76,13 +77,14 @@ $result = $stmt->get_result();
 $pendingMatchRequests = [];
 $pendingMatchCount = 0;
 
-// Fetch all pending match requests
+// Fetch all match requests
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $pendingMatchRequests[] = [
             'sender_id' => $row['sender_id'],
             'sender_name' => $row['first_name'] . ' ' . $row['last_name'],
-            'match_title' => $row['match_title']
+            'match_title' => $row['match_title'],
+            'status' => $row['status']
         ];
         $pendingMatchCount++;
     }
@@ -216,17 +218,17 @@ $stmt->close();
         }
     }
 
-    function showNotifications() {
+     function showNotifications() {
         const pendingRequests = <?php echo json_encode($pendingRequests); ?>;
         const pendingMatchRequests = <?php echo json_encode($pendingMatchRequests); ?>;
+        const userId = <?php echo json_encode($userId); ?>;  // Assuming userId is passed from PHP
         const pendingCount = <?php echo $pendingCount; ?>;
         const pendingMatchCount = <?php echo $pendingMatchCount; ?>;
 
-        // If there are no pending requests, show 'No new notifications' message
         if (pendingCount === 0 && pendingMatchCount === 0) {
             document.getElementById('friendRequestsContent').innerHTML = '<p>No new notifications</p>';
             document.getElementById('friendRequestsModal').style.display = 'block';
-            return; // Stop execution if no requests
+            return;
         }
 
         let requestsContent = '';
@@ -234,36 +236,51 @@ $stmt->close();
         // Display friend requests
         pendingRequests.forEach(function (request) {
             requestsContent += `
-            <div class="request-item">
-                <p>${request.sender_name} is sending a friend request to you.</p>
-            </div>
+        <div class="request-item">
+            <p>${request.sender_name} is sending a friend request to you.</p>
+        </div>
         `;
         });
 
-        // Display match requests
         pendingMatchRequests.forEach(function (matchRequest) {
-            requestsContent += `
+            let statusMessage = '';
+
+            if (matchRequest.status === 'pending') {
+                if (matchRequest.receiver_id === userId) {
+                    statusMessage = `Someone is requesting to join your match.`;
+                }
+            } else {
+                if (matchRequest.sender_id === userId) {
+                    if (matchRequest.status === 'accepted') {
+                        statusMessage = `Your request to join "${matchRequest.match_title}" has been accepted.`;
+                    } else if (matchRequest.status === 'rejected') {
+                        statusMessage = `Your request to join "${matchRequest.match_title}" has been rejected.`;
+                    }
+                }
+            }
+
+            if (statusMessage) {
+                requestsContent += `
             <div class="request-item">
-                <p>${matchRequest.sender_name} is requesting to join your match "${matchRequest.match_title}".</p>
+                <p>${statusMessage}</p>
             </div>
-        `;
+            `;
+            }
         });
 
-        // Show the notifications in the modal
         document.getElementById('friendRequestsContent').innerHTML = requestsContent;
         document.getElementById('friendRequestsModal').style.display = 'block';
 
-        // Send AJAX request to mark all notifications as seen (both friend and match)
+        // AJAX request to mark notifications as seen
         fetch(window.location.href, {
             method: 'POST',
             body: new URLSearchParams('notification_seen=true')
         }).then(response => {
-            document.querySelector('.red-dot').style.display = 'none';  // Hide the red dot
+            document.querySelector('.red-dot').style.display = 'none';
         }).catch(error => {
             console.error('Error:', error);
         });
     }
-
     function closeModal() {
         document.getElementById('friendRequestsModal').style.display = 'none';
         document.querySelector('.red-dot').style.display = 'none';  // Hide the red dot
