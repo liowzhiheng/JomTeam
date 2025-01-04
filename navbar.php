@@ -215,6 +215,12 @@ $stmt->close();
 </div>
 
 <script>
+    function confirmLogout() {
+        var confirmation = confirm("Are you sure you want to logout?");
+        if (confirmation) {
+            window.location.href = "logout.php";
+        }
+    }
     // Function to show notifications for the receiver (user receiving requests)
     function showReceiverNotifications() {
         const pendingRequests = <?php echo json_encode($pendingRequests); ?>;
