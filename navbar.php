@@ -1,4 +1,5 @@
 <?php
+session_start();
 require("config.php");
 
 // Get user ID from session
