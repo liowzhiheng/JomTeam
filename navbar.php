@@ -218,17 +218,17 @@ $stmt->close();
         }
     }
 
-    function showNotifications() {
+     function showNotifications() {
         const pendingRequests = <?php echo json_encode($pendingRequests); ?>;
         const pendingMatchRequests = <?php echo json_encode($pendingMatchRequests); ?>;
+        const userId = <?php echo json_encode($userId); ?>;  // Assuming userId is passed from PHP
         const pendingCount = <?php echo $pendingCount; ?>;
         const pendingMatchCount = <?php echo $pendingMatchCount; ?>;
 
-        // If there are no pending requests, show 'No new notifications' message
         if (pendingCount === 0 && pendingMatchCount === 0) {
             document.getElementById('friendRequestsContent').innerHTML = '<p>No new notifications</p>';
             document.getElementById('friendRequestsModal').style.display = 'block';
-            return; // Stop execution if no requests
+            return;
         }
 
         let requestsContent = '';
@@ -236,46 +236,51 @@ $stmt->close();
         // Display friend requests
         pendingRequests.forEach(function (request) {
             requestsContent += `
-            <div class="request-item">
-                <p>${request.sender_name} is sending a friend request to you.</p>
-            </div>
+        <div class="request-item">
+            <p>${request.sender_name} is sending a friend request to you.</p>
+        </div>
         `;
         });
 
-        // Display match requests
-    pendingMatchRequests.forEach(function (matchRequest) {
-        let statusMessage = '';
+        pendingMatchRequests.forEach(function (matchRequest) {
+            let statusMessage = '';
 
-        if (matchRequest.status === 'pending') {
-            statusMessage = `is requesting to join your match "${matchRequest.match_title}".`;
-        } else if (matchRequest.status === 'accepted') {
-            statusMessage = `has accepted your match request for "${matchRequest.match_title}".`;
-        } else if (matchRequest.status === 'rejected') {
-            statusMessage = `has rejected your match request for "${matchRequest.match_title}".`;
-        }
+            if (matchRequest.status === 'pending') {
+                if (matchRequest.receiver_id === userId) {
+                    statusMessage = `Someone is requesting to join your match.`;
+                }
+            } else {
+                if (matchRequest.sender_id === userId) {
+                    if (matchRequest.status === 'accepted') {
+                        statusMessage = `Your request to join "${matchRequest.match_title}" has been accepted.`;
+                    } else if (matchRequest.status === 'rejected') {
+                        statusMessage = `Your request to join "${matchRequest.match_title}" has been rejected.`;
+                    }
+                }
+            }
 
-        requestsContent += `
-        <div class="request-item">
-            <p>${matchRequest.sender_name} ${statusMessage}</p>
-        </div>
-        `;
-    });
+            if (statusMessage) {
+                requestsContent += `
+            <div class="request-item">
+                <p>${statusMessage}</p>
+            </div>
+            `;
+            }
+        });
 
-        // Show the notifications in the modal
         document.getElementById('friendRequestsContent').innerHTML = requestsContent;
         document.getElementById('friendRequestsModal').style.display = 'block';
 
-        // Send AJAX request to mark all notifications as seen (both friend and match)
+        // AJAX request to mark notifications as seen
         fetch(window.location.href, {
             method: 'POST',
             body: new URLSearchParams('notification_seen=true')
         }).then(response => {
-            document.querySelector('.red-dot').style.display = 'none';  // Hide the red dot
+            document.querySelector('.red-dot').style.display = 'none';
         }).catch(error => {
             console.error('Error:', error);
         });
     }
-
     function closeModal() {
         document.getElementById('friendRequestsModal').style.display = 'none';
         document.querySelector('.red-dot').style.display = 'none';  // Hide the red dot
