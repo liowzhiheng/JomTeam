@@ -32,7 +32,7 @@
 }
 
 .navbar .menu li img {
-    width: 25px;
+
     height: auto;
     margin-left: 10px;
     flex-shrink: 0;
@@ -50,17 +50,23 @@
 }
 
 .navbar .menu .profile img.uploaded-image {
-    width: 40px;   /* Adjust the width of the profile image */
-    height: 40px;  /* Adjust the height of the profile image */
-    border-radius: 50%; /* Ensure it's circular */
-    object-fit: cover; /* Maintain aspect ratio */
-    transition: transform 0.3s ease; /* Add smooth transformation on hover */
+    width: 40px;
+    /* Adjust the width of the profile image */
+    height: 40px;
+    /* Adjust the height of the profile image */
+    border-radius: 50%;
+    /* Ensure it's circular */
+    object-fit: cover;
+    /* Maintain aspect ratio */
+    transition: transform 0.3s ease;
+    /* Add smooth transformation on hover */
 }
-
+/* 
 .navbar .menu .profile img.uploaded-image:hover {
-    transform: scale(1.2); /* Slight zoom effect on hover */
+    transform: scale(1.2);
+    /* Slight zoom effect on hover 
 }
-
+*/
 
 .navbar .menu a:hover {
     color: #ff0000;
@@ -86,17 +92,22 @@
 
 /* Modal styles */
 .modal {
-    display: none; /* Hidden by default */
+    display: none;
+    /* Hidden by default */
     position: fixed;
     z-index: 1;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Background color with opacity */
-    justify-content: center; /* Center the modal horizontally */
-    align-items: center; /* Center the modal vertically */
-    transition: opacity 0.3s ease; /* Smooth fade-in effect */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Background color with opacity */
+    justify-content: center;
+    /* Center the modal horizontally */
+    align-items: center;
+    /* Center the modal vertically */
+    transition: opacity 0.3s ease;
+    /* Smooth fade-in effect */
 }
 
 /* Modal content styles */
@@ -126,13 +137,42 @@
 
 .close-btn:hover,
 .close-btn:focus {
-    color: #ff0000; /* Change color on hover for better visibility */
+    color: #ff0000;
+    /* Change color on hover for better visibility */
     text-decoration: none;
 }
 
 /* Modal content styling for friend requests */
 #friendRequestsModal {
-    display: none;  /* Hide the modal initially */
+    display: none;
+    /* Hide the modal initially */
     width: 100%;
     padding: 10px;
 }
+
+
+
+
+
+
+.image-container-nav {
+
+    position: absolute;
+    /* Important for absolute children */
+
+}
+
+
+.premium-frame-nav {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    pointer-events: none;
+    /* Allow clicks to pass through to the image */
+    z-index: 1;
+    transform: translate(0px, -40px);
+}
+

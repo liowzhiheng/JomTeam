@@ -141,7 +141,7 @@ if (!$result2 || mysqli_num_rows($result2) == 0) {
                                 if ($rows['premium']): ?>
                                     <div class="premium-profile-frame">
                                     <?php endif; ?>
-                                    <div class="image-container">
+                                    <div class="image-container1">
                                         <img id="imagePreview" src="IMAGE/default.png" alt="Default Image"
                                             class="uploaded-image" onclick="document.getElementById('imageInput').click();" />
                                         <div class="overlay-text" onclick="document.getElementById('imageInput').click();">
@@ -150,7 +150,7 @@ if (!$result2 || mysqli_num_rows($result2) == 0) {
            
                                     <?php if ($rows['premium']): ?>
                                     </div>
-                                <div class="image-container">
+                                <div class="image-container1">
                                 <img src="IMAGE/<?php echo $rows2['file'] ?>" class="premium-frame"/>
                                         <div class="frame-selector">
                                             <button name="frame" value="1">Frame 1</button>
@@ -173,7 +173,7 @@ if (!$result2 || mysqli_num_rows($result2) == 0) {
                                     </div>
                                 <?php endif; ?>
                                 <?php $isPremium = $rows['premium']; ?>
-                                <div class="image-container">
+                                <div class="image-container1">
                                     <?php if ($isPremium): ?>
                                         <img src="IMAGE/<?php echo $rows2['file'] ?>" class="premium-frame"/>
                                         <div class="frame-selector">

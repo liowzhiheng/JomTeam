@@ -78,7 +78,7 @@ form {
     transition: opacity 0.3s ease;
 }
 
-.image-container {
+.image-container1 {
     position: relative;
     display: inline-block;
     z-index: 1;
@@ -354,3 +354,4 @@ form {
      pointer-events: none; /* Allow clicks to pass through to the image */
     transform: translate(0px,-210px);
  }
+

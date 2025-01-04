@@ -88,6 +88,53 @@ if ($result->num_rows > 0) {
     }
 }
 
+$user_id = $_SESSION['ID'];
+
+$query = "
+    SELECT 
+        u.first_name, 
+        u.last_name, 
+        u.gender, 
+        u.email, 
+        u.password,
+        u.phone, 
+        u.premium,
+        p.status, 
+        p.description, 
+        p.location, 
+        p.interests, 
+        p.preferred_game_types, 
+        p.skill_level, 
+        p.availability,
+        p.frame
+    FROM 
+        user u 
+    LEFT JOIN 
+        profile p 
+    ON 
+        u.id = p.user_id 
+    WHERE 
+        u.id = '$user_id'
+";
+
+$result = mysqli_query($conn, $query);
+if (!$result || mysqli_num_rows($result) == 0) {
+    echo "No profile data found.";
+    exit();
+}
+
+$rows = mysqli_fetch_assoc($result);
+
+$frame = $rows['frame'];
+$sql = "SELECT * FROM frame WHERE id = '$frame'";
+$result2 = mysqli_query($conn, $sql);
+$rows2 = mysqli_fetch_assoc($result2);
+if (!$result2 || mysqli_num_rows($result2) == 0) {
+    echo "No profile data found.";
+    exit();
+}
+
+
 // Close the statement
 $stmt->close();
 ?>
@@ -110,7 +157,7 @@ $stmt->close();
         <li><a href="history.php">Match Activity</a></li>
         <li class="notification">
             <a href="javascript:void(0);" onclick="showNotifications()">
-                <img src="IMAGE/NOTIFICATION.png" alt="Notification">
+                <img src="IMAGE/NOTIFICATION.png" alt="Notification" >
                 <?php if (($pendingCount + $pendingMatchCount) > 0 && !isset($_SESSION['notification_seen'])): ?>
                     <span class="red-dot"></span>
                 <?php endif; ?>
@@ -136,7 +183,16 @@ $stmt->close();
                           </div>';
                 }
             }
+
             ?>
+            <?php if ($rows['premium']): ?>
+                </div>
+                <div class="image-container-nav ">
+                    <img src="IMAGE/<?php echo $rows2['file'] ?>" class="premium-frame-nav" />
+
+                </div>
+            <?php endif; ?>
+
         </li>
         <li class="logout">
             <a href="javascript:void(0);" onclick="confirmLogout()">Logout</a>
@@ -161,52 +217,52 @@ $stmt->close();
     }
 
     function showNotifications() {
-    const pendingRequests = <?php echo json_encode($pendingRequests); ?>;
-    const pendingMatchRequests = <?php echo json_encode($pendingMatchRequests); ?>;
-    const pendingCount = <?php echo $pendingCount; ?>;
-    const pendingMatchCount = <?php echo $pendingMatchCount; ?>;
+        const pendingRequests = <?php echo json_encode($pendingRequests); ?>;
+        const pendingMatchRequests = <?php echo json_encode($pendingMatchRequests); ?>;
+        const pendingCount = <?php echo $pendingCount; ?>;
+        const pendingMatchCount = <?php echo $pendingMatchCount; ?>;
 
-    // If there are no pending requests, show 'No new notifications' message
-    if (pendingCount === 0 && pendingMatchCount === 0) {
-        document.getElementById('friendRequestsContent').innerHTML = '<p>No new notifications</p>';
-        document.getElementById('friendRequestsModal').style.display = 'block';
-        return; // Stop execution if no requests
-    }
+        // If there are no pending requests, show 'No new notifications' message
+        if (pendingCount === 0 && pendingMatchCount === 0) {
+            document.getElementById('friendRequestsContent').innerHTML = '<p>No new notifications</p>';
+            document.getElementById('friendRequestsModal').style.display = 'block';
+            return; // Stop execution if no requests
+        }
 
-    let requestsContent = '';
+        let requestsContent = '';
 
-    // Display friend requests
-    pendingRequests.forEach(function (request) {
-        requestsContent += `
+        // Display friend requests
+        pendingRequests.forEach(function (request) {
+            requestsContent += `
             <div class="request-item">
                 <p>${request.sender_name} is sending a friend request to you.</p>
             </div>
         `;
-    });
+        });
 
-    // Display match requests
-    pendingMatchRequests.forEach(function (matchRequest) {
-        requestsContent += `
+        // Display match requests
+        pendingMatchRequests.forEach(function (matchRequest) {
+            requestsContent += `
             <div class="request-item">
                 <p>${matchRequest.sender_name} is requesting to join your match "${matchRequest.match_title}".</p>
             </div>
         `;
-    });
+        });
 
-    // Show the notifications in the modal
-    document.getElementById('friendRequestsContent').innerHTML = requestsContent;
-    document.getElementById('friendRequestsModal').style.display = 'block';
+        // Show the notifications in the modal
+        document.getElementById('friendRequestsContent').innerHTML = requestsContent;
+        document.getElementById('friendRequestsModal').style.display = 'block';
 
-    // Send AJAX request to mark all notifications as seen (both friend and match)
-    fetch(window.location.href, {
-        method: 'POST',
-        body: new URLSearchParams('notification_seen=true')
-    }).then(response => {
-        document.querySelector('.red-dot').style.display = 'none';  // Hide the red dot
-    }).catch(error => {
-        console.error('Error:', error);
-    });
-}
+        // Send AJAX request to mark all notifications as seen (both friend and match)
+        fetch(window.location.href, {
+            method: 'POST',
+            body: new URLSearchParams('notification_seen=true')
+        }).then(response => {
+            document.querySelector('.red-dot').style.display = 'none';  // Hide the red dot
+        }).catch(error => {
+            console.error('Error:', error);
+        });
+    }
 
     function closeModal() {
         document.getElementById('friendRequestsModal').style.display = 'none';
