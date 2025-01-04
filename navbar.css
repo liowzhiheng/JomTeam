@@ -108,6 +108,7 @@
     /* Center the modal vertically */
     transition: opacity 0.3s ease;
     /* Smooth fade-in effect */
+
 }
 
 
@@ -186,7 +187,7 @@
     border-radius: 20px;
     position: relative;
     max-width: 800px;
-
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 .match-request h1{
 
