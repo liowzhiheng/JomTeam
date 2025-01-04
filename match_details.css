@@ -495,3 +495,15 @@ margin-bottom: 30px;
     /* Slightly enlarges the element */
     text-decoration: none;
 }
+
+.profile-pic-player {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+    position: relative;
+    top: 8px;
+    margin-left: 10px;
+
+}

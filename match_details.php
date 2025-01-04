@@ -241,22 +241,27 @@ if ($host['id'] == $user_id) {
                         $playerName = htmlspecialchars($player['first_name'] . " " . $player['last_name']);
                          $profilePicRes = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $player['id']);
                         $profilePicRow = mysqli_fetch_assoc($profilePicRes);
+                        
+                        echo "<li id='player{$i}'>Player {$i}: ";
+
                         if (empty($profilePicRow['file'])) {
-                            echo '<img src="IMAGE/default.png" alt="Profile Picture" class="profile-pic">';
+                            echo '<img src="IMAGE/default.png" alt="Profile Picture" class="profile-pic-player">';
                         } else {
-                            echo '<img src="uploads/' . $profilePicRow['file'] . '" alt="Profile Picture" class="profile-pic">';
+                            echo '<img src="uploads/' . $profilePicRow['file'] . '" alt="Profile Picture" class="profile-pic-player">';
                         }
-                        echo "<li id='player{$i}'>Player {$i}: <a href='player_profile.php?id={$player['id']}&match_id={$match_id}' 
-                    style='color: black; 
-                    text-decoration: none; 
-                    font-weight: 500; 
-                    display: inline-block;
-                    transition: transform 0.3s ease, box-shadow 0.3s ease;'
-                    onmouseover=\"this.style.color='#EB1436'; 
-                                this.style.transform='translateY(-3px)'\"
-                    onmouseout=\"this.style.color='black'; 
-                                this.style.transform='none' 
-                                \">$playerName</a></li>";
+                        
+                        echo "<a href='player_profile.php?id={$player['id']}&match_id={$match_id}' 
+                            style='color: black; 
+                            text-decoration: none; 
+                            font-weight: 500; 
+                            display: inline-block;
+                            transition: transform 0.3s ease, box-shadow 0.3s ease;'
+                            onmouseover=\"this.style.color='#EB1436'; 
+                                        this.style.transform='translateY(-3px)'\" 
+                            onmouseout=\"this.style.color='black'; 
+                                        this.style.transform='none' 
+                                        \">$playerName</a></li>";
+                        
                         $currentPlayerIndex++; // Move to the next participant
                     } else {
                         // Show "?" for any remaining empty slots
