@@ -233,3 +233,12 @@ margin-top: 15%;
     overflow-y: auto;
 }
 
+.notification-icon:hover
+{
+transform: scale(1.1);
+}
+
+.notification-icon
+{
+    transition: background 0.3s ease-in-out, transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+}

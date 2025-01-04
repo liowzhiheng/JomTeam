@@ -164,7 +164,7 @@ $stmt->close();
         <li><a href="history.php">Match Activity</a></li>
         <li class="notification">
             <a href="javascript:void(0);" onclick="showNotifications()">
-                <img src="IMAGE/NOTIFICATION.png" alt="Notification">
+                <img class="notification-icon" src="IMAGE/NOTIFICATION.png" alt="Notification">
                 <?php if (($pendingCount + $pendingMatchCount) > 0 && !isset($_SESSION['notification_seen'])): ?>
                     <span class="red-dot"></span>
                 <?php endif; ?>
