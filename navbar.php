@@ -207,9 +207,10 @@ $stmt->close();
 </nav>
 
 <div id="friendRequestsModal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn" onclick="closeModal()">close</span>
-        <h2>Notification</h2>
+    <div class="match-request">
+        <span class="close-btn" onclick="closeModal()">×</span>
+
+        <h1>Notification</h1>
         <div id="friendRequestsContent"></div>
     </div>
 </div>
@@ -224,7 +225,7 @@ $stmt->close();
 
     function showNotifications() {
         const pendingRequests = <?php echo json_encode($pendingRequests); ?>;
-        const pendingMatchRequests = <?php echo json_encode($pendingMatchRequests); ?>;
+        const pendingMatchRequests = <?php echo json_encode(value: $pendingMatchRequests); ?>;
         const pendingCount = <?php echo $pendingCount; ?>;
         const pendingMatchCount = <?php echo $pendingMatchCount; ?>;
 
@@ -240,8 +241,8 @@ $stmt->close();
         // Display friend requests
         pendingRequests.forEach(function (request) {
             requestsContent += `
-            <div class="request-item">
-                <p>${request.sender_name} is sending a friend request to you.</p>
+            <div class="detail">
+                <p class="friend-name">${request.sender_name} is sending a friend request to you.</p>
             </div>
         `;
         });
@@ -249,8 +250,8 @@ $stmt->close();
         // Display match requests
         pendingMatchRequests.forEach(function (matchRequest) {
             requestsContent += `
-            <div class="request-item">
-                <p>${matchRequest.sender_name} is requesting to join your match "${matchRequest.match_title}".</p>
+            <div class="detail">
+                <p class="friend-name">${matchRequest.sender_name} is requesting to join your match "${matchRequest.match_title}".</p>
             </div>
         `;
         });

@@ -110,36 +110,36 @@
     /* Smooth fade-in effect */
 }
 
-/* Modal content styles */
-.modal-content {
-    background-color: #fff;
-    margin: auto;
-    padding: 20px;
-    border-radius: 8px;
-    width: 50%;
-    max-width: 600px;
-    position: relative;
-    overflow-y: auto;
-}
+
 
 /* Close button styles */
 .close-btn {
     cursor: pointer;
-    font-size: 20px;
+    float: right;
+    font-size: 40px;
+    font-weight: bold;
     position: absolute;
-    top: 10px;
-    right: 10px;
-    color: black;
+    top: 27px;
+    right: 49px;
+    color: #aaa;
     background: none;
     border: none;
-    font-weight: bold;
+    z-index: 1;
+    font-family: Arial, sans-serif;
 }
 
 .close-btn:hover,
 .close-btn:focus {
-    color: #ff0000;
+    color: #000000;
     /* Change color on hover for better visibility */
     text-decoration: none;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 40px;
+    font-weight: bold;
 }
 
 /* Modal content styling for friend requests */
@@ -174,5 +174,56 @@
     /* Allow clicks to pass through to the image */
     z-index: 1;
     transform: translate(0px, -40px);
+}
+
+    /* notification*/
+.match-request {
+    overflow-y: auto;
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 40px;
+    border-radius: 20px;
+    position: relative;
+    max-width: 800px;
+
+}
+.match-request h1{
+
+color: black;
+margin-bottom: 30px;
+
+}
+
+
+.detail {
+    font-size: 1.0em;
+    margin-bottom: 40px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    transition: transform 0.2s;
+    padding: 15px;
+}
+
+.friend-name {
+    font-size: 20px;
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    position: relative;
+    top: -3px;
+    left: 0px;
+    color: #000;
+
+
+}
+
+/* Modal content styles */
+.modal-content {
+    background-color: #fff;
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 50%;
+    max-width: 600px;
+    position: relative;
+    overflow-y: auto;
 }
 

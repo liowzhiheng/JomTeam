@@ -248,10 +248,10 @@ if ($host['id'] == $user_id) {
                         // After "X", show the names of joined players
                         $player = $players[$currentPlayerIndex];
                         $playerName = htmlspecialchars($player['first_name'] . " " . $player['last_name']);
-                        
+
                         $profilePicRes = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $player['id']);
                         $profilePicRow = mysqli_fetch_assoc($profilePicRes);
-                        
+
                         echo "<li id='player{$i}'>Player {$i}: ";
 
                         if (empty($profilePicRow['file'])) {
@@ -259,7 +259,7 @@ if ($host['id'] == $user_id) {
                         } else {
                             echo '<img src="uploads/' . $profilePicRow['file'] . '" alt="Profile Picture" class="profile-pic-player">';
                         }
-                        
+
                         echo "<a href='player_profile.php?id={$player['id']}&match_id={$match_id}' 
                             style='color: black; 
                             text-decoration: none; 
@@ -271,7 +271,7 @@ if ($host['id'] == $user_id) {
                             onmouseout=\"this.style.color='black'; 
                                         this.style.transform='none' 
                                         \">$playerName</a></li>";
-                        
+
                         $currentPlayerIndex++; // Move to the next participant
                     } else {
                         // Show "?" for any remaining empty slots
@@ -616,7 +616,7 @@ if ($host['id'] == $user_id) {
 
                     if (mysqli_num_rows($result3) > 0) {
                         $row2 = mysqli_fetch_assoc($result3);
-echo '<p class="detail">';
+                        echo '<p class="detail">';
                         echo '<a class="friend-name" href="player_profile.php?id=' . htmlspecialchars($row2['id']) . '">';
                         echo htmlspecialchars($row2['first_name'] . ' ' . $row2['last_name']);
                         echo '</a>';
