@@ -206,7 +206,7 @@ $stmt->close();
     </ul>
 </nav>
 
-<div id="friendRequestsModal" class="modal">
+<div id="friendRequestsModal" class="modal-notification">
     <div class="match-request">
         <span class="close-btn" onclick="closeModal()">×</span>
 
