@@ -178,25 +178,29 @@
 }
 
     /* notification*/
-.match-request {
-    overflow-y: auto;
-    background-color: #fff;
-  left:47%;
-  top: 10%;
-    padding: 40px;
-    border-radius: 20px;
-    position: relative;
-    max-width: 800px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-.match-request h1{
-
-color: black;
-margin-bottom: 30px;
-
-}
-
-
+    .match-request {
+        overflow-y: auto;
+        background-color: #fff;
+        left: 47%;
+        top: 10%;
+        padding: 40px;
+        border-radius: 20px;
+        position: relative;
+        max-width: 800px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        transition: transform 0.4s ease, box-shadow 0.4s ease; /* Smooth scaling and shadow change */
+    }
+    
+    .match-request h1 {
+        color: black;
+        margin-bottom: 30px;
+    }
+    
+    .match-request:hover {
+        transform: scale(1.01);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4); /* Add a subtle shadow change for better effect */
+    }
+    
 .detail {
     font-size: 1.0em;
     margin-bottom: 40px;
