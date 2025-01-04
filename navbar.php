@@ -62,12 +62,11 @@ if ($result->num_rows > 0) {
 
 // Query for pending match requests
 $stmt = $conn->prepare("
-    SELECT user.id AS sender_id, user.first_name, user.last_name, match_request.match_id, gamematch.match_title, match_request.status
+    SELECT user.id AS sender_id, user.first_name, user.last_name, match_request.match_id, gamematch.match_title
     FROM match_request
     JOIN user ON match_request.request_user_id = user.id
     JOIN gamematch ON match_request.match_id = gamematch.id
-    WHERE gamematch.user_id = ? 
-    AND (match_request.status = 'pending' OR match_request.status = 'accepted' OR match_request.status = 'rejected')
+    WHERE match_request.status = 'pending' AND gamematch.user_id = ?
 ");
 $stmt->bind_param("i", $userID);
 $stmt->execute();
@@ -77,14 +76,13 @@ $result = $stmt->get_result();
 $pendingMatchRequests = [];
 $pendingMatchCount = 0;
 
-// Fetch all match requests
+// Fetch all pending match requests
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $pendingMatchRequests[] = [
             'sender_id' => $row['sender_id'],
             'sender_name' => $row['first_name'] . ' ' . $row['last_name'],
-            'match_title' => $row['match_title'],
-            'status' => $row['status']
+            'match_title' => $row['match_title']
         ];
         $pendingMatchCount++;
     }
@@ -159,7 +157,7 @@ $stmt->close();
         <li><a href="history.php">Match Activity</a></li>
         <li class="notification">
             <a href="javascript:void(0);" onclick="showNotifications()">
-                <img src="IMAGE/NOTIFICATION.png" alt="Notification">
+                <img src="IMAGE/NOTIFICATION.png" alt="Notification" >
                 <?php if (($pendingCount + $pendingMatchCount) > 0 && !isset($_SESSION['notification_seen'])): ?>
                     <span class="red-dot"></span>
                 <?php endif; ?>
@@ -244,25 +242,11 @@ $stmt->close();
 
         // Display match requests
         pendingMatchRequests.forEach(function (matchRequest) {
-            if (matchRequest.status === 'accepted') {
-                requestsContent += `
-        <div class="request-item">
-            <p>Your match request for "${matchRequest.match_title}" has been accepted by ${matchRequest.sender_name}.</p>
-        </div>
-    `;
-            } else if (matchRequest.status === 'rejected') {
-                requestsContent += `
-        <div class="request-item">
-            <p>Your match request for "${matchRequest.match_title}" has been rejected by ${matchRequest.sender_name}.</p>
-        </div>
-    `;
-            } else {
-                requestsContent += `
-        <div class="request-item">
-            <p>${matchRequest.sender_name} is requesting to join your match "${matchRequest.match_title}".</p>
-        </div>
-    `;
-            }
+            requestsContent += `
+            <div class="request-item">
+                <p>${matchRequest.sender_name} is requesting to join your match "${matchRequest.match_title}".</p>
+            </div>
+        `;
         });
 
         // Show the notifications in the modal
