@@ -143,8 +143,6 @@ if (!$result2 || mysqli_num_rows($result2) == 0) {
     exit();
 }
 
-
-// Close the statement
 $stmt->close();
 ?>
 
@@ -198,7 +196,6 @@ $stmt->close();
                 </div>
                 <div class="image-container-nav ">
                     <img src="IMAGE/<?php echo $rows2['file'] ?>" class="premium-frame-nav" />
-
                 </div>
             <?php endif; ?>
 
@@ -218,17 +215,11 @@ $stmt->close();
 </div>
 
 <script>
-    function confirmLogout() {
-        var confirmation = confirm("Are you sure you want to logout?");
-        if (confirmation) {
-            window.location.href = "logout.php";
-        }
-    }
-
-    function showNotifications() {
+    // Function to show notifications for the receiver (user receiving requests)
+    function showReceiverNotifications() {
         const pendingRequests = <?php echo json_encode($pendingRequests); ?>;
         const pendingMatchRequests = <?php echo json_encode($pendingMatchRequests); ?>;
-        const userId = <?php echo json_encode($userId); ?>;  // Assuming userId is passed from PHP
+        const userId = <?php echo json_encode($userId); ?>;
         const pendingCount = <?php echo $pendingCount; ?>;
         const pendingMatchCount = <?php echo $pendingMatchCount; ?>;
 
@@ -240,17 +231,16 @@ $stmt->close();
 
         let requestsContent = '';
 
-        console.log("Pending Match Requests:", pendingMatchRequests);
-        
         // Display friend requests
         pendingRequests.forEach(function (request) {
             requestsContent += `
-        <div class="request-item">
-            <p>${request.sender_name} is sending a friend request to you.</p>
-        </div>
-        `;
+                <div class="request-item">
+                    <p>${request.sender_name} is sending a friend request to you.</p>
+                </div>
+            `;
         });
 
+        // Display match requests
         pendingMatchRequests.forEach(function (matchRequest) {
             let statusMessage = '';
 
@@ -264,10 +254,10 @@ $stmt->close();
 
             if (statusMessage) {
                 requestsContent += `
-        <div class="request-item">
-            <p>${statusMessage}</p>
-        </div>
-        `;
+                    <div class="request-item">
+                        <p>${statusMessage}</p>
+                    </div>
+                `;
             }
         });
 
@@ -285,6 +275,56 @@ $stmt->close();
         });
     }
 
+    // Function to show notifications for the sender (user sending requests)
+    function showSenderNotifications() {
+        const pendingMatchRequests = <?php echo json_encode($pendingMatchRequests); ?>;
+        const userId = <?php echo json_encode($userId); ?>;
+        const pendingMatchCount = <?php echo $pendingMatchCount; ?>;
+
+        if (pendingMatchCount === 0) {
+            document.getElementById('friendRequestsContent').innerHTML = '<p>No new notifications</p>';
+            document.getElementById('friendRequestsModal').style.display = 'block';
+            return;
+        }
+
+        let requestsContent = '';
+
+        // Display match requests for sender
+        pendingMatchRequests.forEach(function (matchRequest) {
+            let statusMessage = '';
+
+            if (matchRequest.status === 'pending') {
+                statusMessage = `You have requested to join "${matchRequest.match_title}". Awaiting approval.`;
+            } else if (matchRequest.status === 'accepted') {
+                statusMessage = `Your request to join "${matchRequest.match_title}" has been accepted.`;
+            } else if (matchRequest.status === 'rejected') {
+                statusMessage = `Your request to join "${matchRequest.match_title}" has been rejected.`;
+            }
+
+            if (statusMessage) {
+                requestsContent += `
+                    <div class="request-item">
+                        <p>${statusMessage}</p>
+                    </div>
+                `;
+            }
+        });
+
+        document.getElementById('friendRequestsContent').innerHTML = requestsContent;
+        document.getElementById('friendRequestsModal').style.display = 'block';
+
+        // AJAX request to mark notifications as seen
+        fetch(window.location.href, {
+            method: 'POST',
+            body: new URLSearchParams('notification_seen=true')
+        }).then(response => {
+            document.querySelector('.red-dot').style.display = 'none';
+        }).catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    // Function to close the modal
     function closeModal() {
         document.getElementById('friendRequestsModal').style.display = 'none';
         document.querySelector('.red-dot').style.display = 'none';  // Hide the red dot
@@ -300,6 +340,14 @@ $stmt->close();
         });
     }
 
+    // Event listeners for showing notifications
     document.querySelector('.close-btn').addEventListener('click', closeModal);
-    document.querySelector('.notification a').addEventListener('click', showNotifications);
+    document.querySelector('.notification a').addEventListener('click', function() {
+        const isSender = <?php echo json_encode($isSender); ?>; // Add logic to detect if the user is sender or receiver
+        if (isSender) {
+            showSenderNotifications();
+        } else {
+            showReceiverNotifications();
+        }
+    });
 </script>
