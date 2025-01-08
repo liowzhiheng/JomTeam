@@ -183,6 +183,15 @@ if (isset($_POST['unfollow'])) {
     exit();
 }
 
+$frame = $profile['frame'];
+$sql = "SELECT * FROM frame WHERE id = '$frame'";
+$result2 = mysqli_query($conn, $sql);
+$rows2 = mysqli_fetch_assoc($result2);
+if (!$result2 || mysqli_num_rows($result2) == 0) {
+    echo "No profile data found.";
+    exit();
+}
+
 
 ?>
 
@@ -218,7 +227,7 @@ if (isset($_POST['unfollow'])) {
                         <div class="image-container">
 
                            
-                                <img src="IMAGE/frame_1.png" alt="Premium Frame" class="premium-frame" />
+                                <img src="IMAGE/<?php echo $rows2['file'] ?>" alt="Premium Frame" class="premium-frame" />
                         
 
                         </div>
