@@ -83,284 +83,337 @@ $resultParticipants = $conn->query($sqlParticipants);
 </head>
 
 <body>
-    <div class="container">
-        <div class="title">
-            <a href="view_match.php" class="btn btn-secondary">Back</a>
-            <h1>Edit Match Details</h1>
-        </div>
-        <form action="" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="match_id" value="<?php echo htmlspecialchars($match_id); ?>">
+    <?php
+    if (isset($_SESSION['status'])) {
+        if ($_SESSION['status'] == 'success') {
+            echo "<div id='message' class='success-message'>Match information updated successfully!</div>";
+        } else {
+            echo "<div id='message' class='fail-message'>Something went wrong. Please try again.</div>";
+        }
+        session_unset();
+    }
+    ?>
 
-            <div class="image-container">
-                <img id="imagePreview" src="gamematch/<?php echo htmlspecialchars($match['file']); ?>"
-                    alt="Uploaded Image" class="uploaded-image"
-                    onclick="document.getElementById('imageInput').click();" />
-                <div class="overlay-text" onclick="document.getElementById('imageInput').click();">Change Image</div>
-                <input type="file" name="image" id="imageInput" style="display: none;" onchange="previewImage()" />
+    <div class="wrapper">
+        <div class="container">
+            <div class="title">
+                <a href="view_match.php" class="btn btn-secondary">Back</a>
+                <h1>Edit Match Details</h1>
             </div>
+            <form action="" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="match_id" value="<?php echo htmlspecialchars($match_id); ?>">
 
-            <div class="info-section">
-                <div class="info-left">
-                    <label><strong>Match Title:</strong></label>
-                    <input type="text" name="match_title"
-                        value="<?php echo htmlspecialchars($match['match_title']); ?>"><br>
-
-                    <label><strong>Start Date:</strong></label>
-                    <input type="date" name="start_date"
-                        value="<?php echo htmlspecialchars($match['start_date']); ?>"><br>
-
-                    <label><strong>Duration:</strong></label>
-                    <input type="number" name="duration"
-                        value="<?php echo htmlspecialchars($match['duration']); ?>"><br>
-
-                    <label><strong>Max Players:</strong></label>
-                    <input type="number" name="max_players"
-                        value="<?php echo htmlspecialchars($match['max_players']); ?>" min="0" id="max_players"><br>
-
-                    <label><strong>Skill Level:</strong></label>
-                    <select name="skill_level">
-                        <option value="Beginner" <?php echo $match['skill_level_required'] === 'Beginner' ? 'selected' : ''; ?>>
-                            Beginner</option>
-                        <option value="Intermediate" <?php echo $match['skill_level_required'] === 'Intermediate' ? 'selected' : ''; ?>>Intermediate</option>
-                        <option value="Advanced" <?php echo $match['skill_level_required'] === 'Advanced' ? 'selected' : ''; ?>>
-                            Advanced</option>
-                        <option value="Professional" <?php echo $match['skill_level_required'] === 'Professional' ? 'selected' : ''; ?>>Professional</option>
-                    </select><br>
-
-                    <label><strong>Status:</strong></label>
-                    <select name="status">
-                        <option value="open" <?php echo $match['status'] == 'open' ? 'selected' : ''; ?>>Open</option>
-                        <option value="closed" <?php echo $match['status'] == 'closed' ? 'selected' : ''; ?>>Closed
-                        </option>
-                    </select><br>
-                </div>
-
-                <div class="info-right">
-                    <label><strong>Game Type:</strong></label>
-                    <select name="game_type">
-                        <option value="basketball" <?php echo $match['game_type'] === 'basketball' ? 'selected' : ''; ?>>
-                            Basketball</option>
-                        <option value="football" <?php echo $match['game_type'] === 'football' ? 'selected' : ''; ?>>
-                            Football
-                        </option>
-                        <option value="badminton" <?php echo $match['game_type'] === 'badminton' ? 'selected' : ''; ?>>
-                            Badminton
-                        </option>
-                        <option value="volleyball" <?php echo $match['game_type'] === 'volleyball' ? 'selected' : ''; ?>>
-                            Volleyball</option>
-                        <option value="tennis" <?php echo $match['game_type'] === 'tennis' ? 'selected' : ''; ?>>Tennis
-                        </option>
-                        <option value="futsal" <?php echo $match['game_type'] === 'futsal' ? 'selected' : ''; ?>>Futsal
-                        </option>
-                        <option value="others" <?php echo $match['game_type'] === 'others' ? 'selected' : ''; ?>>Others
-                        </option>
-                    </select><br>
-
-                    <label><strong>Start Time:</strong></label>
-                    <input type="time" name="start_time"
-                        value="<?php echo htmlspecialchars($match['start_time']); ?>"><br>
-
-                    <label><strong>Location:</strong></label>
-                    <select name="location">
-                        <!-- Johor -->
-                        <optgroup label="Johor">
-                            <option value="Johor Bahru" <?php echo $match['location'] === 'Johor Bahru' ? 'selected' : ''; ?>>
-                                Johor Bahru</option>
-                            <option value="Skudai" <?php echo $match['location'] === 'Skudai' ? 'selected' : ''; ?>>Skudai
-                            </option>
-                            <option value="Kulai" <?php echo $match['location'] === 'Kulai' ? 'selected' : ''; ?>>Kulai
-                            </option>
-                            <option value="Muar" <?php echo $match['location'] === 'Muar' ? 'selected' : ''; ?>>Muar
-                            </option>
-                            <option value="Batu Pahat" <?php echo $match['location'] === 'Batu Pahat' ? 'selected' : ''; ?>>
-                                Batu
-                                Pahat</option>
-                            <option value="Kota Tinggi" <?php echo $match['location'] === 'Kota Tinggi' ? 'selected' : ''; ?>>
-                                Kota
-                                Tinggi</option>
-                            <option value="Pontian" <?php echo $match['location'] === 'Pontian' ? 'selected' : ''; ?>>
-                                Pontian
-                            </option>
-                        </optgroup>
-                        <!-- Kedah -->
-                        <optgroup label="Kedah">
-                            <option value="Alor Setar" <?php echo $match['location'] === 'Alor Setar' ? 'selected' : ''; ?>>
-                                Alor
-                                Setar</option>
-                            <option value="Sungai Petani" <?php echo $match['location'] === 'Sungai Petani' ? 'selected' : ''; ?>>
-                                Sungai Petani</option>
-                            <option value="Kulim" <?php echo $match['location'] === 'Kulim' ? 'selected' : ''; ?>>Kulim
-                            </option>
-                            <option value="Langkawi" <?php echo $match['location'] === 'Langkawi' ? 'selected' : ''; ?>>
-                                Langkawi
-                            </option>
-                        </optgroup>
-                        <!-- Kelantan -->
-                        <optgroup label="Kelantan">
-                            <option value="Kota Bharu" <?php echo $match['location'] === 'Kota Bharu' ? 'selected' : ''; ?>>
-                                Kota
-                                Bharu</option>
-                            <option value="Tanah Merah" <?php echo $match['location'] === 'Tanah Merah' ? 'selected' : ''; ?>>
-                                Tanah Merah</option>
-                            <option value="Gua Musang" <?php echo $match['location'] === 'Gua Musang' ? 'selected' : ''; ?>>
-                                Gua
-                                Musang</option>
-                        </optgroup>
-                        <!-- Malacca -->
-                        <optgroup label="Malacca">
-                            <option value="Malacca City" <?php echo $match['location'] === 'Malacca City' ? 'selected' : ''; ?>>
-                                Malacca City</option>
-                            <option value="Ayer Keroh" <?php echo $match['location'] === 'Ayer Keroh' ? 'selected' : ''; ?>>
-                                Ayer
-                                Keroh</option>
-                            <option value="Jasin" <?php echo $match['location'] === 'Jasin' ? 'selected' : ''; ?>>Jasin
-                            </option>
-                        </optgroup>
-                        <!-- Negeri Sembilan -->
-                        <optgroup label="Negeri Sembilan">
-                            <option value="Seremban" <?php echo $match['location'] === 'Seremban' ? 'selected' : ''; ?>>
-                                Seremban
-                            </option>
-                            <option value="Port Dickson" <?php echo $match['location'] === 'Port Dickson' ? 'selected' : ''; ?>>
-                                Port Dickson</option>
-                            <option value="Nilai" <?php echo $match['location'] === 'Nilai' ? 'selected' : ''; ?>>Nilai
-                            </option>
-                        </optgroup>
-                        <!-- Pahang -->
-                        <optgroup label="Pahang">
-                            <option value="Kuantan" <?php echo $match['location'] === 'Kuantan' ? 'selected' : ''; ?>>
-                                Kuantan
-                            </option>
-                            <option value="Temerloh" <?php echo $match['location'] === 'Temerloh' ? 'selected' : ''; ?>>
-                                Temerloh
-                            </option>
-                            <option value="Bentong" <?php echo $match['location'] === 'Bentong' ? 'selected' : ''; ?>>
-                                Bentong
-                            </option>
-                            <option value="Cameron Highlands" <?php echo $match['location'] === 'Cameron Highlands' ? 'selected' : ''; ?>>Cameron Highlands</option>
-                        </optgroup>
-                        <!-- Penang -->
-                        <optgroup label="Penang">
-                            <option value="George Town" <?php echo $match['location'] === 'George Town' ? 'selected' : ''; ?>>
-                                George Town</option>
-                            <option value="Bayan Lepas" <?php echo $match['location'] === 'Bayan Lepas' ? 'selected' : ''; ?>>
-                                Bayan Lepas</option>
-                            <option value="Butterworth" <?php echo $match['location'] === 'Butterworth' ? 'selected' : ''; ?>>
-                                Butterworth</option>
-                        </optgroup>
-                        <!-- Perak -->
-                        <optgroup label="Perak">
-                            <option value="Ipoh" <?php echo $match['location'] === 'Ipoh' ? 'selected' : ''; ?>>Ipoh
-                            </option>
-                            <option value="Taiping" <?php echo $match['location'] === 'Taiping' ? 'selected' : ''; ?>>
-                                Taiping
-                            </option>
-                            <option value="Lumut" <?php echo $match['location'] === 'Lumut' ? 'selected' : ''; ?>>Lumut
-                            </option>
-                        </optgroup>
-                        <!-- Perlis -->
-                        <optgroup label="Perlis">
-                            <option value="Kangar" <?php echo $match['location'] === 'Kangar' ? 'selected' : ''; ?>>Kangar
-                            </option>
-                            <option value="Arau" <?php echo $match['location'] === 'Arau' ? 'selected' : ''; ?>>Arau
-                            </option>
-                        </optgroup>
-                        <!-- Sabah -->
-                        <optgroup label="Sabah">
-                            <option value="Kota Kinabalu" <?php echo $match['location'] === 'Kota Kinabalu' ? 'selected' : ''; ?>>
-                                Kota Kinabalu</option>
-                            <option value="Sandakan" <?php echo $match['location'] === 'Sandakan' ? 'selected' : ''; ?>>
-                                Sandakan
-                            </option>
-                            <option value="Tawau" <?php echo $match['location'] === 'Tawau' ? 'selected' : ''; ?>>Tawau
-                            </option>
-                        </optgroup>
-                        <!-- Sarawak -->
-                        <optgroup label="Sarawak">
-                            <option value="Kuching" <?php echo $match['location'] === 'Kuching' ? 'selected' : ''; ?>>
-                                Kuching
-                            </option>
-                            <option value="Miri" <?php echo $match['location'] === 'Miri' ? 'selected' : ''; ?>>Miri
-                            </option>
-                            <option value="Sibu" <?php echo $match['location'] === 'Sibu' ? 'selected' : ''; ?>>Sibu
-                            </option>
-                        </optgroup>
-                        <!-- Selangor -->
-                        <optgroup label="Selangor">
-                            <option value="Shah Alam" <?php echo $match['location'] === 'Shah Alam' ? 'selected' : ''; ?>>
-                                Shah
-                                Alam</option>
-                            <option value="Petaling Jaya" <?php echo $match['location'] === 'Petaling Jaya' ? 'selected' : ''; ?>>
-                                Petaling Jaya</option>
-                            <option value="Subang Jaya" <?php echo $match['location'] === 'Subang Jaya' ? 'selected' : ''; ?>>
-                                Subang Jaya</option>
-                        </optgroup>
-                        <!-- Terengganu -->
-                        <optgroup label="Terengganu">
-                            <option value="Kuala Terengganu" <?php echo $match['location'] === 'Kuala Terengganu' ? 'selected' : ''; ?>>Kuala Terengganu</option>
-                            <option value="Kemaman" <?php echo $match['location'] === 'Kemaman' ? 'selected' : ''; ?>>
-                                Kemaman
-                            </option>
-                            <option value="Dungun" <?php echo $match['location'] === 'Dungun' ? 'selected' : ''; ?>>Dungun
-                            </option>
-                        </optgroup>
-                        <!-- Federal Territories -->
-                        <optgroup label="Federal Territories">
-                            <option value="Kuala Lumpur" <?php echo $match['location'] === 'Kuala Lumpur' ? 'selected' : ''; ?>>
-                                Kuala Lumpur</option>
-                            <option value="Putrajaya" <?php echo $match['location'] === 'Putrajaya' ? 'selected' : ''; ?>>
-                                Putrajaya</option>
-                            <option value="Labuan" <?php echo $match['location'] === 'Labuan' ? 'selected' : ''; ?>>Labuan
-                            </option>
-                        </optgroup>
-                    </select><br>
-
-                    <label><strong>Current Players:</strong></label>
-                    <p class="read">
-                        <?php echo !empty($match['current_players']) ? $match['current_players'] : 'N/A'; ?></p><br>
-
-                    <label><strong>Description:</strong></label>
-                    <textarea name="description"
-                        rows="4"><?php echo htmlspecialchars($match['description']); ?></textarea><br>
-                </div>
-            </div>
-            <div class="form-actions">
-                <a href="delete_match.php?id=<?php echo $_POST['match_id']; ?>" class="btn btn-danger"
-                    onclick="return confirm('Are you sure you want to delete this match?')">Delete</a>
-                <button type="submit" name="update" class="btn btn-primary">Update</button>
-            </div>
-        </form>
-
-        <h2>Participants</h2>
-        <?php if ($resultParticipants->num_rows > 0): ?>
-            <div class="participants">
-                <?php while ($participant = $resultParticipants->fetch_assoc()): ?>
-                    <?php
-                    $image = !empty($participant['file']) ? 'uploads/' . htmlspecialchars($participant['file']) : 'IMAGE/default.png';
-                    $participantId = htmlspecialchars($participant['id']); // Assuming `id` is the unique identifier for the participant
-                    ?>
-                    <div class="participant">
-                        <img src="<?php echo $image; ?>" alt="User Image" class="participant-image">
-                        <div class="participant-info">
-                            <p><strong>Name:</strong>
-                                <?php echo htmlspecialchars($participant['first_name'] . ' ' . $participant['last_name']); ?>
-                            </p>
-                            <p><strong>Join Date:</strong>
-                                <?php
-                                $joinDate = new DateTime($participant['join_date']);
-                                echo $joinDate->format('d M Y');
-                                ?>
-                            </p>
-                        </div>
+                <div class="image-container">
+                    <img id="imagePreview" src="gamematch/<?php echo htmlspecialchars($match['file']); ?>"
+                        alt="Uploaded Image" class="uploaded-image"
+                        onclick="document.getElementById('imageInput').click();" />
+                    <div class="overlay-text" onclick="document.getElementById('imageInput').click();">Change Image
                     </div>
-                <?php endwhile; ?>
+                    <input type="file" name="image" id="imageInput" style="display: none;" onchange="previewImage()" />
+                </div>
+
+                <div class="info-section">
+                    <div class="info-left">
+                        <label><strong>Match Title:</strong></label>
+                        <input type="text" name="match_title"
+                            value="<?php echo htmlspecialchars($match['match_title']); ?>"><br>
+
+                        <label><strong>Start Date:</strong></label>
+                        <input type="date" name="start_date"
+                            value="<?php echo htmlspecialchars($match['start_date']); ?>"><br>
+
+                        <label><strong>Duration:</strong></label>
+                        <input type="number" name="duration"
+                            value="<?php echo htmlspecialchars($match['duration']); ?>"><br>
+
+                        <label><strong>Max Players:</strong></label>
+                        <input type="number" name="max_players"
+                            value="<?php echo htmlspecialchars($match['max_players']); ?>" min="0" id="max_players"><br>
+
+                        <label><strong>Skill Level:</strong></label>
+                        <select name="skill_level">
+                            <option value="Beginner" <?php echo $match['skill_level_required'] === 'Beginner' ? 'selected' : ''; ?>>
+                                Beginner</option>
+                            <option value="Intermediate" <?php echo $match['skill_level_required'] === 'Intermediate' ? 'selected' : ''; ?>>Intermediate</option>
+                            <option value="Advanced" <?php echo $match['skill_level_required'] === 'Advanced' ? 'selected' : ''; ?>>
+                                Advanced</option>
+                            <option value="Professional" <?php echo $match['skill_level_required'] === 'Professional' ? 'selected' : ''; ?>>Professional</option>
+                        </select><br>
+
+                        <label><strong>Status:</strong></label>
+                        <select name="status">
+                            <option value="open" <?php echo $match['status'] == 'open' ? 'selected' : ''; ?>>Open</option>
+                            <option value="closed" <?php echo $match['status'] == 'closed' ? 'selected' : ''; ?>>Closed
+                            </option>
+                        </select><br>
+                    </div>
+
+                    <div class="info-right">
+                        <label><strong>Game Type:</strong></label>
+                        <select name="game_type">
+                            <option value="basketball" <?php echo $match['game_type'] === 'basketball' ? 'selected' : ''; ?>>
+                                Basketball</option>
+                            <option value="football" <?php echo $match['game_type'] === 'football' ? 'selected' : ''; ?>>
+                                Football
+                            </option>
+                            <option value="badminton" <?php echo $match['game_type'] === 'badminton' ? 'selected' : ''; ?>>
+                                Badminton
+                            </option>
+                            <option value="volleyball" <?php echo $match['game_type'] === 'volleyball' ? 'selected' : ''; ?>>
+                                Volleyball</option>
+                            <option value="tennis" <?php echo $match['game_type'] === 'tennis' ? 'selected' : ''; ?>>
+                                Tennis
+                            </option>
+                            <option value="futsal" <?php echo $match['game_type'] === 'futsal' ? 'selected' : ''; ?>>
+                                Futsal
+                            </option>
+                            <option value="others" <?php echo $match['game_type'] === 'others' ? 'selected' : ''; ?>>
+                                Others
+                            </option>
+                        </select><br>
+
+                        <label><strong>Start Time:</strong></label>
+                        <input type="time" name="start_time"
+                            value="<?php echo htmlspecialchars($match['start_time']); ?>"><br>
+
+                        <label><strong>Location:</strong></label>
+                        <select name="location">
+                            <!-- Johor -->
+                            <optgroup label="Johor">
+                                <option value="Johor Bahru" <?php echo $match['location'] === 'Johor Bahru' ? 'selected' : ''; ?>>
+                                    Johor Bahru</option>
+                                <option value="Skudai" <?php echo $match['location'] === 'Skudai' ? 'selected' : ''; ?>>
+                                    Skudai
+                                </option>
+                                <option value="Kulai" <?php echo $match['location'] === 'Kulai' ? 'selected' : ''; ?>>
+                                    Kulai
+                                </option>
+                                <option value="Muar" <?php echo $match['location'] === 'Muar' ? 'selected' : ''; ?>>Muar
+                                </option>
+                                <option value="Batu Pahat" <?php echo $match['location'] === 'Batu Pahat' ? 'selected' : ''; ?>>
+                                    Batu
+                                    Pahat</option>
+                                <option value="Kota Tinggi" <?php echo $match['location'] === 'Kota Tinggi' ? 'selected' : ''; ?>>
+                                    Kota
+                                    Tinggi</option>
+                                <option value="Pontian" <?php echo $match['location'] === 'Pontian' ? 'selected' : ''; ?>>
+                                    Pontian
+                                </option>
+                            </optgroup>
+                            <!-- Kedah -->
+                            <optgroup label="Kedah">
+                                <option value="Alor Setar" <?php echo $match['location'] === 'Alor Setar' ? 'selected' : ''; ?>>
+                                    Alor
+                                    Setar</option>
+                                <option value="Sungai Petani" <?php echo $match['location'] === 'Sungai Petani' ? 'selected' : ''; ?>>
+                                    Sungai Petani</option>
+                                <option value="Kulim" <?php echo $match['location'] === 'Kulim' ? 'selected' : ''; ?>>
+                                    Kulim
+                                </option>
+                                <option value="Langkawi" <?php echo $match['location'] === 'Langkawi' ? 'selected' : ''; ?>>
+                                    Langkawi
+                                </option>
+                            </optgroup>
+                            <!-- Kelantan -->
+                            <optgroup label="Kelantan">
+                                <option value="Kota Bharu" <?php echo $match['location'] === 'Kota Bharu' ? 'selected' : ''; ?>>
+                                    Kota
+                                    Bharu</option>
+                                <option value="Tanah Merah" <?php echo $match['location'] === 'Tanah Merah' ? 'selected' : ''; ?>>
+                                    Tanah Merah</option>
+                                <option value="Gua Musang" <?php echo $match['location'] === 'Gua Musang' ? 'selected' : ''; ?>>
+                                    Gua
+                                    Musang</option>
+                            </optgroup>
+                            <!-- Malacca -->
+                            <optgroup label="Malacca">
+                                <option value="Malacca City" <?php echo $match['location'] === 'Malacca City' ? 'selected' : ''; ?>>
+                                    Malacca City</option>
+                                <option value="Ayer Keroh" <?php echo $match['location'] === 'Ayer Keroh' ? 'selected' : ''; ?>>
+                                    Ayer
+                                    Keroh</option>
+                                <option value="Jasin" <?php echo $match['location'] === 'Jasin' ? 'selected' : ''; ?>>
+                                    Jasin
+                                </option>
+                            </optgroup>
+                            <!-- Negeri Sembilan -->
+                            <optgroup label="Negeri Sembilan">
+                                <option value="Seremban" <?php echo $match['location'] === 'Seremban' ? 'selected' : ''; ?>>
+                                    Seremban
+                                </option>
+                                <option value="Port Dickson" <?php echo $match['location'] === 'Port Dickson' ? 'selected' : ''; ?>>
+                                    Port Dickson</option>
+                                <option value="Nilai" <?php echo $match['location'] === 'Nilai' ? 'selected' : ''; ?>>
+                                    Nilai
+                                </option>
+                            </optgroup>
+                            <!-- Pahang -->
+                            <optgroup label="Pahang">
+                                <option value="Kuantan" <?php echo $match['location'] === 'Kuantan' ? 'selected' : ''; ?>>
+                                    Kuantan
+                                </option>
+                                <option value="Temerloh" <?php echo $match['location'] === 'Temerloh' ? 'selected' : ''; ?>>
+                                    Temerloh
+                                </option>
+                                <option value="Bentong" <?php echo $match['location'] === 'Bentong' ? 'selected' : ''; ?>>
+                                    Bentong
+                                </option>
+                                <option value="Cameron Highlands" <?php echo $match['location'] === 'Cameron Highlands' ? 'selected' : ''; ?>>Cameron Highlands</option>
+                            </optgroup>
+                            <!-- Penang -->
+                            <optgroup label="Penang">
+                                <option value="George Town" <?php echo $match['location'] === 'George Town' ? 'selected' : ''; ?>>
+                                    George Town</option>
+                                <option value="Bayan Lepas" <?php echo $match['location'] === 'Bayan Lepas' ? 'selected' : ''; ?>>
+                                    Bayan Lepas</option>
+                                <option value="Butterworth" <?php echo $match['location'] === 'Butterworth' ? 'selected' : ''; ?>>
+                                    Butterworth</option>
+                            </optgroup>
+                            <!-- Perak -->
+                            <optgroup label="Perak">
+                                <option value="Ipoh" <?php echo $match['location'] === 'Ipoh' ? 'selected' : ''; ?>>Ipoh
+                                </option>
+                                <option value="Taiping" <?php echo $match['location'] === 'Taiping' ? 'selected' : ''; ?>>
+                                    Taiping
+                                </option>
+                                <option value="Lumut" <?php echo $match['location'] === 'Lumut' ? 'selected' : ''; ?>>
+                                    Lumut
+                                </option>
+                            </optgroup>
+                            <!-- Perlis -->
+                            <optgroup label="Perlis">
+                                <option value="Kangar" <?php echo $match['location'] === 'Kangar' ? 'selected' : ''; ?>>
+                                    Kangar
+                                </option>
+                                <option value="Arau" <?php echo $match['location'] === 'Arau' ? 'selected' : ''; ?>>Arau
+                                </option>
+                            </optgroup>
+                            <!-- Sabah -->
+                            <optgroup label="Sabah">
+                                <option value="Kota Kinabalu" <?php echo $match['location'] === 'Kota Kinabalu' ? 'selected' : ''; ?>>
+                                    Kota Kinabalu</option>
+                                <option value="Sandakan" <?php echo $match['location'] === 'Sandakan' ? 'selected' : ''; ?>>
+                                    Sandakan
+                                </option>
+                                <option value="Tawau" <?php echo $match['location'] === 'Tawau' ? 'selected' : ''; ?>>
+                                    Tawau
+                                </option>
+                            </optgroup>
+                            <!-- Sarawak -->
+                            <optgroup label="Sarawak">
+                                <option value="Kuching" <?php echo $match['location'] === 'Kuching' ? 'selected' : ''; ?>>
+                                    Kuching
+                                </option>
+                                <option value="Miri" <?php echo $match['location'] === 'Miri' ? 'selected' : ''; ?>>Miri
+                                </option>
+                                <option value="Sibu" <?php echo $match['location'] === 'Sibu' ? 'selected' : ''; ?>>Sibu
+                                </option>
+                            </optgroup>
+                            <!-- Selangor -->
+                            <optgroup label="Selangor">
+                                <option value="Shah Alam" <?php echo $match['location'] === 'Shah Alam' ? 'selected' : ''; ?>>
+                                    Shah
+                                    Alam</option>
+                                <option value="Petaling Jaya" <?php echo $match['location'] === 'Petaling Jaya' ? 'selected' : ''; ?>>
+                                    Petaling Jaya</option>
+                                <option value="Subang Jaya" <?php echo $match['location'] === 'Subang Jaya' ? 'selected' : ''; ?>>
+                                    Subang Jaya</option>
+                            </optgroup>
+                            <!-- Terengganu -->
+                            <optgroup label="Terengganu">
+                                <option value="Kuala Terengganu" <?php echo $match['location'] === 'Kuala Terengganu' ? 'selected' : ''; ?>>Kuala Terengganu</option>
+                                <option value="Kemaman" <?php echo $match['location'] === 'Kemaman' ? 'selected' : ''; ?>>
+                                    Kemaman
+                                </option>
+                                <option value="Dungun" <?php echo $match['location'] === 'Dungun' ? 'selected' : ''; ?>>
+                                    Dungun
+                                </option>
+                            </optgroup>
+                            <!-- Federal Territories -->
+                            <optgroup label="Federal Territories">
+                                <option value="Kuala Lumpur" <?php echo $match['location'] === 'Kuala Lumpur' ? 'selected' : ''; ?>>
+                                    Kuala Lumpur</option>
+                                <option value="Putrajaya" <?php echo $match['location'] === 'Putrajaya' ? 'selected' : ''; ?>>
+                                    Putrajaya</option>
+                                <option value="Labuan" <?php echo $match['location'] === 'Labuan' ? 'selected' : ''; ?>>
+                                    Labuan
+                                </option>
+                            </optgroup>
+                        </select><br>
+
+                        <label><strong>Current Players:</strong></label>
+                        <p class="read">
+                            <?php echo !empty($match['current_players']) ? $match['current_players'] : 'N/A'; ?>
+                        </p><br>
+
+                        <label><strong>Description:</strong></label>
+                        <textarea name="description"
+                            rows="4"><?php echo htmlspecialchars($match['description']); ?></textarea><br>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <a href="delete_match.php?id=<?php echo $_POST['match_id']; ?>" class="btn btn-danger"
+                        onclick="return confirm('Are you sure you want to delete this match?')">Delete</a>
+                    <button type="submit" name="update" class="btn btn-primary">Update</button>
+                </div>
+            </form>
+
+            <h2>Participants</h2>
+            <?php
+            $total = $match['current_players'];
+            $reserved = $total - $resultParticipants->num_rows;
+            $player = false;
+            ?>
+
+            <div class="participants">
+                <?php if ($reserved > 0): ?>
+                    <?php for ($i = 0; $i < $reserved; $i++): ?>
+                        <div class="participant">
+                            <img src="IMAGE/default.png" alt="Reserved Player" class="participant-image">
+                            <div class="participant-info">
+                                <p><strong>Name:</strong> Reserved Player <?php echo $i + 1; ?></p>
+                                <p><strong>Join Date:</strong>
+                                    <?php
+                                    echo date('d M Y', strtotime($match['created_at']));
+                                    ?>
+                                </p>
+                            </div>
+                        </div>
+                        <?php $player = true; endfor; ?>
+                <?php endif; ?>
+
+                <?php if ($resultParticipants->num_rows > 0): ?>
+                    <?php while ($participant = $resultParticipants->fetch_assoc()): ?>
+                        <?php
+                        $image = !empty($participant['file']) ? 'uploads/' . htmlspecialchars($participant['file']) : 'IMAGE/default.png';
+                        $participantId = htmlspecialchars($participant['id']);
+                        ?>
+                        <form action="update_user2.php" method="POST" id="form_<?php echo $participant['id']; ?>">
+                            <input type="hidden" name="user_id"
+                                value="<?php echo htmlspecialchars($participant['user_id']); ?>" />
+                            <input type="hidden" name="match_id" value="<?php echo htmlspecialchars($match['id']); ?>" />
+                            <div class="participant"
+                                onclick="document.getElementById('form_<?php echo $participant['id']; ?>').submit();">
+                                <img src="<?php echo $image; ?>" alt="User Image" class="participant-image">
+                                <div class="participant-info">
+                                    <p><strong>Name:</strong>
+                                        <?php echo htmlspecialchars($participant['first_name'] . ' ' . $participant['last_name']); ?>
+                                    </p>
+                                    <p><strong>Join Date:</strong>
+                                        <?php echo date('d M Y', strtotime($participant['join_date'])); ?>
+                                    </p>
+                                </div>
+                            </div>
+                        </form>
+                        <?php $player = true; endwhile; ?>
+                <?php endif; ?>
+
+                <?php if (!$player): ?>
+                    <p>No participants have joined this match yet.</p>
+                <?php endif; ?>
             </div>
-        <?php else: ?>
-            <p>No participants have joined this match yet.</p>
-        <?php endif; ?>
-
+        </div>
     </div>
-
     <script>
         document.getElementById('max_players').addEventListener('input', function () {
             var maxPlayers = parseInt(this.value);

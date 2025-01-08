@@ -1,7 +1,14 @@
 <?php
-session_start(); // Start up your PHP Session
+session_start();
+require("config.php");
 
-require("config.php"); // Include the database configuration file
+$sort = isset($_GET['sort']) ? $_GET['sort'] : 'id';
+$order = isset($_GET['order']) && $_GET['order'] === 'desc' ? 'DESC' : 'ASC';
+$nextOrder = $order === 'ASC' ? 'desc' : 'asc';
+$validColumns = ['name', 'created_at'];
+if (!in_array($sort, $validColumns)) {
+    $sort = 'id';
+}
 ?>
 
 <!DOCTYPE html>
@@ -91,14 +98,11 @@ require("config.php"); // Include the database configuration file
     $verified = isset($_GET['email_verified']) ? $_GET['email_verified'] : '';
     $premium = isset($_GET['premium']) ? $_GET['premium'] : '';
 
-    // Fetch all users from the user table
-    $sql = "SELECT * FROM user WHERE 1=1";
+    $sql = "SELECT id, CONCAT(first_name, ' ', last_name) AS name, level, email, phone, email_verified, premium, created_at FROM user WHERE 1=1";
 
     // Check if a search term is provided
     if (!empty($_GET['search'])) {
-        // Escape the search string to prevent SQL injection
         $search = $conn->real_escape_string($_GET['search']);
-        // Append the search condition to the query
         $sql .= " AND CONCAT(first_name, ' ', last_name) LIKE '%$search%'";
     }
 
@@ -125,6 +129,7 @@ require("config.php"); // Include the database configuration file
         $sql .= " AND premium = '$premium'";
     }
 
+    $sql .= " ORDER BY $sort $order";
     $result = $conn->query($sql);
     ?>
 
@@ -133,12 +138,20 @@ require("config.php"); // Include the database configuration file
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Username</th>
+                    <th>
+                        <a href="?sort=name&order=<?= $nextOrder ?>">Username
+                            <?= $sort === 'name' ? ($order === 'ASC' ? '▲' : '▼') : '' ?>
+                        </a>
+                    </th>
                     <th>Role</th>
                     <th>Phone</th>
                     <th>Email</th>
                     <th>Verification</th>
-                    <th>Creation Time</th>
+                    <th>
+                        <a href="?sort=created_at&order=<?= $nextOrder ?>">Creation Time
+                            <?= $sort === 'created_at' ? ($order === 'ASC' ? '▲' : '▼') : '' ?>
+                        </a>
+                    </th>
                     <th>Premium</th>
                     <th>Action</th>
                 </tr>
@@ -150,7 +163,7 @@ require("config.php"); // Include the database configuration file
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr class='select' style='cursor: pointer;' onclick=\"document.getElementById('form_" . $row["id"] . "').submit();\">";
                         echo "<td>" . $counter++ . "</td>";
-                        echo "<td>" . strtoupper(htmlspecialchars($row["first_name"] . ' ' . $row["last_name"])) . "</td>";
+                        echo "<td>" . strtoupper(htmlspecialchars($row["name"])) . "</td>";
                         $role = ($row['level'] == 1) ? 'admin' : 'user';
                         echo "<td>" . htmlspecialchars($role) . "</td>";
                         echo "<td>" . htmlspecialchars($row["phone"] ?? '') . "</td>";
@@ -200,7 +213,6 @@ require("config.php"); // Include the database configuration file
             }, 2000);
         }
     </script>
-
 </body>
 
 </html>

@@ -2,7 +2,15 @@
 session_start(); // Start up your PHP Session
 require("config.php");
 
-$sql = "SELECT id, match_title, game_type, current_players, max_players, location, start_date, start_time, status FROM gamematch";
+$sort = isset($_GET['sort']) ? $_GET['sort'] : 'id';
+$order = isset($_GET['order']) && $_GET['order'] === 'desc' ? 'DESC' : 'ASC';
+$nextOrder = $order === 'ASC' ? 'desc' : 'asc';
+$validColumns = ['match_title', 'game_type', 'location', 'start_date', 'start_time'];
+if (!in_array($sort, $validColumns)) {
+    $sort = 'id';
+}
+
+$sql = "SELECT id, match_title, game_type, current_players, max_players, location, start_date, start_time FROM gamematch ORDER BY $sort $order";
 $result = $conn->query($sql);
 ?>
 
@@ -60,7 +68,7 @@ $result = $conn->query($sql);
 
     <?php
     $search = isset($_GET['search']) ? $_GET['search'] : '';
-    $sql = "SELECT * FROM gamematch WHERE 1=1";
+    $sql = "SELECT id, match_title, game_type, current_players, max_players, location, start_date, start_time FROM gamematch ORDER BY $sort $order";
     if (!empty($_GET['search'])) {
         $search = $conn->real_escape_string($_GET['search']);
         $sql .= " AND match_title LIKE '%$search%'";
@@ -73,14 +81,33 @@ $result = $conn->query($sql);
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Match Title</th>
-                    <th>Game Type</th>
+                    <th>
+                        <a href="?sort=match_title&order=<?= $nextOrder ?>">Match Title
+                            <?= $sort === 'match_title' ? ($order === 'ASC' ? '▲' : '▼') : '' ?>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="?sort=game_type&order=<?= $nextOrder ?>">Game Type
+                            <?= $sort === 'game_type' ? ($order === 'ASC' ? '▲' : '▼') : '' ?>
+                        </a>
+                    </th>
                     <th>Current Players</th>
                     <th>Max Players</th>
-                    <th>Location</th>
-                    <th>Start Date</th>
-                    <th>Start Time</th>
-                    <th>Status</th>
+                    <th>
+                        <a href="?sort=location&order=<?= $nextOrder ?>">Location
+                            <?= $sort === 'location' ? ($order === 'ASC' ? '▲' : '▼') : '' ?>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="?sort=start_date&order=<?= $nextOrder ?>">Start Date
+                            <?= $sort === 'start_date' ? ($order === 'ASC' ? '▲' : '▼') : '' ?>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="?sort=start_time&order=<?= $nextOrder ?>">Start Time
+                            <?= $sort === 'start_time' ? ($order === 'ASC' ? '▲' : '▼') : '' ?>
+                        </a>
+                    </th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -98,7 +125,6 @@ $result = $conn->query($sql);
                         echo "<td>" . $row['location'] . "</td>";
                         echo "<td>" . $row['start_date'] . "</td>";
                         echo "<td>" . $row['start_time'] . "</td>";
-                        echo "<td>" . $row['status'] . "</td>";
                         echo "<td>";
                         echo "<form action='delete_match.php' method='POST' class='remove-form'>";
                         echo "<input type='hidden' name='id' value='" . htmlspecialchars($row["id"]) . "'>";

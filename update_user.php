@@ -51,12 +51,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
 
                     if (!$query || !move_uploaded_file($tempname, $folder)) {
-                        header("Location: update_user.php?status=fail");
-                        exit();
+                        $_SESSION['status'] = 'fail';
                     }
                 }
+                $_SESSION['status'] = 'success';
             } else {
-                echo "Error updating record: " . $conn->error;
+                $_SESSION['status'] = 'fail';
             }
         }
     }
@@ -74,6 +74,14 @@ $profile = $resultProfile->fetch_assoc();
 $sqlImages = "SELECT * FROM images WHERE user_id = $user_id";
 $resultImages = $conn->query($sqlImages);
 $images = $resultImages->fetch_assoc();
+
+$sqlRatings = "SELECT * FROM player_ratings WHERE rated_user_id = $user_id";
+$resultRatings = $conn->query($sqlRatings);
+$ratings = $resultRatings->fetch_assoc();
+
+$avgRatingQuery = "SELECT AVG(rating) AS avg_rating FROM player_ratings WHERE rated_user_id = $user_id";
+$avgRatingResult = mysqli_query($conn, $avgRatingQuery);
+$avgRating = mysqli_fetch_assoc($avgRatingResult)['avg_rating'];
 ?>
 
 <!DOCTYPE html>
@@ -87,6 +95,17 @@ $images = $resultImages->fetch_assoc();
 </head>
 
 <body>
+    <?php
+    if (isset($_SESSION['status'])) {
+        if ($_SESSION['status'] == 'success') {
+            echo "<div id='message' class='success-message'>User information updated successfully!</div>";
+        } else {
+            echo "<div id='message' class='fail-message'>Something went wrong. Please try again.</div>";
+        }
+        session_unset();
+    }
+    ?>
+
     <div class="container">
         <div class="title">
             <a href="view_user.php" class="btn btn-secondary">Back</a>
@@ -108,6 +127,11 @@ $images = $resultImages->fetch_assoc();
                     <div class="overlay-text" onclick="document.getElementById('imageInput').click();">Change Image</div>
                 <?php } ?>
                 <input type="file" name="image" id="imageInput" style="display: none;" onchange="previewImage()" />
+                <div class="stars">
+                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                        <span class="star <?php echo $i <= round($ratings) ? 'selected' : ''; ?>">&#9733;</span>
+                    <?php endfor; ?>
+                </div>
             </div>
 
             <div class="info-section">
@@ -189,6 +213,14 @@ $images = $resultImages->fetch_assoc();
         </form>
     </div>
     <script src="view_profile.js"></script>
+    <script>
+        const messageElement = document.getElementById('message');
+        if (messageElement) {
+            setTimeout(() => {
+                messageElement.style.display = 'none';
+            }, 2000);
+        }
+    </script>
 </body>
 
 </html>

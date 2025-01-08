@@ -216,6 +216,11 @@ h2 {
     color: white;
 }
 
+.user-table th a {
+    text-decoration: none;
+    color: white;
+}
+
 .user-table tr:nth-child(even) {
     background-color: #d0e0ff;
 }

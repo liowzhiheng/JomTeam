@@ -25,10 +25,24 @@ $rowAds = $resultAds->fetch_assoc();
 $activeAds = $rowAds['active_ads'] ?? 0;
 
 //Matches
-$sqlMatches = "SELECT COUNT(*) AS upcoming_matches FROM gamematch WHERE CONCAT(start_date, ' ', start_time) > NOW()";
+$sqlMatches = "
+    SELECT 
+        DAYNAME(start_date) AS day_name, 
+        COUNT(*) AS matches_on_day 
+    FROM 
+        gamematch 
+    WHERE 
+        CONCAT(start_date, ' ', start_time) > NOW() 
+    GROUP BY 
+        DAYNAME(start_date), start_date
+    ORDER BY 
+        FIELD(DAYNAME(start_date), 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')
+";
 $resultMatches = $conn->query($sqlMatches);
-$rowMatches = $resultMatches->fetch_assoc();
-$upcomingMatches = $rowMatches['upcoming_matches'] ?? 0;
+$upcomingMatchesByDay = [];
+while ($row = $resultMatches->fetch_assoc()) {
+    $upcomingMatchesByDay[$row['day_name']] = ($upcomingMatchesByDay[$row['day_name']] ?? 0) + $row['matches_on_day'];
+}
 
 //Feedbacks
 $sqlFeedback = "SELECT COUNT(*) AS new_feedback FROM feedback WHERE DATE(created_at) = CURDATE()";
@@ -70,7 +84,7 @@ $resultRecentFeedback = $conn->query($sqlRecentFeedback);
         const activeAds = <?php echo $activeAds; ?>;
         const activeAdsPercentage = totalAds > 0 ? (activeAds / totalAds) * 100 : 0;
         const inactiveAdsPercentage = 100 - activeAdsPercentage;
-        const upcomingMatches = <?php echo $upcomingMatches; ?>;
+        const upcomingMatchesByDay = <?php echo json_encode($upcomingMatchesByDay); ?>;
         const newFeedback = <?php echo $newFeedback; ?>;
     </script>
     <script src="dashboard.js" defer></script>
@@ -121,7 +135,7 @@ $resultRecentFeedback = $conn->query($sqlRecentFeedback);
                 <div class="card">
                     <h3>Matches</h3>
                     <div class="card-data">
-                        <span class="count"><?php echo $upcomingMatches; ?></span>
+                        <span class="count"><?php echo array_sum($upcomingMatchesByDay); ?></span>
                         <span class="label">Upcoming Matches</span>
                     </div>
                     <canvas id="upcomingMatchesChart" width="400" height="400"></canvas>

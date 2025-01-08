@@ -1,12 +1,12 @@
 <?php
-session_start(); // Start up your PHP Session
+session_start();
 require("config.php");
 
 // Handle sorting parameters
 $sort = isset($_GET['sort']) ? $_GET['sort'] : 'id';
 $order = isset($_GET['order']) && $_GET['order'] === 'desc' ? 'DESC' : 'ASC';
 $nextOrder = $order === 'ASC' ? 'desc' : 'asc';
-$validColumns = ['rating', 'created_at', 'status'];
+$validColumns = ['name', 'rating', 'created_at', 'status'];
 if (!in_array($sort, $validColumns)) {
     $sort = 'id';
 }
@@ -84,7 +84,11 @@ $result = mysqli_query($conn, $sql);
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Username</th>
+                    <th>
+                        <a href="?sort=name&order=<?= $nextOrder ?>">Username
+                            <?= $sort === 'name' ? ($order === 'ASC' ? '▲' : '▼') : '' ?>
+                        </a>
+                    </th>
                     <th>Title</th>
                     <th>Description</th>
                     <th>
