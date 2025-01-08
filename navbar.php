@@ -242,7 +242,7 @@ $stmt->close();
         pendingRequests.forEach(function (request) {
             requestsContent += `
             <div class="detail">
-                <p class="friend-name">${request.sender_name} is sending a friend request to you.</p>
+                <p class="friend-name2">${request.sender_name} is sending a friend request to you.</p>
             </div>
         `;
         });
@@ -251,7 +251,7 @@ $stmt->close();
         pendingMatchRequests.forEach(function (matchRequest) {
             requestsContent += `
             <div class="detail">
-                <p class="friend-name">${matchRequest.sender_name} is requesting to join your match "${matchRequest.match_title}".</p>
+                <p class="friend-name2">${matchRequest.sender_name} is requesting to join your match "${matchRequest.match_title}".</p>
             </div>
         `;
         });
