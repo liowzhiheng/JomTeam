@@ -231,7 +231,7 @@ $stmt->close();
 
         // If there are no pending requests, show 'No new notifications' message
         if (pendingCount === 0 && pendingMatchCount === 0) {
-            document.getElementById('friendRequestsContent').innerHTML = '<p class="detail">No new notifications</p>';
+            document.getElementById('friendRequestsContent').innerHTML = '<p class="detail2">No new notifications</p>';
             document.getElementById('friendRequestsModal').style.display = 'block';
             return; // Stop execution if no requests
         }
@@ -241,7 +241,7 @@ $stmt->close();
         // Display friend requests
         pendingRequests.forEach(function (request) {
             requestsContent += `
-            <div class="detail">
+            <div class="detail2">
                 <p class="friend-name2">${request.sender_name} is sending a friend request to you.</p>
             </div>
         `;
@@ -250,7 +250,7 @@ $stmt->close();
         // Display match requests
         pendingMatchRequests.forEach(function (matchRequest) {
             requestsContent += `
-            <div class="detail">
+            <div class="detail2">
                 <p class="friend-name2">${matchRequest.sender_name} is requesting to join your match "${matchRequest.match_title}".</p>
             </div>
         `;
