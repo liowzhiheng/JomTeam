@@ -422,6 +422,25 @@ margin-bottom: 30px;
 
 }
 
+.detail2 {
+    font-size: 1.0em;
+    margin-bottom: -40px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    transition: transform 0.2s;
+    padding: 30px;
+}
+
+.friend-name2 {
+    font-size: 35px;
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    position: relative;
+    top: -22px;
+    left: 0px;
+    color: #000;
+    margin-left: -200px;
+
+}
 
 /* Style for action forms */
 .action-form {
@@ -490,6 +509,21 @@ margin-bottom: 30px;
 }
 
 .detail a:hover {
+    color: #5252D4;
+    transform: scale(1.05);
+    /* Slightly enlarges the element */
+    text-decoration: none;
+}
+
+.detail2 a {
+    text-decoration: none;
+    color: black;
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+    display: inline-block;
+    /* Ensures `transform` works */
+}
+
+.detail2 a:hover {
     color: #5252D4;
     transform: scale(1.05);
     /* Slightly enlarges the element */
