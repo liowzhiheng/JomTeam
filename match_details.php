@@ -76,6 +76,8 @@ $ishost = 0;
 if ($host['id'] == $user_id) {
     $ishost = 1;
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -251,6 +253,34 @@ if ($host['id'] == $user_id) {
 
                         $profilePicRes = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $player['id']);
                         $profilePicRow = mysqli_fetch_assoc($profilePicRes);
+
+                        // Fetch the frame ID for the player using user_id from the profile table
+                        $frameSql = "SELECT frame FROM profile WHERE user_id = " . $player['id'];
+                        $frameResult = mysqli_query($conn, $frameSql);
+
+                        if ($frameResult && mysqli_num_rows($frameResult) > 0) {
+                            $frameRow = mysqli_fetch_assoc($frameResult);
+                            $frameId = $frameRow['frame'] ?? null;
+
+                            // Fetch the frame data if a frame ID exists
+                            $frameData = null;
+                            if ($frameId) {
+                                $frameDataSql = "SELECT * FROM frame WHERE id = '$frameId'";
+                                $frameDataResult = mysqli_query($conn, $frameDataSql);
+                                if ($frameDataResult && mysqli_num_rows($frameDataResult) > 0) {
+                                    $frameData = mysqli_fetch_assoc($frameDataResult);
+                                }
+                            }
+
+                            // Display the frame if it exists
+                            if ($frameData) {
+                                echo"<div class='image-container-match'>";
+                                echo "<img src='IMAGE/" . htmlspecialchars($frameData['file']) . "' alt='Premium Frame' class='premium-frame' />";
+                                echo"</div>";
+                            }
+                        } else {
+
+                        }
 
                         echo "<li id='player{$i}'>Player {$i}: ";
 

@@ -541,3 +541,22 @@ margin-bottom: 30px;
     margin-left: 10px;
 
 }
+
+
+.premium-frame {
+    display: inline-block;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 18%;
+    height: 18%;
+    pointer-events: none; /* Allow clicks to pass through to the image */
+    transform: translate(170px,8px);
+    z-index: 2;
+    transition: transform 0.3s ease-in-out; /* Smooth animation for transform */
+}
+
+.image-container-match
+{
+    position:absolute;
+}
