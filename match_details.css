@@ -422,7 +422,7 @@ margin-bottom: 30px;
 
 }
 
-.detail2 {
+.detail3 {
     font-size: 1.0em;
     margin-bottom: -40px;
     background-color: #f8f9fa;
@@ -431,7 +431,7 @@ margin-bottom: 30px;
     padding: 30px;
 }
 
-.friend-name2 {
+.friend-name3 {
     font-size: 35px;
     font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     position: relative;
@@ -515,7 +515,7 @@ margin-bottom: 30px;
     text-decoration: none;
 }
 
-.detail2 a {
+.detail3 a {
     text-decoration: none;
     color: black;
     transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
@@ -523,7 +523,7 @@ margin-bottom: 30px;
     /* Ensures `transform` works */
 }
 
-.detail2 a:hover {
+.detail3 a:hover {
     color: #5252D4;
     transform: scale(1.05);
     /* Slightly enlarges the element */
