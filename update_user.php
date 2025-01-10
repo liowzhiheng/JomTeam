@@ -92,7 +92,7 @@ $avgRating = mysqli_fetch_assoc($avgRatingResult)['avg_rating'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Ads</title>
     <link rel="stylesheet" href="update_user.css">
-    <link rel="shortcut icon" type="image/jpg" href="IMAGE/favicon.png"/>
+    <link rel="shortcut icon" type="image/jpg" href="IMAGE/favicon.png" />
 </head>
 
 <body>
@@ -128,8 +128,13 @@ $avgRating = mysqli_fetch_assoc($avgRatingResult)['avg_rating'];
                     <div class="overlay-text" onclick="document.getElementById('imageInput').click();">Change Image</div>
                 <?php } ?>
                 <input type="file" name="image" id="imageInput" style="display: none;" onchange="previewImage()" />
-                
             </div>
+            <br>
+            <div>
+                <label>Average Rating:</label>
+                <span><b><?php echo number_format($avgRating ?: 0, 1); ?> / 5.0</b> </span><br>
+            </div>
+
 
             <div class="info-section">
                 <div class="info-left">
