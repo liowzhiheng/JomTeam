@@ -560,3 +560,16 @@ display: inline-block;
 {
     position:absolute;
 }
+
+.premium-frame-host {
+    display: inline-block;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 18%;
+    height: 18%;
+    pointer-events: none;
+    transform: translate(114px, -49px);
+    z-index: 2;
+    transition: transform 0.3s ease-in-out;
+}
