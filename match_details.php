@@ -452,7 +452,43 @@ if ($host['id'] == $user_id) {
                             }
                         </style>
                     </div>
+                <?php elseif ($has_request && $current_players == $max_players): ?>
+                    <div>
+                        <p style="color: black;">You have request the match.</p>
+                        <p style="color: black;">Do you wish to cancel the request?</p>
+                        <form action="cancel_request.php" method="GET" style="text-align: center;">
+                            <input type="hidden" name="id" value="<?php echo $match_id; ?>">
+                            <button class="cancel-button">
+                                Cancel
+                            </button>
+                        </form>
+                        <style>
+                            /* Default style for the cancel button */
+                            .cancel-button {
+                                width: 300px;
+                                height: 100px;
+                                font-size: 30px;
+                                font-weight: 700;
+                                color: white;
+                                background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.9) 71%);
+                                border: none;
+                                border-radius: 50px;
+                                cursor: pointer;
+                                margin-top: 1%;
+                                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                                transition: all 0.3s ease;
+                                /* Smooth transition for all properties */
+                            }
 
+                            /* Hover effect for the cancel button */
+                            .cancel-button:hover {
+                                transform: scale(1.1);
+                                /* Slightly enlarges the button */
+                                background: linear-gradient(202deg, #EB1436 0%, rgba(235, 20, 54, 0.9) 71%);
+                                /* Darkens the gradient */
+                            }
+                        </style>
+                    </div>
 
                 <?php else: ?>
                     <!-- If match is full -->
