@@ -206,6 +206,7 @@ if (!$result2 || mysqli_num_rows($result2) == 0) {
     <link rel="stylesheet" href="player_profile.css">
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="footer.css">
+    <link rel="shortcut icon" type="image/jpg" href="IMAGE/favicon.png"/>
 
 </head>
 <?php include('navbar.php'); ?>
