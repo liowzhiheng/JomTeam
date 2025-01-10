@@ -99,7 +99,7 @@ if (mysqli_num_rows($result5) > 0) {
             </div>
         </div>
         <div>
-            <h1 class="created_match_title">Request Match</h1>
+            <h1 class="created_match_title">Requested Match</h1>
             <div class=".grid-section">
                 <div class="grid-container">
                     <?php if (!empty($request_match)): ?>
