@@ -5,7 +5,7 @@ require("config.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = $_POST['id'];
 
-    $selectMatch = "SELECT * FROM match_participants WHERE user_id = ?"
+    $selectMatch = "SELECT * FROM match_participants WHERE user_id = ?";
     $result = mysqli_query($conn, $selectMatch);
     if(mysqli_num_rows($result) > 0){
         while ($row = $result->fetch_assoc()) {
