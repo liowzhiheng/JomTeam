@@ -128,11 +128,7 @@ $avgRating = mysqli_fetch_assoc($avgRatingResult)['avg_rating'];
                     <div class="overlay-text" onclick="document.getElementById('imageInput').click();">Change Image</div>
                 <?php } ?>
                 <input type="file" name="image" id="imageInput" style="display: none;" onchange="previewImage()" />
-                <div class="stars">
-                    <?php for ($i = 1; $i <= 5; $i++): ?>
-                        <span class="star <?php echo $i <= round($ratings) ? 'selected' : ''; ?>">&#9733;</span>
-                    <?php endfor; ?>
-                </div>
+                
             </div>
 
             <div class="info-section">
