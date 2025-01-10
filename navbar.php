@@ -161,7 +161,7 @@ $stmt->close();
     </ul>
 
     <ul class="menu rightmenu">
-        <li><a href="history.php">Match Activity</a></li>
+        <li class="redhover"><a href="history.php">Match Activity</a></li>
         <li class="notification">
             <a href="javascript:void(0);" onclick="showNotifications()">
                 <img class="notification-icon" src="IMAGE/NOTIFICATION.png" alt="Notification">
@@ -200,7 +200,7 @@ $stmt->close();
             <?php endif; ?>
 
         </li>
-        <li class="logout">
+        <li class="logout" class="redhover">
             <a href="javascript:void(0);" onclick="confirmLogout()">Logout</a>
         </li>
     </ul>

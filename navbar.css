@@ -256,3 +256,14 @@ transform: scale(1.1);
     /* Slightly enlarges the element */
     text-decoration: none;
 }
+
+.redhover{
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+
+}
+
+.redhover:hover{
+    transform: scale(1.05);
+    /* Slightly enlarges the element */
+    text-decoration: none; 
+}
