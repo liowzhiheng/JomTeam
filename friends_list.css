@@ -89,7 +89,7 @@ body {
 
 }
 
-a {
+.detail a {
     text-decoration: none;
     color: inherit;
     transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
@@ -97,7 +97,7 @@ a {
     /* Ensures `transform` works */
 }
 
-a:hover {
+.detail a:hover {
     color: #5252D4;
     transform: scale(1.05);
     /* Slightly enlarges the element */
