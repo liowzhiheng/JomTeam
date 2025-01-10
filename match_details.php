@@ -205,8 +205,8 @@ if ($host['id'] == $user_id) {
 
                             if ($frameResult1 && mysqli_num_rows($frameResult1) > 0) {
                                 $frameRow1 = mysqli_fetch_assoc($frameResult1);
-                                $frameId1 = $frameRow1['frame'] ?? null;
-
+                                $frameId1 = $frameRow1['frame'];
+    
                                 // Fetch the frame data if a frame ID exists
                                 $frameData1 = null;
                                 if ($frameId1) {
@@ -224,7 +224,7 @@ if ($host['id'] == $user_id) {
                                     echo "</div>";
                                 }
                             } else {
-
+                                echo "frame not found";
                             }
                         }
                 $res = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $host['id']);
