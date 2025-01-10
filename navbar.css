@@ -109,7 +109,7 @@
     /* Center the modal vertically */
     transition: opacity 0.3s ease;
     /* Smooth fade-in effect */
-
+z-index:1000;
 }
 
 
