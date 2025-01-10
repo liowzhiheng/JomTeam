@@ -34,9 +34,24 @@ if (mysqli_num_rows($result3) > 0) {
     $result4 = mysqli_query($conn, $query4);
     $joined_match = mysqli_fetch_all($result4, MYSQLI_ASSOC);
 } else {
-    $matches_id = [];
+    $joined_match = [];
 }
 
+//request
+$query5 = "SELECT match_id FROM match_request WHERE request_user_id = '$user_id'";
+$result5 = mysqli_query($conn, $query5);
+if (mysqli_num_rows($result5) > 0) {
+    $request_match_ids = [];
+    while ($row = mysqli_fetch_assoc($result5)) {
+        $request_match_ids[] = $row['match_id'];
+    }
+    $request_match_ids_string = implode(',', $request_match_ids);
+    $query6 = "SELECT * FROM gamematch WHERE id IN ($request_match_ids_string) ";
+    $result6 = mysqli_query($conn, $query6);
+    $request_match = mysqli_fetch_all($result6, MYSQLI_ASSOC);
+} else {
+    $request_match = [];
+}
 ?>
 
 <!DOCTYPE html>
@@ -81,6 +96,31 @@ if (mysqli_num_rows($result3) > 0) {
                         <p class="info_title">No match created.</p>
                     </div>
                 <?php endif; ?>
+            </div>
+        </div>
+        <div>
+            <h1 class="created_match_title">Request Match</h1>
+            <div class=".grid-section">
+                <div class="grid-container">
+                    <?php if (!empty($request_match)): ?>
+                        <?php foreach ($request_match as $match): ?>
+                            <div class="grid-item">
+                                <img src="gamematch/<?php echo htmlspecialchars($match['file']); ?>" alt="Match Image"
+                                    style="width: 200px; height: 200px;">
+                                <p class="info_title"><?php echo htmlspecialchars($match['match_title']); ?></p>
+                                <p class="info"><?php echo htmlspecialchars($match['game_type']); ?></p>
+                                <p class="info">Location: <?php echo htmlspecialchars($match['location']); ?></p>
+                                <p class="info">Date: <?php echo htmlspecialchars($match['start_date']); ?></p>
+                                <p class="info">Time: <?php echo htmlspecialchars($match['start_time']); ?></p>
+                                <a href="match_details.php?id=<?php echo $match['id']; ?>" class="view-all-btn">View Details</a>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <div class="grid-section">
+                            <p class="info_title">No match requested.</p>
+                        </div>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
         <div>
