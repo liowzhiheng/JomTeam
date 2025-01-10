@@ -13,6 +13,7 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Ads</title>
+    <link rel="shortcut icon" type="image/jpg" href="IMAGE/favicon.png"/>
     <link rel="stylesheet" href="view_ads.css">
 </head>
 

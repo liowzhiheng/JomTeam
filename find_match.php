@@ -54,7 +54,7 @@ if (mysqli_num_rows($result) > 0) {
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="searchbar.css">
     <link rel="stylesheet" href="footer.css">
-<link rel="shortcut icon" type="image/jpg" href="IMAGE/jomteam_new_logo.ico"/>
+    <link rel="shortcut icon" type="image/jpg" href="IMAGE/favicon.png"/>
 </head>
 
 <body>

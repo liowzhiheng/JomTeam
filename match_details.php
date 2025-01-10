@@ -92,6 +92,7 @@ if ($host['id'] == $user_id) {
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="footer.css">
     <link rel="stylesheet" href="match_details.css">
+    <link rel="shortcut icon" type="image/jpg" href="IMAGE/favicon.png"/>
 
 </head>
 

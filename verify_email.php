@@ -35,6 +35,7 @@
         }
     </style>
     <link rel="stylesheet" href="animation.css">
+    <link rel="shortcut icon" type="image/jpg" href="IMAGE/favicon.png"/>
 </head>
 <body>
     <div class="container">

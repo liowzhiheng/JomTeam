@@ -80,6 +80,7 @@ $resultParticipants = $conn->query($sqlParticipants);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Match Details</title>
     <link rel="stylesheet" href="update_match.css">
+    <link rel="shortcut icon" type="image/jpg" href="IMAGE/favicon.png"/>
 </head>
 
 <body>

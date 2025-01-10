@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="register.css">
     <link rel="stylesheet" href="animation.css">
-
+    <link rel="shortcut icon" type="image/jpg" href="IMAGE/favicon.png"/>
 </head>
 
 <body class="transition-container body_2">

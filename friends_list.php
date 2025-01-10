@@ -130,7 +130,7 @@ $requestResult = $requestStmt->get_result();
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="footer.css">
     <link rel="stylesheet" href="friends_list.css">
-    <link rel="shortcut icon" type="image/jpg" href="IMAGE/jomteam_new_logo.ico"/>
+    <link rel="shortcut icon" type="image/jpg" href="IMAGE/favicon.png"/>
     <title>Social</title>
 </head>
 

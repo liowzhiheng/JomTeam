@@ -46,6 +46,7 @@ mysqli_close($conn);
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="feedback.css">
     <link rel="stylesheet" href="navbar.css">
+    <link rel="shortcut icon" type="image/jpg" href="IMAGE/favicon.png"/>
 </head>
 
 <body>

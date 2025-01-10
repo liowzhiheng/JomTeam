@@ -45,7 +45,7 @@ $conn->close();
     <link rel="stylesheet" href="premium.css">
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="footer.css">
-    <link rel="shortcut icon" type="image/jpg" href="IMAGE/jomteam_new_logo.ico"/>
+    <link rel="shortcut icon" type="image/jpg" href="IMAGE/favicon.png"/>
 </head>
 
 <body>

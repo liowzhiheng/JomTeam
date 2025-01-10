@@ -50,6 +50,7 @@ if (mysqli_num_rows($result3) > 0) {
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="footer.css">
+    <link rel="shortcut icon" type="image/jpg" href="IMAGE/favicon.png"/>
 </head>
 
 <body>
