@@ -25,7 +25,7 @@ if (!in_array($sort, $validColumns)) {
 <body>
     <nav class="navbar">
         <a href="dashboard.php" class="logo">
-            <img src="IMAGE/jomteam.png" alt="Logo">
+            <img src="IMAGE/jomteam_new_logo.png" alt="Logo">
         </a>
 
         <ul class="menu leftmenu">
