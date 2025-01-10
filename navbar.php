@@ -200,7 +200,7 @@ $stmt->close();
             <?php endif; ?>
 
         </li>
-        <li class="logout" class="redhover">
+        <li class="redhover">
             <a href="javascript:void(0);" onclick="confirmLogout()">Logout</a>
         </li>
     </ul>
