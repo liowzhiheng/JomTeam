@@ -190,6 +190,7 @@ margin-top: 15%;
         max-width: 800px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         transition: transform 0.4s ease, box-shadow 0.4s ease; /* Smooth scaling and shadow change */
+        z-index: 100;
     }
     
     .match-request h1 {
