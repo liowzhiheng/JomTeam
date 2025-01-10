@@ -198,6 +198,35 @@ if ($host['id'] == $user_id) {
             <div>
                 <label>Host:</label>
                 <?php
+                 if ($host['premium']) {
+                            // Fetch the frame ID for the player using user_id from the profile table
+                            $frameSql1 = "SELECT frame FROM profile WHERE user_id = " . $host['id'];
+                            $frameResult1 = mysqli_query($conn, $frameSql1);
+
+                            if ($frameResult1 && mysqli_num_rows($frameResult1) > 0) {
+                                $frameRow1 = mysqli_fetch_assoc($frameResult1);
+                                $frameId1 = $frameRow1['frame'] ?? null;
+
+                                // Fetch the frame data if a frame ID exists
+                                $frameData1 = null;
+                                if ($frameId1) {
+                                    $frameDataSql1 = "SELECT * FROM frame WHERE id = '$frameId1'";
+                                    $frameDataResult1 = mysqli_query($conn, $frameDataSql1);
+                                    if ($frameDataResult1 && mysqli_num_rows($frameDataResult1) > 0) {
+                                        $frameData1 = mysqli_fetch_assoc($frameDataResult1);
+                                    }
+                                }
+
+                                // Display the frame if it exists
+                                if ($frameData1) {
+                                    echo "<div class='image-container-match'>";
+                                    echo "<img src='IMAGE/" . htmlspecialchars($frameData1['file']) . "' alt='Premium Frame' class='premium-frame' />";
+                                    echo "</div>";
+                                }
+                            } else {
+
+                            }
+                        }
                 $res = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $host['id']);
                 $row = mysqli_fetch_assoc($res);
                 if (empty($row['file'])) {
