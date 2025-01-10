@@ -5,27 +5,35 @@ require("config.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = $_POST['id'];
 
-    $selectMatch = "SELECT * FROM match_participants WHERE user_id = ?";
-    $result = mysqli_query($conn, $selectMatch);
-    if(mysqli_num_rows($result) > 0){
-        while ($row = $result->fetch_assoc()) {
-            $match_id = $row['match_id'];
-            $selectCurent = "SELECT current_players FROM gamematch WHERE id = $match_id";
-            $result2 = mysqli_query($conn, $selectCurent);
+    $selectMatchSql = "SELECT match_id FROM match_participants WHERE user_id = ?";
+    $selectMatchStmt = $conn->prepare($selectMatchSql);
+    $selectMatchStmt->bind_param("i", $id);
+    $selectMatchStmt->execute();
+    $matchResult = $selectMatchStmt->get_result();
 
-            if (mysqli_num_rows($result2) > 0) {
-                $current = $result2->fetch_assoc();
-            } else {
-                echo "User not found.";
-                exit();
+    if ($matchResult->num_rows > 0) {
+        while ($row = $matchResult->fetch_assoc()) {
+            $match_id = $row['match_id'];
+            $selectCurrentSql = "SELECT current_players FROM gamematch WHERE id = ?";
+            $selectCurrentStmt = $conn->prepare($selectCurrentSql);
+            $selectCurrentStmt->bind_param("i", $match_id);
+            $selectCurrentStmt->execute();
+            $currentResult = $selectCurrentStmt->get_result();
+
+            if ($currentResult->num_rows > 0) {
+                $current = $currentResult->fetch_assoc();
+                $new_current = $current['current_players'] - 1;
+
+                $updateSql = "UPDATE gamematch SET current_players = ? WHERE id = ?";
+                $updateStmt = $conn->prepare($updateSql);
+                $updateStmt->bind_param("ii", $new_current, $match_id);
+                $updateStmt->execute();
+                $updateStmt->close();
             }
-            $new_current = $current['current_players'] - 1;
-            $update = "UPDATE gamematch SET current_players = $new_current WHERE id = $match_id";
-            $result3 = mysqli_query($conn, $update);
+            $selectCurrentStmt->close();
         }
-    }else{
-        echo "Match not found";
     }
+    $selectMatchStmt->close();
     $deleteProfileSql = "DELETE FROM profile WHERE user_id = ?";
     $profileStmt = $conn->prepare($deleteProfileSql);
     $profileStmt->bind_param("i", $id);
@@ -51,28 +59,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    $selectMatch = "SELECT * FROM match_participants WHERE user_id = ?"
-    $result = mysqli_query($conn, $selectMatch);
-    if(mysqli_num_rows($result) > 0){
-        while ($row = $result->fetch_assoc()) {
+ $selectMatchSql = "SELECT match_id FROM match_participants WHERE user_id = ?";
+    $selectMatchStmt = $conn->prepare($selectMatchSql);
+    $selectMatchStmt->bind_param("i", $id);
+    $selectMatchStmt->execute();
+    $matchResult = $selectMatchStmt->get_result();
+
+    if ($matchResult->num_rows > 0) {
+        while ($row = $matchResult->fetch_assoc()) {
             $match_id = $row['match_id'];
-            $selectCurent = "SELECT current_players FROM gamematch WHERE id = $match_id";
-            $result2 = mysqli_query($conn, $selectCurent);
 
-            if (mysqli_num_rows($result2) > 0) {
-                $current = $result2->fetch_assoc();
-            } else {
-                echo "User not found.";
-                exit();
+            // Get current players count
+            $selectCurrentSql = "SELECT current_players FROM gamematch WHERE id = ?";
+            $selectCurrentStmt = $conn->prepare($selectCurrentSql);
+            $selectCurrentStmt->bind_param("i", $match_id);
+            $selectCurrentStmt->execute();
+            $currentResult = $selectCurrentStmt->get_result();
+
+            if ($currentResult->num_rows > 0) {
+                $current = $currentResult->fetch_assoc();
+                $new_current = $current['current_players'] - 1;
+
+                // Update players count
+                $updateSql = "UPDATE gamematch SET current_players = ? WHERE id = ?";
+                $updateStmt = $conn->prepare($updateSql);
+                $updateStmt->bind_param("ii", $new_current, $match_id);
+                $updateStmt->execute();
+                $updateStmt->close();
             }
-            $new_current = $current['current_players'] - 1;
-            $update = "UPDATE gamematch SET current_players = $new_current WHERE id = $match_id";
-            $result3 = mysqli_query($conn, $update);
+            $selectCurrentStmt->close();
         }
-    }else{
-        echo "Match not found";
     }
-
+    $selectMatchStmt->close();
     $deleteProfileSql = "DELETE FROM profile WHERE user_id = ?";
     $profileStmt = $conn->prepare($deleteProfileSql);
     $profileStmt->bind_param("i", $id);
