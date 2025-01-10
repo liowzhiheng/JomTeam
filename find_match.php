@@ -218,30 +218,36 @@ if (mysqli_num_rows($result) > 0) {
         </div>
     </section>
 
-    <!-- Display the created matches -->
     <section class="grid-section">
-        <div class="grid-container">
-            <?php if (!empty($matches)): ?>
-                <?php foreach ($matches as $match): ?>
-                    <div class="grid-item">
-                        <img src="gamematch/<?php echo htmlspecialchars($match['file']); ?>" alt="Match Image"
-                            style="width: 200px; height: 200px;">
-                        <p class="info_title"><?php echo htmlspecialchars($match['match_title']); ?></p>
-                        <p class="info"><?php echo htmlspecialchars($match['game_type']); ?></p>
-                        <p class="info">Location: <?php echo htmlspecialchars($match['location']); ?></p>
-                        <?php $new = date("d/m/Y", strtotime($match['start_date'])); ?>
-                        <p class="info">Date: <?php echo htmlspecialchars($new); ?></p>
-                        <?php $time = new DateTime($match['start_time']); ?>
-                        <?php echo htmlspecialchars($time->format('h:i  A')); ?>
-                        <a href="match_details.php?id=<?php echo $match['id']; ?>" class="view-all-btn">View Details</a>
-                    </div>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p>No matches found for your search criteria.</p>
-            <?php endif; ?>
-        </div>
+    <div class="grid-container">
+        <?php 
+        $currentDateTime = new DateTime();
+        $filteredMatches = array_filter($matches, function($match) use ($currentDateTime) {
+            $matchDateTime = new DateTime($match['start_date'] . ' ' . $match['start_time']);
+            return $matchDateTime >= $currentDateTime;
+        });
 
-    </section>
+        if (!empty($filteredMatches)): ?>
+            <?php foreach ($filteredMatches as $match): ?>
+                <div class="grid-item">
+                    <img src="gamematch/<?php echo htmlspecialchars($match['file']); ?>" alt="Match Image"
+                        style="width: 200px; height: 200px;">
+                    <p class="info_title"><?php echo htmlspecialchars($match['match_title']); ?></p>
+                    <p class="info"><?php echo htmlspecialchars($match['game_type']); ?></p>
+                    <p class="info">Location: <?php echo htmlspecialchars($match['location']); ?></p>
+                    <?php $new = date("d/m/Y", strtotime($match['start_date'])); ?>
+                    <p class="info">Date: <?php echo htmlspecialchars($new); ?></p>
+                    <?php $time = new DateTime($match['start_time']); ?>
+                    <p class="info">Time: <?php echo htmlspecialchars($time->format('h:i A')); ?></p>
+                    <a href="match_details.php?id=<?php echo $match['id']; ?>" class="view-all-btn">View Details</a>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>No matches found for your search criteria.</p>
+        <?php endif; ?>
+    </div>
+</section>
+
     <script src="searchbar.js"></script>
 </body>
 
