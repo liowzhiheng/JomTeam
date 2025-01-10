@@ -198,12 +198,14 @@ if ($host['id'] == $user_id) {
             <div>
                 <label>Host:</label>
                 <?php
-                if (empty($host['profile_picture'])) {
+                $res = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $host['id']);
+                $row = mysqli_fetch_assoc($res);
+                if (empty($row['file'])) {
                     // Default profile picture if not available
                     echo '<img src="IMAGE/default.png" alt="Host Profile Picture" class="profile-pic-player">';
                 } else {
                     // Host's profile picture
-                    echo '<img src="uploads/' . $host['profile_picture'] . '" alt="Host Profile Picture" class="profile-pic-player">';
+                    echo '<img src="uploads/' . $row['file'] . '" alt="Host Profile Picture" class="profile-pic-player">';
                 }
                 ?>
                 <a href="player_profile.php?id=<?php echo $host['id']; ?>&match_id=<?php echo $match_id; ?>"
