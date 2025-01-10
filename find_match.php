@@ -225,7 +225,7 @@ if (mysqli_num_rows($result) > 0) {
         $filteredMatches = array_filter($matches, function($match) use ($currentDateTime) {
             $matchDate = new DateTime($match['start_date'] . ' ' . $match['start_time']);
             // Only include matches starting before or at the current time
-            return $matchDate <= $currentDateTime;
+            return $matchDate >= $currentDateTime;
         });
 
         if (!empty($filteredMatches)): ?>
