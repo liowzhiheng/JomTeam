@@ -178,15 +178,15 @@ $stmt->close();
                 $row = mysqli_fetch_assoc($res);
                 if (empty($row['file'])) {
                     echo '<div class="image-container">
-                            <a href="view_profile.php">
+                            <p href="view_profile.php">
                                 <img src="IMAGE/LOGOUT.png" alt="Profile Image" class="uploaded-image"/>
-                            </a>
+                            </p>
                           </div>';
                 } else {
                     echo '<div class="image-container">
-                            <a href="view_profile.php">
+                            <p href="view_profile.php">
                                 <img src="uploads/' . $row['file'] . '" alt="Uploaded Image" class="uploaded-image"/>
-                            </a>
+                            </p>
                           </div>';
                 }
             }
