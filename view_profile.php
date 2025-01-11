@@ -62,6 +62,19 @@ if (!$result2 || mysqli_num_rows($result2) == 0) {
     exit();
 }
 
+$allframe = "SELECT * FROM frame";
+$resultFrame = mysqli_query($conn, $allframe);
+
+$frame_list = [];
+
+if ($resultFrame && mysqli_num_rows($resultFrame) > 0) {
+
+    $frame_list = mysqli_fetch_all($resultFrame, MYSQLI_ASSOC);
+
+} else {
+    echo "<p>No frames found</p>";
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -75,7 +88,7 @@ if (!$result2 || mysqli_num_rows($result2) == 0) {
     <link rel="stylesheet" href="view_profile.css">
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="footer.css">
-    <link rel="shortcut icon" type="image/jpg" href="IMAGE/favicon.png"/>
+    <link rel="shortcut icon" type="image/jpg" href="IMAGE/favicon.png" />
 </head>
 
 <body>
@@ -128,7 +141,8 @@ if (!$result2 || mysqli_num_rows($result2) == 0) {
         <form action="update_profile.php" method="post" enctype="multipart/form-data">
             <div class="profile-container">
                 <div>
-                    <input type="hidden" id="frame" name="frame" style="position:absolute;" value="<?php echo htmlspecialchars($rows['frame']); ?>"/>
+                    <input type="hidden" id="frame" name="frame" style="position:absolute;"
+                        value="<?php echo htmlspecialchars($rows['frame']); ?>" />
                 </div>
 
                 <!-- Image Section -->
@@ -147,17 +161,18 @@ if (!$result2 || mysqli_num_rows($result2) == 0) {
                                         <div class="overlay-text" onclick="document.getElementById('imageInput').click();">
                                             Upload Image</div>
                                     </div>
-           
+
                                     <?php if ($rows['premium']): ?>
                                     </div>
-                                <div class="image-container1">
-                                <img src="IMAGE/<?php echo $rows2['file'] ?>" class="premium-frame"/>
-                                        <div class="frame-selector">
-                                            <button name="frame" value="1">Frame 1</button>
-                                            <button name="frame" value="2">Frame 2</button>
-                                            <button name="frame" value="3">Frame 3</button>
-                                        </div> 
-                                </div>
+                                    <div class="image-container1">
+                                        <img src="IMAGE/<?php echo $rows2['file'] ?>" class="premium-frame" />
+                                    </div>
+                                    <!-- here !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+                                    <div>
+                                        <a href="#" onclick="openModal('frame')"><img src="IMAGE/request.png" alt="Delete"
+                                                class="delete-img"
+                                                style="width: 100px; height: 100px; margin-top: 85%; margin-left: 40%;"></a>
+                                    </div>
                                 <?php endif; ?>
                             <?php } else {
                                 if ($rows['premium']): ?>
@@ -175,11 +190,13 @@ if (!$result2 || mysqli_num_rows($result2) == 0) {
                                 <?php $isPremium = $rows['premium']; ?>
                                 <div class="image-container1">
                                     <?php if ($isPremium): ?>
-                                        <img src="IMAGE/<?php echo $rows2['file'] ?>" class="premium-frame"/>
-                                        <div class="frame-selector">
-                                            <button name="frame" value="1">Frame 1</button>
-                                            <button name="frame" value="2">Frame 2</button>
-                                            <button name="frame" value="3">Frame 3</button>
+                                        <img src="IMAGE/<?php echo $rows2['file'] ?>" class="premium-frame" />
+
+                                        <!-- here !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+                                        <div>
+                                            <a href="#" onclick="openModal('frame')"><img src="IMAGE/request.png" alt="Delete"
+                                                    class="delete-img"
+                                                    style="width: 100px; height: 100px; margin-top: 85%; margin-left: 40%;"></a>
                                         </div>
                                     <?php endif; ?>
                                 </div>
@@ -449,6 +466,30 @@ if (!$result2 || mysqli_num_rows($result2) == 0) {
             platform.</p>
     </div>
 </div>
+
+
+<!-- here !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<div id="frameModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('frame')">&times;</span>
+        <form action="update_frame.php" method="post">
+            <div class="frame-selector">
+                <?php if (!empty($frame_list)): ?>
+                    <?php foreach ($frame_list as $frame): ?>
+                        <div>
+                            <button type="submit" name="frame" value="<?php echo htmlspecialchars($frame['id']) ?>">
+                                <img src="frame/<?php echo htmlspecialchars($frame['file']); ?>" alt="Frame Image">
+                            </button>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p>No frames available</p>
+                <?php endif; ?>
+            </div>
+        </form>
+    </div>
+</div>
+
 
 <script src="footer.js"></script>
 
