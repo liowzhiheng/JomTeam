@@ -48,12 +48,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
 
                 if (!$query || !move_uploaded_file($tempname, $folder)) {
-                    header("Location: update_match.php?status=fail");
-                    exit();
+                    $_SESSION['status'] = 'fail';
                 }
             }
+            $_SESSION['status'] = 'success';
         } else {
-            echo "Error updating record: " . $conn->error;
+            $_SESSION['status'] = 'fail';
         }
     }
 }
@@ -80,7 +80,7 @@ $resultParticipants = $conn->query($sqlParticipants);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Match Details</title>
     <link rel="stylesheet" href="update_match.css">
-    <link rel="shortcut icon" type="image/jpg" href="IMAGE/favicon.png"/>
+    <link rel="shortcut icon" type="image/jpg" href="IMAGE/favicon.png" />
 </head>
 
 <body>
