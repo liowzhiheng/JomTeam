@@ -285,7 +285,7 @@ if ($host['id'] == $user_id) {
 
                         $profilePicRes = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $player['id']);
                         $profilePicRow = mysqli_fetch_assoc($profilePicRes);
-
+                        echo "<li id='player{$i}'>Player {$i}: ";
                         if ($player['premium']) {
                             // Fetch the frame ID for the player using user_id from the profile table
                             $frameSql = "SELECT frame FROM profile WHERE user_id = " . $player['id'];
@@ -315,7 +315,7 @@ if ($host['id'] == $user_id) {
 
                             }
                         }
-                        echo "<li id='player{$i}'>Player {$i}: ";
+                        
 
                         if (empty($profilePicRow['file'])) {
                             echo '<img src="IMAGE/default.png" alt="Profile Picture" class="profile-pic-player">';
