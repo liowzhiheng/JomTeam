@@ -503,7 +503,8 @@ margin-bottom: 30px;
     position: relative;
     top: 5px;
     margin-left: 10px;
-   
+  
+    transform: translate(300px,10px);
 }
 
 .detail a {
