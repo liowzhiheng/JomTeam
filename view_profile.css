@@ -35,7 +35,7 @@ body {
     line-height: 1.6;
     padding: 10px;
     font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    
+
 }
 
 form {
@@ -127,28 +127,37 @@ form {
     margin-right: 10px;
 }
 
-.location_display, .location_selection {
+.location_display,
+.location_selection {
     width: 250px;
     font-size: 20px;
     color: #ffffff;
     margin-right: 41px;
-    margin-left: -31px; /* Moves to the left */
-    text-align: left; /* Ensures text aligns to the left */
-    display: inline-block; /* Makes them align properly with labels */
+    margin-left: -31px;
+    /* Moves to the left */
+    text-align: left;
+    /* Ensures text aligns to the left */
+    display: inline-block;
+    /* Makes them align properly with labels */
 }
 
-.status_display, .status_selection {
+.status_display,
+.status_selection {
     width: 250px;
     font-size: 20px;
     color: #ffffff;
     margin-right: 41px;
-    margin-left: -31px; /* Moves to the left */
-    text-align: left; /* Ensures text aligns to the left */
-    display: inline-block; /* Makes them align properly with labels */
+    margin-left: -31px;
+    /* Moves to the left */
+    text-align: left;
+    /* Ensures text aligns to the left */
+    display: inline-block;
+    /* Makes them align properly with labels */
 }
 
 .profile-right select {
-    width: 100%; /* Make the select dropdown take the full width */
+    width: 100%;
+    /* Make the select dropdown take the full width */
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -216,8 +225,8 @@ form {
 
 .security-btn {
     position: absolute;
-    top: 80px;          
-    right: 10px; 
+    top: 80px;
+    right: 10px;
     width: 200px;
     height: 50px;
     font-size: 20px;
@@ -261,20 +270,19 @@ form {
     right: -16px;
     bottom: -16px;
     border-radius: 50%;
-    background: linear-gradient(45deg, 
-        #f6feff,
-        #e6ffff,
-        #f6feff,
-        #f0ffff,
-        #f6feff,
-        #e6ffff,
-        #f6feff,
-        #f0ffff
-    );
+    background: linear-gradient(45deg,
+            #f6feff,
+            #e6ffff,
+            #f6feff,
+            #f0ffff,
+            #f6feff,
+            #e6ffff,
+            #f6feff,
+            #f0ffff);
     z-index: 0;
     animation: rotate 4s linear infinite;
     box-shadow: 0 0 30px rgba(246, 254, 255, 0.9),
-                inset 0 0 30px rgba(246, 254, 255, 0.9);
+        inset 0 0 30px rgba(246, 254, 255, 0.9);
 }
 
 /* Main blue ring */
@@ -286,16 +294,15 @@ form {
     right: -8px;
     bottom: -8px;
     border-radius: 50%;
-    background: linear-gradient(45deg, 
-        #00ffff,
-        #1e90ff,
-        #87cefa,
-        #00bfff,
-        #4169e1,
-        #87cefa,
-        #00ffff,
-        #1e90ff
-    );
+    background: linear-gradient(45deg,
+            #00ffff,
+            #1e90ff,
+            #87cefa,
+            #00bfff,
+            #4169e1,
+            #87cefa,
+            #00ffff,
+            #1e90ff);
     filter: blur(15px);
     z-index: -3;
     animation: rotate 4s linear infinite reverse;
@@ -310,26 +317,26 @@ form {
     right: -4px;
     bottom: -4px;
     border-radius: 50%;
-    background: linear-gradient(45deg, 
-        #00ffff,
-        #1e90ff,
-        #87cefa,
-        #00bfff,
-        #4169e1,
-        #87cefa,
-        #00ffff,
-        #1e90ff
-    );
+    background: linear-gradient(45deg,
+            #00ffff,
+            #1e90ff,
+            #87cefa,
+            #00bfff,
+            #4169e1,
+            #87cefa,
+            #00ffff,
+            #1e90ff);
     z-index: -2;
     animation: rotate 4s linear infinite;
     box-shadow: 0 0 20px rgba(0, 191, 255, 0.8),
-                inset 0 0 20px rgba(0, 191, 255, 0.8);
+        inset 0 0 20px rgba(0, 191, 255, 0.8);
 }
 
 @keyframes rotate {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
@@ -347,11 +354,61 @@ form {
 
 .premium-frame {
     position: relative;
-     top: 0;
-     left: 0;
-     width: 80%;
-     height: 80%;
-     pointer-events: none; /* Allow clicks to pass through to the image */
-    transform: translate(0px,-210px);
- }
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 80%;
+    pointer-events: none;
+    /* Allow clicks to pass through to the image */
+    transform: translate(0px, -210px);
+}
 
+.frame_button {
+    transition: transform 0.3s ease;
+}
+
+.frame_button:hover {
+    transform: translateY(10px) scale(1.1) ;
+    
+}
+
+
+
+.frame-selector img {
+    width: 50%;
+    height: auto;
+    border: none;
+
+}
+
+/* notification*/
+.match-request {
+    overflow-y: auto;
+    background-color: #fff;
+    margin-left: 30%;
+    margin-top: 15%;
+    padding: 40px;
+    border-radius: 20px;
+    position: relative;
+    max-width: 800px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    /* Smooth scaling and shadow change */
+    z-index: 100;
+}
+
+
+
+.match-request:hover {
+    transform: scale(1.01);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    /* Add a subtle shadow change for better effect */
+}
+
+.delete-img {
+    width: 100%;
+    height: 100%;
+    margin-top: 85%;
+    margin-left: 40%;
+    
+}
