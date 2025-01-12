@@ -183,7 +183,16 @@ if (isset($_POST['unfollow'])) {
     exit();
 }
 
-$frame = $profile['frame'];
+$frame_choice = "SELECT frame FROM profile WHERE user_id = '$profile_user_id'";
+$result_frame = mysqli_query($conn, $frame_choice);
+if (!$result_frame || mysqli_num_rows($result_frame) == 0) {
+    echo "No profile data found.";
+    exit();
+}
+
+$frame_row = mysqli_fetch_assoc($result_frame);
+
+$frame = $frame_row['frame'];
 $sql = "SELECT * FROM frame WHERE id = '$frame'";
 $result2 = mysqli_query($conn, $sql);
 $rows2 = mysqli_fetch_assoc($result2);
