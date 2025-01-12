@@ -165,7 +165,7 @@ if ($resultFrame && mysqli_num_rows($resultFrame) > 0) {
                                     <?php if ($rows['premium']): ?>
                                     </div>
                                     <div class="image-container1">
-                                        <img src="IMAGE/<?php echo $rows2['file'] ?>" class="premium-frame" />
+                                        <img src="frame/<?php echo $rows2['file'] ?>" class="premium-frame" />
                                     </div>
                                     <!-- here !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
                                     <div class="frame_button">
@@ -190,7 +190,7 @@ if ($resultFrame && mysqli_num_rows($resultFrame) > 0) {
                                 <?php $isPremium = $rows['premium']; ?>
                                 <div class="image-container1">
                                     <?php if ($isPremium): ?>
-                                        <img src="IMAGE/<?php echo $rows2['file'] ?>" class="premium-frame" />
+                                        <img src="frame/<?php echo $rows2['file'] ?>" class="premium-frame" />
 
                                         <!-- here !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
                                         <div class="frame_button">
