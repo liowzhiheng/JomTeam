@@ -220,7 +220,7 @@ if ($host['id'] == $user_id) {
                                 // Display the frame if it exists
                                 if ($frameData1) {
                                     echo "<div class='image-container-match'>";
-                                    echo "<img src='IMAGE/" . htmlspecialchars($frameData1['file']) . "' alt='Premium Frame' class='premium-frame-host' />";
+                                    echo "<img src='frame/" . htmlspecialchars($frameData1['file']) . "' alt='Premium Frame' class='premium-frame-host' />";
                                     echo "</div>";
                                 }
                             } else {
@@ -308,7 +308,7 @@ if ($host['id'] == $user_id) {
                                 // Display the frame if it exists
                                 if ($frameData) {
                                     echo "<div class='image-container-match'>";
-                                    echo "<img src='IMAGE/" . htmlspecialchars($frameData['file']) . "' alt='Premium Frame' class='premium-frame' />";
+                                    echo "<img src='frame/" . htmlspecialchars($frameData['file']) . "' alt='Premium Frame' class='premium-frame' />";
                                     echo "</div>";
                                 }
                             } else {

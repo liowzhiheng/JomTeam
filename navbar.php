@@ -195,7 +195,7 @@ $stmt->close();
             <?php if ($rows['premium']): ?>
                 </div>
                 <div class="image-container-nav ">
-                    <img src="IMAGE/<?php echo $rows2['file'] ?>" class="premium-frame-nav" />
+                    <img src="frame/<?php echo $rows2['file'] ?>" class="premium-frame-nav" />
                 </div>
             <?php endif; ?>
 

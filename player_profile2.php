@@ -228,7 +228,7 @@ if (!$result2 || mysqli_num_rows($result2) == 0) {
                         <div class="image-container">
 
                            
-                                <img src="IMAGE/<?php echo $rows2['file'] ?>" alt="Premium Frame" class="premium-frame" />
+                                <img src="frame/<?php echo $rows2['file'] ?>" alt="Premium Frame" class="premium-frame" />
                         
 
                         </div>

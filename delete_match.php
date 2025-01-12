@@ -6,10 +6,8 @@ if ($_SESSION["LEVEL"] == 1) {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $id = $_POST['id'];
 
-        $deleteSql = "DELETE FROM gamematch WHERE id = ?";
-        $matchStmt = $conn->prepare($deleteSql);
-        $matchStmt->bind_param("i", $id);
-        if ($matchStmt->execute()) {
+        $deleteSql = "DELETE FROM gamematch WHERE id = $id";
+        if ($conn->query($deleteSql) === TRUE) {
             header("Location: view_match.php?status=deleted");
             exit();
         } else {
@@ -17,14 +15,11 @@ if ($_SESSION["LEVEL"] == 1) {
             exit();
         }
     }
-
-    if (isset($_GET['id'])) {
+    if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $id = $_GET['id'];
 
-        $deleteSql = "DELETE FROM gamematch WHERE id = ?";
-        $matchStmt = $conn->prepare($deleteSql);
-        $matchStmt->bind_param("i", $id);
-        if ($matchStmt->execute()) {
+        $deleteSql = "DELETE FROM gamematch WHERE id = $id";
+        if ($conn->query($deleteSql) === TRUE) {
             header("Location: view_match.php?status=deleted");
             exit();
         } else {
