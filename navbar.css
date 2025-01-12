@@ -75,7 +75,7 @@
 
 /* Notification red dot styling */
 .notification {
-    position: relative;
+    position: fixed;
     /* Allows positioning of the red dot */
 }
 
