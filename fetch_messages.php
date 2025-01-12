@@ -18,11 +18,17 @@ if (isset($_GET['match_id'])) {
         // Check if the message is from the current user
         $messageClass = ($row['user_id'] == $_SESSION['ID']) ? 'my-message' : 'other-message';
 
+        // Fetch profile picture
+        $profilePicRes = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $row['user_id']);
+        $profilePicRow = mysqli_fetch_assoc($profilePicRes);
+        $profilePic = (empty($profilePicRow['file'])) ? 'default.png' : $profilePicRow['file'];
+
         echo "<div class='chat-message $messageClass'>
+                <img src='uploads/$profilePic' alt='Profile Picture' class='profile-pic-chat'>
                 <p><strong>" . htmlspecialchars($row['first_name'] . " " . $row['last_name']) . ":</strong>
                 " . htmlspecialchars($row['message']) . "</p>
-            
               </div>";
     }
 }
 ?>
+
