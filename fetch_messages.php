@@ -21,7 +21,11 @@ if (isset($_GET['match_id'])) {
         // Fetch profile picture
         $profilePicRes = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $row['user_id']);
         $profilePicRow = mysqli_fetch_assoc($profilePicRes);
-        $profilePic = (empty($profilePicRow['file'])) ? 'default.png' : $profilePicRow['file'];
+          if (empty($profilePicRow['file'])) {
+            $profilePic = 'default.png';
+        } else {
+            $profilePic =$profilePicRow['file'];
+        }
 
         echo "<div class='chat-message $messageClass'>
                 <img src='uploads/$profilePic' alt='Profile Picture' class='profile-pic-chat'>
@@ -31,4 +35,3 @@ if (isset($_GET['match_id'])) {
     }
 }
 ?>
-
