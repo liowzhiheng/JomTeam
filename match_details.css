@@ -36,6 +36,11 @@
     margin-right: 200px;
 }
 
+.profile-pic,
+.profile-pic-player{
+    left: 50px;
+}
+
 .group {
     display: flex;
     align-items: center;
