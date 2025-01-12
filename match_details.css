@@ -421,7 +421,7 @@ margin-bottom: 30px;
     font-size: 35px;
     font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     position: relative;
-    top: -3px;
+
     left: 0px;
     color: #000;
     margin-left: -200px;
@@ -466,7 +466,7 @@ margin-bottom: 30px;
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    transform: translate(445px,-28px);
+    transform: translate(445px,-21px);
 }
 
 /* Accept button styling */
@@ -503,7 +503,8 @@ margin-bottom: 30px;
     position: relative;
     top: 5px;
     margin-left: 10px;
-    transform: translateX(-300px);
+  
+    transform: translate(105px,60px);
 }
 
 .detail a {
@@ -557,7 +558,7 @@ display: inline-block;
     width: 18%;
     height: 18%;
     pointer-events: none;
-    transform: translate(174px, 7px);
+    transform: translate(166px, 7px);
     z-index: 2;
     transition: transform 0.3s ease-in-out;
 }

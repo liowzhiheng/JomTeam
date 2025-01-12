@@ -168,10 +168,10 @@ if ($resultFrame && mysqli_num_rows($resultFrame) > 0) {
                                         <img src="IMAGE/<?php echo $rows2['file'] ?>" class="premium-frame" />
                                     </div>
                                     <!-- here !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-                                    <div>
-                                        <a href="#" onclick="openModal('frame')"><img src="IMAGE/request.png" alt="Delete"
-                                                class="delete-img"
-                                                style="width: 100px; height: 100px; margin-top: 85%; margin-left: 40%;"></a>
+                                    <div class="frame_button">
+                                        <a href="#" onclick="openModal('frame')"><img src="IMAGE/frame_button.png" alt="Delete"
+                                               
+                                                style="width: 210px; height: 70px; margin-top: -85%; margin-left: 0%;transform: translateY(-100px);"></a>
                                     </div>
                                 <?php endif; ?>
                             <?php } else {
@@ -193,10 +193,10 @@ if ($resultFrame && mysqli_num_rows($resultFrame) > 0) {
                                         <img src="IMAGE/<?php echo $rows2['file'] ?>" class="premium-frame" />
 
                                         <!-- here !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-                                        <div>
-                                            <a href="#" onclick="openModal('frame')"><img src="IMAGE/request.png" alt="Delete"
-                                                    class="delete-img"
-                                                    style="width: 100px; height: 100px; margin-top: 85%; margin-left: 40%;"></a>
+                                        <div class="frame_button">
+                                            <a href="#" onclick="openModal('frame')"><img src="IMAGE/frame_button.png" alt="Delete"
+                                                   
+                                                    style="width: 210px; height: 70px; margin-top: -85%; margin-left: 0%;transform: translateY(-100px);"></a>
                                         </div>
                                     <?php endif; ?>
                                 </div>
@@ -470,13 +470,13 @@ if ($resultFrame && mysqli_num_rows($resultFrame) > 0) {
 
 <!-- here !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 <div id="frameModal" class="modal">
-    <div class="modal-content">
+    <div class="match-request">
         <span class="close" onclick="closeModal('frame')">&times;</span>
         <form action="update_frame.php" method="post">
             <div class="frame-selector">
                 <?php if (!empty($frame_list)): ?>
                     <?php foreach ($frame_list as $frame): ?>
-                        <div>
+                        <div >
                             <button type="submit" name="frame" value="<?php echo htmlspecialchars($frame['id']) ?>">
                                 <img src="frame/<?php echo htmlspecialchars($frame['file']); ?>" alt="Frame Image">
                             </button>

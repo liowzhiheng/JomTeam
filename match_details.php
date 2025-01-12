@@ -92,7 +92,7 @@ if ($host['id'] == $user_id) {
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="footer.css">
     <link rel="stylesheet" href="match_details.css">
-    <link rel="shortcut icon" type="image/jpg" href="IMAGE/favicon.png"/>
+    <link rel="shortcut icon" type="image/jpg" href="IMAGE/favicon.png" />
 
 </head>
 
@@ -198,35 +198,35 @@ if ($host['id'] == $user_id) {
             <div>
                 <label>Host:</label>
                 <?php
-                 if ($host['premium']) {
-                            // Fetch the frame ID for the player using user_id from the profile table
-                            $frameSql1 = "SELECT frame FROM profile WHERE user_id = " . $host['id'];
-                            $frameResult1 = mysqli_query($conn, $frameSql1);
+                if ($host['premium']) {
+                    // Fetch the frame ID for the player using user_id from the profile table
+                    $frameSql1 = "SELECT frame FROM profile WHERE user_id = " . $host['id'];
+                    $frameResult1 = mysqli_query($conn, $frameSql1);
 
-                            if ($frameResult1 && mysqli_num_rows($frameResult1) > 0) {
-                                $frameRow1 = mysqli_fetch_assoc($frameResult1);
-                                $frameId1 = $frameRow1['frame'];
-    
-                                // Fetch the frame data if a frame ID exists
-                                $frameData1 = null;
-                                if ($frameId1) {
-                                    $frameDataSql1 = "SELECT * FROM frame WHERE id = '$frameId1'";
-                                    $frameDataResult1 = mysqli_query($conn, $frameDataSql1);
-                                    if ($frameDataResult1 && mysqli_num_rows($frameDataResult1) > 0) {
-                                        $frameData1 = mysqli_fetch_assoc($frameDataResult1);
-                                    }
-                                }
+                    if ($frameResult1 && mysqli_num_rows($frameResult1) > 0) {
+                        $frameRow1 = mysqli_fetch_assoc($frameResult1);
+                        $frameId1 = $frameRow1['frame'];
 
-                                // Display the frame if it exists
-                                if ($frameData1) {
-                                    echo "<div class='image-container-match'>";
-                                    echo "<img src='frame/" . htmlspecialchars($frameData1['file']) . "' alt='Premium Frame' class='premium-frame-host' />";
-                                    echo "</div>";
-                                }
-                            } else {
-                                echo "frame not found";
+                        // Fetch the frame data if a frame ID exists
+                        $frameData1 = null;
+                        if ($frameId1) {
+                            $frameDataSql1 = "SELECT * FROM frame WHERE id = '$frameId1'";
+                            $frameDataResult1 = mysqli_query($conn, $frameDataSql1);
+                            if ($frameDataResult1 && mysqli_num_rows($frameDataResult1) > 0) {
+                                $frameData1 = mysqli_fetch_assoc($frameDataResult1);
                             }
                         }
+
+                        // Display the frame if it exists
+                        if ($frameData1) {
+                            echo "<div class='image-container-match'>";
+                            echo "<img src='frame/" . htmlspecialchars($frameData1['file']) . "' alt='Premium Frame' class='premium-frame-host' />";
+                            echo "</div>";
+                        }
+                    } else {
+                        echo "frame not found";
+                    }
+                }
                 $res = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $host['id']);
                 $row = mysqli_fetch_assoc($res);
                 if (empty($row['file'])) {
@@ -285,7 +285,7 @@ if ($host['id'] == $user_id) {
 
                         $profilePicRes = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $player['id']);
                         $profilePicRow = mysqli_fetch_assoc($profilePicRes);
-
+                        
                         if ($player['premium']) {
                             // Fetch the frame ID for the player using user_id from the profile table
                             $frameSql = "SELECT frame FROM profile WHERE user_id = " . $player['id'];
@@ -311,9 +311,7 @@ if ($host['id'] == $user_id) {
                                     echo "<img src='frame/" . htmlspecialchars($frameData['file']) . "' alt='Premium Frame' class='premium-frame' />";
                                     echo "</div>";
                                 }
-                            } else {
-
-                            }
+                            } 
                         }
                         echo "<li id='player{$i}'>Player {$i}: ";
 
@@ -398,7 +396,7 @@ if ($host['id'] == $user_id) {
                     <div>
                         <p style="color: black;">You have request the match but the match is already full now.</p>
                         <p style="color: black;">Do you wish to cancel the request?</p>
-                         <button style="width: 300px; 
+                        <button style="width: 300px; 
                         height: 100px; 
                         font-size: 30px; 
                         font-weight: 700; 
@@ -535,7 +533,7 @@ if ($host['id'] == $user_id) {
                             }
                         </style>
                     </div>
-            
+
                 <?php else: ?>
                     <!-- If match is full -->
                     <div>
@@ -730,18 +728,19 @@ if ($host['id'] == $user_id) {
 
                     if (mysqli_num_rows($result3) > 0) {
                         $row2 = mysqli_fetch_assoc($result3);
-                        echo '<p class="detail">';
-                        echo '<a class="friend-name" href="player_profile.php?id=' . htmlspecialchars($row2['id']) . '">';
-                        echo htmlspecialchars($row2['first_name'] . ' ' . $row2['last_name']);
-                        echo '</a>';
-                        //profile picture
                         $profilePicRes = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $row2['id']);
                         $profilePicRow = mysqli_fetch_assoc($profilePicRes);
                         if (empty($profilePicRow['file'])) {
                             echo '<img src="IMAGE/default.png" alt="Profile Picture" class="profile-pic">';
                         } else {
                             echo '<img src="uploads/' . $profilePicRow['file'] . '" alt="Profile Picture" class="profile-pic">';
-                        } ?>
+                        }
+                        echo '<p class="detail">';
+                        echo '<a class="friend-name" href="player_profile.php?id=' . htmlspecialchars($row2['id']) . '">';
+                        echo htmlspecialchars($row2['first_name'] . ' ' . $row2['last_name']);
+                        echo '</a>';
+                        //profile picture
+                        ?>
                         <form method="POST" class="action-form" action="match_request_action.php">
                             <input type="hidden" name="request_user_id" value="<?php echo $row2['id']; ?>">
                             <input type="hidden" name="request_match_id" value="<?php echo $request['match_id']; ?>">
