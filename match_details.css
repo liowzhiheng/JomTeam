@@ -16,6 +16,10 @@
 
 }
 
+.profile-pic-player{
+    right: 200px;
+}
+
 .profile-container {
     display: flex;
     justify-content: center;
