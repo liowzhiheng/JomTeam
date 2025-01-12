@@ -1,0 +1,196 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar {
+    width: 100%;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    padding: 10px 50px;
+    color: rgb(0, 0, 0);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.navbar .logo img {
+    margin-top: 10px;
+    height: 40px;
+    width: auto;
+}
+
+.navbar .menu li {
+    margin-left: 40px;
+}
+
+.navbar .leftmenu,
+.navbar .rightmenu {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.navbar .menu li img {
+    width: 25px;
+    height: auto;
+    margin-left: 10px;
+    flex-shrink: 0;
+}
+
+.navbar .rightmenu {
+    margin-left: auto;
+}
+
+.navbar .menu a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.navbar .menu a:hover {
+    color: #ff0000;
+}
+
+body {
+    animation: pulseBackground 6s infinite;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+@keyframes pulseBackground {
+
+    0%,
+    100% {
+        background-color: #5252D4;
+    }
+
+    50% {
+        background-color: #4682B4;
+    }
+}
+
+h1 {
+    text-align: center;
+    padding: 30px 0;
+    font-size: 60px;
+    margin: 0;
+}
+
+h2 {
+    text-align: center;
+    padding: 10px 0px;
+    font-size: 40px;
+}
+
+.ads-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto;
+    width: 85%;
+    color: black;
+    gap: 20px;
+}
+
+.box {
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input:focus {
+    outline: none;
+    border: 1px solid #5252D4;
+    box-shadow: 0px 0px 5px rgba(82, 82, 212, 0.5);
+}
+
+.upload-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 273px;
+    height: 271px;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.default {
+    width: 273px;
+    height: 271px;
+    border-radius: 200px;
+}
+
+.upload-area img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.upload-area p {
+    z-index: 2;
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+    position: relative;
+}
+
+.file-name {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #999;
+}
+
+button {
+    background-color: #5252D4;
+    color: white;
+    font-size: 15px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    background-color: #4141b3;
+}
+
+
+.message.success,
+.message.deleted {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.message.fail {
+    background-color: orange;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 15px;
+    display: block;
+}
