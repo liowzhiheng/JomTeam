@@ -28,6 +28,8 @@
     width: 100%;
 }
 
+
+
 .profile-left,
 .profile-right {
     padding: 20px;
@@ -107,8 +109,8 @@
     /* Center-align the list under the circles */
     margin-top: 100px;
     /* Adjust font size for better readability */
-    transform: translateX(50%);
-    margin-left: -600px;
+    transform: translateX();
+    margin-left:0;
     color: #A0A9B5;
     font-family: 'Raleway', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     font-size: 40px;
@@ -117,6 +119,17 @@
     line-height: normal;
     font-family: monospace; /* Ensures uniform character width */
    
+}
+
+.player-list-container {
+
+
+
+    max-width: 1000px;
+    /* Limiting max width */
+    margin-left: auto;
+    margin-right: auto;
+
 }
 
 .players_title {

@@ -193,7 +193,9 @@ if ($host['id'] == $user_id) {
             <!-- Circles will be generated here -->
         </div>
 
-        <div class="players_list">
+        <div class="player-list-container">
+    
+        <div class="players_list">  <!-- testing-->
             <!-- Host Info -->
             <div>
                 <label>Host:</label>
@@ -244,6 +246,9 @@ if ($host['id'] == $user_id) {
             </div>
 
             <ul id="playersList">
+                
+
+                
                 <?php
                 // Query to get players who joined the match
                 $playersQuery = "
@@ -343,8 +348,10 @@ if ($host['id'] == $user_id) {
                 }
                 ?>
             </ul>
+            
         </div>
 
+</div>
 
 
 
