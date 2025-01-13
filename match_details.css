@@ -357,7 +357,8 @@ input:focus {
     color: white;
     padding: 10px;
     border-radius: 15px;
-    max-width: 55%;
+    min-width: 35%;
+    max-width: 35%;
     word-wrap: break-word;
 }
 
@@ -623,8 +624,8 @@ display: inline-block;
     height: 20%;
     pointer-events: none;
     z-index: 2;
-    transition: transform 0.3s ease-in-out;
-    transform: translate(39px);
+
+    transform: translate(-48px);
 }
 
 .other-message .premium-frame-chat {
@@ -635,6 +636,6 @@ display: inline-block;
     height: 20%;
     pointer-events: none;
     z-index: 2;
-    transition: transform 0.3s ease-in-out;
+  
     transform: translate(13px);
 }
