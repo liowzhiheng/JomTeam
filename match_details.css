@@ -593,3 +593,35 @@ display: inline-block;
     margin-left: 15px;
  
 }
+
+.image-container-match-chat
+{
+    position:absolute;
+}
+
+
+
+
+.my-message .premium-frame-chat {
+    display: inline-block;
+    position: relative;
+
+    width: 20%;
+    height: 20%;
+    pointer-events: none;
+    z-index: 2;
+    transition: transform 0.3s ease-in-out;
+    transform: translate(39px);
+}
+
+.other-message .premium-frame-chat {
+    display: inline-block;
+    position: relative;
+
+    width: 20%;
+    height: 20%;
+    pointer-events: none;
+    z-index: 2;
+    transition: transform 0.3s ease-in-out;
+    transform: translate(13px);
+}

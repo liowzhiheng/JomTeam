@@ -21,14 +21,35 @@ if (isset($_GET['match_id'])) {
         // Fetch profile picture
         $profilePicRes = mysqli_query($conn, "SELECT file FROM images WHERE user_id = " . $row['user_id']);
         $profilePicRow = mysqli_fetch_assoc($profilePicRes);
-          if (empty($profilePicRow['file'])) {
+        if (empty($profilePicRow['file'])) {
             $profilePic = 'default.png';
         } else {
-            $profilePic =$profilePicRow['file'];
+            $profilePic = $profilePicRow['file'];
         }
+        // Fetch frame for the user
+        $frameQuery = "SELECT frame FROM profile WHERE user_id = " . $row['user_id'];
+        $frameRes = mysqli_query($conn, $frameQuery);
 
+        if ($frameRes && mysqli_num_rows($frameRes) > 0) {
+            $frameRow = mysqli_fetch_assoc($frameRes);
+            $frameId = $frameRow['frame'];
+
+            // Fetch the frame file
+            $frameFileQuery = "SELECT file FROM frame WHERE id = '$frameId'";
+            $frameFileRes = mysqli_query($conn, $frameFileQuery);
+
+            if ($frameFileRes && mysqli_num_rows($frameFileRes) > 0) {
+                $frameFileRow = mysqli_fetch_assoc($frameFileRes);
+                $frameFile = $frameFileRow['file'];
+            } 
+        } 
         echo "<div class='chat-message $messageClass'>
+                <div>
                 <img src='uploads/$profilePic' alt='Profile Picture' class='profile-pic-chat'>
+                </div>
+                <div class='image-container-match-chat'>
+                <img src='frame/$frameFile' alt='Premium Frame' class='premium-frame-chat' />
+                </div>
                 <p><strong>" . htmlspecialchars($row['first_name'] . " " . $row['last_name']) . ":</strong>
                 " . htmlspecialchars($row['message']) . "</p>
               </div>";
