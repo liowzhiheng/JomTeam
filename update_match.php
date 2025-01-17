@@ -344,7 +344,7 @@ $resultParticipants = $conn->query($sqlParticipants);
 
                         <label><strong>Current Players:</strong></label>
                         <p class="read">
-                            <?php echo !empty($match['current_players']) ? $match['current_players'] : 'N/A'; ?>
+                            <?php echo !empty($match['current_players']) ? $match['current_players'] : '0'; ?>
                         </p><br>
 
                         <label><strong>Description:</strong></label>
