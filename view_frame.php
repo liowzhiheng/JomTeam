@@ -71,8 +71,8 @@ $result = $conn->query($sql);
     <?php
     if (isset($_GET['status'])) {
         $status = $_GET['status'];
-        if ($status === 'deleted') {
-            echo '<p id="message" class="message deleted">Match deleted successfully!</p>';
+        if ($status === 'success') {
+            echo '<p id="message" class="message success">Frame added successfully!</p>';
         } elseif ($status === 'fail') {
             echo '<p id="message" class="message fail">Something went wrong. Please try again.</p>';
         }
