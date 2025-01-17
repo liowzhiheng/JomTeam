@@ -29,6 +29,7 @@ $result = $conn->query($sql);
             <li><a href="view_ads.php">Manage Ads</a></li>
             <li><a href="view_match.php">Manage Match</a></li>
             <li><a href="view_feedback.php">Feedback & Report</a></li>
+            <li><a href="view_frame.php">Frame</a></li>
         </ul>
 
         <ul class="menu rightmenu">
