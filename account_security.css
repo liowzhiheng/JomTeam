@@ -71,7 +71,6 @@
     border: 1px solid #ccc;
 }
 
-/* Buttons */
 .password-toggle {
 
     color: white;
@@ -108,7 +107,6 @@
     font-weight: bold;
 }
 
-/* Messages */
 .message {
     padding: 15px;
     border-radius: 6px;
@@ -127,7 +125,6 @@
     color: #ffcdd2;
 }
 
-/* Backdoor */
 .backdoor-container {
     position: fixed;
     bottom: 140px;
@@ -174,3 +171,4 @@
 .password-container {
     position: relative;
 }
+
