@@ -1,13 +1,10 @@
-/* Font Import */
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
 
-/* Global Font */
 .profile-content div{
     font-family: 'Outfit', sans-serif;
 }
 
 
-/* Main Container Styles */
 .profile-content {
     max-width: 800px;
     margin: 60px auto;
@@ -26,7 +23,6 @@
     
 }
 
-/* Current Details Section */
 .current-details {
     padding: 25px;
     border: #2c3e50;
